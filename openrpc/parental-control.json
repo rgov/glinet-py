@@ -1159,6 +1159,43 @@
         }
       },
       "examples": []
+    },
+    {
+      "name": "parental-control.check_blacklist_online",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "parental-control.get_mode",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "parental-control.set_mode",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
     }
   ]
 }

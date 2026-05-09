@@ -1,0 +1,364 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — vpn-client module",
+    "version": "4.0.0-snapshot",
+    "description": "All methods in this module are undocumented — discovered by static analysis of the GL.iNet web UI bundles. See `x-source` on each method for evidence origin. JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "vpn-client.add_tunnel",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "vpn-client.check_domain_online",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "vpn-client.get_all_config_list",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "configs": {
+              "type": "object",
+              "properties": {
+                "wireguard": {
+                  "type": "array"
+                },
+                "openvpn": {
+                  "type": "array"
+                }
+              }
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "vpn-client.get_connection_methods",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "connection_methods": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "vpn-client.get_status",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status_list": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "tunnel_id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "mode": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "vpn-client.get_tunnel",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "default_tunnels": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "to": {
+                    "type": "object",
+                    "properties": {
+                      "manual": {
+                        "type": "boolean"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "domain_list": {
+                        "type": "string"
+                      },
+                      "domain_list_len": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "via": {
+                    "type": "object",
+                    "properties": {
+                      "via": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "killswitch": {
+                    "type": "boolean"
+                  },
+                  "from": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "tunnel_id": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "tunnels": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "to": {
+                    "type": "object",
+                    "properties": {
+                      "manual": {
+                        "type": "boolean"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "domain_list": {
+                        "type": "string"
+                      },
+                      "domain_list_len": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "via": {
+                    "type": "object",
+                    "properties": {
+                      "via": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "killswitch": {
+                    "type": "boolean"
+                  },
+                  "options": {
+                    "type": "object",
+                    "properties": {
+                      "options_in_used": {
+                        "type": "boolean"
+                      },
+                      "masq": {
+                        "type": "boolean"
+                      },
+                      "local_access": {
+                        "type": "boolean"
+                      },
+                      "service_policy": {
+                        "type": "boolean"
+                      }
+                    }
+                  },
+                  "from": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "tunnel_id": {
+                    "type": "number"
+                  }
+                }
+              }
+            },
+            "global_enabled": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "vpn-client.get_vpn_using_status",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "mac": {
+                "type": "string"
+              },
+              "status": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "vpn-client.remove_tunnel",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "vpn-client.set_default_tunnel",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "vpn-client.set_global_mode",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "vpn-client.set_options",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "vpn-client.set_single_mac",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "vpn-client.set_tunnel",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "vpn-client.start_random_client",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "vpn-client.stop",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    }
+  ]
+}

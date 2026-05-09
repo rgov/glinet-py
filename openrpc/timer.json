@@ -911,6 +911,62 @@
           }
         }
       ]
+    },
+    {
+      "name": "timer.get_screen",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "turnon_hour": {
+              "type": "string"
+            },
+            "turnoff_min": {
+              "type": "string"
+            },
+            "turnon_min": {
+              "type": "string"
+            },
+            "enable": {
+              "type": "boolean"
+            },
+            "week": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "turnoff_hour": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "timer.set_screen",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [
+        {
+          "name": "enable",
+          "schema": {},
+          "required": false
+        },
+        {
+          "name": "week",
+          "schema": {},
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-static-analysis"
     }
   ]
 }

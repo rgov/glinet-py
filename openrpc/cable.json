@@ -576,6 +576,99 @@
           }
         }
       ]
+    },
+    {
+      "name": "cable.get_ports_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ports": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "macaddr": {
+                    "type": "object",
+                    "properties": {
+                      "mode": {
+                        "type": "string"
+                      },
+                      "macaddr": {
+                        "type": "string"
+                      },
+                      "defmacaddr": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "silk": {
+                    "type": "string"
+                  },
+                  "default_mode": {
+                    "type": "string"
+                  },
+                  "mode": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "cable.get_ports_status",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ports": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "cable.init_status",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "cable.set_port_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
     }
   ]
 }

@@ -2454,6 +2454,16 @@
           }
         }
       ]
+    },
+    {
+      "name": "ovpn-client.clear_user_pass",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
     }
   ]
 }

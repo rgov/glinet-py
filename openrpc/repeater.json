@@ -753,6 +753,36 @@
           }
         }
       ]
+    },
+    {
+      "name": "repeater.get_channel_prompt",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "popup_prompt_en": {
+              "type": "boolean"
+            },
+            "chan_prompt_en": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "repeater.set_channel_prompt",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
     }
   ]
 }

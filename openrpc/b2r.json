@@ -1,0 +1,347 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — b2r module",
+    "version": "4.0.0-snapshot",
+    "description": "All methods in this module are undocumented — discovered by static analysis of the GL.iNet web UI bundles. See `x-source` on each method for evidence origin. JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "b2r.get_extended_scan_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "mac_filter_enable": {
+              "type": "boolean"
+            },
+            "mac_list": {
+              "type": "array"
+            },
+            "err_code": {
+              "type": "number"
+            },
+            "data_list": {
+              "type": "array"
+            },
+            "rssi": {
+              "type": "number"
+            },
+            "extended_scan_enable": {
+              "type": "boolean"
+            },
+            "data_filter_enable": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "b2r.get_legacy_scan_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "mac_filter_enable": {
+              "type": "boolean"
+            },
+            "mac_list": {
+              "type": "array"
+            },
+            "err_code": {
+              "type": "number"
+            },
+            "data_list": {
+              "type": "array"
+            },
+            "rssi": {
+              "type": "number"
+            },
+            "legacy_scan_enable": {
+              "type": "boolean"
+            },
+            "data_filter_enable": {
+              "type": "boolean"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "b2r.get_remote_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "remote_status": {
+              "type": "boolean"
+            },
+            "err_code": {
+              "type": "number"
+            },
+            "mqtt_cfg": {
+              "type": "object",
+              "properties": {
+                "key_password": {
+                  "type": "string"
+                },
+                "encryption_mode": {
+                  "type": "number"
+                },
+                "resp_topic": {
+                  "type": "string"
+                },
+                "cmd_topic": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "port": {
+                  "type": "number"
+                },
+                "alive_interval": {
+                  "type": "number"
+                },
+                "tls_status": {
+                  "type": "boolean"
+                },
+                "report_topic": {
+                  "type": "string"
+                },
+                "host": {
+                  "type": "string"
+                },
+                "qos": {
+                  "type": "number"
+                },
+                "client_id": {
+                  "type": "string"
+                }
+              }
+            },
+            "http_cfg": {
+              "type": "object",
+              "properties": {
+                "basic_username": {
+                  "type": "string"
+                },
+                "basic_password": {
+                  "type": "string"
+                },
+                "auth_type": {
+                  "type": "number"
+                },
+                "report_url": {
+                  "type": "string"
+                }
+              }
+            },
+            "remote_type": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "b2r.get_remote_connect_status",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "remo_status": {
+              "type": "number"
+            },
+            "err_code": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "b2r.get_scan_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "scan_enable": {
+              "type": "boolean"
+            },
+            "scan_window": {
+              "type": "number"
+            },
+            "scan_phy": {
+              "type": "number"
+            },
+            "err_code": {
+              "type": "number"
+            },
+            "scan_interval": {
+              "type": "number"
+            },
+            "scan_type": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "b2r.get_scan_repo_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "repo_interval": {
+              "type": "number"
+            },
+            "err_code": {
+              "type": "number"
+            },
+            "repo_adv_data": {
+              "type": "boolean"
+            },
+            "data_format": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "b2r.get_sync_scan_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "skip": {
+              "type": "number"
+            },
+            "timeout": {
+              "type": "number"
+            },
+            "sync_scan_enable": {
+              "type": "boolean"
+            },
+            "sync_list": {
+              "type": "array"
+            },
+            "err_code": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "b2r.scan",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "b2r.set_extended_scan_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "b2r.set_legacy_scan_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "b2r.set_remote_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "b2r.set_scan_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "b2r.set_scan_repo_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "b2r.set_sync_scan_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    }
+  ]
+}

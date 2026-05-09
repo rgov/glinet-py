@@ -546,6 +546,65 @@
           }
         }
       ]
+    },
+    {
+      "name": "network.get_advance_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "nat_enable": {
+              "type": "number"
+            },
+            "sip_enable": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "network.get_available_address_list",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "wan_ip": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "domain": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "pub_ip": {
+              "type": "array"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "network.set_advance_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
     }
   ]
 }

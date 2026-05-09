@@ -3790,6 +3790,205 @@
           }
         }
       ]
+    },
+    {
+      "name": "modem.get_apn_poll_enabled",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "modem.get_esim_status",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "modem.get_operator_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "slot2": {
+              "type": "array"
+            },
+            "slot1": {
+              "type": "array"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "modem.get_sim_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "err_msg": {
+              "type": "string"
+            },
+            "err_code": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "modem.get_simcard_info",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "modems": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "bus": {
+                    "type": "string"
+                  },
+                  "simcard": {
+                    "type": "object",
+                    "properties": {
+                      "phone_number": {
+                        "type": "string"
+                      },
+                      "iccid": {
+                        "type": "string"
+                      },
+                      "imsi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "sms_support": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
+    },
+    {
+      "name": "modem.scan_operator_list",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "modem.set_apn_poll_enabled",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [
+        {
+          "name": "auto_switching",
+          "schema": {
+            "type": "number"
+          },
+          "required": false
+        },
+        {
+          "name": "switch_status",
+          "schema": {
+            "type": "number"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-static-analysis"
+    },
+    {
+      "name": "modem.set_operator_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "modem.set_sim_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "modem.set_sim_pin_code",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-discovered"
+    },
+    {
+      "name": "modem.set_traffic_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [
+        {
+          "name": "auto_switching",
+          "schema": {
+            "type": "number"
+          },
+          "required": false
+        },
+        {
+          "name": "switch_status",
+          "schema": {
+            "type": "number"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {}
+      },
+      "x-source": "spa-static-analysis"
     }
   ]
 }

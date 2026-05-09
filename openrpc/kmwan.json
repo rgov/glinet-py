@@ -619,6 +619,31 @@
           }
         }
       ]
+    },
+    {
+      "name": "kmwan.get_sensitivity",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sensitivity": {
+              "type": "object",
+              "properties": {
+                "val": {
+                  "type": "number"
+                },
+                "level": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
     }
   ]
 }

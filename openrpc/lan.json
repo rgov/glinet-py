@@ -636,6 +636,23 @@
           }
         }
       ]
+    },
+    {
+      "name": "lan.get_wan_info",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "wan_info": {
+              "type": "array"
+            }
+          }
+        }
+      },
+      "x-source": "live-probed"
     }
   ]
 }

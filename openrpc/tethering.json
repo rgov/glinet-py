@@ -275,6 +275,18 @@
           }
         }
       ]
+    },
+    {
+      "name": "tethering.get_config",
+      "summary": "(undocumented — discovered in SPA bundle)",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "array"
+        }
+      },
+      "x-source": "live-probed"
     }
   ]
 }
