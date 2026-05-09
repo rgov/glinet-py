@@ -883,7 +883,18 @@
           "properties": {
             "user_list": {
               "type": "array",
-              "description": "user list"
+              "description": "user list",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
             },
             "err_code": {
               "type": "number",

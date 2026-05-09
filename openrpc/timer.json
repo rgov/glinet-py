@@ -302,7 +302,10 @@
             },
             "week": {
               "type": "array",
-              "description": "get the days to perfrom LED schedule in a week"
+              "description": "get the days to perfrom LED schedule in a week",
+              "items": {
+                "type": "number"
+              }
             }
           }
         }
@@ -594,6 +597,15 @@
                   "restore_power": {
                     "type": "string",
                     "description": "get the transmission power switch back to, required when set as power_switch [ Max; High; Medium; Low]"
+                  },
+                  "func": {
+                    "type": "string"
+                  },
+                  "week": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
                   }
                 }
               }

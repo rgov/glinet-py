@@ -355,6 +355,27 @@
                   "end": {
                     "type": "string",
                     "description": "The ending IP address of the interface."
+                  },
+                  "dns": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "lpr": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "leasetime": {
+                    "type": "string"
+                  },
+                  "enable": {
+                    "type": "number"
+                  },
+                  "ap_isolate": {
+                    "type": "number"
                   }
                 }
               }

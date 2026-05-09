@@ -104,7 +104,10 @@
             },
             "list": {
               "type": "array",
-              "description": "dlna server can use path"
+              "description": "dlna server can use path",
+              "items": {
+                "type": "string"
+              }
             },
             "err_code": {
               "type": "number",

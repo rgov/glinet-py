@@ -150,7 +150,24 @@
           "type": [
             "null",
             "object"
-          ]
+          ],
+          "properties": {
+            "enable": {
+              "type": "boolean"
+            },
+            "week": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "hour": {
+              "type": "string"
+            },
+            "min": {
+              "type": "string"
+            }
+          }
         }
       },
       "examples": [

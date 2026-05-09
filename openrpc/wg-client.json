@@ -1930,6 +1930,9 @@
                   "scope": {
                     "type": "string",
                     "description": "scope (host、link、global、or a number greater than 0)"
+                  },
+                  "route_id": {
+                    "type": "number"
                   }
                 }
               }
@@ -1963,6 +1966,9 @@
                   "scope": {
                     "type": "string",
                     "description": "scope (host、link、global、or a number greater than 0)"
+                  },
+                  "route_id": {
+                    "type": "number"
                   }
                 }
               }

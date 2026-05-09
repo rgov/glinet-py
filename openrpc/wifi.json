@@ -33,7 +33,10 @@
                 "properties": {
                   "hwmodes": {
                     "type": "array",
-                    "description": "List of supported hardware modes."
+                    "description": "List of supported hardware modes.",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "htmodes": {
                     "type": "object",
@@ -41,11 +44,25 @@
                   },
                   "channels": {
                     "type": "array",
-                    "description": "List of supported channels."
+                    "description": "List of supported channels.",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "dfs": {
+                          "type": "boolean"
+                        },
+                        "channel": {
+                          "type": "number"
+                        }
+                      }
+                    }
                   },
                   "encryptions": {
                     "type": "array",
-                    "description": "List of supported encryption."
+                    "description": "List of supported encryption.",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "band": {
                     "type": "string",
@@ -107,6 +124,9 @@
                         }
                       }
                     }
+                  },
+                  "ready": {
+                    "type": "boolean"
                   }
                 }
               }

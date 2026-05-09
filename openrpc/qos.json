@@ -474,6 +474,26 @@
             "err_msg": {
               "type": "string",
               "description": "Error message."
+            },
+            "group": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "priority": {
+                    "type": "string"
+                  },
+                  "clients": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         }

@@ -277,6 +277,9 @@
             "err_msg": {
               "type": "string",
               "description": "Error message"
+            },
+            "AuthURL": {
+              "type": "string"
             }
           }
         }
@@ -319,7 +322,10 @@
           "properties": {
             "exit_node_list": {
               "type": "array",
-              "description": "List of exit nodes"
+              "description": "List of exit nodes",
+              "items": {
+                "type": "string"
+              }
             },
             "err_code": {
               "type": "number",

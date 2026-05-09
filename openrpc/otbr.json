@@ -1015,7 +1015,24 @@
           "properties": {
             "DeviceList": {
               "type": "array",
-              "description": "DeviceList"
+              "description": "DeviceList",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Timeout": {
+                    "type": "number"
+                  },
+                  "PSKd": {
+                    "type": "string"
+                  },
+                  "Status": {
+                    "type": "number"
+                  },
+                  "EUI64": {
+                    "type": "string"
+                  }
+                }
+              }
             },
             "err_code": {
               "type": "number",
@@ -1373,7 +1390,10 @@
             },
             "Ifnames": {
               "type": "array",
-              "description": "Supported backboneIfName"
+              "description": "Supported backboneIfName",
+              "items": {
+                "type": "string"
+              }
             },
             "Ifnames[x]": {
               "type": "string",
@@ -1386,6 +1406,9 @@
             "err_msg": {
               "type": "string",
               "description": "Error message."
+            },
+            "Error": {
+              "type": "number"
             }
           }
         }

@@ -136,6 +136,15 @@
             "server": {
               "type": "array",
               "description": "represents a custom dns server list or selected encrypted server list or proxy address or DNS server address in automatic mode"
+            },
+            "proxy_server": {
+              "type": "string"
+            },
+            "proxy_serverlist": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         }
@@ -293,7 +302,10 @@
           "properties": {
             "protos": {
               "type": "array",
-              "description": "supported encryption protocols [DoT; DoH; DNSCrypt; oDoH]"
+              "description": "supported encryption protocols [DoT; DoH; DNSCrypt; oDoH]",
+              "items": {
+                "type": "string"
+              }
             },
             "dnscrypt_version": {
               "type": "number",

@@ -145,7 +145,10 @@
             },
             "services": {
               "type": "array",
-              "description": "server address"
+              "description": "server address",
+              "items": {
+                "type": "string"
+              }
             },
             "firmware_path": {
               "type": "string",
@@ -194,6 +197,9 @@
             "err_msg": {
               "type": "string",
               "description": "Error message"
+            },
+            "type": {
+              "type": "string"
             }
           }
         }

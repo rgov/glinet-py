@@ -29,7 +29,10 @@
                 "properties": {
                   "devices": {
                     "type": "array",
-                    "description": "Port list of devices of the cellular modem"
+                    "description": "Port list of devices of the cellular modem",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "type": {
                     "type": "number",
@@ -91,7 +94,10 @@
                   },
                   "protocols": {
                     "type": "array",
-                    "description": "List of connection protocols supported by the cellular modem (Possible values in the list are 3g, ncm, qmi, qcm, directip, callip)"
+                    "description": "List of connection protocols supported by the cellular modem (Possible values in the list are 3g, ncm, qmi, qcm, directip, callip)",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "simcard": {
                     "type": "object",
@@ -380,7 +386,10 @@
                           },
                           "dns": {
                             "type": "array",
-                            "description": "The IPv4 DNS server list obtained by the cellular modem"
+                            "description": "The IPv4 DNS server list obtained by the cellular modem",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         }
                       },
@@ -398,9 +407,18 @@
                           },
                           "dns": {
                             "type": "array",
-                            "description": "The IPv6 DNS server list obtained by the cellulayixiugair modem"
+                            "description": "The IPv6 DNS server list obtained by the cellulayixiugair modem",
+                            "items": {
+                              "type": "string"
+                            }
                           }
                         }
+                      },
+                      "protocol": {
+                        "type": "string"
+                      },
+                      "new_sms_count": {
+                        "type": "number"
                       }
                     }
                   }
@@ -1387,6 +1405,9 @@
                   "ecio": {
                     "type": "number",
                     "description": "Energy to interference ratio, It is only returned if the network cell is a serving cell and mode is WCDMA,TDSCDMA, CDMA, HDR"
+                  },
+                  "rerp": {
+                    "type": "number"
                   }
                 }
               }
@@ -1537,6 +1558,9 @@
                         "title": "Failed to send"
                       }
                     ]
+                  },
+                  "modem": {
+                    "type": "string"
                   }
                 }
               }
@@ -2240,6 +2264,29 @@
             "err_msg": {
               "type": "string",
               "description": "Error message"
+            },
+            "signal": {
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "type": "number"
+                },
+                "strength": {
+                  "type": "number"
+                },
+                "rssi": {
+                  "type": "number"
+                },
+                "rsrp": {
+                  "type": "number"
+                },
+                "rsrq": {
+                  "type": "number"
+                },
+                "sinr": {
+                  "type": "number"
+                }
+              }
             }
           }
         }
@@ -2641,6 +2688,44 @@
                 "iccid": {
                   "type": "string",
                   "description": "The ICCID of the SIM card (The value may not be available if the SIM card requires a PIN to unlock)"
+                },
+                "network": {
+                  "type": "object",
+                  "properties": {
+                    "protocol": {
+                      "type": "string"
+                    },
+                    "device": {
+                      "type": "string"
+                    },
+                    "apn": {
+                      "type": "string"
+                    },
+                    "service": {
+                      "type": "string"
+                    },
+                    "auth": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "dial_number": {
+                      "type": "string"
+                    },
+                    "ttl": {
+                      "type": "string"
+                    },
+                    "ttl_ipv6": {
+                      "type": "string"
+                    },
+                    "pin_code": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             },
@@ -2659,6 +2744,44 @@
                 "iccid": {
                   "type": "string",
                   "description": "The ICCID of the SIM card (The value may not be available if the SIM card requires a PIN to unlock)"
+                },
+                "network": {
+                  "type": "object",
+                  "properties": {
+                    "protocol": {
+                      "type": "string"
+                    },
+                    "device": {
+                      "type": "string"
+                    },
+                    "apn": {
+                      "type": "string"
+                    },
+                    "service": {
+                      "type": "string"
+                    },
+                    "auth": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "dial_number": {
+                      "type": "string"
+                    },
+                    "ttl": {
+                      "type": "string"
+                    },
+                    "ttl_ipv6": {
+                      "type": "string"
+                    },
+                    "pin_code": {
+                      "type": "string"
+                    }
+                  }
                 }
               }
             },
@@ -2905,6 +3028,85 @@
             "err_msg": {
               "type": "string",
               "description": "Error message"
+            },
+            "profiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "pin_code": {
+                    "type": "string"
+                  },
+                  "protocol": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "service": {
+                    "type": "string"
+                  },
+                  "dial_number": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "apn": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "device": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "ttl": {
+                    "type": "number"
+                  },
+                  "ttl_ipv6": {
+                    "type": "number"
+                  },
+                  "auth": {
+                    "type": "string"
+                  },
+                  "band_enable": {
+                    "type": "boolean"
+                  },
+                  "band_filter_mode": {
+                    "type": "number"
+                  },
+                  "band_list": {
+                    "type": "object",
+                    "properties": {
+                      "LTE": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "NR-SA": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "NR-NSA": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  },
+                  "roaming": {
+                    "type": "boolean"
+                  }
+                }
+              }
             }
           }
         }
@@ -2993,6 +3195,29 @@
             "err_msg": {
               "type": "string",
               "description": "Error message"
+            },
+            "signal": {
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "type": "number"
+                },
+                "strength": {
+                  "type": "number"
+                },
+                "rssi": {
+                  "type": "number"
+                },
+                "rsrp": {
+                  "type": "number"
+                },
+                "rsrq": {
+                  "type": "number"
+                },
+                "sinr": {
+                  "type": "number"
+                }
+              }
             }
           }
         }
@@ -3112,6 +3337,191 @@
             "err_msg": {
               "type": "string",
               "description": "Error message"
+            },
+            "level": {
+              "type": "object",
+              "properties": {
+                "NR5G-SA": {
+                  "type": "object",
+                  "properties": {
+                    "sinr": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rsrq": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rsrp": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "LTE": {
+                  "type": "object",
+                  "properties": {
+                    "sinr": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rssi": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rsrq": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rsrp": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "WCDMA": {
+                  "type": "object",
+                  "properties": {
+                    "rscp": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "ecio": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "TDSCDMA": {
+                  "type": "object",
+                  "properties": {
+                    "rscp": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "EVDO": {
+                  "type": "object",
+                  "properties": {
+                    "snr": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rssi": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "GSM": {
+                  "type": "object",
+                  "properties": {
+                    "rssi": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "NR5G-NSA": {
+                  "type": "object",
+                  "properties": {
+                    "sinr": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rsrq": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rsrp": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "CDMA": {
+                  "type": "object",
+                  "properties": {
+                    "snr": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rssi": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "signals": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rsrp": {
+                    "type": "number"
+                  },
+                  "mode": {
+                    "type": "number"
+                  },
+                  "rsrq": {
+                    "type": "number"
+                  },
+                  "slot": {
+                    "type": "number"
+                  },
+                  "sinr": {
+                    "type": "number"
+                  },
+                  "timestamp": {
+                    "type": "number"
+                  },
+                  "strength": {
+                    "type": "number"
+                  },
+                  "network_type": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         }
@@ -3445,6 +3855,76 @@
             "err_msg": {
               "type": "string",
               "description": "Error message"
+            },
+            "slot2": {
+              "type": "object",
+              "properties": {
+                "mcc": {
+                  "type": "number"
+                },
+                "freq": {
+                  "type": "number"
+                },
+                "pci": {
+                  "type": "number"
+                },
+                "cellid": {
+                  "type": "string"
+                },
+                "mnc": {
+                  "type": "number"
+                },
+                "srxlev": {
+                  "type": "number"
+                },
+                "tac": {
+                  "type": "number"
+                },
+                "squal": {
+                  "type": "number"
+                },
+                "network_type": {
+                  "type": "string"
+                }
+              }
+            },
+            "slot1": {
+              "type": "object",
+              "properties": {
+                "band": {
+                  "type": "number"
+                },
+                "mcc": {
+                  "type": "number"
+                },
+                "scs": {
+                  "type": "number"
+                },
+                "freq": {
+                  "type": "number"
+                },
+                "pci": {
+                  "type": "number"
+                },
+                "bandwidth": {
+                  "type": "number"
+                },
+                "mnc": {
+                  "type": "number"
+                },
+                "srxlev": {
+                  "type": "number"
+                },
+                "tac": {
+                  "type": "number"
+                },
+                "cellid": {
+                  "type": "string"
+                },
+                "network_type": {
+                  "type": "string"
+                }
+              }
             }
           }
         }
@@ -3564,6 +4044,56 @@
             "err_msg": {
               "type": "string",
               "description": "Error message"
+            },
+            "towers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "band": {
+                    "type": "number"
+                  },
+                  "mcc": {
+                    "type": "number"
+                  },
+                  "rsrp": {
+                    "type": "number"
+                  },
+                  "freq": {
+                    "type": "number"
+                  },
+                  "strength": {
+                    "type": "number"
+                  },
+                  "bandwidth": {
+                    "type": "number"
+                  },
+                  "pci": {
+                    "type": "number"
+                  },
+                  "cellid": {
+                    "type": "string"
+                  },
+                  "mnc": {
+                    "type": "number"
+                  },
+                  "tac": {
+                    "type": "string"
+                  },
+                  "srxlev": {
+                    "type": "number"
+                  },
+                  "scs": {
+                    "type": "number"
+                  },
+                  "rsrq": {
+                    "type": "number"
+                  },
+                  "network_type": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         }

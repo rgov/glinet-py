@@ -165,7 +165,10 @@
                 },
                 "load_average": {
                   "type": "array",
-                  "description": "CPU load averages in system. it returns an array, the array is fixed with 3 numbers that represent the average load of 1, 5, and 15 minutes in sequence."
+                  "description": "CPU load averages in system. it returns an array, the array is fixed with 3 numbers that represent the average load of 1, 5, and 15 minutes in sequence.",
+                  "items": {
+                    "type": "number"
+                  }
                 },
                 "memory_total": {
                   "type": "number",
@@ -248,6 +251,14 @@
                     "charge_cnt": {
                       "type": "number",
                       "description": "Total of battery charge cycles."
+                    }
+                  }
+                },
+                "cpu": {
+                  "type": "object",
+                  "properties": {
+                    "temperature": {
+                      "type": "number"
                     }
                   }
                 }
@@ -850,6 +861,9 @@
             "err_msg": {
               "type": "string",
               "description": "Error message"
+            },
+            "autotimezone_enabled": {
+              "type": "boolean"
             }
           }
         }
@@ -1487,7 +1501,10 @@
           "properties": {
             "load_average": {
               "type": "array",
-              "description": "CPU load averages in system. it returns an array, the array is fixed with 3 numbers that represent the average load of 1, 5, and 15 minutes in sequence."
+              "description": "CPU load averages in system. it returns an array, the array is fixed with 3 numbers that represent the average load of 1, 5, and 15 minutes in sequence.",
+              "items": {
+                "type": "number"
+              }
             },
             "memory_total": {
               "type": "number",

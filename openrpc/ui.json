@@ -411,7 +411,18 @@
           "properties": {
             "locales": {
               "type": "array",
-              "description": "A list of translation objects (the front end needs to merge this array into a JSON object)."
+              "description": "A list of translation objects (the front end needs to merge this array into a JSON object).",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "IPv4-Address": {
+                    "type": "string"
+                  },
+                  "Services": {
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         }
@@ -466,7 +477,41 @@
           "properties": {
             "menus": {
               "type": "array",
-              "description": "Current menu list."
+              "description": "Current menu list.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "index": {
+                    "type": "number"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "children": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "index": {
+                          "type": "number"
+                        },
+                        "view": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }

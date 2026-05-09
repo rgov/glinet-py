@@ -64,7 +64,10 @@
           "properties": {
             "log": {
               "type": "array",
-              "description": "rs485 debug log"
+              "description": "rs485 debug log",
+              "items": {
+                "type": "string"
+              }
             },
             "err_code": {
               "type": "number",
@@ -188,7 +191,10 @@
           "properties": {
             "log": {
               "type": "array",
-              "description": "rs485 debug log"
+              "description": "rs485 debug log",
+              "items": {
+                "type": "string"
+              }
             },
             "err_code": {
               "type": "number",
@@ -297,7 +303,10 @@
           "properties": {
             "log": {
               "type": "array",
-              "description": "terminal debug log"
+              "description": "terminal debug log",
+              "items": {
+                "type": "string"
+              }
             },
             "err_code": {
               "type": "number",

@@ -674,11 +674,17 @@
                   },
                   "apps": {
                     "type": "array",
-                    "description": "A list of application IDs contained in the ruleset, which is an integer type. The correspondence between applications and IDs is returned through the get_app_list."
+                    "description": "A list of application IDs contained in the ruleset, which is an integer type. The correspondence between applications and IDs is returned through the get_app_list.",
+                    "items": {
+                      "type": "number"
+                    }
                   },
                   "blacklist": {
                     "type": "array",
-                    "description": "The exception list of the ruleset, which is a string type. This list is an exception relative to the apps parameter, and follows the application feature description syntax. For the application feature description syntax, please refer to doc.gl-inet.com."
+                    "description": "The exception list of the ruleset, which is a string type. This list is an exception relative to the apps parameter, and follows the application feature description syntax. For the application feature description syntax, please refer to doc.gl-inet.com.",
+                    "items": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -703,7 +709,10 @@
                   },
                   "macs": {
                     "type": "array",
-                    "description": "A list of device MAC addresses contained in the group, which is a string type."
+                    "description": "A list of device MAC addresses contained in the group, which is a string type.",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "schedules": {
                     "type": "array",
@@ -1074,6 +1083,9 @@
             "err_msg": {
               "type": "string",
               "description": "Error message"
+            },
+            "group_id": {
+              "type": "string"
             }
           }
         }

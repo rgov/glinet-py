@@ -1130,11 +1130,17 @@
           "properties": {
             "internals": {
               "type": "array",
-              "description": "internal zone list"
+              "description": "internal zone list",
+              "items": {
+                "type": "string"
+              }
             },
             "externals": {
               "type": "array",
-              "description": "external zone list"
+              "description": "external zone list",
+              "items": {
+                "type": "string"
+              }
             }
           }
         }

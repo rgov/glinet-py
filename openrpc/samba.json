@@ -131,6 +131,24 @@
             "err_msg": {
               "type": "string",
               "description": "Error message"
+            },
+            "share_dir": {
+              "type": "string"
+            },
+            "share_on_lan": {
+              "type": "string"
+            },
+            "share_on_wan": {
+              "type": "string"
+            },
+            "writable": {
+              "type": "string"
+            },
+            "list": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         }

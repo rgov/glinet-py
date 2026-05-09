@@ -94,6 +94,9 @@
                   "class": {
                     "type": "string",
                     "description": "\t The device type set by the user (No value is not returned)"
+                  },
+                  "vendor": {
+                    "type": "string"
                   }
                 }
               }

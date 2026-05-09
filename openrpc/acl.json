@@ -408,7 +408,10 @@
           "properties": {
             "groups": {
               "type": "array",
-              "description": "list of permission groups"
+              "description": "list of permission groups",
+              "items": {
+                "type": "string"
+              }
             }
           }
         }

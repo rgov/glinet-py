@@ -812,7 +812,27 @@
           "properties": {
             "server": {
               "type": "object",
-              "description": "server info"
+              "description": "server info",
+              "properties": {
+                "status": {
+                  "type": "number"
+                },
+                "initialization": {
+                  "type": "boolean"
+                },
+                "log": {
+                  "type": "string"
+                },
+                "tunnel_ip": {
+                  "type": "string"
+                },
+                "rx_bytes": {
+                  "type": "number"
+                },
+                "tx_bytes": {
+                  "type": "number"
+                }
+              }
             },
             "initialization": {
               "type": "boolean",
@@ -947,6 +967,12 @@
             "err_msg": {
               "type": "string",
               "description": "Error Message"
+            },
+            "private_key": {
+              "type": "string"
+            },
+            "public_key": {
+              "type": "string"
             }
           }
         }

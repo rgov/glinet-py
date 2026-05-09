@@ -409,11 +409,17 @@
               "properties": {
                 "ip": {
                   "type": "array",
-                  "description": "Get the IPv6 address (CIDR)"
+                  "description": "Get the IPv6 address (CIDR)",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "dns": {
                   "type": "array",
-                  "description": "IPv6 DNS"
+                  "description": "IPv6 DNS",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "gateway": {
                   "type": "string",
@@ -685,11 +691,17 @@
                       },
                       "auth_suites": {
                         "type": "array",
-                        "description": "Get the encryption (PSK, SAE, 802.1X)"
+                        "description": "Get the encryption (PSK, SAE, 802.1X)",
+                        "items": {
+                          "type": "string"
+                        }
                       },
                       "pair_ciphers": {
                         "type": "array",
-                        "description": "Get the encryption algorithm (CCMP, TKIP)"
+                        "description": "Get the encryption algorithm (CCMP, TKIP)",
+                        "items": {
+                          "type": "string"
+                        }
                       },
                       "description": {
                         "type": "string",
@@ -700,6 +712,9 @@
                         "description": "UCI configuration"
                       }
                     }
+                  },
+                  "channel": {
+                    "type": "number"
                   }
                 }
               }

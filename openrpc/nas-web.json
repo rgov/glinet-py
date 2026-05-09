@@ -476,7 +476,33 @@
                   },
                   "part": {
                     "type": "array",
-                    "description": "disk part array"
+                    "description": "disk part array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "dev_name": {
+                          "type": "string"
+                        },
+                        "disk_name": {
+                          "type": "string"
+                        },
+                        "fs_type": {
+                          "type": "string"
+                        },
+                        "uid": {
+                          "type": "string"
+                        },
+                        "label": {
+                          "type": "string"
+                        },
+                        "total_len": {
+                          "type": "number"
+                        },
+                        "free_size": {
+                          "type": "number"
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -646,6 +672,9 @@
                   "t": {
                     "type": "string",
                     "description": "file type"
+                  },
+                  "have_dir": {
+                    "type": "number"
                   }
                 }
               }
@@ -725,6 +754,24 @@
                   "protos": {
                     "type": "string",
                     "description": "protos"
+                  },
+                  "owner_readonly": {
+                    "type": "number"
+                  },
+                  "t": {
+                    "type": "string"
+                  },
+                  "share_time": {
+                    "type": "number"
+                  },
+                  "d": {
+                    "type": "number"
+                  },
+                  "l": {
+                    "type": "number"
+                  },
+                  "disk_uid": {
+                    "type": "string"
                   }
                 }
               }
@@ -1109,6 +1156,20 @@
             "enable": {
               "type": "number",
               "description": "nas ser if enable"
+            },
+            "res": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "enable": {
+                    "type": "number"
+                  },
+                  "port": {
+                    "type": "number"
+                  }
+                }
+              }
             }
           }
         }
@@ -1214,6 +1275,17 @@
             "enable": {
               "type": "number",
               "description": "nas ser is enable"
+            },
+            "res": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "enable": {
+                    "type": "number"
+                  }
+                }
+              }
             }
           }
         }

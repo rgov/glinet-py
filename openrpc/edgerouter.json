@@ -138,7 +138,10 @@
             },
             "dns": {
               "type": "array",
-              "description": "DNS"
+              "description": "DNS",
+              "items": {
+                "type": "string"
+              }
             },
             "err_code": {
               "type": "number",

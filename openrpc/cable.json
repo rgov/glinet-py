@@ -345,7 +345,10 @@
                 },
                 "dns": {
                   "type": "array",
-                  "description": "IPv4 DNS"
+                  "description": "IPv4 DNS",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             },
@@ -503,7 +506,10 @@
                 },
                 "dns": {
                   "type": "array",
-                  "description": "IPv4 DNS"
+                  "description": "IPv4 DNS",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             },

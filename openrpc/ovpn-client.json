@@ -40,7 +40,10 @@
           "properties": {
             "needauth": {
               "type": "array",
-              "description": "files that including auth-user-pass"
+              "description": "files that including auth-user-pass",
+              "items": {
+                "type": "string"
+              }
             },
             "needinfo": {
               "type": "array",
@@ -48,15 +51,24 @@
             },
             "passed": {
               "type": "array",
-              "description": "files that w/o askpass or auth-user-pass"
+              "description": "files that w/o askpass or auth-user-pass",
+              "items": {
+                "type": "string"
+              }
             },
             "unpassed": {
               "type": "array",
-              "description": "illegal ovpn conf file"
+              "description": "illegal ovpn conf file",
+              "items": {
+                "type": "string"
+              }
             },
             "rootcert": {
               "type": "array",
-              "description": "root cert file"
+              "description": "root cert file",
+              "items": {
+                "type": "string"
+              }
             },
             "err_code": {
               "type": "number",

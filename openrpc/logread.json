@@ -439,6 +439,9 @@
             "err_msg": {
               "type": "string",
               "description": "Error message"
+            },
+            "record_size": {
+              "type": "number"
             }
           }
         }

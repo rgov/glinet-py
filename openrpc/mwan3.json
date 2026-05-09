@@ -421,11 +421,17 @@
                   },
                   "track_ipv4": {
                     "type": "array",
-                    "description": "detection ipv4 address [array of string]"
+                    "description": "detection ipv4 address [array of string]",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "track_ipv6": {
                     "type": "array",
-                    "description": "detection ipv6 address [array of string]"
+                    "description": "detection ipv6 address [array of string]",
+                    "items": {
+                      "type": "string"
+                    }
                   }
                 }
               }

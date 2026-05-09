@@ -150,7 +150,10 @@
             },
             "serverzones": {
               "type": "array",
-              "description": "all optional server zones"
+              "description": "all optional server zones",
+              "items": {
+                "type": "string"
+              }
             },
             "name": {
               "type": "string",
@@ -467,6 +470,29 @@
                       "description": "DHCP number of address pools"
                     }
                   }
+                },
+                "wan6": {
+                  "type": "object",
+                  "properties": {
+                    "gateway6": {
+                      "type": "string"
+                    },
+                    "proto": {
+                      "type": "string"
+                    },
+                    "dns": {
+                      "type": "array"
+                    },
+                    "ip6addr": {
+                      "type": "string"
+                    },
+                    "dns6": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
                 }
               }
             },
@@ -478,19 +504,53 @@
                 "properties": {
                   "hwmodes": {
                     "type": "array",
-                    "description": "list of supported hardware modes"
+                    "description": "list of supported hardware modes",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "htmodes": {
                     "type": "object",
-                    "description": "the maximum bandwidth supported by each hardware mode, the auto option indicates whether to support automatic bandwidth"
+                    "description": "the maximum bandwidth supported by each hardware mode, the auto option indicates whether to support automatic bandwidth",
+                    "properties": {
+                      "11a/n/ac": {
+                        "type": "number"
+                      },
+                      "11n/ac/ax": {
+                        "type": "number"
+                      },
+                      "11a/n/ac/ax": {
+                        "type": "number"
+                      },
+                      "11ac/ax": {
+                        "type": "number"
+                      },
+                      "auto": {
+                        "type": "boolean"
+                      }
+                    }
                   },
                   "channels": {
                     "type": "array",
-                    "description": "list of supported channels"
+                    "description": "list of supported channels",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "dfs": {
+                          "type": "boolean"
+                        },
+                        "channel": {
+                          "type": "number"
+                        }
+                      }
+                    }
                   },
                   "encryptions": {
                     "type": "array",
-                    "description": "list of supported encryption"
+                    "description": "list of supported encryption",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "band": {
                     "type": "string",
@@ -727,6 +787,18 @@
                   "description": "official website"
                 }
               }
+            },
+            "local_domain": {
+              "type": "string"
+            },
+            "hostname": {
+              "type": "string"
+            },
+            "language": {
+              "type": "string"
+            },
+            "timezone": {
+              "type": "string"
             }
           }
         }

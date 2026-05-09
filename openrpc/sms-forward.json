@@ -58,7 +58,10 @@
                 },
                 "emails": {
                   "type": "array",
-                  "description": "Target email list."
+                  "description": "Target email list.",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "account": {
                   "type": "string",

@@ -496,7 +496,10 @@
             },
             "mac_list": {
               "type": "array",
-              "description": "MAC list"
+              "description": "MAC list",
+              "items": {
+                "type": "string"
+              }
             },
             "err_code": {
               "type": "number",
