@@ -1,0 +1,22 @@
+{
+  "name": "parental-control.remove_rule",
+  "summary": "remove a ruleset.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "parental-control",
+      "remove_rule",
+      {
+        "id": "cfga067b"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

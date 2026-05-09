@@ -1,0 +1,35 @@
+{
+  "name": "qos.set_bandwidth_config",
+  "summary": "set wan bandwidth and default priority",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "qos",
+      "set_bandwidth_config",
+      {
+        "band_cfg": [
+          {
+            "enable": false,
+            "download": 512,
+            "upload": 1024,
+            "interface": "wan"
+          },
+          {
+            "enable": false,
+            "download": 512,
+            "upload": 1024,
+            "interface": "wwan"
+          }
+        ]
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

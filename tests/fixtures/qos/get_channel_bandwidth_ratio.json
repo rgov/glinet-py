@@ -1,0 +1,66 @@
+{
+  "name": "qos.get_channel_bandwidth_ratio",
+  "summary": "get priority channel bandwidth ratio",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "qos",
+      "get_channel_bandwidth_ratio",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "sync_ratio": false,
+      "upload": [
+        {
+          "min": "90",
+          "priority": "1",
+          "max": "70"
+        },
+        {
+          "min": "75",
+          "priority": "2",
+          "max": "50"
+        },
+        {
+          "min": "50",
+          "priority": "3",
+          "max": "30"
+        },
+        {
+          "min": "30",
+          "priority": "4",
+          "max": "15"
+        }
+      ],
+      "download": [
+        {
+          "min": "90",
+          "priority": "1",
+          "max": "70"
+        },
+        {
+          "min": "75",
+          "priority": "2",
+          "max": "50"
+        },
+        {
+          "min": "50",
+          "priority": "3",
+          "max": "30"
+        },
+        {
+          "min": "30",
+          "priority": "4",
+          "max": "15"
+        }
+      ]
+    }
+  }
+}

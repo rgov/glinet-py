@@ -1,0 +1,24 @@
+{
+  "name": "system.set_timezone_config",
+  "summary": "Set the time zone information for the device.",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "system",
+      "set_timezone_config",
+      {
+        "zonename": "",
+        "timezone": "UTC",
+        "localtime": 1653622981
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

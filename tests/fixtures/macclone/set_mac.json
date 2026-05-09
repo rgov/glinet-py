@@ -1,0 +1,22 @@
+{
+  "name": "macclone.set_mac",
+  "summary": "setting macclone",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "macclone",
+      "set_mac",
+      {
+        "mac": "94:83:C4:0C:6D:D6"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "wg-server.set_setting",
+  "summary": "set wireguard server setting",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-server",
+      "set_setting",
+      {
+        "local_access": true,
+        "masq": true,
+        "client_to_client": true,
+        "mtu": 1460
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

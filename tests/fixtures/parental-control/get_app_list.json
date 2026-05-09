@@ -1,0 +1,16 @@
+{
+  "name": "parental-control.get_app_list",
+  "summary": "Get a list of recognized applications.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "parental-control",
+      "get_app_list"
+    ]
+  },
+  "response_raw": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"result\": {\"apps\":[{\"id\":8001,\"name\":\"baidu\",\"type\":8,},{\"id\":1002,\"name\":\"facebook\",\"type\":1,}]}}",
+  "response_parse_error": "Illegal trailing comma before end of object: line 1 column 82 (char 81)"
+}

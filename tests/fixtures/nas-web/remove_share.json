@@ -1,0 +1,22 @@
+{
+  "name": "nas-web.remove_share",
+  "summary": "remove one share",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nas-web",
+      "remove_share",
+      {
+        "share_id": "xxx"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

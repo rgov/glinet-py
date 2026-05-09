@@ -1,0 +1,39 @@
+{
+  "name": "wg-server.get_peer_list",
+  "summary": "Get the peer list of the wireguard client",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-server",
+      "get_peer_list",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "peers": [
+        {
+          "name": "sample",
+          "client_ip": "10.0.0.2/32",
+          "listen_port": 50436,
+          "private_key": "oOMRHz5wTf5Gq6TPnpXLKIOhy54wx5XO7/4nquChIFI=",
+          "dns": "64.6.64.6",
+          "end_point": "116.77.73.248:51820",
+          "public_key": "m7pNpcTJxf2gqpmgSa3dCMgY0c2nP5rXHV7ume0/uzs=",
+          "allowed_ips": "0.0.0.0/0",
+          "persistent_keepalive": 25,
+          "mtu": 1420,
+          "peer_id": 2844,
+          "presharedkey_enable": true,
+          "presharedkey": "wKaBacfDah7EXNzIq9AbpHso4NUncS6M7NKPViUWxc0=",
+          "deprecated": 0
+        }
+      ]
+    }
+  }
+}

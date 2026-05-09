@@ -1,0 +1,29 @@
+{
+  "name": "firewall.set_port_forward",
+  "summary": "modify an existing port-forware rule",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "firewall",
+      "set_port_forward",
+      {
+        "id": "cfg153837",
+        "name": "test",
+        "proto": "tcp",
+        "src": "wan",
+        "src_dport": 80,
+        "dest": "lan",
+        "dest_ip": "192.168.8.100",
+        "dest_port": 80
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

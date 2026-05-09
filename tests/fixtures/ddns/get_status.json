@@ -1,0 +1,17 @@
+{
+  "name": "ddns.get_status",
+  "summary": "get ddns status information",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ddns",
+      "get_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response_raw": "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":1,\\\"result\\\":{\\\"ddns\\\":\\\"113.116.xxx.xxx\\\",\\\"ips\\\":[{\\\"ip\":[\\\"192.168.18.162\\\"],\\\"interface\\\":\\\"wan\\\"}],\\\"status\\\":2}",
+  "response_parse_error": "Expecting ',' delimiter: line 1 column 123 (char 122)"
+}

@@ -1,0 +1,691 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — upgrade module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "upgrade.set_config",
+      "summary": "setup the config file of firmware upgrade",
+      "params": [
+        {
+          "name": "auto_upgrade",
+          "schema": {
+            "type": "boolean",
+            "description": "auto upgrade"
+          },
+          "required": false
+        },
+        {
+          "name": "time",
+          "schema": {
+            "type": "string",
+            "description": "the time to upgrade firmware automatically"
+          },
+          "required": false
+        },
+        {
+          "name": "url",
+          "schema": {
+            "type": "string",
+            "description": "the path to upgrade firmware automatically"
+          },
+          "required": false
+        },
+        {
+          "name": "prompt",
+          "schema": {
+            "type": "boolean",
+            "description": "prompt [true: pop-up prompt; false: no prompt]"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:parameter error."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "upgrade.get_config",
+      "summary": "get to config of firmware upgrade",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "auto_upgrade": {
+              "type": "boolean",
+              "description": "the status of the auto upgrade feature"
+            },
+            "time": {
+              "type": "string",
+              "description": "the time to upgrade the firmware automatically"
+            },
+            "url": {
+              "type": "string",
+              "description": "the path to upgrade firmware automatically"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "upgrade",
+                  "get_config",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "auto_upgrade": false,
+              "time": "04:00",
+              "url": "https://fw.gl-inet.com/firmware/ar750s/release"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "upgrade.get_online_upgrade_status",
+      "summary": "get online upgrade status.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "number",
+              "description": "status [1: downloading; 2: download fail; 3: download success; 4: pass; 5: failed; 6: upgrading; 7: upgrade failed; 9: firmware signature verification failed]",
+              "oneOf": [
+                {
+                  "const": 1,
+                  "title": "downloading"
+                },
+                {
+                  "const": 2,
+                  "title": "download fail"
+                },
+                {
+                  "const": 3,
+                  "title": "download success"
+                },
+                {
+                  "const": 4,
+                  "title": "pass"
+                },
+                {
+                  "const": 5,
+                  "title": "failed"
+                },
+                {
+                  "const": 6,
+                  "title": "upgrading"
+                },
+                {
+                  "const": 7,
+                  "title": "upgrade failed"
+                },
+                {
+                  "const": 9,
+                  "title": "firmware signature verification failed"
+                }
+              ]
+            },
+            "status_msg": {
+              "type": "string",
+              "description": "the status of the firmware upgrade"
+            },
+            "percent": {
+              "type": "number",
+              "description": "return the rate when downloading the firmware"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_online_upgrade_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "upgrade",
+                  "get_online_upgrade_status",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "status": "2",
+              "status_msg": "download_failed"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "upgrade.check_firmware_local",
+      "summary": "local firmware verify",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "string",
+              "description": "the uploaded firmware version (the value is the version number or unknow)"
+            },
+            "status": {
+              "type": "number",
+              "description": "status [0: normal; 1: the uploaded firmware version is lower than the current; 2: this firmware would upgrade the kernal, please don't save the configurations; 3: unknow firmware; 4: the uploaded file is too large; 5: the firmware doesn't exist; 6: sysupgraded -T failed; 7: this firmware version is not supported; 8: this firmware is not matched with this device; 9: firmware signature verification failed; 10: unknow error]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "normal"
+                },
+                {
+                  "const": 1,
+                  "title": "the uploaded firmware version is lower than the current"
+                },
+                {
+                  "const": 2,
+                  "title": "this firmware would upgrade the kernal"
+                },
+                {
+                  "const": 3,
+                  "title": "unknow firmware"
+                },
+                {
+                  "const": 4,
+                  "title": "the uploaded file is too large"
+                },
+                {
+                  "const": 5,
+                  "title": "the firmware doesn't exist"
+                },
+                {
+                  "const": 6,
+                  "title": "sysupgraded -T failed"
+                },
+                {
+                  "const": 7,
+                  "title": "this firmware version is not supported"
+                },
+                {
+                  "const": 8,
+                  "title": "this firmware is not matched with this device"
+                },
+                {
+                  "const": 9,
+                  "title": "firmware signature verification failed"
+                },
+                {
+                  "const": 10,
+                  "title": "unknow error"
+                }
+              ]
+            },
+            "release_note": {
+              "type": "string",
+              "description": "the release note of this firmware"
+            },
+            "sha256": {
+              "type": "string",
+              "description": "the hash of this firmware"
+            },
+            "not_keep_config": {
+              "type": "string",
+              "description": "prompt that the upgrade would not save the configuration and the cause to it",
+              "properties": {
+                "version": {
+                  "type": "string",
+                  "description": "prompt that the upgrade would not save the configuration, since upgrade to the lower version"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "the upgrade would not save the configuration and the cause to it"
+                }
+              }
+            },
+            "not_keep_config_part": {
+              "type": "array",
+              "description": "prompt that the upgrade would not save the configuration and the cause to it",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "description": "the absolute path of the unsaved configurations"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "the casue to not save the configurations"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "check_firmware_local_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "upgrade",
+                  "check_firmware_local",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "status": 9,
+              "release_note": "###  System：\n* Based on openwrt 19.07.7  (AR750,AR750S,X750,XE300,MT1300,MT300N-V2)\n\n###  SDK\n* Refactoring the API Framework\n* Refactoring the UI Framework\n\n### Change log\n* WIFI，客户端，防火墙及升级页面细节优化\n* AXT1800目标兼容（目前暂未编译）\n* 修复部分modem及repeater后台问题\n* 完善部分语言翻译\n",
+              "sha256": "264ce49c1f63e19960f5aa5e06b45d05db219ea560011504e6ca83fee5980500",
+              "version": "4.0.0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "upgrade.upgrade_local",
+      "summary": "firmware upgrade locally",
+      "params": [
+        {
+          "name": "mesh",
+          "schema": {
+            "type": "boolean",
+            "description": "this parameter is required for devices support mesh"
+          },
+          "required": true
+        },
+        {
+          "name": "keep_config",
+          "schema": {
+            "type": "boolean",
+            "description": "upgrade the firmware with the configuration saved, when this value is ture"
+          },
+          "required": true
+        },
+        {
+          "name": "keep_package",
+          "schema": {
+            "type": "boolean",
+            "description": "upgrade the firmware with the packages saved, when this value is ture"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: parameter error; -7: the memory is not enough; -8: sub nodes upgrade failed; -9: mesh upgrade failed]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "parameter error"
+                },
+                {
+                  "const": -7,
+                  "title": "the memory is not enough"
+                },
+                {
+                  "const": -8,
+                  "title": "sub nodes upgrade failed"
+                },
+                {
+                  "const": -9,
+                  "title": "mesh upgrade failed"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "upgrade_local_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "upgrade",
+                  "upgrade_local",
+                  {
+                    "mesh": false,
+                    "keep_config": false,
+                    "keep_package": false
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "upgrade.upgrade_online",
+      "summary": "online upgrade",
+      "params": [
+        {
+          "name": "keep_config",
+          "schema": {
+            "type": "boolean",
+            "description": "upgrade the firmware with the configuration saved, when this value is ture"
+          },
+          "required": true
+        },
+        {
+          "name": "keep_package",
+          "schema": {
+            "type": "boolean",
+            "description": "upgrade the firmware with the packages saved, when this value is ture"
+          },
+          "required": true
+        },
+        {
+          "name": "url",
+          "schema": {
+            "type": "string",
+            "description": "the URL for online upgrade"
+          },
+          "required": false
+        },
+        {
+          "name": "sha256",
+          "schema": {
+            "type": "string",
+            "description": "required when upgrade online"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [-2: fail to get the firmware online]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "upgrade_online_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "upgrade",
+                  "upgrade_online",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "upgrade.check_firmware_online",
+      "summary": "get the firmware info",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "current_version": {
+              "type": "string",
+              "description": "get the version of the current firmware"
+            },
+            "current_compile_time": {
+              "type": "string",
+              "description": "get the compile time of the current firmware"
+            },
+            "firmware_type": {
+              "type": "string",
+              "description": "get the type of the current firmware"
+            },
+            "prompt": {
+              "type": "boolean",
+              "description": "prompt [true: pop-up prompt; false: no prompt]"
+            },
+            "version_new": {
+              "type": "string",
+              "description": "get the latest firmware, return when it is available"
+            },
+            "new_compile_time": {
+              "type": "string",
+              "description": "get the compile time of the latest firmware, return when it is available"
+            },
+            "release_note": {
+              "type": "string",
+              "description": "get the release note, return when it is available"
+            },
+            "upgrade_control": {
+              "type": "object",
+              "description": "get the upgrade_control information of the firmware meta data, return when it is available",
+              "properties": {
+                "not_keep_config": {
+                  "type": "object",
+                  "description": "prompt that the upgrade would not save the configuration and the cause to it",
+                  "properties": {
+                    "version": {
+                      "type": "string",
+                      "description": "prompt that the upgrade would not save the configuration, since upgrade to the lower version"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "the upgrade would not save the configuration and the cause to it"
+                    }
+                  }
+                },
+                "supported_version": {
+                  "type": "string",
+                  "description": "get the lowest supported firmware, prompt upgrade is not supported if lower than this version"
+                },
+                "not_keep_config_part": {
+                  "type": "array",
+                  "description": "some configurations would not be saved. Prompt the path of these configurations and the cause to it by the meta data",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "description": "the absolute path of the unsaved configurations"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "the casue to not save the configurations"
+                      }
+                    }
+                  }
+                },
+                "user": {
+                  "type": "string",
+                  "description": "for the authority management, 2c refers to general, 2b refers to business"
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code [-2: get url error, -3: get fail -4: not support]",
+              "oneOf": [
+                {
+                  "const": -2,
+                  "title": "get url error"
+                },
+                {
+                  "const": -3,
+                  "title": "get fail -4: not support"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "check_firmware_online_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "upgrade",
+                  "check_firmware_online",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "current_version": "4.000",
+              "firmware_type": "release",
+              "current_compile_time": "2021-08-11 9:40:45",
+              "version_new": "4.001",
+              "new_compile_time": "2021-08-13 09:41:35",
+              "release_note": "System:Based on openwrt 19.07.7",
+              "upgrade_control": {
+                "not_keep_config": {
+                  "version": "4.003",
+                  "description": "Solve the xxx problem"
+                },
+                "supported_version": "4.001",
+                "not_keep_config_part": [
+                  {
+                    "path": "/etc/config/ssids",
+                    "description": "Solve the xxx problem"
+                  },
+                  {
+                    "path": "/etc/config/wireless",
+                    "description": "Solve the xxx problem"
+                  }
+                ],
+                "user": "general"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

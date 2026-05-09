@@ -1,0 +1,20 @@
+{
+  "name": "upgrade.upgrade_online",
+  "summary": "online upgrade",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "upgrade",
+      "upgrade_online",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

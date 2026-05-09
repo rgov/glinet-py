@@ -1,0 +1,25 @@
+{
+  "name": "otbr.rejoin_all",
+  "summary": "Start Commissining and add Joiner entry.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "rejoin_all",
+      {
+        "Timeout": 120,
+        "Type": 3
+      }
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "err_code": 0
+    }
+  }
+}

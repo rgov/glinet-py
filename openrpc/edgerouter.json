@@ -1,0 +1,276 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — edgerouter module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "edgerouter.set_config",
+      "summary": "modify the configuration file",
+      "params": [
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enable"
+          },
+          "required": true
+        },
+        {
+          "name": "ip",
+          "schema": {
+            "type": "string",
+            "description": "IP address"
+          },
+          "required": false
+        },
+        {
+          "name": "netmask",
+          "schema": {
+            "type": "string",
+            "description": "subnet mask"
+          },
+          "required": false
+        },
+        {
+          "name": "gateway",
+          "schema": {
+            "type": "string",
+            "description": "gateway"
+          },
+          "required": false
+        },
+        {
+          "name": "dns",
+          "schema": {
+            "type": "array",
+            "description": "DNS"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "edgerouter",
+                  "set_config",
+                  {
+                    "enable": true,
+                    "ip": "192.168.99.129",
+                    "netmask": "255.255.255.0",
+                    "gateway": "192.168.99.1",
+                    "dns": [
+                      "192.168.99.1",
+                      "114.114.114.114"
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "edgerouter.get_config",
+      "summary": "get the current configuration",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "boolean",
+              "description": "whether to enable"
+            },
+            "ip": {
+              "type": "string",
+              "description": "IP address"
+            },
+            "netmask": {
+              "type": "string",
+              "description": "subnet mask"
+            },
+            "gateway": {
+              "type": "string",
+              "description": "gateway"
+            },
+            "dns": {
+              "type": "array",
+              "description": "DNS"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "edgerouter",
+                  "get_config",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "enable": true,
+              "ip": "192.168.99.129",
+              "netmask": "255.255.255.0",
+              "gateway": "192.168.99.1",
+              "dns": [
+                "192.168.99.1",
+                "114.114.114.114"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "edgerouter.get_status",
+      "summary": "obtain the status of device traffic passing through the edge route in the LAN",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "detected": {
+              "type": "number",
+              "description": "upper-level DHCP server status [0: disable; 1:enabled and have pointed the gateway to the bypass route; 2: enabled; 3：the cable is not connected]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "disable"
+                },
+                {
+                  "const": 1,
+                  "title": "enabled and have pointed the gateway to the bypass route"
+                },
+                {
+                  "const": 2,
+                  "title": "enabled"
+                }
+              ]
+            },
+            "ip": {
+              "type": "string",
+              "description": "IP assigned by DHCP server,returned when the detected is 2"
+            },
+            "netmask": {
+              "type": "string",
+              "description": "DHCP server mask,returned when the detected is 2"
+            },
+            "gateway": {
+              "type": "string",
+              "description": "DHCP server address,returned when the detected is 2"
+            },
+            "dns": {
+              "type": "array",
+              "description": "DNS,returned when the detected is 2"
+            },
+            "valid": {
+              "type": "boolean",
+              "description": "is the current configuration valid,returned when the detected is 2"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "edgerouter",
+                  "get_status",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "detected": false
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

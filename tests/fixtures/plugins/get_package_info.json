@@ -1,0 +1,24 @@
+{
+  "name": "plugins.get_package_info",
+  "summary": "get details for a single package",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "plugins",
+      "get_package_info",
+      {
+        "name": "kmod-usb-serial-pl2303"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "info": "Package: kmod-usb-serial-pl2303\nVersion: 4.14.221-1\nDepends: kernel (= 4.14.221-1-0a66574dfa39734270ca25227d9a8ac6), kmod-usb-serial\nStatus: unknown ok not-installed\nSection: kernel\nArchitecture: mips_24kc\nSize: 5798\nFilename: kmod-usb-serial-pl2303_4.14.221-1_mips_24kc.ipk\nDescription: Kernel support for Prolific PL2303 USB-to-Serial converters\n\n"
+    }
+  }
+}

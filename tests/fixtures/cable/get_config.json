@@ -1,0 +1,31 @@
+{
+  "name": "cable.get_config",
+  "summary": "get the wan port config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "cable",
+      "get_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "protocol": "static",
+      "ipv4": {
+        "ip": "192.168.113.137",
+        "netmask": "255.255.255.0",
+        "gateway": "192.168.113.1",
+        "dns": [
+          "8.8.8.8",
+          "8.8.4.4"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "ui.get_lang",
+  "summary": "get language.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "ui",
+      "get_lang"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "lang": "auto",
+      "list": [
+        {
+          "value": "en",
+          "lable": "English"
+        },
+        {
+          "value": "zh-cn",
+          "lable": "简体中文"
+        },
+        {
+          "value": "zh-tw",
+          "lable": "繁体中文"
+        },
+        {
+          "value": "ja",
+          "lable": "日本語"
+        }
+      ]
+    }
+  }
+}

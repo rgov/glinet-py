@@ -1,0 +1,1800 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — cloud-batch-manage module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "cloud-batch-manage.bind_info",
+      "summary": "set cloud bind info",
+      "params": [
+        {
+          "name": "username",
+          "schema": {
+            "type": "string",
+            "description": "cloud user name"
+          },
+          "required": true
+        },
+        {
+          "name": "email",
+          "schema": {
+            "type": "string",
+            "description": "cloud user email"
+          },
+          "required": true
+        },
+        {
+          "name": "bindtime",
+          "schema": {
+            "type": "string",
+            "description": "router device in cloud bind time"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "bind_info_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "cloud-batch-manage",
+                  "bind_info",
+                  {
+                    "username": "glcloud",
+                    "email": "126@qq.com",
+                    "bindtime": "192168"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "cloud-batch-manage.send_router_info",
+      "summary": "device send router info",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "model": {
+              "type": "string",
+              "description": "device model"
+            },
+            "rtty_ssh": {
+              "type": "boolean",
+              "description": "enable rtty ssh"
+            },
+            "rtty_web": {
+              "type": "boolean",
+              "description": "enable rtty web"
+            },
+            "ddns": {
+              "type": "string",
+              "description": "device ddns"
+            },
+            "sn": {
+              "type": "string",
+              "description": "device sn"
+            },
+            "mac": {
+              "type": "string",
+              "description": "device mac"
+            },
+            "fw_type": {
+              "type": "string",
+              "description": "framewrok type"
+            },
+            "version": {
+              "type": "string",
+              "description": "framewrok version"
+            },
+            "dataupload": {
+              "type": "boolean",
+              "description": "enable data upload"
+            },
+            "mode": {
+              "type": "string",
+              "description": "bridge mode"
+            },
+            "mesh": {
+              "type": "string",
+              "description": "mesh type"
+            },
+            "services": {
+              "type": "array",
+              "description": "server address"
+            },
+            "firmware_path": {
+              "type": "string",
+              "description": "firmware update path"
+            },
+            "data_path": {
+              "type": "string",
+              "description": "wifi probe data address"
+            },
+            "ip": {
+              "type": "string",
+              "description": "device ip"
+            },
+            "guest_ip": {
+              "type": "string",
+              "description": "device guest ip"
+            },
+            "wan_ip": {
+              "type": "string",
+              "description": "device wan ip"
+            },
+            "ssid": {
+              "type": "string",
+              "description": "2.4G wifi ssid"
+            },
+            "ssid5g": {
+              "type": "string",
+              "description": "5G wifi ssid"
+            },
+            "bssid2g": {
+              "type": "string",
+              "description": "2.4G wifi bssid"
+            },
+            "bssid5g": {
+              "type": "string",
+              "description": "5G wifi bssid"
+            },
+            "reboot_flag": {
+              "type": "boolean",
+              "description": "reboot flag"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "send_router_info_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "cloud-batch-manage",
+                  "send_router_info"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "model": "bm",
+              "rtty_ssh": "true",
+              "rtty_web": "true",
+              "ddns": "12345678",
+              "sn": "123456",
+              "mac": "AABBCCDDEEFF",
+              "fw_type": "1",
+              "version": "VB_3.023",
+              "dataupload": "true",
+              "mesh": "mesh",
+              "services": [
+                "abc",
+                "www"
+              ],
+              "firmware_path": "http://xxx",
+              "data_path": "http://xxx",
+              "type": "1",
+              "ip": "192.168.8.216",
+              "guest_ip": "192.168.8.215",
+              "wan_ip": "192.168.8.3",
+              "ssid": "GL-wifi",
+              "ssid5g": "GL-wifi-5G",
+              "bssid2g": "XXX",
+              "bssid5g": "YYY",
+              "reboot_flag": "true"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "cloud-batch-manage.designated_customer",
+      "summary": "set customer info",
+      "params": [
+        {
+          "name": "server_name",
+          "schema": {
+            "type": "string",
+            "description": "server name"
+          },
+          "required": true
+        },
+        {
+          "name": "server_url",
+          "schema": {
+            "type": "string",
+            "description": "server url"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "designated_customer_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "cloud-batch-manage",
+                  "designated_customer",
+                  {
+                    "server_name": "glcloud",
+                    "server_url": "http://xxx"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "cloud-batch-manage.get_batch_config",
+      "summary": "get batch config",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "wan_proto": {
+              "type": "string",
+              "description": "wan proto"
+            },
+            "wan_username": {
+              "type": "string",
+              "description": "wan proto username"
+            },
+            "wan_password": {
+              "type": "string",
+              "description": "wan proto password"
+            },
+            "wan_ipaddr": {
+              "type": "string",
+              "description": "wan ipaddr"
+            },
+            "wan_gateway": {
+              "type": "string",
+              "description": "wan gateway"
+            },
+            "wan_netmask": {
+              "type": "string",
+              "description": "wan netmask"
+            },
+            "wan_dns": {
+              "type": "string",
+              "description": "wan dns"
+            },
+            "reboot_flag": {
+              "type": "boolean",
+              "description": "reboot_flag"
+            },
+            "ssid_2g": {
+              "type": "string",
+              "description": "2.4G ssid"
+            },
+            "disable_2g": {
+              "type": "boolean",
+              "description": "2.4g disable"
+            },
+            "hidden_2g": {
+              "type": "boolean",
+              "description": "2.4G hidden"
+            },
+            "channel_2g": {
+              "type": "string",
+              "description": "2.4G channle"
+            },
+            "txpower_2g": {
+              "type": "string",
+              "description": "2.4G txpower"
+            },
+            "htmode_2g": {
+              "type": "string",
+              "description": "2.4g htmode"
+            },
+            "encrytion_2g": {
+              "type": "string",
+              "description": "2.4G encryption"
+            },
+            "key_2g": {
+              "type": "string",
+              "description": "2.4G key"
+            },
+            "guest_2g_ssid": {
+              "type": "string",
+              "description": "2.4G guest ssid"
+            },
+            "guest_2g_encrytion": {
+              "type": "string",
+              "description": "2.4G guest encryption"
+            },
+            "guest_2g_key": {
+              "type": "string",
+              "description": "2.4G guest key"
+            },
+            "guest_2g_disable": {
+              "type": "boolean",
+              "description": "2.4G guest disable"
+            },
+            "ssid_5g": {
+              "type": "string",
+              "description": "5G ssid"
+            },
+            "channel_5g": {
+              "type": "string",
+              "description": "5G channle"
+            },
+            "txpower_5g": {
+              "type": "string",
+              "description": "5G txpower"
+            },
+            "htmode_5g": {
+              "type": "string",
+              "description": "5G htmode"
+            },
+            "encrytion_5g": {
+              "type": "string",
+              "description": "5G encryption"
+            },
+            "disable_5g": {
+              "type": "boolean",
+              "description": "5G disable"
+            },
+            "hidden_5g": {
+              "type": "boolean",
+              "description": "5G hidden"
+            },
+            "key_5g": {
+              "type": "string",
+              "description": "5G key"
+            },
+            "guest_5g_ssid": {
+              "type": "string",
+              "description": "5G guest ssid"
+            },
+            "guest_5g_encrytion": {
+              "type": "string",
+              "description": "5G guest encryption"
+            },
+            "guest_5g_key": {
+              "type": "string",
+              "description": "5G guest key"
+            },
+            "guest_5g_disable": {
+              "type": "boolean",
+              "description": "5G guest disable"
+            },
+            "probe_data_path1": {
+              "type": "string",
+              "description": "probe data path"
+            },
+            "probe_data_path2": {
+              "type": "string",
+              "description": "probe data path"
+            },
+            "probe_max_lines": {
+              "type": "string",
+              "description": "probe max lines"
+            },
+            "probe_interval": {
+              "type": "string",
+              "description": "probe interval"
+            },
+            "probe_json": {
+              "type": "string",
+              "description": "probe json"
+            },
+            "probe_virmac": {
+              "type": "string",
+              "description": "probe virmac"
+            },
+            "probe_type": {
+              "type": "string",
+              "description": "probe type"
+            },
+            "probe_tcpurl": {
+              "type": "string",
+              "description": "probe tcp url"
+            },
+            "probe_filter": {
+              "type": "string",
+              "description": "probe filter"
+            },
+            "probe_sflag": {
+              "type": "string",
+              "description": "probe sflag"
+            },
+            "probe_protocol": {
+              "type": "string",
+              "description": "probe protocol"
+            },
+            "probe_channel": {
+              "type": "string",
+              "description": "probe channel"
+            },
+            "probe_channel5g": {
+              "type": "string",
+              "description": "probe 5G channel"
+            },
+            "probe_induce": {
+              "type": "string",
+              "description": "probe induce"
+            },
+            "lan_ip": {
+              "type": "string",
+              "description": "lan ip"
+            },
+            "guest_lan_ip": {
+              "type": "string",
+              "description": "guest lan ip"
+            },
+            "autoupdate_firmware_path": {
+              "type": "string",
+              "description": "autoupdate firmware path"
+            },
+            "autoupdate_time": {
+              "type": "string",
+              "description": "autoupdate time"
+            },
+            "autoupdate_enable": {
+              "type": "boolean",
+              "description": "atuoupdate enable"
+            },
+            "password": {
+              "type": "string",
+              "description": "system password"
+            },
+            "system_timezone": {
+              "type": "string",
+              "description": "system timezone"
+            },
+            "auto_timezone": {
+              "type": "string",
+              "description": "auto timezone"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "cloud-batch-manage.set_batch_config",
+      "summary": "set batch config",
+      "params": [
+        {
+          "name": "wan_proto",
+          "schema": {
+            "type": "string",
+            "description": "wan proto"
+          },
+          "required": false
+        },
+        {
+          "name": "wan_username",
+          "schema": {
+            "type": "string",
+            "description": "wan proto username"
+          },
+          "required": false
+        },
+        {
+          "name": "wan_password",
+          "schema": {
+            "type": "string",
+            "description": "wan proto password"
+          },
+          "required": false
+        },
+        {
+          "name": "wan_ipaddr",
+          "schema": {
+            "type": "string",
+            "description": "wan ipaddr"
+          },
+          "required": false
+        },
+        {
+          "name": "wan_gateway",
+          "schema": {
+            "type": "string",
+            "description": "wan gateway"
+          },
+          "required": false
+        },
+        {
+          "name": "wan_netmask",
+          "schema": {
+            "type": "string",
+            "description": "wan netmask"
+          },
+          "required": false
+        },
+        {
+          "name": "wan_dns",
+          "schema": {
+            "type": "string",
+            "description": "wan dns"
+          },
+          "required": false
+        },
+        {
+          "name": "reboot_flag",
+          "schema": {
+            "type": "boolean",
+            "description": "reboot_flag"
+          },
+          "required": false
+        },
+        {
+          "name": "ssid_2g",
+          "schema": {
+            "type": "string",
+            "description": "2.4G ssid"
+          },
+          "required": false
+        },
+        {
+          "name": "disable_2g",
+          "schema": {
+            "type": "boolean",
+            "description": "2.4g disable"
+          },
+          "required": false
+        },
+        {
+          "name": "hidden_2g",
+          "schema": {
+            "type": "boolean",
+            "description": "2.4G hidden"
+          },
+          "required": false
+        },
+        {
+          "name": "channel_2g",
+          "schema": {
+            "type": "string",
+            "description": "2.4G channle"
+          },
+          "required": false
+        },
+        {
+          "name": "txpower_2g",
+          "schema": {
+            "type": "string",
+            "description": "2.4G txpower"
+          },
+          "required": false
+        },
+        {
+          "name": "htmode_2g",
+          "schema": {
+            "type": "string",
+            "description": "2.4g htmode"
+          },
+          "required": false
+        },
+        {
+          "name": "encrytion_2g",
+          "schema": {
+            "type": "string",
+            "description": "2.4G encryption"
+          },
+          "required": false
+        },
+        {
+          "name": "key_2g",
+          "schema": {
+            "type": "string",
+            "description": "2.4G key"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_2g_ssid",
+          "schema": {
+            "type": "string",
+            "description": "2.4G guest ssid"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_2g_encrytion",
+          "schema": {
+            "type": "string",
+            "description": "2.4G guest encryption"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_2g_key",
+          "schema": {
+            "type": "string",
+            "description": "2.4G guest key"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_2g_disable",
+          "schema": {
+            "type": "boolean",
+            "description": "2.4G guest disable"
+          },
+          "required": false
+        },
+        {
+          "name": "ssid_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G ssid"
+          },
+          "required": false
+        },
+        {
+          "name": "channel_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G channle"
+          },
+          "required": false
+        },
+        {
+          "name": "txpower_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G txpower"
+          },
+          "required": false
+        },
+        {
+          "name": "htmode_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G htmode"
+          },
+          "required": false
+        },
+        {
+          "name": "encrytion_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G encryption"
+          },
+          "required": false
+        },
+        {
+          "name": "disable_5g",
+          "schema": {
+            "type": "boolean",
+            "description": "5G disable"
+          },
+          "required": false
+        },
+        {
+          "name": "hidden_5g",
+          "schema": {
+            "type": "boolean",
+            "description": "5G hidden"
+          },
+          "required": false
+        },
+        {
+          "name": "key_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G key"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_5g_ssid",
+          "schema": {
+            "type": "string",
+            "description": "5G guest ssid"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_5g_encrytion",
+          "schema": {
+            "type": "string",
+            "description": "5G guest encryption"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_5g_key",
+          "schema": {
+            "type": "string",
+            "description": "5G guest key"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_5g_disable",
+          "schema": {
+            "type": "boolean",
+            "description": "5G guest disable"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_data_path1",
+          "schema": {
+            "type": "string",
+            "description": "probe data path"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_data_path2",
+          "schema": {
+            "type": "string",
+            "description": "probe data path"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_max_lines",
+          "schema": {
+            "type": "string",
+            "description": "probe max lines"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_interval",
+          "schema": {
+            "type": "string",
+            "description": "probe interval"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_json",
+          "schema": {
+            "type": "string",
+            "description": "probe json"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_virmac",
+          "schema": {
+            "type": "string",
+            "description": "probe virmac"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_type",
+          "schema": {
+            "type": "string",
+            "description": "probe type"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_tcpurl",
+          "schema": {
+            "type": "string",
+            "description": "probe tcp url"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_filter",
+          "schema": {
+            "type": "string",
+            "description": "probe filter"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_sflag",
+          "schema": {
+            "type": "string",
+            "description": "probe sflag"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_protocol",
+          "schema": {
+            "type": "string",
+            "description": "probe protocol"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_channel",
+          "schema": {
+            "type": "string",
+            "description": "probe channel"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_channel5g",
+          "schema": {
+            "type": "string",
+            "description": "probe 5G channel"
+          },
+          "required": false
+        },
+        {
+          "name": "probe_induce",
+          "schema": {
+            "type": "string",
+            "description": "probe induce"
+          },
+          "required": false
+        },
+        {
+          "name": "lan_ip",
+          "schema": {
+            "type": "string",
+            "description": "lan ip"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_lan_ip",
+          "schema": {
+            "type": "string",
+            "description": "guest lan ip"
+          },
+          "required": false
+        },
+        {
+          "name": "autoupdate_firmware_path",
+          "schema": {
+            "type": "string",
+            "description": "autoupdate firmware path"
+          },
+          "required": false
+        },
+        {
+          "name": "autoupdate_time",
+          "schema": {
+            "type": "string",
+            "description": "autoupdate time"
+          },
+          "required": false
+        },
+        {
+          "name": "autoupdate_enable",
+          "schema": {
+            "type": "boolean",
+            "description": "atuoupdate enable"
+          },
+          "required": false
+        },
+        {
+          "name": "password",
+          "schema": {
+            "type": "string",
+            "description": "system password"
+          },
+          "required": false
+        },
+        {
+          "name": "system_timezone",
+          "schema": {
+            "type": "string",
+            "description": "system timezone"
+          },
+          "required": false
+        },
+        {
+          "name": "auto_timezone",
+          "schema": {
+            "type": "string",
+            "description": "auto timezone"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_batch_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "cloud-batch-manage",
+                  "set_batch_config",
+                  {
+                    "wan_proto": "dhcp"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "cloud-batch-manage.get_2b_config",
+      "summary": "get 2b config",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "lan_ip": {
+              "type": "string",
+              "description": "device lan ip"
+            },
+            "autoupdate_firmeare_path": {
+              "type": "string",
+              "description": "device autoupdate firmare path"
+            },
+            "autoupdate_time": {
+              "type": "string",
+              "description": "device autoupdate time"
+            },
+            "autoupdate_enable": {
+              "type": "boolean",
+              "description": "enable autoupdate"
+            },
+            "password": {
+              "type": "string",
+              "description": "system password"
+            },
+            "system_timezone": {
+              "type": "string",
+              "description": "system timezone"
+            },
+            "hostname": {
+              "type": "string",
+              "description": "hostname"
+            },
+            "auto_timezone": {
+              "type": "string",
+              "description": "auto sync timezone"
+            },
+            "server_name": {
+              "type": "string",
+              "description": "server name"
+            },
+            "server_url": {
+              "type": "string",
+              "description": "server url"
+            },
+            "language": {
+              "type": "string",
+              "description": "languate"
+            },
+            "image_url": {
+              "type": "string",
+              "description": "image url"
+            },
+            "customer_name": {
+              "type": "string",
+              "description": "customer name"
+            },
+            "help_url": {
+              "type": "string",
+              "description": "help url"
+            },
+            "ssid_2g": {
+              "type": "string",
+              "description": "2.4G ssid"
+            },
+            "disable_2g": {
+              "type": "boolean",
+              "description": "2.4g disable"
+            },
+            "hidden_2g": {
+              "type": "boolean",
+              "description": "2.4G hidden"
+            },
+            "channel_2g": {
+              "type": "string",
+              "description": "2.4G channle"
+            },
+            "txpower_2g": {
+              "type": "string",
+              "description": "2.4G txpower"
+            },
+            "htmode_2g": {
+              "type": "string",
+              "description": "2.4g htmode"
+            },
+            "encrytion_2g": {
+              "type": "string",
+              "description": "2.4G encryption"
+            },
+            "key_2g": {
+              "type": "string",
+              "description": "2.4G key"
+            },
+            "guest_2g_ssid": {
+              "type": "string",
+              "description": "2.4G guest ssid"
+            },
+            "guest_2g_encrytion": {
+              "type": "string",
+              "description": "2.4G guest encryption"
+            },
+            "guest_2g_key": {
+              "type": "string",
+              "description": "2.4G guest key"
+            },
+            "guest_2g_disable": {
+              "type": "boolean",
+              "description": "2.4G guest disable"
+            },
+            "ssid_5g": {
+              "type": "string",
+              "description": "5G ssid"
+            },
+            "channel_5g": {
+              "type": "string",
+              "description": "5G channle"
+            },
+            "txpower_5g": {
+              "type": "string",
+              "description": "5G txpower"
+            },
+            "htmode_5g": {
+              "type": "string",
+              "description": "5G htmode"
+            },
+            "encrytion_5g": {
+              "type": "string",
+              "description": "5G encryption"
+            },
+            "disable_5g": {
+              "type": "boolean",
+              "description": "5G disable"
+            },
+            "hidden_5g": {
+              "type": "boolean",
+              "description": "5G hidden"
+            },
+            "key_5g": {
+              "type": "string",
+              "description": "5G key"
+            },
+            "guest_5g_ssid": {
+              "type": "string",
+              "description": "5G guest ssid"
+            },
+            "guest_5g_encrytion": {
+              "type": "string",
+              "description": "5G guest encryption"
+            },
+            "guest_5g_key": {
+              "type": "string",
+              "description": "5G guest key"
+            },
+            "guest_5g_disable": {
+              "type": "boolean",
+              "description": "5G guest disable"
+            },
+            "reboot_flag": {
+              "type": "string",
+              "description": "sysem reboot flag"
+            },
+            "private_disabled": {
+              "type": "string",
+              "description": "fb private disabled"
+            },
+            "private_controller": {
+              "type": "string",
+              "description": "fb private controller"
+            },
+            "guest_disabled": {
+              "type": "boolean",
+              "description": "fb guest disable"
+            },
+            "guest_controller": {
+              "type": "string",
+              "description": "fb guest controller"
+            },
+            "mode": {
+              "type": "string",
+              "description": "fb mode"
+            },
+            "ssl_id": {
+              "type": "string",
+              "description": "fb ssl id"
+            },
+            "private_wired": {
+              "type": "string",
+              "description": "fb private wired"
+            },
+            "private_datapath_id": {
+              "type": "string",
+              "description": "fb pravate data path id"
+            },
+            "private_datapath_desc": {
+              "type": "string",
+              "description": "fb private data path describte"
+            },
+            "private_ipaddr": {
+              "type": "string",
+              "description": "fb private ipaddr"
+            },
+            "private_netmask": {
+              "type": "string",
+              "description": "fb private dhcp lease"
+            },
+            "private_dhcp_lease": {
+              "type": "string",
+              "description": "fb private wlans"
+            },
+            "private_wlans": {
+              "type": "string",
+              "description": "fb private wlans"
+            },
+            "guest_wired": {
+              "type": "string",
+              "description": "fb guest wired"
+            },
+            "guest_datapath_id": {
+              "type": "string",
+              "description": "fb guest datapath id"
+            },
+            "guest_datapath_desc": {
+              "type": "string",
+              "description": "fb guest datapath desc"
+            },
+            "guest_ipaddr": {
+              "type": "string",
+              "description": "fb guest ipaddr"
+            },
+            "guest_netmask": {
+              "type": "string",
+              "description": "fb guest netmask"
+            },
+            "guest_dhcp_lease": {
+              "type": "string",
+              "description": "fb dhcp lease"
+            },
+            "guest_wlans": {
+              "type": "string",
+              "description": "gb guest wlans"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "cloud-batch-manage.set_2b_config",
+      "summary": "set 2b config",
+      "params": [
+        {
+          "name": "lan_ip",
+          "schema": {
+            "type": "string",
+            "description": "device lan ip"
+          },
+          "required": false
+        },
+        {
+          "name": "autoupdate_firmeare_path",
+          "schema": {
+            "type": "string",
+            "description": "device autoupdate firmare path"
+          },
+          "required": false
+        },
+        {
+          "name": "autoupdate_time",
+          "schema": {
+            "type": "string",
+            "description": "device autoupdate time"
+          },
+          "required": false
+        },
+        {
+          "name": "autoupdate_enable",
+          "schema": {
+            "type": "boolean",
+            "description": "enable autoupdate"
+          },
+          "required": false
+        },
+        {
+          "name": "password",
+          "schema": {
+            "type": "string",
+            "description": "system password"
+          },
+          "required": false
+        },
+        {
+          "name": "system_timezone",
+          "schema": {
+            "type": "string",
+            "description": "system timezone"
+          },
+          "required": false
+        },
+        {
+          "name": "hostname",
+          "schema": {
+            "type": "string",
+            "description": "hostname"
+          },
+          "required": false
+        },
+        {
+          "name": "auto_timezone",
+          "schema": {
+            "type": "string",
+            "description": "auto sync timezone"
+          },
+          "required": false
+        },
+        {
+          "name": "server_name",
+          "schema": {
+            "type": "string",
+            "description": "server name"
+          },
+          "required": false
+        },
+        {
+          "name": "server_url",
+          "schema": {
+            "type": "string",
+            "description": "server url"
+          },
+          "required": false
+        },
+        {
+          "name": "language",
+          "schema": {
+            "type": "string",
+            "description": "languate"
+          },
+          "required": false
+        },
+        {
+          "name": "image_url",
+          "schema": {
+            "type": "string",
+            "description": "image url"
+          },
+          "required": false
+        },
+        {
+          "name": "customer_name",
+          "schema": {
+            "type": "string",
+            "description": "customer name"
+          },
+          "required": false
+        },
+        {
+          "name": "help_url",
+          "schema": {
+            "type": "string",
+            "description": "help url"
+          },
+          "required": false
+        },
+        {
+          "name": "ssid_2g",
+          "schema": {
+            "type": "string",
+            "description": "2.4G ssid"
+          },
+          "required": false
+        },
+        {
+          "name": "disable_2g",
+          "schema": {
+            "type": "boolean",
+            "description": "2.4g disable"
+          },
+          "required": false
+        },
+        {
+          "name": "hidden_2g",
+          "schema": {
+            "type": "boolean",
+            "description": "2.4G hidden"
+          },
+          "required": false
+        },
+        {
+          "name": "channel_2g",
+          "schema": {
+            "type": "string",
+            "description": "2.4G channle"
+          },
+          "required": false
+        },
+        {
+          "name": "txpower_2g",
+          "schema": {
+            "type": "string",
+            "description": "2.4G txpower"
+          },
+          "required": false
+        },
+        {
+          "name": "htmode_2g",
+          "schema": {
+            "type": "string",
+            "description": "2.4g htmode"
+          },
+          "required": false
+        },
+        {
+          "name": "encrytion_2g",
+          "schema": {
+            "type": "string",
+            "description": "2.4G encryption"
+          },
+          "required": false
+        },
+        {
+          "name": "key_2g",
+          "schema": {
+            "type": "string",
+            "description": "2.4G key"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_2g_ssid",
+          "schema": {
+            "type": "string",
+            "description": "2.4G guest ssid"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_2g_encrytion",
+          "schema": {
+            "type": "string",
+            "description": "2.4G guest encryption"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_2g_key",
+          "schema": {
+            "type": "string",
+            "description": "2.4G guest key"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_2g_disable",
+          "schema": {
+            "type": "boolean",
+            "description": "2.4G guest disable"
+          },
+          "required": false
+        },
+        {
+          "name": "ssid_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G ssid"
+          },
+          "required": false
+        },
+        {
+          "name": "channel_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G channle"
+          },
+          "required": false
+        },
+        {
+          "name": "txpower_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G txpower"
+          },
+          "required": false
+        },
+        {
+          "name": "htmode_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G htmode"
+          },
+          "required": false
+        },
+        {
+          "name": "encrytion_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G encryption"
+          },
+          "required": false
+        },
+        {
+          "name": "disable_5g",
+          "schema": {
+            "type": "boolean",
+            "description": "5G disable"
+          },
+          "required": false
+        },
+        {
+          "name": "hidden_5g",
+          "schema": {
+            "type": "boolean",
+            "description": "5G hidden"
+          },
+          "required": false
+        },
+        {
+          "name": "key_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G key"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_5g_ssid",
+          "schema": {
+            "type": "string",
+            "description": "5G guest ssid"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_5g_encrytion",
+          "schema": {
+            "type": "string",
+            "description": "5G guest encryption"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_5g_key",
+          "schema": {
+            "type": "string",
+            "description": "5G guest key"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_5g_disable",
+          "schema": {
+            "type": "boolean",
+            "description": "5G guest disable"
+          },
+          "required": false
+        },
+        {
+          "name": "reboot_flag",
+          "schema": {
+            "type": "string",
+            "description": "sysem reboot flag"
+          },
+          "required": false
+        },
+        {
+          "name": "private_disabled",
+          "schema": {
+            "type": "string",
+            "description": "fb private disabled"
+          },
+          "required": false
+        },
+        {
+          "name": "private_controller",
+          "schema": {
+            "type": "string",
+            "description": "fb private controller"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_disabled",
+          "schema": {
+            "type": "boolean",
+            "description": "fb guest disable"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_controller",
+          "schema": {
+            "type": "string",
+            "description": "fb guest controller"
+          },
+          "required": false
+        },
+        {
+          "name": "mode",
+          "schema": {
+            "type": "string",
+            "description": "fb mode"
+          },
+          "required": false
+        },
+        {
+          "name": "ssl_id",
+          "schema": {
+            "type": "string",
+            "description": "fb ssl id"
+          },
+          "required": false
+        },
+        {
+          "name": "private_wired",
+          "schema": {
+            "type": "string",
+            "description": "fb private wired"
+          },
+          "required": false
+        },
+        {
+          "name": "private_datapath_id",
+          "schema": {
+            "type": "string",
+            "description": "fb pravate data path id"
+          },
+          "required": false
+        },
+        {
+          "name": "private_datapath_desc",
+          "schema": {
+            "type": "string",
+            "description": "fb private data path describte"
+          },
+          "required": false
+        },
+        {
+          "name": "private_ipaddr",
+          "schema": {
+            "type": "string",
+            "description": "fb private ipaddr"
+          },
+          "required": false
+        },
+        {
+          "name": "private_netmask",
+          "schema": {
+            "type": "string",
+            "description": "fb private dhcp lease"
+          },
+          "required": false
+        },
+        {
+          "name": "private_dhcp_lease",
+          "schema": {
+            "type": "string",
+            "description": "fb private wlans"
+          },
+          "required": false
+        },
+        {
+          "name": "private_wlans",
+          "schema": {
+            "type": "string",
+            "description": "fb private wlans"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_wired",
+          "schema": {
+            "type": "string",
+            "description": "fb guest wired"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_datapath_id",
+          "schema": {
+            "type": "string",
+            "description": "fb guest datapath id"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_datapath_desc",
+          "schema": {
+            "type": "string",
+            "description": "fb guest datapath desc"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_ipaddr",
+          "schema": {
+            "type": "string",
+            "description": "fb guest ipaddr"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_netmask",
+          "schema": {
+            "type": "string",
+            "description": "fb guest netmask"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_dhcp_lease",
+          "schema": {
+            "type": "string",
+            "description": "fb dhcp lease"
+          },
+          "required": false
+        },
+        {
+          "name": "guest_wlans",
+          "schema": {
+            "type": "string",
+            "description": "gb guest wlans"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    }
+  ]
+}

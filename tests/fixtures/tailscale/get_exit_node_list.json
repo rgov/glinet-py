@@ -1,0 +1,24 @@
+{
+  "name": "tailscale.get_exit_node_list",
+  "summary": "Get tailscale settings",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "tailscale",
+      "get_exit_node_list"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "exit_node_list": [
+        "100.91.50.xxx",
+        "100.71.64.xxx"
+      ]
+    }
+  }
+}

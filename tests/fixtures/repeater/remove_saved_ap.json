@@ -1,0 +1,22 @@
+{
+  "name": "repeater.remove_saved_ap",
+  "summary": "Remove the saved network",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "repeater",
+      "remove_saved_ap",
+      {
+        "ssid": "test"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

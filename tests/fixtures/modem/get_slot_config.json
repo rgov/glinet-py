@@ -1,0 +1,68 @@
+{
+  "name": "modem.get_slot_config",
+  "summary": "Get dual SIM card settings. The API only supports setting the built-in cellular modem",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "get_slot_config",
+      {
+        "bus": "0001:01:00.0"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "enable_switch": true,
+      "current_sim": "1",
+      "main_sim": "1",
+      "failover_interval": "120",
+      "sim1_profile": "f9FQ3vUzMJmih4Ck",
+      "sim2_profile": "o2bCZMB53KHk6HAX",
+      "enable_timing": true,
+      "hour": "05",
+      "min": "00",
+      "sim1": {
+        "carrier": "CHN-UNICOM",
+        "phone_number": "13060005427",
+        "iccid": "89860118801382789221",
+        "network": {
+          "protocol": "3g",
+          "device": "ttyUSB3",
+          "apn": "3gnet",
+          "service": "CDC-WDMA",
+          "auth": "PAP",
+          "username": "gl-inet",
+          "password": "goodlife1",
+          "dial_number": "#9999",
+          "ttl": "65",
+          "ttl_ipv6": "65",
+          "pin_code": "1234"
+        }
+      },
+      "sim2": {
+        "carrier": "CHN-UNICOM",
+        "phone_number": "13054365427",
+        "iccid": "89860322201382789221",
+        "network": {
+          "protocol": "3g",
+          "device": "ttyUSB3",
+          "apn": "3gnet",
+          "service": "CDC-WDMA",
+          "auth": "PAP",
+          "username": "gl-inet",
+          "password": "goodlife1",
+          "dial_number": "#9999",
+          "ttl": "65",
+          "ttl_ipv6": "65",
+          "pin_code": "1234"
+        }
+      }
+    }
+  }
+}

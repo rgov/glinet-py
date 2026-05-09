@@ -1,0 +1,127 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — adguardhome module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "adguardhome.get_config",
+      "summary": "get the current configuration",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "whether to enable"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "adguardhome",
+                  "get_config"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "enabled": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "adguardhome.set_config",
+      "summary": "modify the configuration file",
+      "params": [
+        {
+          "name": "enabled",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enable"
+          },
+          "required": true
+        },
+        {
+          "name": "dns_enabled",
+          "schema": {
+            "type": "boolean",
+            "description": "port 53 is redirected to 3053, whether adguardhome handles client requests"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [1: Other DNS not turned off]"
+            },
+            "err_msg": {
+              "type": "number",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "adguardhome",
+                  "set_config",
+                  {
+                    "enabled": true
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    }
+  ]
+}

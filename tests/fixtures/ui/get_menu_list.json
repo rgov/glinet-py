@@ -1,0 +1,41 @@
+{
+  "name": "ui.get_menu_list",
+  "summary": "get menu list.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "ui",
+      "get_menu_list"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "menus": [
+        {
+          "title": "Network",
+          "index": 30,
+          "path": "/network",
+          "children": [
+            {
+              "title": "DHCP/DNS",
+              "path": "/network/dhcp",
+              "index": 40,
+              "view": "oui-app-dhcp"
+            }
+          ]
+        },
+        {
+          "title": "Test",
+          "index": 31,
+          "path": "/test",
+          "view": "oui-app-test"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1761 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — otbr module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "otbr.generate_thread_network",
+      "summary": "Initialize a network with random values, include PAN ID, Extended PAN ID and Network Key.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "generate_thread_network_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "generate_thread_network",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "err_code": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.export_thread_network",
+      "summary": "Export the network configuration, the configuration file format is passphrase|datasetactive",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "filename": {
+              "type": "string",
+              "description": "The name of the exported file"
+            },
+            "path": {
+              "type": "string",
+              "description": "The path of the exported file"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "export_thread_network_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "export_thread_network",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "filename": "thread_network.conf",
+              "path": "/tmp/thread_network.conf"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.import_thread_network",
+      "summary": "If there is no interface to pass parameters, use the configuration file to import the network configuration.",
+      "params": [
+        {
+          "name": "Passphrase",
+          "schema": {
+            "type": "string",
+            "description": "Thread network Passphrase, a user-defined character string that serves as Commissioner Credential and"
+          },
+          "required": true
+        },
+        {
+          "name": "ActiveDataset",
+          "schema": {
+            "type": "string",
+            "description": "Operational Dataset TLVs."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "import_thread_network_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "import_thread_network",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "err_code": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.get_status",
+      "summary": "Get the Thread network status",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "OpenThreadVersionAPI": {
+              "type": "string",
+              "description": "OpenThread API version"
+            },
+            "OTBRVersion": {
+              "type": "string",
+              "description": "ot-br-posix version"
+            },
+            "ThreadVersion": {
+              "type": "string",
+              "description": "Thread Specification version, v1.1 , v1.2, v1.3"
+            },
+            "Network": {
+              "type": "object",
+              "description": "Thread network information",
+              "properties": {
+                "Channel": {
+                  "type": "number",
+                  "description": "Thread network channel. The value ranges from 11 to 26"
+                },
+                "ExtPanId": {
+                  "type": "string",
+                  "description": "Thread network Extended PAN ID. Its length is limited to 16 bytes of UTF-8 encoded characters"
+                },
+                "NetworkKey": {
+                  "type": "string",
+                  "description": "Thread network key, which is 32 bytes long UTF-8 encoded characters"
+                },
+                "NetworkName": {
+                  "type": "string",
+                  "description": "Thread network name. Its length is limited to 1 to 16 characters"
+                },
+                "PanId": {
+                  "type": "number",
+                  "description": "Thread network PAN ID, value range: 0<= PAN ID <65535 or 0x0<= PAN ID<0xFFFF"
+                },
+                "PSKc": {
+                  "type": "string",
+                  "description": "Thread network PSKc, PSKc is algorithmically generated by Passphrase, ExtendedPanId, and NetworkName,"
+                },
+                "Passphrase": {
+                  "type": "string",
+                  "description": "Thread network Passphrase, a user-defined character string that serves as Commissioner Credential and"
+                },
+                "OnMeshPrefix": {
+                  "type": "array",
+                  "description": "On-Mesh Prefix"
+                },
+                "LeaderData": {
+                  "type": "object",
+                  "description": "Leader data",
+                  "properties": {
+                    "PartitionId": {
+                      "type": "number",
+                      "description": "Partition ID of the leader node"
+                    },
+                    "Weighting": {
+                      "type": "number",
+                      "description": "Weighting of the leader node"
+                    },
+                    "DataVersion": {
+                      "type": "number",
+                      "description": "Data Version of the leader node"
+                    },
+                    "StableDataVersion": {
+                      "type": "number",
+                      "description": "Stable Data Version of the leader node"
+                    },
+                    "LeaderRouterId": {
+                      "type": "number",
+                      "description": "Leader Router ID of the leader node"
+                    }
+                  }
+                },
+                "IPv6": {
+                  "type": "array",
+                  "description": "IPv6 information"
+                },
+                "IPv6[x]": {
+                  "type": "string",
+                  "description": "IPv6[x] information"
+                },
+                "ActiveDataset": {
+                  "type": "string",
+                  "description": "Operational Dataset TLVs."
+                }
+              }
+            },
+            "RCP": {
+              "type": "object",
+              "description": "RCP information",
+              "properties": {
+                "State": {
+                  "type": "number",
+                  "description": "The state of RCP module, disabled=0, detached=1, child=2, router=3 or leader=4"
+                },
+                "RCPVersion": {
+                  "type": "string",
+                  "description": "RCP version"
+                },
+                "ExtAddress": {
+                  "type": "string",
+                  "description": "IEEE 802.15.4 Extended Address"
+                },
+                "EUI64": {
+                  "type": "string",
+                  "description": "The factory-assigned IEEE EUI-64"
+                },
+                "TXPower": {
+                  "type": "number",
+                  "description": "The transmit power in dBm"
+                },
+                "Rloc16": {
+                  "type": "number",
+                  "description": "Thread RLOC16 value"
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "otbr.scan",
+      "summary": "Scan peripheral Thread devices.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ScanList": {
+              "type": "array",
+              "description": "Scan list"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "otbr.set_config",
+      "summary": "Create a new Thread network or modify the current Thread network.",
+      "params": [
+        {
+          "name": "NetworkName",
+          "schema": {
+            "type": "string",
+            "description": "Thread network name, its length is limited to 1~16 characters"
+          },
+          "required": true
+        },
+        {
+          "name": "ExtPanId",
+          "schema": {
+            "type": "string",
+            "description": "Thread Network Extended PAN ID"
+          },
+          "required": true
+        },
+        {
+          "name": "PanId",
+          "schema": {
+            "type": "number",
+            "description": "Thread network PAN ID"
+          },
+          "required": true
+        },
+        {
+          "name": "Passphrase",
+          "schema": {
+            "type": "string",
+            "description": "Thread network Passphrase, a user-defined character string that serves as Commissioner Credential and"
+          },
+          "required": true
+        },
+        {
+          "name": "NetworkKey",
+          "schema": {
+            "type": "string",
+            "description": "Thread network key, its length is 32 bytes UTF-8 encoded characters"
+          },
+          "required": true
+        },
+        {
+          "name": "Channel",
+          "schema": {
+            "type": "number",
+            "description": "Thread network channel, the value range is 11-26"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "otbr.set_txpower",
+      "summary": "Set the transmit power of the Thread device.",
+      "params": [
+        {
+          "name": "TXPower",
+          "schema": {
+            "type": "number",
+            "description": "The transmit power in dBm"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_txpower_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "set_txpower",
+                  {
+                    "TXPower": 8
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "err_code": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.stop",
+      "summary": "Stop the Thread network of the device.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "stop_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "stop",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "err_code": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.start",
+      "summary": "Start the Thread network",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "start_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "start",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "err_code": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.join",
+      "summary": "Join the Thread network.",
+      "params": [
+        {
+          "name": "CredentialType",
+          "schema": {
+            "type": "string",
+            "description": "Supported values are 'networkKeyType' and 'pskdType'"
+          },
+          "required": true
+        },
+        {
+          "name": "NetworkKey",
+          "schema": {
+            "type": "string",
+            "description": "Thread network key, which is 32 bytes long UTF-8 encoded characters"
+          },
+          "required": true
+        },
+        {
+          "name": "PSKd",
+          "schema": {
+            "type": "string",
+            "description": "The Joiner Credential is a device-specific string of all uppercase alphanumeric characters"
+          },
+          "required": true
+        },
+        {
+          "name": "Channel",
+          "schema": {
+            "type": "number",
+            "description": "Thread network channel"
+          },
+          "required": true
+        },
+        {
+          "name": "PanId",
+          "schema": {
+            "type": "number",
+            "description": "Thread network PAN ID"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "otbr.add_joiner",
+      "summary": "Add Joiners.",
+      "params": [
+        {
+          "name": "PSKd",
+          "schema": {
+            "type": "string",
+            "description": "The Joiner Credential is a device-specific string of all uppercase alphanumeric characters"
+          },
+          "required": true
+        },
+        {
+          "name": "Timeout",
+          "schema": {
+            "type": "number",
+            "description": "Joiner timeout in seconds. Default 120s"
+          },
+          "required": true
+        },
+        {
+          "name": "EUI64",
+          "schema": {
+            "type": "string",
+            "description": "The IEEE EUI-64 of the Joiner or '*' to match any Joiner."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_joiner_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "add_joiner",
+                  {
+                    "PSKd": "654321",
+                    "EUI64": "9483c4ea62f8cfcd",
+                    "Timeout": 120
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "err_code": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.export_joiner_list",
+      "summary": "Export the Joiner information to /tmp/thread_devices, the file is a cvs format, and its data format is 'Joiner EUI64,Joiner Credential'.",
+      "params": [
+        {
+          "name": "Timeout",
+          "schema": {
+            "type": "number",
+            "description": "Joiner timeout in seconds. Default 120s"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "export_joiner_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "export_joiner_list",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "err_code": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.import_joiner_list",
+      "summary": "Import Joiner list.",
+      "params": [
+        {
+          "name": "Timeout",
+          "schema": {
+            "type": "number",
+            "description": "Joiner timeout in seconds. Default 120s"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "import_joiner_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "import_joiner_list",
+                  {
+                    "Timeout": 120
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "err_code": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.rejoin_all",
+      "summary": "Start Commissining and add Joiner entry.",
+      "params": [
+        {
+          "name": "Timeout",
+          "schema": {
+            "type": "number",
+            "description": "Joiner timeout in seconds. Default 120s"
+          },
+          "required": true
+        },
+        {
+          "name": "Type",
+          "schema": {
+            "type": "number",
+            "description": "Supported values are 1: Only Timeout, 2: Only Joined, 3: ALL"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code. -1:Invalied parameter"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "rejoin_all_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "rejoin_all",
+                  {
+                    "Timeout": 120,
+                    "Type": 3
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "err_code": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.remove_joiner_list",
+      "summary": "Delete Joiner entries.",
+      "params": [
+        {
+          "name": "DeviceList",
+          "schema": {
+            "type": "array",
+            "description": "DeviceList"
+          },
+          "required": true
+        },
+        {
+          "name": "DeviceList[x]",
+          "schema": {
+            "type": "string",
+            "description": "Joiner EUI64"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_joiner_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "remove_joiners",
+                  {
+                    "DeviceList": [
+                      "9483c4ea62f8cfcd",
+                      "9483c4ea62f8cfcf"
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "err_code": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.get_joiner_list",
+      "summary": "Get the Joiner list.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "DeviceList": {
+              "type": "array",
+              "description": "DeviceList"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_joiner_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "get_joiner_list",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "DeviceList": [
+                {
+                  "Timeout": 120,
+                  "PSKd": "AAAAAA",
+                  "Status": 0,
+                  "EUI64": "94deb8fffef6e101"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.get_network_data",
+      "summary": "Get Thread network topology map data.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ExtAddress": {
+              "type": "string",
+              "description": "IEEE 802.15.4 Extended Address"
+            },
+            "Name": {
+              "type": "string",
+              "description": "The name of the user-defined Thread network node."
+            },
+            "Rloc16": {
+              "type": "number",
+              "description": "The Thread RLOC16 value"
+            },
+            "Mode": {
+              "type": "object",
+              "description": "The MLE link mode of the Thread device",
+              "properties": {
+                "RxOnWhenIdle": {
+                  "type": "number",
+                  "description": "1, if the sender has its receiver on when not transmitting. 0, otherwise"
+                },
+                "DeviceType": {
+                  "type": "number",
+                  "description": "1, if the sender is an FTD. 0, otherwise."
+                },
+                "NetworkData": {
+                  "type": "number",
+                  "description": "1, if the sender requires the full Network Data. 0, otherwise."
+                }
+              }
+            },
+            "Connectivity": {
+              "type": "object",
+              "description": "Network Diagnostic Connectivity",
+              "properties": {
+                "ParentPriority": {
+                  "type": "number",
+                  "description": "The priority of the sender as a parent."
+                },
+                "LinkQuality3": {
+                  "type": "number",
+                  "description": "The number of neighboring devices with which the sender shares a link of quality 3."
+                },
+                "LinkQuality2": {
+                  "type": "number",
+                  "description": "The number of neighboring devices with which the sender shares a link of quality 2."
+                },
+                "LinkQuality1": {
+                  "type": "number",
+                  "description": "The number of neighboring devices with which the sender shares a link of quality 1."
+                },
+                "LeaderCost": {
+                  "type": "number",
+                  "description": "The sender's routing cost to the Leader."
+                },
+                "IdSequence": {
+                  "type": "number",
+                  "description": "The most recent ID sequence number received by the sender."
+                },
+                "ActiveRouters": {
+                  "type": "number",
+                  "description": "The number of active Routers in the sender's Thread Network Partition."
+                },
+                "SedBufferSize": {
+                  "type": "number",
+                  "description": "The guaranteed buffer capacity in octets for all IPv6 datagrams destined to a given SED. Optional."
+                },
+                "SedDatagramCount": {
+                  "type": "number",
+                  "description": "The guaranteed queue capacity in number of IPv6 datagrams destined to a given SED. Optional."
+                }
+              }
+            },
+            "Route": {
+              "type": "object",
+              "description": "Network Diagnostic Route TLV value",
+              "properties": {
+                "IdSequence": {
+                  "type": "number",
+                  "description": "The sequence number associated with the set of Router ID assignments in #mRouteData."
+                },
+                "RouteData": {
+                  "type": "array",
+                  "description": "Link Quality and Routing Cost data"
+                }
+              }
+            },
+            "LeaderData": {
+              "type": "object",
+              "description": "Leader node information in the Thread network",
+              "properties": {
+                "PartitionId": {
+                  "type": "number",
+                  "description": "Partition ID of the leader node"
+                },
+                "Weighting": {
+                  "type": "number",
+                  "description": "Weighting of the Leader node"
+                },
+                "DataVersion": {
+                  "type": "number",
+                  "description": "Data Version of the Leader node"
+                },
+                "StableDataVersion": {
+                  "type": "number",
+                  "description": "Stable Data Version of the Leader node"
+                },
+                "LeaderRouterId": {
+                  "type": "number",
+                  "description": "Leader Router ID of the Leader node"
+                }
+              }
+            },
+            "NetworkData": {
+              "type": "string",
+              "description": "NetworkData"
+            },
+            "IP6AddressList": {
+              "type": "array",
+              "description": "IP6AddressList"
+            },
+            "MACCounters": {
+              "type": "object",
+              "description": "Network Diagnostic Mac Counters value",
+              "properties": {
+                "IfInUnknownProtos": {
+                  "type": "number",
+                  "description": "IfInUnknownProtos"
+                },
+                "IfInErrors": {
+                  "type": "number",
+                  "description": "IfInErrors"
+                },
+                "IfOutErrors": {
+                  "type": "number",
+                  "description": "IfOutErrors"
+                },
+                "IfInUcastPkts": {
+                  "type": "number",
+                  "description": "IfInUcastPkts"
+                },
+                "IfInBroadcastPkts": {
+                  "type": "number",
+                  "description": "IfInBroadcastPkts"
+                },
+                "IfInDiscards": {
+                  "type": "number",
+                  "description": "IfInDiscards"
+                },
+                "IfOutUcastPkts": {
+                  "type": "number",
+                  "description": "IfOutUcastPkts"
+                },
+                "IfOutBroadcastPkts": {
+                  "type": "number",
+                  "description": "IfOutBroadcastPkts"
+                },
+                "IfOutDiscards": {
+                  "type": "number",
+                  "description": "IfOutDiscards"
+                }
+              }
+            },
+            "ChildTable": {
+              "type": "object",
+              "description": "ChildTable"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "otbr.export_network_data",
+      "summary": "Export Thread network diagnostic data",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "file_path": {
+              "type": "string",
+              "description": "The file path"
+            },
+            "file_name": {
+              "type": "string",
+              "description": "The file name"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "export_network_data_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "export_network_data",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "file_path": "/js/thread_network_diagnostics.json",
+              "file_name": "thread_network_diagnostics.json"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.get_neighbor_list",
+      "summary": "desc",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "NeighborNumber": {
+              "type": "number",
+              "description": "The number of neighbor"
+            },
+            "NeighborList": {
+              "type": "array",
+              "description": "NeighborList"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "otbr.get_bbr_status",
+      "summary": "Get Backbone Router status information",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "State": {
+              "type": "string",
+              "description": "Represents the Backbone Router Status, the values of State are Disabled, Secondary, Primary"
+            },
+            "MlrTimeout": {
+              "type": "number",
+              "description": "The minimum value of Multicast Listener Registration Timeout (in seconds) is 300s, and the maximum value is 24d"
+            },
+            "SequenceNumber": {
+              "type": "number",
+              "description": "Sequence Number"
+            },
+            "ReregistrationDelay": {
+              "type": "number",
+              "description": "Reregistration Delay (in seconds)"
+            },
+            "Jitter": {
+              "type": "number",
+              "description": "Jitter"
+            },
+            "Ifname": {
+              "type": "string",
+              "description": "Current backboneIfName"
+            },
+            "Ifnames": {
+              "type": "array",
+              "description": "Supported backboneIfName"
+            },
+            "Ifnames[x]": {
+              "type": "string",
+              "description": "Supported backboneIfName"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_bbr_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "get_bbr_status",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "State": "Primary",
+              "Ifname": "br-lan",
+              "SequenceNumber": 5,
+              "Ifnames": [
+                "eth0",
+                "br-lan"
+              ],
+              "MlrTimeout": 3600,
+              "Jitter": 5,
+              "Error": 0,
+              "ReregistrationDelay": 5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.set_bbr_config",
+      "summary": "Set Backbone router config",
+      "params": [
+        {
+          "name": "MlrTimeout",
+          "schema": {
+            "type": "number",
+            "description": "The minimum value of Multicast Listener Registration Timeout (in seconds) is 300s, and the maximum value is 24d"
+          },
+          "required": true
+        },
+        {
+          "name": "SequenceNumber",
+          "schema": {
+            "type": "number",
+            "description": "Sequence Number"
+          },
+          "required": true
+        },
+        {
+          "name": "ReregistrationDelay",
+          "schema": {
+            "type": "number",
+            "description": "Reregistration Delay (in seconds)"
+          },
+          "required": true
+        },
+        {
+          "name": "Jitter",
+          "schema": {
+            "type": "number",
+            "description": "Jitter"
+          },
+          "required": true
+        },
+        {
+          "name": "IfName",
+          "schema": {
+            "type": "string",
+            "description": "backboneIfName"
+          },
+          "required": true
+        },
+        {
+          "name": "Enable",
+          "schema": {
+            "type": "boolean",
+            "description": "Enable Backbone router function"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_bbr_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "set_bbr_config",
+                  {
+                    "MlrTimeout": 3500,
+                    "SequenceNumber": 30,
+                    "ReregistrationDelay": 1000,
+                    "Jitter": 10
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "err_code": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.set_commissioning",
+      "summary": "Set commissioner status",
+      "params": [
+        {
+          "name": "Enable",
+          "schema": {
+            "type": "boolean",
+            "description": "Enable Commissioner"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_commissioning_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": "0",
+                "method": "call",
+                "params": [
+                  "",
+                  "otbr",
+                  "set_commissioner",
+                  {
+                    "Enable": true
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "err_code": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "otbr.get_srp_server_service",
+      "summary": "Get SRP Server Service.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "Services": {
+              "type": "array",
+              "description": "SRP Services"
+            },
+            "ServicesNumber": {
+              "type": "number",
+              "description": "The service number"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "otbr.get_srp_server_config",
+      "summary": "Get SRP Server config.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "Enable": {
+              "type": "boolean",
+              "description": "Enable SRP Server"
+            },
+            "DomainName": {
+              "type": "string",
+              "description": "The SRP Server domain name"
+            },
+            "MinLease": {
+              "type": "number",
+              "description": "The minimum LEASE interval in seconds. mMinLease <= mMaxLease, mMinLease <= mMinKeyLease"
+            },
+            "MaxLease": {
+              "type": "number",
+              "description": "The maximum LEASE interval in seconds. mMaxLease <= mMaxKeyLease"
+            },
+            "MinKeyLease": {
+              "type": "number",
+              "description": "The minimum KEY-LEASE interval in seconds. mMinKeyLease <= mMaxKeyLease"
+            },
+            "MaxKeyLease": {
+              "type": "number",
+              "description": "The maximum KEY-LEASE interval in seconds"
+            },
+            "SeqNum": {
+              "type": "number",
+              "description": "The sequence number used with anycast address mode."
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "otbr.set_srp_server_config",
+      "summary": "Set SRP Server config.",
+      "params": [
+        {
+          "name": "Enable",
+          "schema": {
+            "type": "boolean",
+            "description": "Enable SRP Server"
+          },
+          "required": true
+        },
+        {
+          "name": "DomainName",
+          "schema": {
+            "type": "string",
+            "description": "The SRP Server domain name"
+          },
+          "required": true
+        },
+        {
+          "name": "MinLease",
+          "schema": {
+            "type": "number",
+            "description": "The minimum LEASE interval in seconds. mMinLease <= mMaxLease, mMinLease <= mMinKeyLease"
+          },
+          "required": true
+        },
+        {
+          "name": "MaxLease",
+          "schema": {
+            "type": "number",
+            "description": "The maximum LEASE interval in seconds. mMaxLease <= mMaxKeyLease"
+          },
+          "required": true
+        },
+        {
+          "name": "MinKeyLease",
+          "schema": {
+            "type": "number",
+            "description": "The minimum KEY-LEASE interval in seconds. mMinKeyLease <= mMaxKeyLease"
+          },
+          "required": true
+        },
+        {
+          "name": "MaxKeyLease",
+          "schema": {
+            "type": "number",
+            "description": "The maximum KEY-LEASE interval in seconds"
+          },
+          "required": true
+        },
+        {
+          "name": "SeqNum",
+          "schema": {
+            "type": "number",
+            "description": "The sequence number used with anycast address mode. The sequence number is included in \"DNS/SRP Service Anycast Address\" entry published in the Network Data.Front end does not need to display"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    }
+  ]
+}

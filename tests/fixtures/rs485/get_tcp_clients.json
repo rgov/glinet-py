@@ -1,0 +1,31 @@
+{
+  "name": "rs485.get_tcp_clients",
+  "summary": "get tcp client list",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "rs485",
+      "get_tcp_clients",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "tcp_clients": [
+        {
+          "port": 50995,
+          "address": "192.168.8.106"
+        },
+        {
+          "port": 50995,
+          "address": "192.168.8.106"
+        }
+      ]
+    }
+  }
+}

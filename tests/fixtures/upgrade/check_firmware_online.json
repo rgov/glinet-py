@@ -1,0 +1,45 @@
+{
+  "name": "upgrade.check_firmware_online",
+  "summary": "get the firmware info",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "upgrade",
+      "check_firmware_online",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "current_version": "4.000",
+      "firmware_type": "release",
+      "current_compile_time": "2021-08-11 9:40:45",
+      "version_new": "4.001",
+      "new_compile_time": "2021-08-13 09:41:35",
+      "release_note": "System:Based on openwrt 19.07.7",
+      "upgrade_control": {
+        "not_keep_config": {
+          "version": "4.003",
+          "description": "Solve the xxx problem"
+        },
+        "supported_version": "4.001",
+        "not_keep_config_part": [
+          {
+            "path": "/etc/config/ssids",
+            "description": "Solve the xxx problem"
+          },
+          {
+            "path": "/etc/config/wireless",
+            "description": "Solve the xxx problem"
+          }
+        ],
+        "user": "general"
+      }
+    }
+  }
+}

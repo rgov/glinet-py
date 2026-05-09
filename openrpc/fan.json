@@ -1,0 +1,223 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — fan module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "fan.get_status",
+      "summary": "Get status of fan.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "speed": {
+              "type": "number",
+              "description": "fan speed."
+            },
+            "status": {
+              "type": "boolean",
+              "description": "fan status[true:open, false:close]."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "fan",
+                  "get_status",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "speed": 2000,
+              "status": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "fan.set_test",
+      "summary": "Set fan test.",
+      "params": [
+        {
+          "name": "test",
+          "schema": {
+            "type": "boolean",
+            "description": "test fan start-up."
+          },
+          "required": true
+        },
+        {
+          "name": "time",
+          "schema": {
+            "type": "number",
+            "description": "test fan start-up, default is 10 seconds."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_test_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "fan",
+                  "set_test",
+                  {
+                    "test": true,
+                    "time": 5
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "fan.set_config",
+      "summary": "Set fan config.",
+      "params": [
+        {
+          "name": "temperature",
+          "schema": {
+            "type": "number",
+            "description": "fan start-up temperature."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "fan",
+                  "set_config",
+                  {
+                    "temperature": 75
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "fan.get_config",
+      "summary": "Get config of fan.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "temperature": {
+              "type": "number",
+              "description": "current fan start-up temperature."
+            },
+            "warn_temperature": {
+              "type": "number",
+              "description": "warning threshold temperature(Default starting temperature set at the factory)."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "fan",
+                  "get_config",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "warn_temperature": 75,
+              "temperature": 75
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

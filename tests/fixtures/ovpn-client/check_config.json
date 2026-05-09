@@ -1,0 +1,37 @@
+{
+  "name": "ovpn-client.check_config",
+  "summary": "check uploaded ovpn config's parameter",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-client",
+      "check_config",
+      {
+        "group_id": 2312,
+        "filename": "France-Paris_UDP53.ovpn"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "passed": [
+        "AirVPN_US-Dallas-Texas_Mensa_TCP-443.ovpn"
+      ],
+      "unpassed": [
+        "AirVPN_US-Dallas-Texas_Vulpecula_TCP-443.ovpn"
+      ],
+      "needauth": [
+        "France-Paris_UDP53.ovpn"
+      ],
+      "needinfo": [],
+      "rootcert": [
+        "mullvad_ca.crt"
+      ]
+    }
+  }
+}

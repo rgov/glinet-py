@@ -1,0 +1,32 @@
+{
+  "name": "nas-web.get_file_list",
+  "summary": "get file list",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nas-web",
+      "get_file_list",
+      {
+        "path": "/disk1_part1"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "files": [
+        {
+          "n": "/disk1_part1",
+          "d": 123,
+          "l": 6009,
+          "t": "d",
+          "have_dir": 1
+        }
+      ]
+    }
+  }
+}

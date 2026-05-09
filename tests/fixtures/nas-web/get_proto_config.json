@@ -1,0 +1,29 @@
+{
+  "name": "nas-web.get_proto_config",
+  "summary": "get nas proto conf",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nas-web",
+      "get_proto_config",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "res": [
+        {
+          "name": "webdav",
+          "enable": true,
+          "port": 6009,
+          "wan_access": true
+        }
+      ]
+    }
+  }
+}

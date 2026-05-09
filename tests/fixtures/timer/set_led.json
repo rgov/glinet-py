@@ -1,0 +1,26 @@
+{
+  "name": "timer.set_led",
+  "summary": "set led config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "timer",
+      "set_led",
+      {
+        "enable": true,
+        "turnon_hour": "07",
+        "turnon_min": "00",
+        "turnoff_hour": "22",
+        "turnoff_min": "00"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

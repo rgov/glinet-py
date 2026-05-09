@@ -1,0 +1,23 @@
+{
+  "name": "fan.get_status",
+  "summary": "Get status of fan.",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "fan",
+      "get_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "speed": 2000,
+      "status": true
+    }
+  }
+}

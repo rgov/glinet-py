@@ -1,0 +1,22 @@
+{
+  "name": "otbr.start",
+  "summary": "Start the Thread network",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "start",
+      {}
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "err_code": 0
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "sms-forward.get_config",
+  "summary": "Get sms-forward settings",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "sms-forward",
+      "get_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "phone": {
+        "enable": true,
+        "phone_numbers": [
+          {
+            "country_code": "86",
+            "phone_number": "14785296323"
+          },
+          {
+            "country_code": "83",
+            "phone_number": "12345677412"
+          }
+        ]
+      },
+      "email": {
+        "password": "1234567abC",
+        "emails": [
+          "12345678963@gmail.com",
+          "12345678941@gmail.com"
+        ],
+        "subject": "GL-X750",
+        "encryption": 1,
+        "enable": true,
+        "smtp": "smtp.gmail.com:465",
+        "account": "12396325841@gmail.com"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "otbr.get_status",
+  "summary": "Get the Thread network status",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "get_status",
+      {}
+    ]
+  },
+  "response_raw": "{\"id\":1156,\"jsonrpc\":\"2.0\",\"result\":{\"OpenThreadVersionAPI\":260,\"Commissioner\":{\"State\":0},\"OTBRVersion\":\"ot-br-posix\\/2022-11-08-r4.2.3; POSIX; Feb 16 2022 20:29:10\",",
+  "response_parse_error": "Expecting property name enclosed in double quotes: line 1 column 168 (char 167)"
+}

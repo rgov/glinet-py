@@ -1,0 +1,23 @@
+{
+  "name": "otbr.export_thread_network",
+  "summary": "Export the network configuration, the configuration file format is passphrase|datasetactive",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "export_thread_network",
+      {}
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "filename": "thread_network.conf",
+      "path": "/tmp/thread_network.conf"
+    }
+  }
+}

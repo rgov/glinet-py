@@ -1,0 +1,11 @@
+{
+  "name": "clients.set_info",
+  "summary": "Setting name",
+  "request_raw": "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"method\\\":\\\"call\\\",\\\"id\\\":1,\\\"params\\\":[\\\"\\\",\\\"clients\\\",\\\"set_info\\\",{\\\"mac\\\":\\\"16:c3:7b:72:19:74\\\",\\\"alias\"\\:\\\"test\\\",\\\"class\\\":\\\"tv\\\"}]}",
+  "request_parse_error": "Expecting ':' delimiter: line 1 column 109 (char 108)",
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

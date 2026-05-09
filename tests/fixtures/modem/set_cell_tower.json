@@ -1,0 +1,35 @@
+{
+  "name": "modem.set_cell_tower",
+  "summary": "Lock specified cell tower.",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "set_cell_tower",
+      {
+        "bus": "0001:01:00.0",
+        "slot": 1,
+        "lock": true,
+        "band": 1,
+        "mcc": 460,
+        "rsrp": -80,
+        "freq": 428910,
+        "strength": 4,
+        "bandwidth": 106,
+        "pci": 952,
+        "cellid": "7602244D0",
+        "mnc": 11,
+        "tac": "76011A",
+        "srxlev": 49,
+        "scs": 15,
+        "rsrq": -11,
+        "network_type": "NR5G"
+      }
+    ],
+    "id": 1
+  },
+  "response_raw": "{\"id\":1,\"jsonrpc\":\"2.0\",\"result\":}",
+  "response_parse_error": "Expecting value: line 1 column 34 (char 33)"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "cloud-batch-manage.set_2b_config",
+  "summary": "set 2b config",
+  "request_raw": "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":1,\\\"method\\\":\\\"call\\\",\\\"params\\\":[\\\"\\\",\\\"cloud-batch-manage\\\",\\\"set_2b_config\\\",{\\\"lan_ip:\\\"192.168.8.1\\\"}]}",
+  "request_parse_error": "Expecting ':' delimiter: line 1 column 101 (char 100)",
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "clients.clean_traffic",
+  "summary": "Clear the traffic statistics of all clients",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "clients",
+      "clean_traffic",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": []
+  }
+}

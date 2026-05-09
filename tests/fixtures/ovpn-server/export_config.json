@@ -1,0 +1,25 @@
+{
+  "name": "ovpn-server.export_config",
+  "summary": "Export ovpn configuration",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-server",
+      "export_config",
+      {
+        "ddns": false
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "file_name": "client.ovpn",
+      "file_path": "/etc/openvpn/ovpn/client.ovpn"
+    }
+  }
+}

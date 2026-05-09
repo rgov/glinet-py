@@ -1,0 +1,24 @@
+{
+  "name": "modem.reboot_modem",
+  "summary": "Reboot the target cellular modem",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "reboot_modem",
+      {
+        "bus": "1-1"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "wait_time": 25
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "rtty.stop",
+  "summary": "disable rtty",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "rtty",
+      "stop"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

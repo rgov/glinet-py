@@ -1,0 +1,13 @@
+{
+  "name": "plugins.remove_package",
+  "summary": "uninstall software package",
+  "request_raw": "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"method\\\":\\\"call\\\",\\\"params\\\":[\\\"\\\",\\\"plugins\\\",\\\"remove_package\\\",{\\\"name\\\":\\\"tcpliveplay\\\",\\\"force\\\",false}],\\\"id\\\":1}",
+  "request_parse_error": "Expecting ':' delimiter: line 1 column 103 (char 102)",
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "info": "Removing package tcpliveplay from root..."
+    }
+  }
+}

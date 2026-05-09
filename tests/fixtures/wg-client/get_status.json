@@ -1,0 +1,33 @@
+{
+  "name": "wg-client.get_status",
+  "summary": "get the wireguard client status",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "get_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "group_id": 2312,
+      "peer_id": 5712,
+      "name": "mullvad_ae_all",
+      "proxy": false,
+      "log": "",
+      "status": 1,
+      "ipv4": "10.70.33.3",
+      "ipv6": "fc00:bbbb:bb01::11",
+      "rx_bytes": 50,
+      "tx_bytes": 45,
+      "port": 41348,
+      "domain": "ae-dxb-001.mullvad.net"
+    }
+  }
+}

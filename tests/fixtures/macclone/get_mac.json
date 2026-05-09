@@ -1,0 +1,23 @@
+{
+  "name": "macclone.get_mac",
+  "summary": "get mac configuration information",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "macclone",
+      "get_mac"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "mac": "08:10:7B:B3:E8:92",
+      "factory_mac": "94:83:C4:0C:6D:D6",
+      "remote_mac": "94:83:C4:0C:6D:D6"
+    }
+  }
+}

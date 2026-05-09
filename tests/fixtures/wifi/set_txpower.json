@@ -1,0 +1,23 @@
+{
+  "name": "wifi.set_txpower",
+  "summary": "set the RF transmit power.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "wifi",
+      "set_txpower",
+      {
+        "device": "radio0",
+        "txpower": "Max"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

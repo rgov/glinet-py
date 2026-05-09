@@ -1,0 +1,23 @@
+{
+  "name": "repeater.set_config",
+  "summary": "Setup config",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "repeater",
+      "set_config",
+      {
+        "auto": true,
+        "lock_band": "2g"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

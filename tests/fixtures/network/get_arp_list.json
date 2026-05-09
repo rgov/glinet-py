@@ -1,0 +1,32 @@
+{
+  "name": "network.get_arp_list",
+  "summary": "get ARP list",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "network",
+      "get_arp_list"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "entries": [
+        {
+          "ip": "192.168.8.2",
+          "mac": "11:22:33:44:55:66",
+          "device": "eth0.2"
+        },
+        {
+          "ip": "192.168.8.3",
+          "mac": "11:22:33:44:55:26",
+          "device": "eth0.2"
+        }
+      ]
+    }
+  }
+}

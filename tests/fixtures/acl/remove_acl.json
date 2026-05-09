@@ -1,0 +1,24 @@
+{
+  "name": "acl.remove_acl",
+  "summary": "remove permission",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "acl",
+      "remove_acl",
+      {
+        "group": "test",
+        "scope": "rpc",
+        "entry": "system.info"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

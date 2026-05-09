@@ -1,0 +1,40 @@
+{
+  "name": "qos.get_device_group",
+  "summary": "get client group information",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "qos",
+      "get_device_group",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "group": [
+        {
+          "priority": "1",
+          "clients": [
+            "F8:E4:3B:78:EE:01",
+            "F8:E4:3B:78:EE:02"
+          ],
+          "name": "game"
+        },
+        {
+          "priority": "2",
+          "clients": [
+            "E8:4E:06:7A:B5:1F",
+            "E8:4E:06:7A:B5:20"
+          ],
+          "name": "nas"
+        }
+      ],
+      "default_priority": "2"
+    }
+  }
+}

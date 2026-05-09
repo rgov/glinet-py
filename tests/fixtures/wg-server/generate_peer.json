@@ -1,0 +1,32 @@
+{
+  "name": "wg-server.generate_peer",
+  "summary": "Generate wireguard peer config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-server",
+      "generate_peer",
+      {
+        "peer_id": 2284
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "address": "10.0.0.2/32",
+      "private_key": "oOMRHz5wTf5Gq6TPnpXLKIOhy54wx5XO7/4nquChIFI=",
+      "dns": "64.6.64.6",
+      "domain_end_point": "gwe10df.glddns.com:51820",
+      "ip_end_point": "116.77.73.248:51820",
+      "public_key": "m7pNpcTJxf2gqpmgSa3dCMgY0c2nP5rXHV7ume0/uzs=",
+      "allowed_ips": "0.0.0.0/0",
+      "persistent_keepalive": 25,
+      "mtu": 1420
+    }
+  }
+}

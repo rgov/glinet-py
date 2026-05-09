@@ -1,0 +1,25 @@
+{
+  "name": "tailscale.set_config",
+  "summary": "Set tailscale settings",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "tailscale",
+      "set_config",
+      {
+        "enabled": 1,
+        "lan_enabled": 1,
+        "wan_enabled": 1,
+        "exit_node_ip": "100.91.50.xxx"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

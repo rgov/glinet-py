@@ -1,0 +1,33 @@
+{
+  "name": "qos.get_client_list",
+  "summary": "get client list {p.s:called when clicking to add client speed limit rule}",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "qos",
+      "get_client_list",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "clients": [
+        {
+          "mac": "18:c0:4d:dc:4f:cc",
+          "download": 10,
+          "upload": 2
+        },
+        {
+          "mac": "18:c0:4d:dc:4f:dd",
+          "download": 11,
+          "upload": 3
+        }
+      ]
+    }
+  }
+}

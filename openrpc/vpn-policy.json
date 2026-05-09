@@ -1,0 +1,701 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — vpn-policy module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "vpn-policy.set_proxy_mode",
+      "summary": "set proxy mode",
+      "params": [
+        {
+          "name": "mode",
+          "schema": {
+            "type": "number",
+            "description": "Proxy mode (0: global proxy, 1: automatic detection route, 2: custom route, 3: based on IP/domain, 4: based on client device MAC, 5: based on VLAN, ie. lan/guest interface)"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-1: parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_proxy_mode_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "vpn-policy",
+                  "set_proxy_mode",
+                  {
+                    "mode": 0
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "vpn-policy.get_proxy_mode",
+      "summary": "get proxy mode",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "number",
+              "description": "Proxy mode (0: global proxy, 1: automatic detection route, 2: custom route, 3: based on IP/domain, 4: based on client device MAC, 5: based on VLAN, ie. lan/guest interface)"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_proxy_mode_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "vpn-policy",
+                  "get_proxy_mode",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "mode": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "vpn-policy.get_global_policy",
+      "summary": "get Global Options",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "kill_switch": {
+              "type": "number",
+              "description": "Whether to block non-VPN traffic (0: not block, 1: block)"
+            },
+            "wan_access": {
+              "type": "number",
+              "description": "Whether to allow LAN->WAN forwarding traffic (0: not allow, 1: allow)"
+            },
+            "service_policy": {
+              "type": "number",
+              "description": "Whether to enable glinet service to use VPN of (0: enable 1: disable)"
+            },
+            "vpn_server_policy": {
+              "type": "number",
+              "description": "VPN cascading (0: enable 1: disable)"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_global_policy_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "vpn-policy",
+                  "get_global_policy",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "kill_switch": 0,
+              "wan_access": 0,
+              "service_policy": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "vpn-policy.set_global_policy",
+      "summary": "set Global Options",
+      "params": [
+        {
+          "name": "kill_switch",
+          "schema": {
+            "type": "number",
+            "description": "Whether to block non-VPN traffic (0: not block, 1: block)"
+          },
+          "required": false
+        },
+        {
+          "name": "wan_access",
+          "schema": {
+            "type": "number",
+            "description": "Whether to allow LAN->WAN forwarding traffic (0: not allow, 1: allow)"
+          },
+          "required": false
+        },
+        {
+          "name": "service_policy",
+          "schema": {
+            "type": "number",
+            "description": "Whether to enable glinet service to use VPN of (0: enable 1: disable)"
+          },
+          "required": false
+        },
+        {
+          "name": "vpn_server_policy",
+          "schema": {
+            "type": "number",
+            "description": "VPN cascading (0: enable 1: disable)"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-1: parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_global_policy_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "vpn-policy",
+                  "set_global_policy",
+                  {
+                    "kill_switch": 0,
+                    "wan_access": 0,
+                    "service_policy": 1,
+                    "vpn_server_policy": 1
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "vpn-policy.set_domain_policy",
+      "summary": "set domain policy",
+      "params": [
+        {
+          "name": "default_policy",
+          "schema": {
+            "type": "number",
+            "description": "Policy for domain/ip list (0: use vpn, 1: not use vpn)"
+          },
+          "required": true
+        },
+        {
+          "name": "domain_list",
+          "schema": {
+            "type": "array",
+            "description": "Domain/ip list"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-1: parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_domain_policy_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "vpn-policy",
+                  "set_domain_policy",
+                  {
+                    "default_policy": 0,
+                    "domain_list": [
+                      "google.com",
+                      "facebook.com"
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "vpn-policy.get_domain_policy",
+      "summary": "get domain policy",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "default_policy": {
+              "type": "number",
+              "description": "Policy for domain/ip list (0: use vpn, 1: not use vpn)"
+            },
+            "domain_list": {
+              "type": "string",
+              "description": "Domain/ip list"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_domain_policy_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "vpn-policy",
+                  "get_domain_policy",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "default_policy": 0,
+              "domain_list": [
+                "google.com",
+                "facebook.com"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "vpn-policy.set_mac_policy",
+      "summary": "set MAC policy",
+      "params": [
+        {
+          "name": "default_policy",
+          "schema": {
+            "type": "number",
+            "description": "Policy for MAC list (0: use vpn, 1: not use vpn)"
+          },
+          "required": true
+        },
+        {
+          "name": "mac_list",
+          "schema": {
+            "type": "array",
+            "description": "MAC list"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-1: parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_mac_policy_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "vpn-policy",
+                  "set_mac_policy",
+                  {
+                    "default_policy": 0,
+                    "mac_list": [
+                      "94:83:C4:0E:10:DF",
+                      "94:83:C4:0E:20:DF"
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "vpn-policy.get_mac_policy",
+      "summary": "get MAC policy",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "default_policy": {
+              "type": "number",
+              "description": "Policy for MAC list (0: use vpn, 1: not use vpn)"
+            },
+            "mac_list": {
+              "type": "array",
+              "description": "MAC list"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_mac_policy_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "vpn-policy",
+                  "get_mac_policy",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "default_policy": 0,
+              "mac_list": [
+                "94:83:C4:0E:10:DF",
+                "94:83:C4:0E:20:DF"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "vpn-policy.set_vlan_policy",
+      "summary": "set vlan policy",
+      "params": [
+        {
+          "name": "vlans",
+          "schema": {
+            "type": "array",
+            "description": "vlan array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "description": "vlan id(1:private, 2:guest)"
+                },
+                "vpn": {
+                  "type": "number",
+                  "description": "Whether to use vpn(0: not use vpn, 1: use vpn)"
+                }
+              }
+            }
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-1: parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_vlan_policy_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "vpn-policy",
+                  "set_vlan_policy",
+                  {
+                    "vlans": [
+                      {
+                        "id": 1,
+                        "vpn": 0
+                      },
+                      {
+                        "id": 2,
+                        "vpn": 0
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "vpn-policy.get_vlan_policy",
+      "summary": "get vlan policy",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vlans": {
+              "type": "array",
+              "description": "vlan array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "description": "vlan id(1:private, 2:guest)"
+                  },
+                  "vpn": {
+                    "type": "number",
+                    "description": "Whether to use vpn(0: not use vpn, 1: use vpn)"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_vlan_policy_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "vpn-policy",
+                  "get_vlan_policy",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "vlans": [
+                {
+                  "id": 1,
+                  "vpn": 0
+                },
+                {
+                  "id": 2,
+                  "vpn": 0
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

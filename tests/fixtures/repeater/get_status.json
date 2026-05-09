@@ -1,0 +1,38 @@
+{
+  "name": "repeater.get_status",
+  "summary": "Get the connection status",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "repeater",
+      "get_status"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "state": 3,
+      "ssid": "test",
+      "bssid": "11:22:33:44:55:66",
+      "channel": 12,
+      "signal": 20,
+      "ipv4": {
+        "ip": "192.168.8.12/24",
+        "gateway": "192.168.1.1"
+      },
+      "ipv6": {
+        "ip": [
+          "fd4d:7210:ad91:10::/64"
+        ],
+        "dns": [
+          "fd5c:d00d:fa8e::/64"
+        ],
+        "gateway": "fd5c:d00d:fa8e::/64"
+      }
+    }
+  }
+}

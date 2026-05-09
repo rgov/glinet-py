@@ -1,0 +1,23 @@
+{
+  "name": "igmp.get_config",
+  "summary": "get igmp configuration information",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "igmp",
+      "get_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "enable": false,
+      "version": 3
+    }
+  }
+}

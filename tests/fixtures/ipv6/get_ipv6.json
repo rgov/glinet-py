@@ -1,0 +1,23 @@
+{
+  "name": "ipv6.get_ipv6",
+  "summary": "get ipv6 configuration information",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "ipv6",
+      "get_ipv6"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "enable": false,
+      "lan_dns_mode": true,
+      "lan_mode": "nat6"
+    }
+  }
+}

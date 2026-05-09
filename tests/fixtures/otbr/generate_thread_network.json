@@ -1,0 +1,22 @@
+{
+  "name": "otbr.generate_thread_network",
+  "summary": "Initialize a network with random values, include PAN ID, Extended PAN ID and Network Key.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "generate_thread_network",
+      {}
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "err_code": 0
+    }
+  }
+}

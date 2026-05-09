@@ -1,0 +1,27 @@
+{
+  "name": "otbr.remove_joiner_list",
+  "summary": "Delete Joiner entries.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "remove_joiners",
+      {
+        "DeviceList": [
+          "9483c4ea62f8cfcd",
+          "9483c4ea62f8cfcf"
+        ]
+      }
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "err_code": 0
+    }
+  }
+}

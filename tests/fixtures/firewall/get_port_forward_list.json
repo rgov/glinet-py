@@ -1,0 +1,29 @@
+{
+  "name": "firewall.get_port_forward_list",
+  "summary": "get port forward list",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "firewall",
+      "get_port_forward_list"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "res": [
+        {
+          "enabled": true,
+          "id": "cfg143837",
+          "dest_ip": "192.168.8.100",
+          "src": "wan",
+          "proto": "tcp"
+        }
+      ]
+    }
+  }
+}

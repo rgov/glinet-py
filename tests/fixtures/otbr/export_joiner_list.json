@@ -1,0 +1,22 @@
+{
+  "name": "otbr.export_joiner_list",
+  "summary": "Export the Joiner information to /tmp/thread_devices, the file is a cvs format, and its data format is 'Joiner EUI64,Joiner Credential'.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "export_joiner_list",
+      {}
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "err_code": 0
+    }
+  }
+}

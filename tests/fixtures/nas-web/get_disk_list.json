@@ -1,0 +1,66 @@
+{
+  "name": "nas-web.get_disk_list",
+  "summary": "get nas disk info",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nas-web",
+      "get_disk_list",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "disk_number": 1,
+      "disk": [
+        {
+          "part_num": 4,
+          "sd_card": 1,
+          "part": [
+            {
+              "dev_name": "mmcblk0p11",
+              "disk_name": "disk1_part1",
+              "fs_type": "EXFAT",
+              "uid": "7005-A5B5",
+              "label": "exFAT_131G",
+              "total_len": 134663,
+              "free_size": 5351
+            },
+            {
+              "dev_name": "mmcblk0p6",
+              "disk_name": "disk1_part2",
+              "fs_type": "FAT",
+              "uid": "D4E5-0DF1",
+              "label": "FAT32_1G",
+              "total_len": 1026,
+              "free_size": 1014
+            },
+            {
+              "dev_name": "mmcblk0p7",
+              "disk_name": "disk1_part3",
+              "fs_type": "EXFAT",
+              "uid": "9784-6325",
+              "label": "exFAT_1G",
+              "total_len": 1024,
+              "free_size": 354
+            },
+            {
+              "dev_name": "mmcblk0p8",
+              "disk_name": "disk1_part4",
+              "fs_type": "EXT4",
+              "uid": "a56d2330-dee8-4b4a-8912-cdc90be2061a",
+              "label": "EXT4_1G",
+              "total_len": 1023,
+              "free_size": 953
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

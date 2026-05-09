@@ -1,0 +1,30 @@
+{
+  "name": "firewall.get_rule_list",
+  "summary": "get firewall rule list",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "firewall",
+      "get_rule_list"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "res": [
+        {
+          "id": "cfg1392bd",
+          "dest_port": 22,
+          "name": "test",
+          "target": "ACCEPT",
+          "enabled": true,
+          "src": "wan"
+        }
+      ]
+    }
+  }
+}

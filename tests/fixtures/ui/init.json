@@ -1,0 +1,28 @@
+{
+  "name": "ui.init",
+  "summary": "initialize.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "ui",
+      "init",
+      {
+        "lang": "auto",
+        "username": "admin",
+        "password": "123",
+        "ssid": "gl-x750",
+        "password_wifi": "goodlife",
+        "location": "bedroom",
+        "security_rule": 1
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

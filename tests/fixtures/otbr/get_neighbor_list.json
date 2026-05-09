@@ -1,0 +1,17 @@
+{
+  "name": "otbr.get_neighbor_list",
+  "summary": "desc",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "get_neighbor_list",
+      {}
+    ]
+  },
+  "response_raw": "{\"id\":\"0\",\"jsonrpc\":\"2.0\",\"result\":{\"NeighborList\":[{\"LinkQualityIn\":3,\"Role\":\"C\",\"ExtAddress\":\"ee099bc95aa1b3ff\",\"LastRssi\":-55,",
+  "response_parse_error": "Expecting property name enclosed in double quotes: line 1 column 130 (char 129)"
+}

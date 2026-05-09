@@ -1,0 +1,23 @@
+{
+  "name": "ovpn-client.start",
+  "summary": "start ovpn client",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-client",
+      "start",
+      {
+        "group_id": 3212,
+        "client_id": 1254
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

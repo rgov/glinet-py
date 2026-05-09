@@ -1,0 +1,24 @@
+{
+  "name": "wg-server.generate_publickey",
+  "summary": "generate wireguard server public key",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-server",
+      "generate_publickey",
+      {
+        "private_key": "XVpIdr+oYjTcgDwzSZmNa1nSsk8JO+tx1NBo17LDBAI="
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "public_key": "MANEa9SUz3kh6JujfX11rkj4Tw9WKnU7A9wmr4nmLiA="
+    }
+  }
+}

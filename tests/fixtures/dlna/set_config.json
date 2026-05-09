@@ -1,0 +1,23 @@
+{
+  "name": "dlna.set_config",
+  "summary": "set dlna conf",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "dlna",
+      "set_config",
+      {
+        "enabled": "true",
+        "path": "/mnt"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

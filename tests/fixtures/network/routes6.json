@@ -1,0 +1,29 @@
+{
+  "name": "network.routes6",
+  "summary": "get active IPv6 routing table",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "network",
+      "routes6"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "entries": [
+        {
+          "target": "::/0",
+          "source": "fd94:ba1d:265d:8::/62",
+          "nexthop": "fe80::5054:ff:fe00:8145",
+          "metric": 512,
+          "device": "eth0.2"
+        }
+      ]
+    }
+  }
+}

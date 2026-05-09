@@ -1,0 +1,177 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — tor module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "tor.get_config",
+      "summary": "Get tor settings",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "manual": {
+              "type": "boolean",
+              "description": "Manual selector switch: false: Disable, true：Enable"
+            },
+            "enable": {
+              "type": "boolean",
+              "description": "Status of tor：false: Disable， true: Enable"
+            },
+            "countries": {
+              "type": "array",
+              "description": "Get manually selected country"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:Failed to get settings."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "tor",
+                  "get_config"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "manual": true,
+              "enable": true,
+              "countries": "cn"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "tor.set_config",
+      "summary": "Set tor settings",
+      "params": [
+        {
+          "name": "manual",
+          "schema": {
+            "type": "boolean",
+            "description": "Manual selector switch: false: Disable, true：Enable"
+          },
+          "required": true
+        },
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "Status of tor：false :Disable true：Enable"
+          },
+          "required": true
+        },
+        {
+          "name": "countries",
+          "schema": {
+            "type": "array",
+            "description": "Set manually selected country(Multiple countries can be selected)"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:illegal parameter."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "tor",
+                  "set_config",
+                  {
+                    "enable": true,
+                    "manual": true,
+                    "countries": "cn"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "tor.get_status",
+      "summary": "Get tor status",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "number",
+              "description": "Connection Status of tor：0:not connected，1 :connection succeeded， 2 :connecting"
+            },
+            "log": {
+              "type": "string",
+              "description": "Current connection information log"
+            }
+          }
+        }
+      },
+      "examples": []
+    }
+  ]
+}

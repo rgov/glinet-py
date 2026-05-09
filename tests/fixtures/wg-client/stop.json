@@ -1,0 +1,20 @@
+{
+  "name": "wg-client.stop",
+  "summary": "stop wireguard client",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "stop",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

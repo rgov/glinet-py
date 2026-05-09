@@ -1,0 +1,58 @@
+{
+  "name": "mwan3.get_status",
+  "summary": "get mwan3 status [if this interface does not enable in mwan3, read the interface status directly instead of reading from mwan3]",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "mwan3",
+      "get_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "interfaces": [
+        {
+          "percent_v6": 0,
+          "status_v6": "offline",
+          "status_v4": "online",
+          "percent_v4": 100,
+          "interface": "wan"
+        },
+        {
+          "percent_v6": 0,
+          "status_v6": "offline",
+          "status_v4": "offline",
+          "percent_v4": 0,
+          "interface": "wwan"
+        },
+        {
+          "percent_v6": 0,
+          "status_v6": "offline",
+          "status_v4": "offline",
+          "percent_v4": 0,
+          "interface": "tethering"
+        },
+        {
+          "percent_v6": 0,
+          "status_v6": "offline",
+          "status_v4": "online",
+          "percent_v4": 0,
+          "interface": "modem_1_1_2"
+        },
+        {
+          "percent_v6": 0,
+          "status_v6": "offline",
+          "status_v4": "online",
+          "percent_v4": 0,
+          "interface": "modem_1_1_3"
+        }
+      ]
+    }
+  }
+}

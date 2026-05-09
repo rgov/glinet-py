@@ -1,0 +1,16 @@
+{
+  "name": "system.get_info",
+  "summary": "Get the basic information of the device, including model, firmware version, hardware version, etc.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "system",
+      "get_info"
+    ]
+  },
+  "response_raw": "{\"id\":1,\"jsonrpc\":\"2.0\",\"result\":{\"mac\":\"94:83:C4:0C:74:9A\",\"hardware_version\":\"\",\"software_feature\":{\"ids_ips\":false,\"ipv6\":true,\"adguard\":false,\"tor\":false,\"sms_forward\":false,\"vpn\":true,\"bark\":true},\"vendor\":\"GL.iNet\",\"hardware_feature\":{\"switch_button\":\"\",\"radio\":\"radio0\",\"lan\":\"eth0\",\"nand\":true,\"usb\":\"1-1.3\",\"usb_reset\":\"/sys/class/gpio0/usb_power/value,1\",\"modem_reset\":\"2\",\"build_in_modem\":\"1-1.2\",\"microsd\":\"1-1.1\",\"wan\":\"eth1\",\"mcu\":true,\"fan\":true,\"nowds\":false,\"reset_button\":\"gpio-3\"},\"country_code\":\"\",\"sn_bak\":\"705e8c25242eddd6\",\"board_info\":{\"architecture\":\"ARMv7 Processor rev 4 (v7l)\",\"hostname\":\"GL-AXT1800\",\"kernel_version\":\"4.4.60\",\"openwrt_version\":\"OpenWrt 21.02-SNAPSHOT r16273+114-378769b555\",\"model\":\"GL Technologies, Inc. AXT1800\"},\"firmware_date\":\"2022-02-16 5:42:18\",\"model\":\"xe300\",\"ddns\":\"evc749a\",\"sn\":\"4078493df9a88098\",\"firmware_type\":\"alpha4\",\"firmware_version\":\"4.0.0\",\"cpu_num\":4,\"hidden_features\":{\"ap\",\"wds\"}}}",
+  "response_parse_error": "Expecting ':' delimiter: line 1 column 943 (char 942)"
+}

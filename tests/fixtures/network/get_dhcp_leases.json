@@ -1,0 +1,28 @@
+{
+  "name": "network.get_dhcp_leases",
+  "summary": "get DHCP lease information",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "network",
+      "get_dhcp_leases"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "entries": [
+        {
+          "ip": "192.168.8.2",
+          "mac": "11:22:33:44:55:66",
+          "hostname": "test",
+          "expires": 12
+        }
+      ]
+    }
+  }
+}

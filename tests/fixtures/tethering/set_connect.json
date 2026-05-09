@@ -1,0 +1,22 @@
+{
+  "name": "tethering.set_connect",
+  "summary": "connect or disconnect tethering",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "tethering",
+      "set_connect",
+      {
+        "device": "usb0"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

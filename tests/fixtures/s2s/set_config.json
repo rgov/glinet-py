@@ -1,0 +1,46 @@
+{
+  "name": "s2s.set_config",
+  "summary": "Push the complete WireGuard settings file.",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "s2s",
+      "set_config",
+      {
+        "lan_ip": "192.168.9.1",
+        "interface": {
+          "mtu": "1560",
+          "listen_port": "51820",
+          "address": [
+            "10.0.0.1",
+            "0:0:0:0:0:ffff:a00:1"
+          ]
+        },
+        "peer": [
+          {
+            "public_key": "4Mss1+aEQMh4z8Ykgs/pwazmgjhWEzil9QreL2HZoEc=",
+            "allowed_ips": [
+              "192.168.8.0/24",
+              "192.168.9.0/24"
+            ]
+          },
+          {
+            "public_key": "6I13DX9LcF5ON15vYOfceSk3PzS2JjLyG0BbkspzDXc=",
+            "allowed_ips": [
+              "192.168.10.0/24",
+              "0:0:0:0:0:ffff:c0a8:a00"
+            ]
+          }
+        ]
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

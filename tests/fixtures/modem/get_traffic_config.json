@@ -1,0 +1,24 @@
+{
+  "name": "modem.get_traffic_config",
+  "summary": "Get the traffic statistics data of the cellular interface to be saved automatically",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "get_traffic_config",
+      {
+        "bus": "1-1"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "auto_save": true
+    }
+  }
+}

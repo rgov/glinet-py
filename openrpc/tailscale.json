@@ -1,0 +1,366 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — tailscale module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "tailscale.get_status",
+      "summary": "Get tailscale status",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "Status of tailscale,1：login required，2：authorization required，3：running,4：connecting"
+            },
+            "login_name": {
+              "type": "string",
+              "description": "Login Username"
+            },
+            "address_v4": {
+              "type": "string",
+              "description": "Ipv4 address"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:Failed to get status."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "tailscale",
+                  "get_status"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "login_name": "xxxxxxxx@qq.com",
+              "status": 3,
+              "address_v4": "100.77.122.xxx"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "tailscale.get_config",
+      "summary": "Get tailscale settings",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "string",
+              "description": "Whether to enable，false：Disable，true：Enable"
+            },
+            "wan_enabled": {
+              "type": "string",
+              "description": "Access the wan port network，false：Disable，true：Enable"
+            },
+            "lan_enabled": {
+              "type": "string",
+              "description": "Access the lan port network，false：Disable，true：Enable"
+            },
+            "lan_ip": {
+              "type": "string",
+              "description": "Lan ip"
+            },
+            "exit_node_ip": {
+              "type": "string",
+              "description": "Device exit node IP"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:Failed to get link."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "tailscale",
+                  "get_config"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "enabled": 1,
+              "lan_enabled": 0,
+              "wan_enabled": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "tailscale.set_config",
+      "summary": "Set tailscale settings",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "string",
+              "description": "Status of tailscale：true：Enable，false: Disable"
+            },
+            "wan_enabled": {
+              "type": "string",
+              "description": "Access the wan port network，true：Enable，false: Disable"
+            },
+            "lan_enabled": {
+              "type": "string",
+              "description": "Access the lan port network，true：Enable，false: Disable"
+            },
+            "exit_node_ip": {
+              "type": "string",
+              "description": "Exit node IP"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:Setup failed."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "tailscale",
+                  "set_config",
+                  {
+                    "enabled": 1,
+                    "lan_enabled": 1,
+                    "wan_enabled": 1,
+                    "exit_node_ip": "100.91.50.xxx"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "tailscale.logout",
+      "summary": "Logout of tailscale",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:Logout failed."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "logout_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "tailscale",
+                  "logout"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "tailscale.get_auth_url",
+      "summary": "Get tailscale login link",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "auth_url": {
+              "type": "string",
+              "description": "login link"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:Failed to get link."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_auth_url_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "tailscale",
+                  "login"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "AuthURL": "https://login.tailscale.com/a/xxxxxx"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "tailscale.get_exit_node_list",
+      "summary": "Get tailscale settings",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "exit_node_list": {
+              "type": "array",
+              "description": "List of exit nodes"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:Failed to get link."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_exit_node_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "tailscale",
+                  "get_exit_node_list"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "exit_node_list": [
+                "100.91.50.xxx",
+                "100.71.64.xxx"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

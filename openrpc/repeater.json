@@ -1,0 +1,758 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — repeater module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "repeater.connect",
+      "summary": "Connect an AP",
+      "params": [
+        {
+          "name": "ssid",
+          "schema": {
+            "type": "string",
+            "description": "SSID"
+          },
+          "required": true
+        },
+        {
+          "name": "identity",
+          "schema": {
+            "type": "string",
+            "description": "Setup the EAP identity (required when connect to WPA Enterprise)"
+          },
+          "required": false
+        },
+        {
+          "name": "key",
+          "schema": {
+            "type": "string",
+            "description": "Set up the password (required when connect to excrypted WiFi)"
+          },
+          "required": false
+        },
+        {
+          "name": "remember",
+          "schema": {
+            "type": "boolean",
+            "description": "Setup whether save the network or not"
+          },
+          "required": false
+        },
+        {
+          "name": "bssid",
+          "schema": {
+            "type": "string",
+            "description": "Setup whether lock the BSSID or not (null refers to not lock)"
+          },
+          "required": false
+        },
+        {
+          "name": "manual",
+          "schema": {
+            "type": "boolean",
+            "description": "Setup connect by manual"
+          },
+          "required": false
+        },
+        {
+          "name": "protocol",
+          "schema": {
+            "type": "string",
+            "description": "Setup the Internet connection [DHCP ; static]"
+          },
+          "required": false
+        },
+        {
+          "name": "ip",
+          "schema": {
+            "type": "string",
+            "description": "Setup the IP address (required when set as static)"
+          },
+          "required": false
+        },
+        {
+          "name": "netmask",
+          "schema": {
+            "type": "string",
+            "description": "Setup the netmask (required when set as static)"
+          },
+          "required": false
+        },
+        {
+          "name": "gateway",
+          "schema": {
+            "type": "string",
+            "description": "Setup the gateway (required when set as static)"
+          },
+          "required": false
+        },
+        {
+          "name": "dns",
+          "schema": {
+            "type": "array",
+            "description": "Setup the DNS (required when set as static)"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "number",
+              "description": "Error data"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "connect_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "repeater",
+                  "connect",
+                  {
+                    "ssid": "test",
+                    "key": "goodlife"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "repeater.disconnect",
+      "summary": "Disconnect the connected WiFi",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "disconnect_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "repeater",
+                  "disconnect"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "repeater.get_config",
+      "summary": "Get the confirguations",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "dfs_support": {
+              "type": "boolean",
+              "description": "Get whether DFS is supported or not"
+            },
+            "auto": {
+              "type": "boolean",
+              "description": "Get whether it is supported to switch to other saved networks or not"
+            },
+            "antijam": {
+              "type": "boolean",
+              "description": "Get whether 20MHz forced mode is enabled or not"
+            },
+            "lock_band": {
+              "type": "string",
+              "description": "Get the repeater band (2g or 5g, null refers to auto)"
+            },
+            "dfs": {
+              "type": "boolean",
+              "description": "Get whether the DFS channel is allowed to repeater or not"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "repeater",
+                  "get_config"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "auto": true,
+              "lock_band": "2g"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "repeater.set_config",
+      "summary": "Setup config",
+      "params": [
+        {
+          "name": "auto",
+          "schema": {
+            "type": "boolean",
+            "description": "Setup the enable swith to other saved networks (with this option enabled, router will try to connect to other saved network when the current WiFi doesn't have the Internet access)"
+          },
+          "required": true
+        },
+        {
+          "name": "antijam",
+          "schema": {
+            "type": "boolean",
+            "description": "Setup the 20MHz forced mode (with this option enabled, router is forced to work in low bandwidth mode, to get the better stability)"
+          },
+          "required": true
+        },
+        {
+          "name": "lock_band",
+          "schema": {
+            "type": "string",
+            "description": "Setup the repeater band (2g or 5g, null refers to auto)"
+          },
+          "required": false
+        },
+        {
+          "name": "dfs",
+          "schema": {
+            "type": "boolean",
+            "description": "Setup whether the DFS channel is allowed to repeater or not"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "repeater",
+                  "set_config",
+                  {
+                    "auto": true,
+                    "lock_band": "2g"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "repeater.get_status",
+      "summary": "Get the connection status",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "state": {
+              "type": "number",
+              "description": "Status [0: not used; 1: connecting; 2: connected; 3: connect failed]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "not used"
+                },
+                {
+                  "const": 1,
+                  "title": "connecting"
+                },
+                {
+                  "const": 2,
+                  "title": "connected"
+                },
+                {
+                  "const": 3,
+                  "title": "connect failed"
+                }
+              ]
+            },
+            "fail_type": {
+              "type": "string",
+              "description": "Get the failed type [not-found; key]"
+            },
+            "eap": {
+              "type": "boolean",
+              "description": "Get whether it is EAP enterprise encryption"
+            },
+            "device": {
+              "type": "string",
+              "description": "Get the WiFi device name"
+            },
+            "ssid": {
+              "type": "string",
+              "description": "Get the connecting or connected WiFi SSID"
+            },
+            "bssid": {
+              "type": "string",
+              "description": "Get the connected WiFi BSSID"
+            },
+            "channel": {
+              "type": "number",
+              "description": "Get the connected WiFi channel"
+            },
+            "signal": {
+              "type": "number",
+              "description": "Get the connected WiFi signal strength(dBm)"
+            },
+            "ipv4": {
+              "type": "object",
+              "description": "Get the IPv4 info",
+              "properties": {
+                "ip": {
+                  "type": "string",
+                  "description": "Get the IPv4 address (CIDR)"
+                },
+                "dns": {
+                  "type": "array",
+                  "description": "IPv4 DNS"
+                },
+                "gateway": {
+                  "type": "string",
+                  "description": "Get the IPv4 gateway"
+                }
+              }
+            },
+            "ipv6": {
+              "type": "object",
+              "description": "Get the IPv6 info",
+              "properties": {
+                "ip": {
+                  "type": "array",
+                  "description": "Get the IPv6 address (CIDR)"
+                },
+                "dns": {
+                  "type": "array",
+                  "description": "IPv6 DNS"
+                },
+                "gateway": {
+                  "type": "string",
+                  "description": "Get the IPv6 gateway"
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "repeater",
+                  "get_status"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "state": 3,
+              "ssid": "test",
+              "bssid": "11:22:33:44:55:66",
+              "channel": 12,
+              "signal": 20,
+              "ipv4": {
+                "ip": "192.168.8.12/24",
+                "gateway": "192.168.1.1"
+              },
+              "ipv6": {
+                "ip": [
+                  "fd4d:7210:ad91:10::/64"
+                ],
+                "dns": [
+                  "fd5c:d00d:fa8e::/64"
+                ],
+                "gateway": "fd5c:d00d:fa8e::/64"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "repeater.remove_saved_ap",
+      "summary": "Remove the saved network",
+      "params": [
+        {
+          "name": "ssid",
+          "schema": {
+            "type": "string",
+            "description": "SSID"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_saved_ap_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "repeater",
+                  "remove_saved_ap",
+                  {
+                    "ssid": "test"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "repeater.get_saved_ap_list",
+      "summary": "Get the saved networks data",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "res": {
+              "type": "array",
+              "description": "Get the list of saved networks",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ssid": {
+                    "type": "string",
+                    "description": "SSID"
+                  },
+                  "bssid": {
+                    "type": "string",
+                    "description": "Get whether the BSSID is locked or not (null refers to not locked)"
+                  },
+                  "identity": {
+                    "type": "string",
+                    "description": "Get the EAP identify (required for EAP enterprise)"
+                  },
+                  "key": {
+                    "type": "string",
+                    "description": "Get the password"
+                  },
+                  "protocol": {
+                    "type": "string",
+                    "description": "Get the Internet connection type [DHCP ; static]"
+                  },
+                  "ip": {
+                    "type": "string",
+                    "description": "Get the IP address (static IP)"
+                  },
+                  "netmask": {
+                    "type": "string",
+                    "description": "Get the netmask (static IP)"
+                  },
+                  "gateway": {
+                    "type": "string",
+                    "description": "Get the gateway (static IP)"
+                  },
+                  "dns": {
+                    "type": "array",
+                    "description": "Get the DNS (static IP)"
+                  }
+                }
+              }
+            },
+            "manual": {
+              "type": "boolean",
+              "description": "Get whether it is added by manual"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_saved_ap_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "repeater",
+                  "get_saved_ap_list"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "res": [
+                {
+                  "ssid": "test",
+                  "key": "12132432423"
+                },
+                {
+                  "ssid": "x",
+                  "key": "sefrsedtfsde"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "repeater.scan",
+      "summary": "Scan the APs",
+      "params": [
+        {
+          "name": "all_band",
+          "schema": {
+            "type": "boolean",
+            "description": "Force scanning of all frequency bands, if false, only locked frequency bands"
+          },
+          "required": true
+        },
+        {
+          "name": "dfs",
+          "schema": {
+            "type": "boolean",
+            "description": "Obtain the AP that contains the DFS channel, and if false, return according to the trunk settings"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "res": {
+              "type": "array",
+              "description": "Get the AP list",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ssid": {
+                    "type": "string",
+                    "description": "SSID"
+                  },
+                  "bssid": {
+                    "type": "string",
+                    "description": "BSSID"
+                  },
+                  "signal": {
+                    "type": "number",
+                    "description": "Get the signal strength"
+                  },
+                  "band": {
+                    "type": "number",
+                    "description": "Get the band (2g or 5g)"
+                  },
+                  "saved": {
+                    "type": "boolean",
+                    "description": "Get whether to save it or not"
+                  },
+                  "device": {
+                    "type": "string",
+                    "description": "Get the WiFi device (refer to 'wifi-device' in /etc/config/wireless)"
+                  },
+                  "encryption": {
+                    "type": "object",
+                    "description": "Get the security info",
+                    "properties": {
+                      "enabled": {
+                        "type": "boolean",
+                        "description": "Get whether it is encrypted"
+                      },
+                      "wpa": {
+                        "type": "number",
+                        "description": "Get the WPA version (the first bit refer to WPA1 enable or not, the second bit refer to WPA2, the third refer to WPA3)"
+                      },
+                      "auth_suites": {
+                        "type": "array",
+                        "description": "Get the encryption (PSK, SAE, 802.1X)"
+                      },
+                      "pair_ciphers": {
+                        "type": "array",
+                        "description": "Get the encryption algorithm (CCMP, TKIP)"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Security description"
+                      },
+                      "uci": {
+                        "type": "string",
+                        "description": "UCI configuration"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "scan_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "wifi",
+                  "scan"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "res": [
+                {
+                  "ssid": "GL-AR750S-4e2-5G",
+                  "band": "5g",
+                  "encryption": {
+                    "enabled": true,
+                    "description": "WPA2 PSK (CCMP)",
+                    "auth_suites": [
+                      "PSK"
+                    ],
+                    "wpa": 2,
+                    "pair_ciphers": [
+                      "CCMP"
+                    ],
+                    "uci": "psk2"
+                  },
+                  "bssid": "94:83:C4:0C:54:E3",
+                  "channel": 36,
+                  "signal": -60
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

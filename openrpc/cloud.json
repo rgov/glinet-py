@@ -1,0 +1,1593 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — cloud module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "cloud.set_config",
+      "summary": "modify the configuration file",
+      "params": [
+        {
+          "name": "cloud_enable",
+          "schema": {
+            "type": "boolean",
+            "description": "enable connect to cloud"
+          },
+          "required": true
+        },
+        {
+          "name": "rtty_ssh",
+          "schema": {
+            "type": "boolean",
+            "description": "enable rtty ssh"
+          },
+          "required": true
+        },
+        {
+          "name": "rtty_web",
+          "schema": {
+            "type": "boolean",
+            "description": "enable rtty web"
+          },
+          "required": true
+        },
+        {
+          "name": "clear_token",
+          "schema": {
+            "type": "boolean",
+            "description": "clear token"
+          },
+          "required": true
+        },
+        {
+          "name": "serverzone",
+          "schema": {
+            "type": "string",
+            "description": "server zone"
+          },
+          "required": true
+        },
+        {
+          "name": "server_name",
+          "schema": {
+            "type": "string",
+            "description": "server name(serverzone server_name pick one of two)"
+          },
+          "required": true
+        },
+        {
+          "name": "templete",
+          "schema": {
+            "type": "number",
+            "description": "template state(valid for 2B)"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "cloud",
+                  "set_config",
+                  {
+                    "cloud_enable": "true",
+                    "rtty_ssh": "true",
+                    "rtty_web": "true",
+                    "serverzone": "China"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "cloud.get_config",
+      "summary": "get the current configuration",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cloud_enable": {
+              "type": "boolean",
+              "description": "enable connect to cloud"
+            },
+            "rtty_ssh": {
+              "type": "boolean",
+              "description": "enable rtty ssh"
+            },
+            "rtty_web": {
+              "type": "boolean",
+              "description": "enable rtty web"
+            },
+            "serverzone": {
+              "type": "string",
+              "description": "currently set server zone"
+            },
+            "serverzones": {
+              "type": "array",
+              "description": "all optional server zones"
+            },
+            "name": {
+              "type": "string",
+              "description": "DDNS"
+            },
+            "username": {
+              "type": "string",
+              "description": "username"
+            },
+            "email": {
+              "type": "string",
+              "description": "user email"
+            },
+            "bindtime": {
+              "type": "string",
+              "description": "user binding time"
+            },
+            "token_invalid": {
+              "type": "boolean",
+              "description": "invalid token"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "cloud",
+                  "get_config"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "cloud_enable": "true",
+              "rtty_ssh": "true",
+              "rtty_web": "true",
+              "serverzone": "China",
+              "serverzones": [
+                "Europe",
+                "America",
+                "China"
+              ],
+              "name": "gclone",
+              "email": "88666@126.com",
+              "bindtime": "192168"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "cloud.unbind",
+      "summary": "unbind the device",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "api": {
+              "type": "string",
+              "description": "unbind api"
+            },
+            "code": {
+              "type": "number",
+              "description": "result code"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code [0: ok; -1: network not reachable]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "ok"
+                },
+                {
+                  "const": -1,
+                  "title": "network not reachable"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "unbind_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "cloud",
+                  "unbind"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "api": "cloud/unbind",
+              "code": -1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "cloud.bind_info",
+      "summary": "set binding information: Called by the cloud platform, when username is empty, it means unbinding",
+      "params": [
+        {
+          "name": "username",
+          "schema": {
+            "type": "string",
+            "description": "cloud user name"
+          },
+          "required": true
+        },
+        {
+          "name": "email",
+          "schema": {
+            "type": "string",
+            "description": "cloud user email"
+          },
+          "required": true
+        },
+        {
+          "name": "bindtime",
+          "schema": {
+            "type": "string",
+            "description": "user binding time"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "bind_info_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "cloud-batch-manage",
+                  "bind_info",
+                  {
+                    "username": "glcloud",
+                    "email": "126@qq.com",
+                    "bindtime": "192168"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "cloud.get_batch_config",
+      "summary": "get batch configuration",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "network": {
+              "type": "object",
+              "description": "network configuration",
+              "properties": {
+                "wan": {
+                  "type": "object",
+                  "description": "ethernet configuration",
+                  "properties": {
+                    "proto": {
+                      "type": "string",
+                      "description": "interface protocol [dhcp; static; pppoe]"
+                    },
+                    "username": {
+                      "type": "string",
+                      "description": "PPPOE username"
+                    },
+                    "password": {
+                      "type": "string",
+                      "description": "PPPOE password"
+                    },
+                    "ipaddr": {
+                      "type": "string",
+                      "description": "IP address"
+                    },
+                    "gateway": {
+                      "type": "string",
+                      "description": "gateway"
+                    },
+                    "netmask": {
+                      "type": "string",
+                      "description": "subnet mask"
+                    },
+                    "dns": {
+                      "type": "array",
+                      "description": "DNS"
+                    },
+                    "ip6addr": {
+                      "type": "string",
+                      "description": "IPv6 address(include subnet mask,example: ddb4:1aed:acf9::/48)"
+                    },
+                    "gateway6": {
+                      "type": "string",
+                      "description": "IPv6 gateway"
+                    },
+                    "dns6": {
+                      "type": "array",
+                      "description": "IPv6 DNS"
+                    }
+                  }
+                },
+                "lan": {
+                  "type": "object",
+                  "description": "private network configuration",
+                  "properties": {
+                    "ipaddr": {
+                      "type": "string",
+                      "description": "IP address"
+                    },
+                    "netmask": {
+                      "type": "string",
+                      "description": "subnet mask"
+                    },
+                    "dhcp_start": {
+                      "type": "number",
+                      "description": "DHCP start address offset"
+                    },
+                    "dhcp_limit": {
+                      "type": "number",
+                      "description": "DHCP number of address pools"
+                    }
+                  }
+                },
+                "guest": {
+                  "type": "object",
+                  "description": "guest network configuration",
+                  "properties": {
+                    "ipaddr": {
+                      "type": "string",
+                      "description": "IP address"
+                    },
+                    "netmask": {
+                      "type": "string",
+                      "description": "subnet mask"
+                    },
+                    "dhcp_start": {
+                      "type": "number",
+                      "description": "DHCP start address offset"
+                    },
+                    "dhcp_limit": {
+                      "type": "number",
+                      "description": "DHCP number of address pools"
+                    }
+                  }
+                }
+              }
+            },
+            "wifi": {
+              "type": "array",
+              "description": "Wi-Fi configuration",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "hwmodes": {
+                    "type": "array",
+                    "description": "list of supported hardware modes"
+                  },
+                  "htmodes": {
+                    "type": "object",
+                    "description": "the maximum bandwidth supported by each hardware mode, the auto option indicates whether to support automatic bandwidth"
+                  },
+                  "channels": {
+                    "type": "array",
+                    "description": "list of supported channels"
+                  },
+                  "encryptions": {
+                    "type": "array",
+                    "description": "list of supported encryption"
+                  },
+                  "band": {
+                    "type": "string",
+                    "description": "Wi-Fi band [2G; 5G]"
+                  },
+                  "hwmode": {
+                    "type": "string",
+                    "description": "currently configured hardware mode"
+                  },
+                  "htmode": {
+                    "type": "string",
+                    "description": "currently configured bandwidth"
+                  },
+                  "channel": {
+                    "type": "number",
+                    "description": "currently configured channel (0 means auto)"
+                  },
+                  "txpower": {
+                    "type": "string",
+                    "description": "currently configured power"
+                  },
+                  "device": {
+                    "type": "string",
+                    "description": "Wi-Fi device name"
+                  },
+                  "ifaces": {
+                    "type": "array",
+                    "description": "WiFi interface configuration list",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "enabled": {
+                          "type": "boolean",
+                          "description": "whether to enable"
+                        },
+                        "ssid": {
+                          "type": "string",
+                          "description": "Wi-Fi name"
+                        },
+                        "hidden": {
+                          "type": "boolean",
+                          "description": "whether to hide SSID"
+                        },
+                        "encryption": {
+                          "type": "string",
+                          "description": "encryption"
+                        },
+                        "key": {
+                          "type": "string",
+                          "description": "password"
+                        },
+                        "guest": {
+                          "type": "boolean",
+                          "description": "is it a guest Wi-Fi"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "interface name"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "firewall": {
+              "type": "object",
+              "description": "firewall configuration",
+              "properties": {
+                "rules": {
+                  "type": "array",
+                  "description": "firewall rules",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "firewall name"
+                      },
+                      "src": {
+                        "type": "string",
+                        "description": "source zone (obtained from the get_zone_list interface)"
+                      },
+                      "src_ip": {
+                        "type": "string",
+                        "description": "source IP address"
+                      },
+                      "src_mac": {
+                        "type": "string",
+                        "description": "source MAC address"
+                      },
+                      "src_port": {
+                        "type": "number",
+                        "description": "source port"
+                      },
+                      "proto": {
+                        "type": "string",
+                        "description": "protocol [tcp udp; tcp; udp]"
+                      },
+                      "dest": {
+                        "type": "string",
+                        "description": "destination zone (obtained from the get_zone_list interface)"
+                      },
+                      "dest_ip": {
+                        "type": "string",
+                        "description": "destination IP address"
+                      },
+                      "dest_port": {
+                        "type": "number",
+                        "description": "destination port"
+                      },
+                      "enabled": {
+                        "type": "boolean",
+                        "description": "whether to enable"
+                      },
+                      "target": {
+                        "type": "string",
+                        "description": "action [ACCEPT; REJECT; DROP]"
+                      },
+                      "id": {
+                        "type": "string",
+                        "description": "configuration item ID"
+                      }
+                    }
+                  }
+                },
+                "port_forwards": {
+                  "type": "array",
+                  "description": "port forwarding configuration",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "firewall name"
+                      },
+                      "proto": {
+                        "type": "string",
+                        "description": "protocol [tcp udp; tcp; udp]"
+                      },
+                      "src": {
+                        "type": "string",
+                        "description": "source zone (obtained from the get_zone_list interface)"
+                      },
+                      "src_dport": {
+                        "type": "string",
+                        "description": "source port"
+                      },
+                      "dest": {
+                        "type": "string",
+                        "description": "destination zone (obtained from the get_zone_list interface)"
+                      },
+                      "dest_ip": {
+                        "type": "string",
+                        "description": "destination IP address"
+                      },
+                      "dest_port": {
+                        "type": "number",
+                        "description": "destination port"
+                      },
+                      "enabled": {
+                        "type": "boolean",
+                        "description": "whether to enable"
+                      },
+                      "id": {
+                        "type": "string",
+                        "description": "configuration item ID"
+                      }
+                    }
+                  }
+                },
+                "dmz": {
+                  "type": "object",
+                  "description": "DMZ configuration",
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean",
+                      "description": "whether to enable"
+                    },
+                    "dest_ip": {
+                      "type": "string",
+                      "description": "inernal IP address"
+                    }
+                  }
+                }
+              }
+            },
+            "system": {
+              "type": "object",
+              "description": "system parameters",
+              "properties": {
+                "timezone": {
+                  "type": "string",
+                  "description": "time zone"
+                },
+                "zonename": {
+                  "type": "string",
+                  "description": "time zone name"
+                },
+                "local_domain": {
+                  "type": "string",
+                  "description": "device local domain name"
+                },
+                "language": {
+                  "type": "string",
+                  "description": "device native Web page language"
+                },
+                "hostname": {
+                  "type": "string",
+                  "description": "hostname"
+                },
+                "upgrade_url": {
+                  "type": "string",
+                  "description": "firmware upgrade URL"
+                },
+                "icon_url": {
+                  "type": "string",
+                  "description": "icon URL"
+                },
+                "logo_url": {
+                  "type": "string",
+                  "description": "logo URL"
+                },
+                "enterprise_name": {
+                  "type": "string",
+                  "description": "enterprise name"
+                },
+                "copyright": {
+                  "type": "string",
+                  "description": "copyright"
+                },
+                "official_website": {
+                  "type": "string",
+                  "description": "official website"
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_batch_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "cloud",
+                  "get_batch_config"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "local_domain": "console.gl-inet.com",
+              "firewall": {
+                "rules": [],
+                "port_forwards": [
+                  {
+                    "enabled": true,
+                    "src_dport": "566",
+                    "id": "cfg193837",
+                    "dest_ip": "192.168.8.100",
+                    "dest_port": 666,
+                    "name": "ff",
+                    "src": "wan",
+                    "dest": "lan",
+                    "proto": "tcp udp"
+                  }
+                ]
+              },
+              "hostname": "GL-AXT1800",
+              "wifi": [
+                {
+                  "band": "5G",
+                  "ifaces": [
+                    {
+                      "enabled": true,
+                      "ssid": "GL-AXT1800-b9c-5G",
+                      "encryption": "psk2",
+                      "name": "default_radio0",
+                      "guest": false,
+                      "hidden": false,
+                      "key": "goodlife"
+                    },
+                    {
+                      "enabled": true,
+                      "ssid": "GL-AXT1800-b9c-5G-Guest",
+                      "encryption": "psk2",
+                      "name": "guest5g",
+                      "guest": true,
+                      "hidden": false,
+                      "key": "goodlife"
+                    }
+                  ],
+                  "channels": [
+                    {
+                      "dfs": false,
+                      "channel": 36
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 40
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 44
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 48
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 52
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 56
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 60
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 64
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 100
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 104
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 108
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 112
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 116
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 120
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 124
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 128
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 132
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 136
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 140
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 144
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 149
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 153
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 157
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 161
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 165
+                    }
+                  ],
+                  "device": "radio0",
+                  "hwmode": "11n/ac/ax",
+                  "txpower": "Max",
+                  "hwmodes": [
+                    "11ac/ax",
+                    "11n/ac/ax",
+                    "11a/n/ac/ax",
+                    "11a/n/ac"
+                  ],
+                  "channel": 0,
+                  "htmodes": {
+                    "11a/n/ac": 80,
+                    "11n/ac/ax": 80,
+                    "11a/n/ac/ax": 80,
+                    "11ac/ax": 80,
+                    "auto": false
+                  },
+                  "encryptions": [
+                    "none",
+                    "psk2",
+                    "psk-mixed",
+                    "sae",
+                    "sae-mixed"
+                  ],
+                  "htmode": "80"
+                },
+                {
+                  "band": "2G",
+                  "ifaces": [
+                    {
+                      "enabled": true,
+                      "ssid": "123",
+                      "encryption": "psk2",
+                      "name": "default_radio1",
+                      "guest": false,
+                      "hidden": true,
+                      "key": "goodlife"
+                    },
+                    {
+                      "enabled": true,
+                      "ssid": "999",
+                      "encryption": "psk2",
+                      "name": "guest2g",
+                      "guest": true,
+                      "hidden": false,
+                      "key": "goodlife"
+                    }
+                  ],
+                  "channels": [
+                    {
+                      "dfs": false,
+                      "channel": 1
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 2
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 3
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 4
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 5
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 6
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 7
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 8
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 9
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 10
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 11
+                    }
+                  ],
+                  "device": "radio1",
+                  "hwmode": "11g/n/ax",
+                  "txpower": "Max",
+                  "hwmodes": [
+                    "11n/ax",
+                    "11g/n/ax",
+                    "11b/g/n/ax",
+                    "11b/g/n"
+                  ],
+                  "channel": 0,
+                  "htmodes": {
+                    "11b/g/n": 40,
+                    "11b/g/n/ax": 40,
+                    "auto": true,
+                    "11n/ax": 40,
+                    "11g/n/ax": 40
+                  },
+                  "encryptions": [
+                    "none",
+                    "psk2",
+                    "psk-mixed",
+                    "sae",
+                    "sae-mixed"
+                  ],
+                  "htmode": "40"
+                }
+              ],
+              "network": {
+                "guest": {
+                  "netmask": "255.255.255.0",
+                  "dhcp_start": "100",
+                  "ipaddr": "192.168.19.1",
+                  "dhcp_limit": "150"
+                },
+                "lan": {
+                  "netmask": "255.255.255.0",
+                  "dhcp_start": "100",
+                  "ipaddr": "192.168.8.1",
+                  "dhcp_limit": "150"
+                },
+                "wan6": {
+                  "gateway6": "ddb4:1aed:acf9::",
+                  "proto": "dhcp",
+                  "dns": [],
+                  "ip6addr": "ddb4:1aed:acf9::/48",
+                  "dns6": [
+                    "ddb4:1aed:acf9::"
+                  ]
+                }
+              },
+              "language": "zh-cn",
+              "timezone": "Asia/Shanghai"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "cloud.set_batch_config",
+      "summary": "batch configuration",
+      "params": [
+        {
+          "name": "network",
+          "schema": {
+            "type": "object",
+            "description": "network configuration",
+            "properties": {
+              "wan": {
+                "type": "object",
+                "description": "ethernet configuration",
+                "properties": {
+                  "proto": {
+                    "type": "string",
+                    "description": "interface protocol [dhcp; static; pppoe]"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "PPPOE username"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "PPPOE password"
+                  },
+                  "ipaddr": {
+                    "type": "string",
+                    "description": "IP address"
+                  },
+                  "gateway": {
+                    "type": "string",
+                    "description": "gateway"
+                  },
+                  "netmask": {
+                    "type": "string",
+                    "description": "subnet mask"
+                  },
+                  "dns": {
+                    "type": "array",
+                    "description": "DNS"
+                  },
+                  "ip6addr": {
+                    "type": "string",
+                    "description": "IPv6 address(include subnet mask,example: ddb4:1aed:acf9::/48)"
+                  },
+                  "gateway6": {
+                    "type": "string",
+                    "description": "IPv6 gateway"
+                  },
+                  "dns6": {
+                    "type": "array",
+                    "description": "IPv6 DNS"
+                  }
+                }
+              },
+              "lan": {
+                "type": "object",
+                "description": "private network configuration",
+                "properties": {
+                  "ipaddr": {
+                    "type": "string",
+                    "description": "IP address"
+                  },
+                  "netmask": {
+                    "type": "string",
+                    "description": "subnet mask"
+                  },
+                  "dhcp_start": {
+                    "type": "number",
+                    "description": "DHCP start address offset"
+                  },
+                  "dhcp_limit": {
+                    "type": "number",
+                    "description": "DHCP number of address pools"
+                  }
+                }
+              },
+              "guest": {
+                "type": "object",
+                "description": "guest network configuration",
+                "properties": {
+                  "ipaddr": {
+                    "type": "string",
+                    "description": "IP address"
+                  },
+                  "netmask": {
+                    "type": "string",
+                    "description": "subnet mask"
+                  },
+                  "dhcp_start": {
+                    "type": "number",
+                    "description": "DHCP DHCP start address offset"
+                  },
+                  "dhcp_limit": {
+                    "type": "number",
+                    "description": "DHCP number of address pools"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        {
+          "name": "wifi",
+          "schema": {
+            "type": "array",
+            "description": "Wi-Fi configuration",
+            "items": {
+              "type": "object",
+              "properties": {
+                "band": {
+                  "type": "string",
+                  "description": "Wi-Fi band [2G; 5G]"
+                },
+                "channel": {
+                  "type": "number",
+                  "description": "Wi-Fi channel (0 means auto)"
+                },
+                "hwmode": {
+                  "type": "string",
+                  "description": "Wi-FI hardware mode"
+                },
+                "htmode": {
+                  "type": "string",
+                  "description": "Wi-FI bandwidth"
+                },
+                "txpower": {
+                  "type": "string",
+                  "description": "Wi-FI power [Max; High; Medium; Low]"
+                },
+                "enabled": {
+                  "type": "boolean",
+                  "description": "whether the main Wi-Fi is enabled"
+                },
+                "ssid": {
+                  "type": "string",
+                  "description": "main WiFi SSID(no more than 32 ASCII characters)"
+                },
+                "encryption": {
+                  "type": "string",
+                  "description": "main WiFi encryption [none; psk2; psk-mixed; sae; sae-mixed]"
+                },
+                "key": {
+                  "type": "string",
+                  "description": "main Wi-Fi password(8 ~ 63 ASCII codes)"
+                },
+                "hidden": {
+                  "type": "boolean",
+                  "description": "whether to hide the main Wi-Fi"
+                },
+                "guest_enabled": {
+                  "type": "boolean",
+                  "description": "whether the guest Wi-Fi is enabled"
+                },
+                "guest_ssid": {
+                  "type": "string",
+                  "description": "guest WiFi SSID(no more than 32 ASCII characters)"
+                },
+                "guest_encryption": {
+                  "type": "string",
+                  "description": "guest WiFi encryption [none; psk2; psk-mixed; sae; sae-mixed]"
+                },
+                "guest_key": {
+                  "type": "string",
+                  "description": "guest Wi-Fi password(8 ~ 63 ASCII codes)"
+                },
+                "guest_hidden": {
+                  "type": "boolean",
+                  "description": "whether to hide the guest Wi-Fi"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        {
+          "name": "firewall",
+          "schema": {
+            "type": "object",
+            "description": "firewall configuration",
+            "properties": {
+              "rules": {
+                "type": "array",
+                "description": "firewall rules",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "firewall name"
+                    },
+                    "src": {
+                      "type": "string",
+                      "description": "source zone (obtained from the get_zone_list interface)"
+                    },
+                    "src_ip": {
+                      "type": "string",
+                      "description": "source IP address"
+                    },
+                    "src_mac": {
+                      "type": "string",
+                      "description": "source MAC address"
+                    },
+                    "src_port": {
+                      "type": "number",
+                      "description": "source port"
+                    },
+                    "proto": {
+                      "type": "string",
+                      "description": "protocol [tcp udp; tcp; udp]"
+                    },
+                    "dest": {
+                      "type": "string",
+                      "description": "destination zone (obtained from the get_zone_list interface)"
+                    },
+                    "dest_ip": {
+                      "type": "string",
+                      "description": "destination IP address"
+                    },
+                    "dest_port": {
+                      "type": "number",
+                      "description": "destination port"
+                    },
+                    "enabled": {
+                      "type": "boolean",
+                      "description": "whether to enable"
+                    },
+                    "target": {
+                      "type": "string",
+                      "description": "action [ACCEPT; REJECT; DROP]"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "configuration item ID"
+                    }
+                  }
+                }
+              },
+              "port_forwards": {
+                "type": "array",
+                "description": "port forwarding configuration",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "firewall name"
+                    },
+                    "proto": {
+                      "type": "string",
+                      "description": "protocol [tcp udp; tcp; udp]"
+                    },
+                    "src": {
+                      "type": "string",
+                      "description": "source zone (obtained from the get_zone_list interface)"
+                    },
+                    "src_dport": {
+                      "type": "string",
+                      "description": "source port"
+                    },
+                    "dest": {
+                      "type": "string",
+                      "description": "destination zone (obtained from the get_zone_list interface)"
+                    },
+                    "dest_ip": {
+                      "type": "string",
+                      "description": "destination IP address"
+                    },
+                    "dest_port": {
+                      "type": "number",
+                      "description": "destination port"
+                    },
+                    "enabled": {
+                      "type": "boolean",
+                      "description": "whether to enable"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "configuration item ID"
+                    }
+                  }
+                }
+              },
+              "dmz": {
+                "type": "object",
+                "description": "DMZ configuration",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "whether to enable"
+                  },
+                  "dest_ip": {
+                    "type": "string",
+                    "description": "internal IP address"
+                  }
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        {
+          "name": "system",
+          "schema": {
+            "type": "object",
+            "description": "system parameters",
+            "properties": {
+              "timezone": {
+                "type": "string",
+                "description": "time zone"
+              },
+              "zonename": {
+                "type": "string",
+                "description": "time zone name"
+              },
+              "local_domain": {
+                "type": "string",
+                "description": "device local domain name"
+              },
+              "language": {
+                "type": "string",
+                "description": "device native Web page language"
+              },
+              "password": {
+                "type": "string",
+                "description": "password"
+              },
+              "hostname": {
+                "type": "string",
+                "description": "hostname"
+              },
+              "upgrade_url": {
+                "type": "string",
+                "description": "firmware upgrade URL"
+              },
+              "icon": {
+                "type": "object",
+                "description": "icon informationen",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "icon URL"
+                  },
+                  "md5": {
+                    "type": "string",
+                    "description": "icon MD5"
+                  }
+                }
+              },
+              "logo": {
+                "type": "object",
+                "description": "logo informationen",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "logo URL"
+                  },
+                  "md5": {
+                    "type": "string",
+                    "description": "logo MD5"
+                  }
+                }
+              },
+              "enterprise_name": {
+                "type": "string",
+                "description": "enterprise name"
+              },
+              "copyright": {
+                "type": "string",
+                "description": "copyright"
+              },
+              "official_website": {
+                "type": "string",
+                "description": "official website"
+              }
+            }
+          },
+          "required": true
+        },
+        {
+          "name": "templete",
+          "schema": {
+            "type": "number",
+            "description": "template state(valid for 2B)"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_batch_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "cloud",
+                  "set_batch_config",
+                  {
+                    "network": {
+                      "wan": {
+                        "proto": "pppoe",
+                        "username": "test",
+                        "password": "1234",
+                        "ipaddr": "192.168.2.11",
+                        "gateway": "192.168.2.1",
+                        "netmask": "255.255.255.0",
+                        "dns": [
+                          "192.168.2.1",
+                          "8.8.8.8"
+                        ],
+                        "ip6addr": "fe80::9683:c4ff:fe18:1b9f/64",
+                        "gateway6": "ddb4:1aed:acf9::",
+                        "dns6": [
+                          "ddb4:1aed:acf9::",
+                          "ddb4:1aed:acf9::"
+                        ]
+                      },
+                      "lan": {
+                        "ipaddr": "192.168.8.1",
+                        "netmask": "255.255.255.0",
+                        "dhcp_start": 150,
+                        "dhcp_limit": 100
+                      },
+                      "guest": {
+                        "ipaddr": "192.168.9.1",
+                        "netmask": "255.255.255.0",
+                        "dhcp_start": 150,
+                        "dhcp_limit": 100
+                      }
+                    },
+                    "wifi": [
+                      {
+                        "band": "2g",
+                        "channel": 12,
+                        "hwmode": "11g/n/ax",
+                        "htmode": "40",
+                        "txpower": "Max",
+                        "enabled": true,
+                        "ssid": "test",
+                        "encryption": "psk",
+                        "key": "12345678",
+                        "hidden": false,
+                        "guest_enabled": true,
+                        "guest_ssid": "test",
+                        "guest_encryption": "psk",
+                        "guest_key": "12345678",
+                        "guest_hidden": false
+                      },
+                      {
+                        "band": "5g",
+                        "channel": 40,
+                        "hwmode": "11n/ac/ax",
+                        "htmode": "80",
+                        "txpower": "Max",
+                        "enabled": true,
+                        "ssid": "test",
+                        "encryption": "psk",
+                        "key": "12345678",
+                        "hidden": false,
+                        "guest_enabled": true,
+                        "guest_ssid": "test",
+                        "guest_encryption": "psk",
+                        "guest_key": "12345678",
+                        "guest_hidden": false
+                      }
+                    ],
+                    "firewall": {
+                      "rules": [
+                        {
+                          "name": "ssh",
+                          "dest_port": 22,
+                          "target": "ACCEPT",
+                          "enabled": true
+                        },
+                        {
+                          "name": "web",
+                          "dest_port": 80,
+                          "target": "ACCEPT",
+                          "enabled": true
+                        }
+                      ],
+                      "port_forwards": [
+                        {
+                          "name": "test",
+                          "proto": "tcp udp",
+                          "dest": "lan",
+                          "dest_ip": "192.168.8.100",
+                          "dest_port": "666",
+                          "src": "wan",
+                          "src_dport": "566",
+                          "enabled": true
+                        }
+                      ],
+                      "dmz": {
+                        "enabled": true,
+                        "dest_ip": "192.168.8.100"
+                      }
+                    }
+                  }
+                ],
+                "system": {
+                  "hostname": "GL-AXT1800",
+                  "timezone": "Asia/Shanghai",
+                  "local_domain": "console.gl-inet.com",
+                  "language": "zh-cn",
+                  "enterprise_name": "xx",
+                  "copyright": "xx",
+                  "official_website": "https://xx.com",
+                  "icon": {
+                    "url": "https://xxx/test",
+                    "md5": "102f5037fe6474019fe947b4977bb2a5"
+                  },
+                  "logo": {
+                    "url": "https://xxx/test",
+                    "md5": "102f5037fe6474019fe947b4977bb2a5"
+                  }
+                }
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    }
+  ]
+}

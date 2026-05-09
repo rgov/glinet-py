@@ -1,0 +1,22 @@
+{
+  "name": "s2s.enable_echo_server",
+  "summary": "enable echo listening server for testing",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "s2s",
+      "enable_echo_server",
+      {
+        "port": "51820"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

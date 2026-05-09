@@ -1,0 +1,22 @@
+{
+  "name": "nas-web.set_nas_ser",
+  "summary": "set nas ser",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nas-web",
+      "set_nas_ser",
+      {
+        "enable": 1
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "modem.get_name",
+  "summary": "Get the cellular modem name",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "get_name",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "name": "RM520NGLAAR01A06M4G"
+    }
+  }
+}

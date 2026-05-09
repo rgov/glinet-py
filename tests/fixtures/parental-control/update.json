@@ -1,0 +1,19 @@
+{
+  "name": "parental-control.update",
+  "summary": "Manually update the feature database.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "parental-control",
+      "update"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "otbr.get_bbr_status",
+  "summary": "Get Backbone Router status information",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "get_bbr_status",
+      {}
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "State": "Primary",
+      "Ifname": "br-lan",
+      "SequenceNumber": 5,
+      "Ifnames": [
+        "eth0",
+        "br-lan"
+      ],
+      "MlrTimeout": 3600,
+      "Jitter": 5,
+      "Error": 0,
+      "ReregistrationDelay": 5
+    }
+  }
+}

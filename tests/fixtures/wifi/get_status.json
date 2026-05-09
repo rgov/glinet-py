@@ -1,0 +1,31 @@
+{
+  "name": "wifi.get_status",
+  "summary": "get WiFi device status.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "wifi",
+      "get_status"
+    ]
+  },
+  "response": {
+    "id": null,
+    "jsonrpc": "2.0",
+    "result": {
+      "res": [
+        {
+          "name": "radio0",
+          "state": "ready",
+          "channel": 49
+        },
+        {
+          "name": "radio1",
+          "state": "starting"
+        }
+      ]
+    }
+  }
+}

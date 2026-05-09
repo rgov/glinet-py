@@ -1,0 +1,22 @@
+{
+  "name": "qos.set_work_mode",
+  "summary": "set qos work mode",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "qos",
+      "set_work_mode",
+      {
+        "work_mode": 1
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

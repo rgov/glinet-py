@@ -1,0 +1,44 @@
+{
+  "name": "qos.set_channel_bandwidth_ratio",
+  "summary": "Configure priority channel bandwidth ratio",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "qos",
+      "set_channel_bandwidth_ratio",
+      {
+        "sync_ratio": true,
+        "upload": [
+          {
+            "min": "90",
+            "priority": "1",
+            "max": "70"
+          },
+          {
+            "min": "70",
+            "priority": "2",
+            "max": "50"
+          },
+          {
+            "min": "45",
+            "priority": "3",
+            "max": "30"
+          },
+          {
+            "min": "25",
+            "priority": "4",
+            "max": "15"
+          }
+        ]
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

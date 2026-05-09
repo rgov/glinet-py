@@ -1,0 +1,24 @@
+{
+  "name": "firewall.set_wan_access",
+  "summary": "Set the wan access configuration",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "firewall",
+      "get_wan_access",
+      {
+        "ping": false,
+        "https": false,
+        "ssh": false
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

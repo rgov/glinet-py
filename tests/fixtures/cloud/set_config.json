@@ -1,0 +1,25 @@
+{
+  "name": "cloud.set_config",
+  "summary": "modify the configuration file",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "cloud",
+      "set_config",
+      {
+        "cloud_enable": "true",
+        "rtty_ssh": "true",
+        "rtty_web": "true",
+        "serverzone": "China"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "bark.logout",
+  "summary": "Logout from current bark account",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "bark",
+      "logout"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

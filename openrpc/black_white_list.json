@@ -1,0 +1,188 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — black_white_list module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "black_white_list.get_config",
+      "summary": "get blacklist and whitelist configuration information",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "string",
+              "description": "[black:blacklist; white:whitelist]"
+            },
+            "mac": {
+              "type": "array",
+              "description": "the mac address configured under the black and white list"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "black_white_list.set_single_mac",
+      "summary": "set the configuration information of a single mac",
+      "params": [
+        {
+          "name": "mode",
+          "schema": {
+            "type": "string",
+            "description": "[black:blacklist; white:whitelist]"
+          },
+          "required": true
+        },
+        {
+          "name": "operate",
+          "schema": {
+            "type": "string",
+            "description": "[add:add configuration information; del:delete configuration information]"
+          },
+          "required": true
+        },
+        {
+          "name": "mac",
+          "schema": {
+            "type": "string",
+            "description": "manipulated MAC address."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "number",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_single_mac_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "black_white_list",
+                  "set_single_mac",
+                  {
+                    "mode": "black",
+                    "operate": "add",
+                    "mac": "94:83:C4:0C:6D:D6"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "black_white_list.set_config",
+      "summary": "set blacklist or whitelist",
+      "params": [
+        {
+          "name": "mode",
+          "schema": {
+            "type": "string",
+            "description": "[black:blacklist; white:whitelist]"
+          },
+          "required": true
+        },
+        {
+          "name": "mac",
+          "schema": {
+            "type": "array",
+            "description": "the mac address list set in the corresponding mode."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code\t": {
+              "type": "number",
+              "description": "Error code,-2 : whitelist information is empty."
+            },
+            "err_msg\t": {
+              "type": "number",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "black_white_list",
+                  "set_config",
+                  {
+                    "mode": "black",
+                    "mac": [
+                      "08:10:7B:B3:E8:92",
+                      "94:83:C4:0C:6D:D6"
+                    ]
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    }
+  ]
+}

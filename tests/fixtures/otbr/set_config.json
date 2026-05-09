@@ -1,0 +1,13 @@
+{
+  "name": "otbr.set_config",
+  "summary": "Create a new Thread network or modify the current Thread network.",
+  "request_raw": "{\"jsonrpc\":\"2.0\",\"id\":\"0\",\"method\":\"call\",\"params\":[\"\",\"otbr\",\"set_config\",{\"NetworkName\":\"OpenThread\", \"Passphrase\":\"654321\", \"PanId\":\"0x1234\",",
+  "request_parse_error": "Expecting property name enclosed in double quotes: line 1 column 145 (char 144)",
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "err_code": 0
+    }
+  }
+}

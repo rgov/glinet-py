@@ -1,0 +1,13 @@
+{
+  "name": "plugins.install_package",
+  "summary": "install software package",
+  "request_raw": "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"method\\\":\\\"call\\\",\\\"params\\\":[\\\"\\\",\\\"plugins\\\",\\\"install_package\\\",{\\\"name\\\":\\[\"tcpliveplay\\\"]}],\\\"id\\\":1}",
+  "request_parse_error": "Expecting value: line 1 column 83 (char 82)",
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "info": "Configuring tcpliveplay."
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "upgrade.check_firmware_local",
+  "summary": "local firmware verify",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "upgrade",
+      "check_firmware_local",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "status": 9,
+      "release_note": "###  System：\n* Based on openwrt 19.07.7  (AR750,AR750S,X750,XE300,MT1300,MT300N-V2)\n\n###  SDK\n* Refactoring the API Framework\n* Refactoring the UI Framework\n\n### Change log\n* WIFI，客户端，防火墙及升级页面细节优化\n* AXT1800目标兼容（目前暂未编译）\n* 修复部分modem及repeater后台问题\n* 完善部分语言翻译\n",
+      "sha256": "264ce49c1f63e19960f5aa5e06b45d05db219ea560011504e6ca83fee5980500",
+      "version": "4.0.0"
+    }
+  }
+}

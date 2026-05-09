@@ -1,0 +1,24 @@
+{
+  "name": "ovpn-server.get_setting",
+  "summary": "get ovpn server setting",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-server",
+      "get_setting",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "local_access": true,
+      "masq": true,
+      "mtu": 1460
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "ovpn-client.remove_group",
+  "summary": "remove ovpn client group",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-client",
+      "remove_group",
+      {
+        "group_id": 3212
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

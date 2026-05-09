@@ -1,0 +1,23 @@
+{
+  "name": "igmp.set_config",
+  "summary": "设置igmp",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "igmp",
+      "set_config",
+      {
+        "version": 3,
+        "enable": false
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "wg-client.clear_config_list",
+  "summary": "remove all wireguard client config of a group",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "clear_config_list",
+      {
+        "group_id": 3212,
+        "delete_key": true
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

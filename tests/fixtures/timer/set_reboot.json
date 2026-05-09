@@ -1,0 +1,33 @@
+{
+  "name": "timer.set_reboot",
+  "summary": "set reboot config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "timer",
+      "set_reboot",
+      {
+        "enable": true,
+        "hour": "03",
+        "min": "00",
+        "week": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

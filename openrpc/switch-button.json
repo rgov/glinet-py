@@ -1,0 +1,161 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — switch-button module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "switch-button.get_funcs",
+      "summary": "Get function list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "funcs": {
+              "type": "array",
+              "description": "Function list"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_funcs_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "switch-button",
+                  "get_funcs"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "funcs": [
+                "wireguard",
+                "openvpn",
+                "adguardhome"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "switch-button.get_config",
+      "summary": "Get the current settings function",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "func": {
+              "type": "string",
+              "description": "Current settings function, \"none\" means not set"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "switch-button",
+                  "get_config"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "func": "none"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "switch-button.set_config",
+      "summary": "Get the current settings",
+      "params": [
+        {
+          "name": "func",
+          "schema": {
+            "type": "string",
+            "description": "Function to be set(Optional values are obtained from the get_funcs interface),Currently optional openvpn,wireguard,adguardhome"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "func": {
+              "type": "string",
+              "description": "Currently settings"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "switch-button",
+                  "set_config",
+                  {
+                    "func": "openvpn"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "func": "openvpn"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

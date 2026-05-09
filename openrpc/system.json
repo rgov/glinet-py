@@ -1,0 +1,1542 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — system module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "system.set_password",
+      "summary": "Set administrator password for the device.",
+      "params": [
+        {
+          "name": "username",
+          "schema": {
+            "type": "string",
+            "description": "Username."
+          },
+          "required": true
+        },
+        {
+          "name": "old_password",
+          "schema": {
+            "type": "string",
+            "description": "Old password, which is the password currently in use."
+          },
+          "required": false
+        },
+        {
+          "name": "new_password",
+          "schema": {
+            "type": "string",
+            "description": "New password."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: No permission; -2: Command not found, -3: Other unknown error]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "No permission"
+                },
+                {
+                  "const": -2,
+                  "title": "Command not found"
+                },
+                {
+                  "const": -3,
+                  "title": "Other unknown error"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_password_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "set_password",
+                  {
+                    "username": "admin",
+                    "old_password": "123",
+                    "new_password": "456"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "system.get_status",
+      "summary": "Get the basic status of system, network, services, etc.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "system": {
+              "type": "object",
+              "description": "Basic status information of the system.",
+              "properties": {
+                "mode": {
+                  "type": "number",
+                  "description": "Working mode of the system [0: router mode; 1: WDS mode; 2: relay (extender) mode; 3: mesh mode; 4: access point mode; 5: unknown; 6: passthrough mode] , default is 0.",
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "router mode"
+                    },
+                    {
+                      "const": 1,
+                      "title": "WDS mode"
+                    },
+                    {
+                      "const": 2,
+                      "title": "relay (extender) mode"
+                    },
+                    {
+                      "const": 3,
+                      "title": "mesh mode"
+                    },
+                    {
+                      "const": 4,
+                      "title": "access point mode"
+                    },
+                    {
+                      "const": 5,
+                      "title": "unknown"
+                    },
+                    {
+                      "const": 6,
+                      "title": "passthrough mode"
+                    }
+                  ]
+                },
+                "timestamp": {
+                  "type": "number",
+                  "description": "System timestamp (Unit: Seconds)."
+                },
+                "tzoffset": {
+                  "type": "string",
+                  "description": "System time-zone offset."
+                },
+                "uptime": {
+                  "type": "number",
+                  "description": "System uptime (Unit: Seconds)."
+                },
+                "load_average": {
+                  "type": "array",
+                  "description": "CPU load averages in system. it returns an array, the array is fixed with 3 numbers that represent the average load of 1, 5, and 15 minutes in sequence."
+                },
+                "memory_total": {
+                  "type": "number",
+                  "description": "Total memory in the system (Unit: Byte)."
+                },
+                "memory_free": {
+                  "type": "number",
+                  "description": "Free memory in the system (Unit: Byte)."
+                },
+                "memory_buff_cache": {
+                  "type": "number",
+                  "description": "Buffered memory and cached memory in the system (Unit: Byte)."
+                },
+                "flash_total": {
+                  "type": "number",
+                  "description": "Total flash storage space in the system (Unit: Byte)."
+                },
+                "flash_free": {
+                  "type": "number",
+                  "description": "Available flash storage space in the system (Unit: Byte)."
+                },
+                "flash_app": {
+                  "type": "number",
+                  "description": "The flash storage space used by the application in the system (Unit: Byte)."
+                },
+                "lan_ip": {
+                  "type": "string",
+                  "description": "LAN IP."
+                },
+                "lan_netmask": {
+                  "type": "string",
+                  "description": "Subnet mask of LAN."
+                },
+                "guest_ip": {
+                  "type": "string",
+                  "description": "GUEST IP."
+                },
+                "guest_netmask": {
+                  "type": "string",
+                  "description": "Subnet mask of Guest."
+                },
+                "ipv6_enabled": {
+                  "type": "boolean",
+                  "description": "Enabled status of IPv6 service."
+                },
+                "ddns_enabled": {
+                  "type": "boolean",
+                  "description": "Enabled status of DDNS service."
+                },
+                "netnat_enabled": {
+                  "type": "boolean",
+                  "description": "Enabled status of hardware acceleration service."
+                },
+                "mcu": {
+                  "type": "object",
+                  "description": "Status of mcu in the system.",
+                  "properties": {
+                    "temperature": {
+                      "type": "number",
+                      "description": "Battery temperature."
+                    },
+                    "charge_percent": {
+                      "type": "number",
+                      "description": "Battery percentage."
+                    },
+                    "charging_status": {
+                      "type": "number",
+                      "description": "Battery charging status[0: not charged; 1: charging].",
+                      "oneOf": [
+                        {
+                          "const": 0,
+                          "title": "not charged"
+                        },
+                        {
+                          "const": 1,
+                          "title": "charging"
+                        }
+                      ]
+                    },
+                    "charge_cnt": {
+                      "type": "number",
+                      "description": "Total of battery charge cycles."
+                    }
+                  }
+                }
+              }
+            },
+            "network": {
+              "type": "array",
+              "description": "Status of network interfaces in the system.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "interface": {
+                    "type": "string",
+                    "description": "Network interface name."
+                  },
+                  "up": {
+                    "type": "boolean",
+                    "description": "Up status of the network interface"
+                  },
+                  "online": {
+                    "type": "boolean",
+                    "description": "Whether the network interface has access to the Internet"
+                  }
+                }
+              }
+            },
+            "service": {
+              "type": "array",
+              "description": "Working status of system services, including VPN, AdguardHome, etc.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Service name"
+                  },
+                  "status": {
+                    "type": "number",
+                    "description": "Enabled status of the service [0: Disabled; 1: Connected/Running; 2: Enabled but Connecting].",
+                    "oneOf": [
+                      {
+                        "const": 0,
+                        "title": "Disabled"
+                      },
+                      {
+                        "const": 1,
+                        "title": "Connected/Running"
+                      },
+                      {
+                        "const": 2,
+                        "title": "Enabled but Connecting"
+                      }
+                    ]
+                  },
+                  "group_id": {
+                    "type": "number",
+                    "description": "The group_id of the group to which the currently used OpenVPN or WireGuard client configuration file belongs."
+                  },
+                  "client_id": {
+                    "type": "number",
+                    "description": "The client_id of the currently used OpenVPN client configuration file."
+                  },
+                  "peer_id": {
+                    "type": "number",
+                    "description": "The peer_id of the currently used WireGuard client configuration file."
+                  }
+                }
+              }
+            },
+            "wifi": {
+              "type": "array",
+              "description": "Basic Wi-Fi status of the system.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ssid": {
+                    "type": "string",
+                    "description": "SSID of the Wi-Fi."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "Interface name of the Wi-Fi, as a unique identifier for the Wi-Fi."
+                  },
+                  "band": {
+                    "type": "string",
+                    "description": "Band of the Wi-Fi [2G: 2.4GHz; 5G: 5GHz]."
+                  },
+                  "channel": {
+                    "type": "number",
+                    "description": "Channel of the Wi-Fi (0 is auto)."
+                  },
+                  "guest": {
+                    "type": "boolean",
+                    "description": "Whether the Wi-Fi belongs to the guest network."
+                  },
+                  "up": {
+                    "type": "boolean",
+                    "description": "Enabled status of the Wi-Fi."
+                  },
+                  "passwd": {
+                    "type": "string",
+                    "description": "Password of the Wi-Fi."
+                  }
+                }
+              }
+            },
+            "client": {
+              "type": "array",
+              "description": "Total number of online clients.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cable_total": {
+                    "type": "number",
+                    "description": "The total number of wired clients online."
+                  },
+                  "wireless_total": {
+                    "type": "number",
+                    "description": "The total number of wireless clients online."
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: Failed to get information]."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "get_status"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "network": [
+                {
+                  "online": false,
+                  "up": false,
+                  "interface": "wan"
+                },
+                {
+                  "online": false,
+                  "up": false,
+                  "interface": "wwan"
+                },
+                {
+                  "online": false,
+                  "up": false,
+                  "interface": "tethering"
+                },
+                {
+                  "online": false,
+                  "up": false,
+                  "interface": "modem_1_1_2"
+                }
+              ],
+              "wifi": [
+                {
+                  "guest": false,
+                  "ssid": "GL-XE300-49a",
+                  "up": true,
+                  "channel": 0,
+                  "band": "2G",
+                  "name": "default_radio0",
+                  "passwd": "goodlife"
+                },
+                {
+                  "guest": true,
+                  "ssid": "GL-XE300-49a-Guest",
+                  "up": false,
+                  "channel": 0,
+                  "band": "2G",
+                  "name": "guest2g",
+                  "passwd": "goodlife"
+                }
+              ],
+              "service": [
+                {
+                  "name": "wgclient",
+                  "status": 0
+                },
+                {
+                  "name": "wgserver",
+                  "status": 0
+                },
+                {
+                  "name": "ovpnclient",
+                  "status": 0
+                },
+                {
+                  "name": "ovpnserver",
+                  "status": 0
+                },
+                {
+                  "name": "tor",
+                  "status": 0
+                }
+              ],
+              "client": [
+                {
+                  "wireless_total": 0,
+                  "cable_total": 1
+                }
+              ],
+              "system": {
+                "lan_ip": "192.168.8.1",
+                "lan_netmask": "255.255.255.0",
+                "guest_ip": "192.168.9.1",
+                "guest_netmask": "255.255.255.0",
+                "flash_total": 106278912,
+                "memory_total": 126943232,
+                "memory_free": 78471168,
+                "memory_buff_cache": 69005248,
+                "ipv6_enabled": false,
+                "ddns_enabled": false,
+                "netnat_enabled": true,
+                "uptime": 111,
+                "load_average": [
+                  2.01,
+                  0.89,
+                  0.33
+                ],
+                "flash_free": 105918464,
+                "flash_app": 1025,
+                "mode": 0,
+                "mcu": {
+                  "charge_cnt": 49,
+                  "temperature": 27.6,
+                  "charge_percent": 100,
+                  "charging_status": 1
+                },
+                "cpu": {
+                  "temperature": 82
+                },
+                "timestamp": 1613402877
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "system.get_info",
+      "summary": "Get the basic information of the device, including model, firmware version, hardware version, etc.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "hardware_version": {
+              "type": "string",
+              "description": "The hardware version of the device [not yet]"
+            },
+            "firmware_version": {
+              "type": "string",
+              "description": "The firmware version of the device."
+            },
+            "firmware_type": {
+              "type": "string",
+              "description": "The type of firmware version of the device."
+            },
+            "firmware_date": {
+              "type": "string",
+              "description": "Compilation date of firmware of the device."
+            },
+            "vendor": {
+              "type": "string",
+              "description": "Device vendor."
+            },
+            "mac": {
+              "type": "string",
+              "description": "The MAC of the device."
+            },
+            "ddns": {
+              "type": "string",
+              "description": "ddns"
+            },
+            "model": {
+              "type": "string",
+              "description": "The Model of the device."
+            },
+            "sn": {
+              "type": "string",
+              "description": "sn"
+            },
+            "sn_bak": {
+              "type": "string",
+              "description": "Back SN of the device."
+            },
+            "country_code": {
+              "type": "string",
+              "description": "Country/Region code of the device."
+            },
+            "hardware_feature": {
+              "type": "object",
+              "description": "Hardware information.",
+              "properties": {
+                "wan": {
+                  "type": "string",
+                  "description": "The device name of the WAN port in the OS."
+                },
+                "lan": {
+                  "type": "string",
+                  "description": "The device name of the LAN port in the OS."
+                },
+                "build_in_modem": {
+                  "type": "string",
+                  "description": "The PCIe path (Format: domain:bus:slot.func) or the USB path (Format: bus-port.port.port) for the built-in cellular modem"
+                },
+                "usb": {
+                  "type": "string",
+                  "description": "The USB path (Format: bus-port.port) for the USB port."
+                },
+                "usb_reset": {
+                  "type": "string",
+                  "description": "The GPIO path and level validity of usb port."
+                },
+                "radio": {
+                  "type": "string",
+                  "description": "Wireless radio device name (Can be used to determine whether to support repeater)."
+                },
+                "reset_button": {
+                  "type": "string",
+                  "description": "reset button."
+                },
+                "switch_button": {
+                  "type": "string",
+                  "description": "switch button."
+                },
+                "microsd": {
+                  "type": "string",
+                  "description": "The USB path (Format: bus-port.port) for the micro SD card."
+                },
+                "modem_reset": {
+                  "type": "number",
+                  "description": "The device supports that what type of module reset(0:Not support;1:Only support software reset;2:Support software and hardware reset)."
+                },
+                "mcu": {
+                  "type": "boolean",
+                  "description": "Whether the device to support detecting battery power and temperature through MCU."
+                },
+                "fan": {
+                  "type": "boolean",
+                  "description": "Whether the device to support detecting fan status and temperature."
+                },
+                "nand": {
+                  "type": "boolean",
+                  "description": "Whether the device to support NAND."
+                },
+                "hwnat": {
+                  "type": "boolean",
+                  "description": "Whether the device to support hardware acceleration."
+                },
+                "nowds": {
+                  "type": "boolean",
+                  "description": "Whether the device does not support WDS mode (true means WDS is not supported)."
+                }
+              }
+            },
+            "software_feature": {
+              "type": "object",
+              "description": "Software information.",
+              "properties": {
+                "ipv6": {
+                  "type": "boolean",
+                  "description": "Whether the device support IPv6 service."
+                },
+                "vpn": {
+                  "type": "boolean",
+                  "description": "Whether the device support VPN service."
+                },
+                "adguard": {
+                  "type": "boolean",
+                  "description": "Whether the device support AdGuard Home service."
+                },
+                "tor": {
+                  "type": "boolean",
+                  "description": "Whether the device support Tor service."
+                },
+                "ids_ips": {
+                  "type": "boolean",
+                  "description": "Whether the device support IDS/IPS service."
+                },
+                "sms_forward": {
+                  "type": "boolean",
+                  "description": "Whether the device support SMS forward service."
+                },
+                "repeater_eap": {
+                  "type": "boolean",
+                  "description": "Whether the device support repeat Wi-Fi encrypted with EAP."
+                },
+                "nas": {
+                  "type": "boolean",
+                  "description": "Whether the device support network storage service."
+                },
+                "passthrough": {
+                  "type": "boolean",
+                  "description": "Whether the device support passthrough service."
+                },
+                "secondwan": {
+                  "type": "boolean",
+                  "description": "Whether the device support secondwan service."
+                },
+                "bark": {
+                  "type": "boolean",
+                  "description": "Whether the device support bark router client."
+                }
+              }
+            },
+            "disable_guest_during_scan_wifi": {
+              "type": "boolean",
+              "description": "Whether the device will disable its own guest Wi-Fi when scanning for available Wi-Fi in the repeater feature."
+            },
+            "board_info": {
+              "type": "object",
+              "description": "Board information.",
+              "properties": {
+                "architecture": {
+                  "type": "string",
+                  "description": "CPU architecture."
+                },
+                "hostname": {
+                  "type": "string",
+                  "description": "hostname"
+                },
+                "kernel_version": {
+                  "type": "string",
+                  "description": "Linux kernel version."
+                },
+                "openwrt_version": {
+                  "type": "string",
+                  "description": "OpenWrt version."
+                },
+                "model": {
+                  "type": "string",
+                  "description": "OpenWrt board model."
+                }
+              }
+            },
+            "cpu_num": {
+              "type": "number",
+              "description": "Number of the CPU cores."
+            },
+            "hidden_features": {
+              "type": "array",
+              "description": "List of features hidden on the page"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: Failed to get information]."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "system.disk_info",
+      "summary": "Get disk information.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "root": {
+              "type": "object",
+              "description": "the root file system information.",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "description": "Total size of the root file system (Unit: Byte)."
+                },
+                "free": {
+                  "type": "number",
+                  "description": "Free size of the root file system (Unit: Byte)."
+                },
+                "used": {
+                  "type": "number",
+                  "description": "Used size of the root file system (Unit: Byte)."
+                }
+              }
+            },
+            "tmp": {
+              "type": "object",
+              "description": "The tmp file system information.",
+              "properties": {
+                "total": {
+                  "type": "number",
+                  "description": "Total size of the root file system (Unit: Byte)."
+                },
+                "free": {
+                  "type": "number",
+                  "description": "Free size of the root file system (Unit: Byte)."
+                },
+                "used": {
+                  "type": "number",
+                  "description": "Free size of the root file system (Unit: Byte)."
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "disk_info_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "disk_info"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "root": {
+                "total": 1231,
+                "free": 100,
+                "used": 1131
+              },
+              "tmp": {
+                "total": 1231,
+                "free": 100,
+                "used": 1131
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "system.get_timezone_config",
+      "summary": "Get the time zone information of the device.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "zonename": {
+              "type": "string",
+              "description": "Time zone name of the device (It will return null when use UTC)."
+            },
+            "timezone": {
+              "type": "string",
+              "description": "Time zone of the device."
+            },
+            "tzoffset": {
+              "type": "string",
+              "description": "System time-zone offset."
+            },
+            "localtime": {
+              "type": "number",
+              "description": "The timestamp of the device (Unit: Seconds)."
+            },
+            "auto_timezone_enabled": {
+              "type": "boolean",
+              "description": "Whether the device is enabled for automatic time zone."
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: Failed to get information]."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_timezone_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "get_timezone_config"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "zonename": "Asia/Shanghai",
+              "tzoffset": "+0800",
+              "autotimezone_enabled": true,
+              "localtime": 1643200134,
+              "timezone": "CST-8"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "system.set_timezone_config",
+      "summary": "Set the time zone information for the device.",
+      "params": [
+        {
+          "name": "zonename",
+          "schema": {
+            "type": "string",
+            "description": "Time zone name of the device."
+          },
+          "required": true
+        },
+        {
+          "name": "timezone",
+          "schema": {
+            "type": "string",
+            "description": "Time zone of the device."
+          },
+          "required": true
+        },
+        {
+          "name": "localtime",
+          "schema": {
+            "type": "number",
+            "description": "The timestamp of the device (Unit: Seconds)."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: Invalid parameters]."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_timezone_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "set_timezone_config",
+                  {
+                    "zonename": "",
+                    "timezone": "UTC",
+                    "localtime": 1653622981
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "system.add_user",
+      "summary": "Add user",
+      "params": [
+        {
+          "name": "username",
+          "schema": {
+            "type": "string",
+            "description": "Username"
+          },
+          "required": true
+        },
+        {
+          "name": "uid",
+          "schema": {
+            "type": "number",
+            "description": "User ID"
+          },
+          "required": false
+        },
+        {
+          "name": "gid",
+          "schema": {
+            "type": "number",
+            "description": "Group ID"
+          },
+          "required": false
+        },
+        {
+          "name": "password",
+          "schema": {
+            "type": "string",
+            "description": "Password of the user"
+          },
+          "required": false
+        },
+        {
+          "name": "home",
+          "schema": {
+            "type": "string",
+            "description": "Home path of the user"
+          },
+          "required": false
+        },
+        {
+          "name": "interpreter",
+          "schema": {
+            "type": "string",
+            "description": "Interpreter path of the user"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: uid and gid must be greater than 0; -2: username already exists; -3: uid already exists; -4: gid already exists].",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "uid and gid must be greater than 0"
+                },
+                {
+                  "const": -2,
+                  "title": "username already exists"
+                },
+                {
+                  "const": -3,
+                  "title": "uid already exists"
+                },
+                {
+                  "const": -4,
+                  "title": "gid already exists"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_user_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "add_user",
+                  {
+                    "username": "test",
+                    "password": "123"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "system.remove_user",
+      "summary": "Remove user",
+      "params": [
+        {
+          "name": "username",
+          "schema": {
+            "type": "string",
+            "description": "Username"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_user_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "remove_user",
+                  {
+                    "username": "test"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "system.reset_firmware",
+      "summary": "Reset the device to recover the factory status.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "reset_firmware_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "reset_firmware"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "system.reboot",
+      "summary": "Reboot the device",
+      "params": [
+        {
+          "name": "delay",
+          "schema": {
+            "type": "number",
+            "description": "Delayed reboot time (Unit: Seconds)."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "reboot_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "reboot"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "system.get_unixtime",
+      "summary": "Get Unix timestamp.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "number",
+              "description": "Unix timestamp of the device."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_unixtime_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "get_unixtime"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "time": 1629106981
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "system.get_httpd_mem_status",
+      "summary": "Get the memory usage of the http server. You can use the interface to monitor whether there are memory leaks in other APIs.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "memory_used": {
+              "type": "number",
+              "description": "Memory usage of the device (Unit: KB)."
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: Failed to get memory usage information or nginx service is not running]."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_httpd_mem_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "get_httpd_mem_status"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "memory_used": 11952
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "system.get_security_policy",
+      "summary": "Get the security policy of the device.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "redirect_https": {
+              "type": "number",
+              "description": "Whether the http server is forced to redirect to https when the user uses http to access [0: Not redirect ; 1:Redirect].",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "Not redirect"
+                },
+                {
+                  "const": 1,
+                  "title": "Redirect"
+                }
+              ]
+            },
+            "security_rule": {
+              "type": "number",
+              "description": "Safety standard option [0: No requirement, user can use weak password; 1: General safety standard requirement].",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "No requirement"
+                },
+                {
+                  "const": 1,
+                  "title": "General safety standard requirement"
+                }
+              ]
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: Failed to get information]."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_security_policy_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "get_security_policy"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "redirect_https": 0,
+              "security_rule": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "system.set_security_policy",
+      "summary": "Set the security policy of the device.",
+      "params": [
+        {
+          "name": "redirect_https",
+          "schema": {
+            "type": "number",
+            "description": "Safety standard option [0: No requirement, user can use weak password; 1: General safety standard requirement].",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No requirement"
+              },
+              {
+                "const": 1,
+                "title": "General safety standard requirement"
+              }
+            ]
+          },
+          "required": false
+        },
+        {
+          "name": "security_rule",
+          "schema": {
+            "type": "number",
+            "description": "Safety standard option [0: No requirement, user can use weak password; 1: General safety standard requirement].",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "No requirement"
+              },
+              {
+                "const": 1,
+                "title": "General safety standard requirement"
+              }
+            ]
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: Invalid parameters]."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_security_policy_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "set_security_policy",
+                  {
+                    "redirect_https": 1,
+                    "security_rule": 1
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "system.get_load",
+      "summary": "Get CPU loading status of the device.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "load_average": {
+              "type": "array",
+              "description": "CPU load averages in system. it returns an array, the array is fixed with 3 numbers that represent the average load of 1, 5, and 15 minutes in sequence."
+            },
+            "memory_total": {
+              "type": "number",
+              "description": "Total memory in the system (Unit: Byte)."
+            },
+            "memory_free": {
+              "type": "number",
+              "description": "Free memory in the system (Unit: Byte)."
+            },
+            "memory_buff_cache": {
+              "type": "number",
+              "description": "Buffered memory and cached memory in the system (Unit: Byte)."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_load_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "system",
+                  "get_load"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "load_average": [
+                2.01,
+                0.89,
+                0.33
+              ],
+              "memory_free": 105918464,
+              "memory_total": 106278912,
+              "memory_buff_cache": 12345678
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

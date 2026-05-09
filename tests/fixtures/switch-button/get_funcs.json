@@ -1,0 +1,25 @@
+{
+  "name": "switch-button.get_funcs",
+  "summary": "Get function list",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "switch-button",
+      "get_funcs"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "funcs": [
+        "wireguard",
+        "openvpn",
+        "adguardhome"
+      ]
+    }
+  }
+}

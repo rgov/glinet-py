@@ -1,0 +1,20 @@
+{
+  "name": "ovpn-server.generate_certificate",
+  "summary": "Generate ovpn cert",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-server",
+      "generate_certificate",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

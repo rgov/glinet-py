@@ -1,0 +1,522 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — ui module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ui.get_lang",
+      "summary": "get language.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "lang": {
+              "type": "string",
+              "description": "Language (auto means automatic)."
+            },
+            "list": {
+              "type": "array",
+              "description": "List of supported languages.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "description": "Language code."
+                  },
+                  "lable": {
+                    "type": "string",
+                    "description": "Language description."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_lang_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "ui",
+                  "get_lang"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "lang": "auto",
+              "list": [
+                {
+                  "value": "en",
+                  "lable": "English"
+                },
+                {
+                  "value": "zh-cn",
+                  "lable": "简体中文"
+                },
+                {
+                  "value": "zh-tw",
+                  "lable": "繁体中文"
+                },
+                {
+                  "value": "ja",
+                  "lable": "日本語"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ui.set_lang",
+      "summary": "set language.",
+      "params": [
+        {
+          "name": "lang",
+          "schema": {
+            "type": "string",
+            "description": "The language to be set (auto means automatic)."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "lang": {
+              "type": "string",
+              "description": "Current language."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_lang_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "ui",
+                  "set_lang",
+                  {
+                    "lang": "auto"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "lang": "auto"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ui.init",
+      "summary": "initialize.",
+      "params": [
+        {
+          "name": "lang",
+          "schema": {
+            "type": "string",
+            "description": "Language."
+          },
+          "required": true
+        },
+        {
+          "name": "username",
+          "schema": {
+            "type": "string",
+            "description": "Username."
+          },
+          "required": true
+        },
+        {
+          "name": "password",
+          "schema": {
+            "type": "string",
+            "description": "Password."
+          },
+          "required": true
+        },
+        {
+          "name": "ssid",
+          "schema": {
+            "type": "string",
+            "description": "2.4G SSID"
+          },
+          "required": false
+        },
+        {
+          "name": "encryption_wifi",
+          "schema": {
+            "type": "string",
+            "description": "2.4G WiFi encryption method."
+          },
+          "required": false
+        },
+        {
+          "name": "password_wifi",
+          "schema": {
+            "type": "string",
+            "description": "2.4G WiFi Password."
+          },
+          "required": false
+        },
+        {
+          "name": "ssid_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G SSID"
+          },
+          "required": false
+        },
+        {
+          "name": "encryption_wifi_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G WiFi encryption method."
+          },
+          "required": false
+        },
+        {
+          "name": "password_wifi_5g",
+          "schema": {
+            "type": "string",
+            "description": "5G WiFi password."
+          },
+          "required": false
+        },
+        {
+          "name": "location",
+          "schema": {
+            "type": "string",
+            "description": "Placement of the device."
+          },
+          "required": false
+        },
+        {
+          "name": "redirect_https",
+          "schema": {
+            "type": "boolean",
+            "description": "Whether to redirect HTTP to HTTPS."
+          },
+          "required": true
+        },
+        {
+          "name": "security_rule",
+          "schema": {
+            "type": "number",
+            "description": "Safety regulation options, used to meet different safety requirements of different regulations [0:no safety regulation requirements; 1:general safety regulation requirements].",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "no safety regulation requirements"
+              },
+              {
+                "const": 1,
+                "title": "general safety regulation requirements"
+              }
+            ]
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "init_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "ui",
+                  "init",
+                  {
+                    "lang": "auto",
+                    "username": "admin",
+                    "password": "123",
+                    "ssid": "gl-x750",
+                    "password_wifi": "goodlife",
+                    "location": "bedroom",
+                    "security_rule": 1
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "ui.check_initialized",
+      "summary": "Whether the query has been initialized.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "initialized": {
+              "type": "boolean",
+              "description": "Whether it has been initialized."
+            },
+            "model": {
+              "type": "string",
+              "description": "Device model."
+            },
+            "hostname": {
+              "type": "string",
+              "description": "Device hostname."
+            },
+            "mac": {
+              "type": "string",
+              "description": "MAC address on device label."
+            },
+            "firmware_version": {
+              "type": "string",
+              "description": "Firmware version."
+            },
+            "security_rule": {
+              "type": "number",
+              "description": "Safety regulation options, used to meet different safety requirements of different regulations [0:no safety regulation requirements; 1:general safety regulation requirements].",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "no safety regulation requirements"
+                },
+                {
+                  "const": 1,
+                  "title": "general safety regulation requirements"
+                }
+              ]
+            },
+            "firmware_category": {
+              "type": "string",
+              "description": "Firmware type (currently has 2 values: \"2c\", \"2b\")."
+            },
+            "brand": {
+              "type": "object",
+              "description": "2B Firmware customization information.",
+              "properties": {
+                "enterprise_name": {
+                  "type": "string",
+                  "description": "Company Name."
+                },
+                "copyright": {
+                  "type": "string",
+                  "description": "Copyright Information."
+                },
+                "official_website": {
+                  "type": "string",
+                  "description": "Enterprise official website link."
+                }
+              }
+            },
+            "theme_list": {
+              "type": "array",
+              "description": "List of supported themes"
+            },
+            "time_info": {
+              "type": "object",
+              "description": "The waiting time required by the device under some operations",
+              "properties": {
+                "init": {
+                  "type": "number",
+                  "description": "Time consumed by the device to execute the initialization steps after setting the username password"
+                },
+                "reboot": {
+                  "type": "number",
+                  "description": "Time consumed to execute reboot operation"
+                },
+                "upgrade": {
+                  "type": "number",
+                  "description": "Time consumed to execute the upgrade operation"
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "ui.load_locales",
+      "summary": "Load translation object.",
+      "params": [
+        {
+          "name": "locale",
+          "schema": {
+            "type": "string",
+            "description": "Language code."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "locales": {
+              "type": "array",
+              "description": "A list of translation objects (the front end needs to merge this array into a JSON object)."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "load_locales_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "ui",
+                  "load_locales",
+                  {
+                    "locale": "en"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "locales": [
+                {
+                  "IPv4-Address": "IPv4-Address",
+                  "Services": "Services"
+                },
+                {
+                  "Output": "Output",
+                  "Month Days": "Month Days"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ui.get_menu_list",
+      "summary": "get menu list.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "menus": {
+              "type": "array",
+              "description": "Current menu list."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_menu_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "ui",
+                  "get_menu_list"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "menus": [
+                {
+                  "title": "Network",
+                  "index": 30,
+                  "path": "/network",
+                  "children": [
+                    {
+                      "title": "DHCP/DNS",
+                      "path": "/network/dhcp",
+                      "index": 40,
+                      "view": "oui-app-dhcp"
+                    }
+                  ]
+                },
+                {
+                  "title": "Test",
+                  "index": 31,
+                  "path": "/test",
+                  "view": "oui-app-test"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

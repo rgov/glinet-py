@@ -1,0 +1,24 @@
+{
+  "name": "otbr.set_txpower",
+  "summary": "Set the transmit power of the Thread device.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "set_txpower",
+      {
+        "TXPower": 8
+      }
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "err_code": 0
+    }
+  }
+}

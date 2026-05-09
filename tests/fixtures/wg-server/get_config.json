@@ -1,0 +1,17 @@
+{
+  "name": "wg-server.get_config",
+  "summary": "Get the server config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-server",
+      "get_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response_raw": "{\\\"jsonrpc\\\": \\\"2.0\\\", \\\"id\\\": 1, \\\"result\\\": {\\\"port\\\": 51820, \\\"address_v4\\\": \\\"10.8.0.0/24\\\", \\\"address_v6\\\": \\\"fd00:db8:0:123::/64\\\", \\\"local_access\\\": false, \\\"public_key\\\":\\\"izv0p34WZN7p2vIgehwe33QF27ExjChrPUisk481JHU0=\\\",,\\\"initialization\\\":true,\\\"ipv6_enable\\\":false}}",
+  "response_parse_error": "Expecting property name enclosed in double quotes: line 1 column 205 (char 204)"
+}

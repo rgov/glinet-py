@@ -1,0 +1,8 @@
+{
+  "name": "mcu.get_oled_config",
+  "summary": "Get oled config of mcu.",
+  "request_raw": "'{\"jsonrpc\":\"2.0\",\"method\":\"call\",\"params\":[\"\",\"mcu\",\"get_config\",{}],\"id\":1}'",
+  "request_parse_error": "Expecting value: line 1 column 1 (char 0)",
+  "response_raw": "'{\"id\":1,\"jsonrpc\":\"2.0\",\"result\":{\"screen_display\":{\"main\":false,\"wifi_password\":false,\"wifi_2g\":false,\"wifi_5g\":false,\"lan\":false,\"vpn\":false,\"custom\":false,\"content\":\"1231244\"}}}'",
+  "response_parse_error": "Expecting value: line 1 column 1 (char 0)"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "nas-web.eject_disk",
+  "summary": "eject one disk",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nas-web",
+      "eject_disk",
+      {
+        "dev_name": "sda1"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

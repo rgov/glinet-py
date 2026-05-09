@@ -1,0 +1,46 @@
+{
+  "name": "modem.get_info",
+  "summary": "Get the modems hardware information",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "get_info",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "modems": [
+        {
+          "devices": [
+            "/dev/ttyUSB1",
+            "/dev/cdc-wdm0"
+          ],
+          "protocols": [
+            "3g",
+            "qmi"
+          ],
+          "simcard": {
+            "iccid": "1234567890",
+            "phone_number": "8617603079735",
+            "mcc": "123",
+            "mnc": "456"
+          },
+          "type": 0,
+          "bus": "1-1",
+          "sms_support": true,
+          "name": " EC25EFAR06A04M4G",
+          "version": "RM520NGLAAR01A05M4G_01.001.01.001",
+          "vendor": "quectel",
+          "imei": "860548047084717"
+        }
+      ]
+    }
+  }
+}

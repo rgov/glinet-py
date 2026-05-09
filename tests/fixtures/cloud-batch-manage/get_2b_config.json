@@ -1,0 +1,16 @@
+{
+  "name": "cloud-batch-manage.get_2b_config",
+  "summary": "get 2b config",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "cloud-batch-manage",
+      "get_2b_config"
+    ]
+  },
+  "response_raw": "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":1,\\\"result\\\":{\\\"lan_ip:\\\"192.168.8.1\\\",\\\"autoupdate_firmware_path:\\\"http://xxx\\\",\\\"autoupdate_time:\\\"128169\\\",\\\"autoupdate_enable:\\\"true\\\",\\\"Password:\\\"abc\\\",\\\"system_timezone:\\\"china\\\",\\\"hostname:\\\"ABC\\\",\\\"auto_timezone:\\\"china\\\",\\\"server_name:\\\"GL\\\",\\\"server_url:\\\"http://xxx\\\",\\\"language:\\\"ZH\\\",\\\"image_url:\\\"http://xxx\\\",\\\"customer_name:\\\"ABC\\\",\\\"help_url:\\\"http://xxx\\\",\\\"ssid_2g:\\\"2G-wifi\\\",\\\"disable_2g:\\\"true\\\",\\\"hidden_2g:\\\"true\\\",\\\"channel_2g:\\\"9\\\",\\\"txpower_2g:\\\"9\\\",\\\"htmode_2g:\\\"30\\\",\\\"encrytion_2g:\\\"none\\\",\\\"key_2g:\\\"123456\\\",\\\"guest_2g_ssid:\\\"2G-guest\\\",\\\"guest_2g_encrytion:\\\"none\\\",\\\"guest_2g_key:\\\"123456\\\",\\\"guest_2g_disable:\\\"true\\\",\\\"ssid_5g:\\\"5G-wifi\\\",\\\"channel_5g:\\\"30\\\",\\\"txpower_5g:\\\"30\\\",\\\"htmode_5g:\\\"30\\\",\\\"encrytion_5g:\\\"none\\\",\\\"disable_5g:\\\"true\\\",\\\"hidden_5g:\\\"false\\\",\\\"key_5g:\\\"123456\\\",\\\"guest_5g_ssid:\\\"5G-wifi\\\",\\\"guest_5g_encrytion:\\\"none\\\",\\\"guest_5g_key:\\\"123456\\\",\\\"guest_5g_disable:\\\"true\\\",\\\"reboot_flag:\\\"false\\\",\\\"private_disabled:\\\"true\\\",\\\"private_controller:\\\"192.168.8.1\\\",\\\"guest_disabled:\\\"flase\\\",\\\"guest_controller:\\\"192.168.8.1\\\",\\\"mode:\\\"abc\\\",\\\"ssl_id:\\\"XXX\\\",\\\"private_wired:\\\"abc\\\",\\\"private_datapath_id:\\\"ABC\\\",\\\"private_datapath_desc:\\\"xxx\\\",\\\"private_ipaddr:\\\"192.168.8.1\\\",\\\"private_netmask:\\\"255.255.255.0\\\",\\\"private_dhcp_lease:\\\"192.168.9.100\\\",\\\"private_wlans:\\\"AAA\\\",\\\"guest_wired:\\\"XXX\\\",\\\"guest_datapath_id:\\\"YYY\\\",\\\"guest_datapath_desc:\\\"ZZZ\\\",\\\"guest_ipaddr:\\\"192.168.8.1\\\"\\\"guest_netmask:\\\"255.255.255.0\\\",\\\"guest_dhcp_lease:\\\"192.168.9.100\\\",\\\"guest_wlans:\\\"192.168.8.26\\\"}}",
+  "response_parse_error": "Expecting ':' delimiter: line 1 column 44 (char 43)"
+}

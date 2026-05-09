@@ -1,0 +1,268 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — rtty module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "rtty.get_config",
+      "summary": "get current settings",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ssh_enabled": {
+              "type": "boolean",
+              "description": "whether ssh is enabled"
+            },
+            "web_enabled": {
+              "type": "boolean",
+              "description": "whether web is enabled"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "rtty",
+                  "get_config"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "ssh_enabled": true,
+              "web_enabled": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rtty.set_config",
+      "summary": "set rtty configuration",
+      "params": [
+        {
+          "name": "ssh_enable",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enable ssh"
+          },
+          "required": true
+        },
+        {
+          "name": "web_enable",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enable web"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ssh_enabled": {
+              "type": "boolean",
+              "description": "whether ssh is enabled"
+            },
+            "web_enabled": {
+              "type": "boolean",
+              "description": "whether web is enabled"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "rtty",
+                  "set_config",
+                  {
+                    "ssh_enable": true,
+                    "web_enable": true
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "ssh_enabled": true,
+              "web_enabled": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rtty.run",
+      "summary": "enable rtty",
+      "params": [
+        {
+          "name": "token",
+          "schema": {
+            "type": "string",
+            "description": "token"
+          },
+          "required": true
+        },
+        {
+          "name": "host",
+          "schema": {
+            "type": "string",
+            "description": "server address"
+          },
+          "required": true
+        },
+        {
+          "name": "port",
+          "schema": {
+            "type": "number",
+            "description": "server port"
+          },
+          "required": true
+        },
+        {
+          "name": "ssl",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enable ssl on the server"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [1: the device has no valid DDNS ID; 2: rtty failed to connect to server]",
+              "oneOf": [
+                {
+                  "const": 1,
+                  "title": "the device has no valid DDNS ID"
+                },
+                {
+                  "const": 2,
+                  "title": "rtty failed to connect to server"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "number",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "run_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "rtty",
+                  "run",
+                  {
+                    "token": "sfsedtretger124233as",
+                    "host": "192.168.3.1",
+                    "port": 5912,
+                    "ssl": true
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "rtty.stop",
+      "summary": "disable rtty",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "stop_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "rtty",
+                  "stop"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    }
+  ]
+}

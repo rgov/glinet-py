@@ -1,0 +1,27 @@
+{
+  "name": "rs485.debug_socket",
+  "summary": "test forward message to socket",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "rs485",
+      "debug_socket",
+      {
+        "address": "192.168.8.106",
+        "port": 502,
+        "type": "hex",
+        "data": "16040000000272EC"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "log": "2023-07-30 18:24:38.067 Sent to 192.168.8.106:59920 ==> 16 04 04 02 EE 01 3B BD 4B"
+    }
+  }
+}

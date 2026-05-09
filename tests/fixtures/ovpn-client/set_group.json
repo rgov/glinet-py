@@ -1,0 +1,26 @@
+{
+  "name": "ovpn-client.set_group",
+  "summary": "modify ovpn client group",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-client",
+      "set_group",
+      {
+        "group_id": 3212,
+        "group_name": "mullvad",
+        "username": "glinet",
+        "password": "123456",
+        "auth_type": 1
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

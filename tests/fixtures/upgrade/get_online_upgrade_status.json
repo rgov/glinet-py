@@ -1,0 +1,23 @@
+{
+  "name": "upgrade.get_online_upgrade_status",
+  "summary": "get online upgrade status.",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "upgrade",
+      "get_online_upgrade_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "status": "2",
+      "status_msg": "download_failed"
+    }
+  }
+}

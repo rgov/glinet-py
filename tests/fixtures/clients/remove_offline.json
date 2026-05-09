@@ -1,0 +1,22 @@
+{
+  "name": "clients.remove_offline",
+  "summary": "Delete offline client",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "clients",
+      "remove_offline",
+      {
+        "mac": "FF:FF:FF:FF:FF:FF"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

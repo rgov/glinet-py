@@ -1,0 +1,22 @@
+{
+  "name": "vpn-policy.get_proxy_mode",
+  "summary": "get proxy mode",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "vpn-policy",
+      "get_proxy_mode",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "mode": 0
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "wg-server.get_status",
+  "summary": "Get wireguard server status",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-server",
+      "get_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "server": {
+        "status": 1,
+        "initialization": true,
+        "log": "",
+        "tunnel_ip": "10.9.0.0/24, fc00:bbbb:bb01::/96",
+        "rx_bytes": 245,
+        "tx_bytes": 168
+      },
+      "peers": [
+        {
+          "name": "sample",
+          "status": 1,
+          "private_ip": "10.8.0.2/32",
+          "public_ip": "145.155.54.184",
+          "latest_handshake": "24 seconds ago",
+          "rx_bytes": 149,
+          "tx_bytes": 92
+        }
+      ]
+    }
+  }
+}

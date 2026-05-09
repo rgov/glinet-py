@@ -1,0 +1,641 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — lan module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "lan.add_static_bind",
+      "summary": "Set static ip binding",
+      "params": [
+        {
+          "name": "mac",
+          "schema": {
+            "type": "string",
+            "description": "Set the mac address of the static ip binding entry."
+          },
+          "required": true
+        },
+        {
+          "name": "ip",
+          "schema": {
+            "type": "string",
+            "description": "Set the ip address of the static ip binding entry."
+          },
+          "required": true
+        },
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "The hostname of the device to bind the static ip to.[Optional parameter, defaults to \"\" ]"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:parameter not found,-3:mac address format error,-4:uci initialization error"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_static_bind_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "lan",
+                  "add_static_bind",
+                  {
+                    "name": "DESKTOP-HO0T5C1",
+                    "mac": "58:41:20:0b:9b:b1",
+                    "ip": "192.168.8.162"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "lan.get_static_bind_list",
+      "summary": "Get the information list of all current static ip binding entries",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "static_bind_list": {
+              "type": "array",
+              "description": "Get a list of all static ip binding entries.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "mac": {
+                    "type": "string",
+                    "description": "The mac address of the static ip binding entry."
+                  },
+                  "ip": {
+                    "type": "string",
+                    "description": "The ip address of the static ip binding entry."
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "The hostname of the device to bind the static ip to. [If there is no value, the default is \"\" ]"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-4:uci initialization error."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_static_bind_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "lan",
+                  "get_static_bind_list",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "static_bind_list": [
+                {
+                  "name": "DESKTOP-HO0T5C1",
+                  "mac": "58:41:20:0b:9b:b1",
+                  "ip": "192.168.8.162"
+                },
+                {
+                  "name": "DESKTOP-HO0T5C3",
+                  "mac": "58:41:20:0b:9b:b3",
+                  "ip": "192.168.8.163"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "lan.remove_static_bind",
+      "summary": "Delete a static ip binding or delete all static ip bindings",
+      "params": [
+        {
+          "name": "mode",
+          "schema": {
+            "type": "number",
+            "description": "mode sets the mode to delete static ip binding entries, mode is 0 to delete a single static ip binding (need to pass in mac parameters), mode is 1 to delete all static ip bindings (do not pass in mac parameters or mac parameters are null)."
+          },
+          "required": true
+        },
+        {
+          "name": "mac",
+          "schema": {
+            "type": "string",
+            "description": "The mac address of the static ip binding entry to be deleted, find the corresponding entry according to the mac address and delete. pass mac parameter)]"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-4:uci initialization error."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_static_bind_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "lan",
+                  "remove_static_bind",
+                  {
+                    "mode": 0,
+                    "mac": "58:41:20:0b:9b:b1"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "lan.set_static_bind",
+      "summary": "Change static ip binding",
+      "params": [
+        {
+          "name": "mac",
+          "schema": {
+            "type": "string",
+            "description": "The mac address of the static ip binding entry to be changed. [Find the corresponding static ip binding entry according to mac]"
+          },
+          "required": true
+        },
+        {
+          "name": "ip",
+          "schema": {
+            "type": "string",
+            "description": "The ip address of the static ip binding entry to be changed. [Set the ip of the static ip binding entry corresponding to mac]"
+          },
+          "required": true
+        },
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "The name of the static ip binding entry to be changed. [Set the name of the static ip binding entry corresponding to mac]"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-4:uci initialization error."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_static_bind_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "lan",
+                  "set_static_bind",
+                  {
+                    "mac": "58:41:20:0b:9b:b1",
+                    "ip": "192.168.8.80",
+                    "name": "pc1"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "lan.get_config_list",
+      "summary": "get lan or guest ip info",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "interfaces": {
+              "type": "array",
+              "description": "interface information array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "interface": {
+                    "type": "string",
+                    "description": "interface name [ lan; guest ]"
+                  },
+                  "ip": {
+                    "type": "string",
+                    "description": "interface ip."
+                  },
+                  "gateway": {
+                    "type": "string",
+                    "description": "interface gateway."
+                  },
+                  "netmask": {
+                    "type": "string",
+                    "description": "subnet mask of the interface."
+                  },
+                  "start": {
+                    "type": "string",
+                    "description": "The starting IP address of the interface."
+                  },
+                  "end": {
+                    "type": "string",
+                    "description": "The ending IP address of the interface."
+                  }
+                }
+              }
+            },
+            "ap_isolate": {
+              "type": "number",
+              "description": "ap disconnecting switch"
+            },
+            "transfer_enable": {
+              "type": "number",
+              "description": "lan access guest network switch"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:parameter not found,-4:uci initialization error,-5:no LAN interface."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "lan",
+                  "get_config_list",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "interfaces": [
+                {
+                  "dns": [
+                    "192.168.8.1",
+                    "8.8.8.8"
+                  ],
+                  "lpr": [
+                    "192.168.8.155"
+                  ],
+                  "netmask": "255.255.255.0",
+                  "ip": "192.168.8.1",
+                  "leasetime": "150s",
+                  "end": "192.168.8.199",
+                  "start": "192.168.8.99",
+                  "gateway": "192.168.8.1",
+                  "enable": 1,
+                  "ap_isolate": 0,
+                  "interface": "lan"
+                },
+                {
+                  "dns": [
+                    "192.168.13.1",
+                    "8.8.8.8"
+                  ],
+                  "lpr": [
+                    "192.168.8.155"
+                  ],
+                  "netmask": "255.255.255.0",
+                  "ip": "192.168.13.1",
+                  "leasetime": "1h",
+                  "end": "192.168.13.252",
+                  "start": "192.168.13.100",
+                  "gateway": "192.168.13.1",
+                  "enable": 1,
+                  "ap_isolate": 1,
+                  "transfer_enable": 0,
+                  "interface": "guest"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "lan.set_config",
+      "summary": "Set the ip address of the LAN。",
+      "params": [
+        {
+          "name": "interface",
+          "schema": {
+            "type": "string",
+            "description": "interface name [ lan; guest ] , Indicates whether to set lan ip or guest ip currently."
+          },
+          "required": true
+        },
+        {
+          "name": "ip",
+          "schema": {
+            "type": "string",
+            "description": "Set new IP."
+          },
+          "required": true
+        },
+        {
+          "name": "gateway",
+          "schema": {
+            "type": "string",
+            "description": "Set up a new gateway."
+          },
+          "required": true
+        },
+        {
+          "name": "start",
+          "schema": {
+            "type": "string",
+            "description": "Set a new starting IP address."
+          },
+          "required": true
+        },
+        {
+          "name": "end",
+          "schema": {
+            "type": "string",
+            "description": "Set the new end IP address."
+          },
+          "required": true
+        },
+        {
+          "name": "netmask",
+          "schema": {
+            "type": "string",
+            "description": "Set a new subnet mask."
+          },
+          "required": true
+        },
+        {
+          "name": "enable",
+          "schema": {
+            "type": "number",
+            "description": "set dhcp server enable[1:enable; 0:disable]",
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "enable"
+              },
+              {
+                "const": 0,
+                "title": "disable"
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "leasetime",
+          "schema": {
+            "type": "string",
+            "description": "set lease time,The minimum is 2 minutes, and the incoming parameter can only carry one unit m(minutes)/s(seconds)/h(hours)."
+          },
+          "required": true
+        },
+        {
+          "name": "lpr",
+          "schema": {
+            "type": "string",
+            "description": "set lpr server"
+          },
+          "required": true
+        },
+        {
+          "name": "dns",
+          "schema": {
+            "type": "array",
+            "description": "set dns server"
+          },
+          "required": true
+        },
+        {
+          "name": "ap_isolate",
+          "schema": {
+            "type": "number",
+            "description": "set ap isolate [1:enable; 0:disable]",
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "enable"
+              },
+              {
+                "const": 0,
+                "title": "disable"
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "transfer_enable",
+          "schema": {
+            "type": "number",
+            "description": "set lan access guest network switch[1:enable; 0:disable]",
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "enable"
+              },
+              {
+                "const": 0,
+                "title": "disable"
+              }
+            ]
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:parameter not found,-2:ip wrong format,-4:uci initialization error，-7:ip conflict. -10: The DHCP configuration parameters are incorrect"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "lan",
+                  "set_config",
+                  {
+                    "interface": "lan",
+                    "ip": "192.168.8.1",
+                    "netmask": "255.255.255.0",
+                    "enable": 1,
+                    "leasetime": "150s",
+                    "gateway": "192.168.8.1",
+                    "start": "192.168.8.99",
+                    "end": "192.168.8.199",
+                    "lpr": [
+                      "192.168.8.151"
+                    ],
+                    "dns": [
+                      "192.168.8.1",
+                      "8.8.8.8"
+                    ]
+                  }
+                ],
+                "ap_isolate": 1,
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    }
+  ]
+}

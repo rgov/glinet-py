@@ -1,0 +1,52 @@
+{
+  "name": "dns.get_info",
+  "summary": "get DNS information",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "dns",
+      "get_info",
+      {}
+    ]
+  },
+  "response": {
+    "id": null,
+    "jsonrpc": "2.0",
+    "result": {
+      "protos": [
+        "DoT",
+        "DoH",
+        "DNSCrypt",
+        "oDoH"
+      ],
+      "serverlist": [
+        {
+          "nolog": true,
+          "proto": "DoH",
+          "name": "ahadns-doh-ny-ipv6",
+          "nofilter": false,
+          "ipv6": true,
+          "dnssec": true
+        },
+        {
+          "nolog": true,
+          "proto": "DNSCrypt",
+          "name": "ffmuc.net",
+          "nofilter": true,
+          "ipv6": false,
+          "dnssec": true
+        },
+        {
+          "nolog": true,
+          "proto": "DNSCrypt",
+          "name": "techsaviours.org-dnscrypt",
+          "nofilter": true,
+          "ipv6": false,
+          "dnssec": true
+        }
+      ]
+    }
+  }
+}

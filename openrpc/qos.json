@@ -1,0 +1,1714 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — qos module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "qos.set_channel_bandwidth_ratio",
+      "summary": "Configure priority channel bandwidth ratio",
+      "params": [
+        {
+          "name": "sync_ratio",
+          "schema": {
+            "type": "boolean",
+            "description": "sync upload bandwidth ratio to download bandwidth ratio"
+          },
+          "required": true
+        },
+        {
+          "name": "upload",
+          "schema": {
+            "type": "array",
+            "description": "upload bandwidth configuration",
+            "items": {
+              "type": "object",
+              "properties": {
+                "priority": {
+                  "type": "number",
+                  "description": "upload bandwidth priority"
+                },
+                "min": {
+                  "type": "number",
+                  "description": "The minimum upload bandwidth corresponding to the priority"
+                },
+                "max": {
+                  "type": "number",
+                  "description": "The maximum upload bandwidth corresponding to the priority"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        {
+          "name": "download",
+          "schema": {
+            "type": "array",
+            "description": "download bandwidth configuration[only needed when sync_ratio is false]",
+            "items": {
+              "type": "object",
+              "properties": {
+                "priority": {
+                  "type": "number",
+                  "description": "download bandwidth priority"
+                },
+                "min": {
+                  "type": "number",
+                  "description": "The minimum download bandwidth corresponding to the priority"
+                },
+                "max": {
+                  "type": "number",
+                  "description": "The maximum download bandwidth corresponding to the priority"
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_channel_bandwidth_ratio_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "set_channel_bandwidth_ratio",
+                  {
+                    "sync_ratio": true,
+                    "upload": [
+                      {
+                        "min": "90",
+                        "priority": "1",
+                        "max": "70"
+                      },
+                      {
+                        "min": "70",
+                        "priority": "2",
+                        "max": "50"
+                      },
+                      {
+                        "min": "45",
+                        "priority": "3",
+                        "max": "30"
+                      },
+                      {
+                        "min": "25",
+                        "priority": "4",
+                        "max": "15"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.add_device_group",
+      "summary": "add client group",
+      "params": [
+        {
+          "name": "group_name",
+          "schema": {
+            "type": "string",
+            "description": "group name."
+          },
+          "required": true
+        },
+        {
+          "name": "priority",
+          "schema": {
+            "type": "number",
+            "description": "group priority [1: highest; 2: high; 3: middle; 4: low]",
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "highest"
+              },
+              {
+                "const": 2,
+                "title": "high"
+              },
+              {
+                "const": 3,
+                "title": "middle"
+              },
+              {
+                "const": 4,
+                "title": "low"
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "clients",
+          "schema": {
+            "type": "array",
+            "description": "list of clients."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_device_group_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "add_device_group",
+                  {
+                    "group_name": "test3",
+                    "priority": 3,
+                    "clients": [
+                      "11:22:33:44:55:66",
+                      "44:55:66:77:88:99"
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.delete_device_group",
+      "summary": "delete client group",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "delete_device_group_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "delete_device_group",
+                  {
+                    "group_id": "2"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.modify_device_group",
+      "summary": "Modify client group information",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id."
+          },
+          "required": true
+        },
+        {
+          "name": "group_name",
+          "schema": {
+            "type": "string",
+            "description": "group name."
+          },
+          "required": true
+        },
+        {
+          "name": "priority",
+          "schema": {
+            "type": "number",
+            "description": "group priority[1: highest; 2: high; 3: middle; 4: low]",
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "highest"
+              },
+              {
+                "const": 2,
+                "title": "high"
+              },
+              {
+                "const": 3,
+                "title": "middle"
+              },
+              {
+                "const": 4,
+                "title": "low"
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "clients",
+          "schema": {
+            "type": "array",
+            "description": "list of clients."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "modify_device_group_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "modify_device_group",
+                  {
+                    "group_id": 3,
+                    "group_name": "test4",
+                    "priority": 2,
+                    "clients": [
+                      "11:22:33:44:55:66",
+                      "44:55:66:77:88:99"
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.get_device_group",
+      "summary": "get client group information",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "default_priority": {
+              "type": "string",
+              "description": "default priority for other clients [1: highest; 2: high; 3: middle; 4: low]"
+            },
+            "groups": {
+              "type": "array",
+              "description": "client group information",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "group name"
+                  },
+                  "group_id": {
+                    "type": "number",
+                    "description": "group id"
+                  },
+                  "priority": {
+                    "type": "number",
+                    "description": "group priority [1: highest; 2: high; 3: middle; 4: low]",
+                    "oneOf": [
+                      {
+                        "const": 1,
+                        "title": "highest"
+                      },
+                      {
+                        "const": 2,
+                        "title": "high"
+                      },
+                      {
+                        "const": 3,
+                        "title": "middle"
+                      },
+                      {
+                        "const": 4,
+                        "title": "low"
+                      }
+                    ]
+                  },
+                  "clients": {
+                    "type": "array",
+                    "description": "list of clients"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_device_group_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "get_device_group",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "group": [
+                {
+                  "priority": "1",
+                  "clients": [
+                    "F8:E4:3B:78:EE:01",
+                    "F8:E4:3B:78:EE:02"
+                  ],
+                  "name": "game"
+                },
+                {
+                  "priority": "2",
+                  "clients": [
+                    "E8:4E:06:7A:B5:1F",
+                    "E8:4E:06:7A:B5:20"
+                  ],
+                  "name": "nas"
+                }
+              ],
+              "default_priority": "2"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.set_other_client_priority",
+      "summary": "set the priority of other clients",
+      "params": [
+        {
+          "name": "priority",
+          "schema": {
+            "type": "number",
+            "description": "Priority of other clients[1: high priority，2: medium priority，3: low priority]. {p.s:consider adding a button to the interface}"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_other_client_priority_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "set_config",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.set_model",
+      "summary": "set qos mode",
+      "params": [
+        {
+          "name": "model",
+          "schema": {
+            "type": "string",
+            "description": "qos startup mode [speed_limit; priority; cake].{p.s:limit client rate mode, apply button should be added}"
+          },
+          "required": true
+        },
+        {
+          "name": "wan_list",
+          "schema": {
+            "type": "array",
+            "description": "qos wan interface configuration information.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "wan interface name[wan: wired network; wwan: wireless relay; tethering: network sharing; modem1/modem2: mobile network 1/2]"
+                },
+                "up": {
+                  "type": "boolean",
+                  "description": "whether the corresponding wan interface is up[false: wan isn't up; true: wan is up] {p.s:the web page does not display the upload and download rate information of the wan interface that is not up}"
+                },
+                "upload": {
+                  "type": "number",
+                  "description": "the upload rate of wan.(Unit: kbit)"
+                },
+                "download": {
+                  "type": "number",
+                  "description": "the download rate of wan.(Unit: kbit)"
+                }
+              }
+            }
+          },
+          "required": false
+        },
+        {
+          "name": "cake_model",
+          "schema": {
+            "type": "string",
+            "description": "the current working mode of cake."
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_model_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "switch_model",
+                  {
+                    "model": "cake"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.enable_qos",
+      "summary": "enable or disable qos",
+      "params": [
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "[true: enable qos; false: disable qos]."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "enable_qos_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "set_config",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.get_config",
+      "summary": "get qos config",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "boolean",
+              "description": "whether enable qos function is enable[true: enable; false: disable]"
+            },
+            "mode": {
+              "type": "number",
+              "description": "qos startup mode [0: smart traffic manage; 1: munual traffic manage; 2: client speed limit]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "smart traffic manage"
+                },
+                {
+                  "const": 1,
+                  "title": "munual traffic manage"
+                },
+                {
+                  "const": 2,
+                  "title": "client speed limit"
+                }
+              ]
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid parameter"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "get_config",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "enable": false,
+              "mode": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.set_speed_limit_rule",
+      "summary": "set the speed limiting rules for client device",
+      "params": [
+        {
+          "name": "mac",
+          "schema": {
+            "type": "string",
+            "description": "client mac address."
+          },
+          "required": true
+        },
+        {
+          "name": "upload",
+          "schema": {
+            "type": "number",
+            "description": "upload rate(Unit: KB/s){p.s:When it is 0, no speed limit}"
+          },
+          "required": true
+        },
+        {
+          "name": "download",
+          "schema": {
+            "type": "number",
+            "description": "download rate(Unit: KB/s){p.s:When it is 0, no speed limit}"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_speed_limit_rule_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "set_speed_limit_rule",
+                  {
+                    "mac": "18:c0:4d:dc:4f:cc",
+                    "download": 10,
+                    "upload": 2
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.remove_speed_limit_rule",
+      "summary": "remove the client device speed limit rule",
+      "params": [
+        {
+          "name": "mac",
+          "schema": {
+            "type": "string",
+            "description": "client mac address."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_speed_limit_rule_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "remove_speed_limit_rule",
+                  {
+                    "mac": "18:c0:4d:dc:4f:cc"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.get_client_list",
+      "summary": "get client list {p.s:called when clicking to add client speed limit rule}",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "clients": {
+              "type": "array",
+              "description": "list of clients.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "mac": {
+                    "type": "string",
+                    "description": "client mac address."
+                  },
+                  "upload": {
+                    "type": "number",
+                    "description": "client upload rate(Unit: KB/s)."
+                  },
+                  "download": {
+                    "type": "number",
+                    "description": "client download rate(Unit: KB/s)."
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_client_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "get_client_list",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "clients": [
+                {
+                  "mac": "18:c0:4d:dc:4f:cc",
+                  "download": 10,
+                  "upload": 2
+                },
+                {
+                  "mac": "18:c0:4d:dc:4f:dd",
+                  "download": 11,
+                  "upload": 3
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.get_channel_bandwidth_ratio",
+      "summary": "get priority channel bandwidth ratio",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sync_ratio": {
+              "type": "boolean",
+              "description": "sync upload bandwidth ratio to download bandwidth ratio"
+            },
+            "upload": {
+              "type": "array",
+              "description": "upload bandwidth configuration.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "priority": {
+                    "type": "number",
+                    "description": "upload bandwidth priority [1: highest; 2: high; 3: middle; 4: low]",
+                    "oneOf": [
+                      {
+                        "const": 1,
+                        "title": "highest"
+                      },
+                      {
+                        "const": 2,
+                        "title": "high"
+                      },
+                      {
+                        "const": 3,
+                        "title": "middle"
+                      },
+                      {
+                        "const": 4,
+                        "title": "low"
+                      }
+                    ]
+                  },
+                  "min": {
+                    "type": "number",
+                    "description": "The minimum upload bandwidth corresponding to the priority."
+                  },
+                  "max": {
+                    "type": "number",
+                    "description": "The maximum upload bandwidth corresponding to the priority.."
+                  }
+                }
+              }
+            },
+            "download": {
+              "type": "array",
+              "description": "download bandwidth configuration.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "priority": {
+                    "type": "number",
+                    "description": "download bandwidth priority [1: highest; 2: high; 3: middle; 4: low]",
+                    "oneOf": [
+                      {
+                        "const": 1,
+                        "title": "highest"
+                      },
+                      {
+                        "const": 2,
+                        "title": "high"
+                      },
+                      {
+                        "const": 3,
+                        "title": "middle"
+                      },
+                      {
+                        "const": 4,
+                        "title": "low"
+                      }
+                    ]
+                  },
+                  "min": {
+                    "type": "number",
+                    "description": "The minimum download bandwidth corresponding to the priority.."
+                  },
+                  "max": {
+                    "type": "number",
+                    "description": "The maximum download bandwidth corresponding to the priority.."
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_channel_bandwidth_ratio_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "get_channel_bandwidth_ratio",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "sync_ratio": false,
+              "upload": [
+                {
+                  "min": "90",
+                  "priority": "1",
+                  "max": "70"
+                },
+                {
+                  "min": "75",
+                  "priority": "2",
+                  "max": "50"
+                },
+                {
+                  "min": "50",
+                  "priority": "3",
+                  "max": "30"
+                },
+                {
+                  "min": "30",
+                  "priority": "4",
+                  "max": "15"
+                }
+              ],
+              "download": [
+                {
+                  "min": "90",
+                  "priority": "1",
+                  "max": "70"
+                },
+                {
+                  "min": "75",
+                  "priority": "2",
+                  "max": "50"
+                },
+                {
+                  "min": "50",
+                  "priority": "3",
+                  "max": "30"
+                },
+                {
+                  "min": "30",
+                  "priority": "4",
+                  "max": "15"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.set_default_priority",
+      "summary": "set the priority of other clients",
+      "params": [
+        {
+          "name": "priority",
+          "schema": {
+            "type": "number",
+            "description": "Priority of other clients [1: highest; 2: high; 3: middle; 4: low]",
+            "oneOf": [
+              {
+                "const": 1,
+                "title": "highest"
+              },
+              {
+                "const": 2,
+                "title": "high"
+              },
+              {
+                "const": 3,
+                "title": "middle"
+              },
+              {
+                "const": 4,
+                "title": "low"
+              }
+            ]
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_default_priority_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "set_default_priority",
+                  {
+                    "priority": 3
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.set_config",
+      "summary": "set qos config",
+      "params": [
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enable qos function [true: enable; false: disable]"
+          },
+          "required": true
+        },
+        {
+          "name": "mode",
+          "schema": {
+            "type": "number",
+            "description": "qos startup mode [0: smart traffic manage; 1: munual traffic manage; 2: client speed limit]",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "smart traffic manage"
+              },
+              {
+                "const": 1,
+                "title": "munual traffic manage"
+              },
+              {
+                "const": 2,
+                "title": "client speed limit"
+              }
+            ]
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid parameter"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "set_config",
+                  {
+                    "enable": true,
+                    "mode": 1
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.get_bandwidth_config",
+      "summary": "get wan bandwidth and default priority",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "band_cfg": {
+              "type": "array",
+              "description": "wan interfaces bandwidth config",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "interface": {
+                    "type": "string",
+                    "description": "wan interface name[wan; wwan; thetering; modem]"
+                  },
+                  "enable": {
+                    "type": "boolean",
+                    "description": "whether enable interface band limit"
+                  },
+                  "download": {
+                    "type": "number",
+                    "description": "interface download limit"
+                  },
+                  "upload": {
+                    "type": "number",
+                    "description": "interface upload limit"
+                  }
+                }
+              }
+            },
+            "packet_priority": {
+              "type": "boolean",
+              "description": "ACK/SYN/ICMP packets forward first, only return in mode 2(munual traffic manage mode) [true: enable; false: disable]"
+            },
+            "work_mode": {
+              "type": "number",
+              "description": "set diff serv mode, only return in mode 1(smart traffic manage) [0: normal; 1: voice; 2: av]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "normal"
+                },
+                {
+                  "const": 1,
+                  "title": "voice"
+                },
+                {
+                  "const": 2,
+                  "title": "av"
+                }
+              ]
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid parameter"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_bandwidth_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "qos",
+                  "get_bandwidth_config",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "work_mode": 1,
+              "band_cfg": [
+                {
+                  "interface": "wan",
+                  "enable": true,
+                  "upload": 1024,
+                  "download": 512
+                },
+                {
+                  "interface": "wwan",
+                  "enable": true,
+                  "upload": 1024,
+                  "download": 512
+                },
+                {
+                  "interface": "tethering",
+                  "enable": true,
+                  "upload": 1024,
+                  "download": 512
+                },
+                {
+                  "interface": "modem",
+                  "enable": true,
+                  "upload": 1024,
+                  "download": 512
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.set_bandwidth_config",
+      "summary": "set wan bandwidth and default priority",
+      "params": [
+        {
+          "name": "band_cfg",
+          "schema": {
+            "type": "array",
+            "description": "wan interfaces bandwidth config",
+            "items": {
+              "type": "object",
+              "properties": {
+                "interface": {
+                  "type": "string",
+                  "description": "wan interface name[wan; wwan; thetering; modem]"
+                },
+                "enable": {
+                  "type": "boolean",
+                  "description": "whether to enable interface band limit"
+                },
+                "download": {
+                  "type": "number",
+                  "description": "interface download limit"
+                },
+                "upload": {
+                  "type": "number",
+                  "description": "interface upload limit"
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid parameter"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_bandwidth_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "qos",
+                  "set_bandwidth_config",
+                  {
+                    "band_cfg": [
+                      {
+                        "enable": false,
+                        "download": 512,
+                        "upload": 1024,
+                        "interface": "wan"
+                      },
+                      {
+                        "enable": false,
+                        "download": 512,
+                        "upload": 1024,
+                        "interface": "wwan"
+                      }
+                    ]
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.set_work_mode",
+      "summary": "set qos work mode",
+      "params": [
+        {
+          "name": "work_mode",
+          "schema": {
+            "type": "number",
+            "description": "set diff serv mode, only avaliable in mode 0(smart traffic manage) [0: normal; 1: voice; 2: av]",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "normal"
+              },
+              {
+                "const": 1,
+                "title": "voice"
+              },
+              {
+                "const": 2,
+                "title": "av"
+              }
+            ]
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid parameter"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_work_mode_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "qos",
+                  "set_work_mode",
+                  {
+                    "work_mode": 1
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "qos.set_packet_priority",
+      "summary": "set ACK/SYN/ICMP packets forward first",
+      "params": [
+        {
+          "name": "packet_priority",
+          "schema": {
+            "type": "boolean",
+            "description": "ACK/SYN/ICMP packets forward first, only avaliable in mode 1(munual traffic manage mode) [true: enable; false: disable]"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid parameter"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_packet_priority_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "qos",
+                  "set_packet_priority",
+                  {
+                    "packet_priority": true
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "rs485.terminal",
+  "summary": "terminal tool for reading and writing data",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "rs485",
+      "terminal",
+      {
+        "is_modbus": true,
+        "type": "hex",
+        "data": "16040000000272EC"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "log": [
+        "2023-07-30 18:28:39.962 Command ==>16 04 00000002 72EC",
+        "2023-07-30 18:28:39.992 Response ==>16 04 0402D9013C 4D47"
+      ]
+    }
+  }
+}

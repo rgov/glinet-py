@@ -1,0 +1,22 @@
+{
+  "name": "firewall.get_dmz",
+  "summary": "get DMZ configuration",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "firewall",
+      "get_dmz"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "enabled": true,
+      "dest_ip": "192.168.8.100"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "wg-server.add_route",
+  "summary": "add wireguard server custom route",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-server",
+      "add_route",
+      {
+        "route_flag": 4,
+        "dest": "192.168.9.13/32",
+        "gateway": "10.8.3.1",
+        "metric": 20,
+        "mtu": 1500
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "wg-client.remove_config",
+  "summary": "remove wireguard client config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "remove_config",
+      {
+        "group_id": 3212,
+        "peer_id": 1254
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

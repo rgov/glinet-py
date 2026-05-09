@@ -1,0 +1,916 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — timer module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "timer.set_led",
+      "summary": "set led config",
+      "params": [
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "set the LED schedule status [true: enable; false: disable]"
+          },
+          "required": true
+        },
+        {
+          "name": "turnon_hour",
+          "schema": {
+            "type": "string",
+            "description": "set the start time (hour) of LED schedule"
+          },
+          "required": true
+        },
+        {
+          "name": "turnon_min",
+          "schema": {
+            "type": "string",
+            "description": "set the start time (minute) of LED schedule"
+          },
+          "required": true
+        },
+        {
+          "name": "turnoff_hour",
+          "schema": {
+            "type": "string",
+            "description": "set the end time (hour) of LED schedule"
+          },
+          "required": true
+        },
+        {
+          "name": "turnoff_min",
+          "schema": {
+            "type": "string",
+            "description": "set the end time (minute) of LED schedule"
+          },
+          "required": true
+        },
+        {
+          "name": "week",
+          "schema": {
+            "type": "array",
+            "description": "set the days to perfrom the LED schedule in a week"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: parameter error]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_led_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "timer",
+                  "set_led",
+                  {
+                    "enable": true,
+                    "turnon_hour": "07",
+                    "turnon_min": "00",
+                    "turnoff_hour": "22",
+                    "turnoff_min": "00"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "timer.get_led",
+      "summary": "get config of LED",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "boolean",
+              "description": "get the LED schedule status [true: enable; false: disable]"
+            },
+            "turnon_hour": {
+              "type": "string",
+              "description": "get the start time (hour) of LED schedule"
+            },
+            "turnon_min": {
+              "type": "string",
+              "description": "get the start time (minute) of LED schedule"
+            },
+            "turnoff_hour": {
+              "type": "string",
+              "description": "get the end time (hour) of LED schedule"
+            },
+            "turnoff_min": {
+              "type": "string",
+              "description": "get the end time (minute) of LED schedule"
+            },
+            "week": {
+              "type": "array",
+              "description": "get the days to perfrom the LED schedule in a week"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_led_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "timer",
+                  "get_led",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "turnon_hour": "07",
+              "turnoff_min": "00",
+              "turnon_min": "00",
+              "enable": true,
+              "turnoff_hour": "22"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "timer.set_reboot",
+      "summary": "set reboot config",
+      "params": [
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "set the status of schedule reboot [true: enable; false: disable]"
+          },
+          "required": true
+        },
+        {
+          "name": "hour",
+          "schema": {
+            "type": "string",
+            "description": "set the time (hour) to perfrom schedule reboot"
+          },
+          "required": true
+        },
+        {
+          "name": "min",
+          "schema": {
+            "type": "string",
+            "description": "set the time (minute) to perfrom schedule reboot"
+          },
+          "required": true
+        },
+        {
+          "name": "week",
+          "schema": {
+            "type": "array",
+            "description": "set the days to perfrom the LED schedule in a week"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: parameter error]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_reboot_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "timer",
+                  "set_reboot",
+                  {
+                    "enable": true,
+                    "hour": "03",
+                    "min": "00",
+                    "week": [
+                      0,
+                      1,
+                      2,
+                      3,
+                      4,
+                      5,
+                      6
+                    ]
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "timer.get_reboot",
+      "summary": "get config of reboot",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "boolean",
+              "description": "get the status of schedule reboot [true: enable; false: disable]"
+            },
+            "hour": {
+              "type": "string",
+              "description": "get the time (hour) to perfrom schedule reboot"
+            },
+            "min": {
+              "type": "string",
+              "description": "get the time (minute) to perfrom schedule reboot"
+            },
+            "week": {
+              "type": "array",
+              "description": "get the days to perfrom LED schedule in a week"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_reboot_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "timer",
+                  "get_reboot",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "enable": false,
+              "week": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+              ],
+              "hour": "07",
+              "min": "00"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "timer.set_wifi",
+      "summary": "set wifi config",
+      "params": [
+        {
+          "name": "wifi",
+          "schema": {
+            "type": "array",
+            "description": "set the group data of WiFi schedule",
+            "items": {
+              "type": "object",
+              "properties": {
+                "enable": {
+                  "type": "boolean",
+                  "description": "set the status of WiFi schedule [true: enable; false: disable]"
+                },
+                "band": {
+                  "type": "string",
+                  "description": "set the WiFi band [2g; 5g]"
+                },
+                "guest": {
+                  "type": "number",
+                  "description": "set the WiFi type [0: main WiFi; 1: guest WiFi]",
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "main WiFi"
+                    },
+                    {
+                      "const": 1,
+                      "title": "guest WiFi"
+                    }
+                  ]
+                },
+                "func": {
+                  "type": "string",
+                  "description": "set the WiFi schedule function, turn_onoff refer to turn on and off the WiFi, power_switch refer to switch the WiFi transmission power"
+                },
+                "turnon_hour": {
+                  "type": "string",
+                  "description": "set the start time (hour) of WiFi schedule, required when set as turn_onoff"
+                },
+                "turnon_min": {
+                  "type": "string",
+                  "description": "set the start time (minute) of WiFi schedule, required when set as turn_onoff"
+                },
+                "turnoff_hour": {
+                  "type": "string",
+                  "description": "set the end time (hour) of WiFi schedule, required when set as turn_onoff"
+                },
+                "turnoff_min": {
+                  "type": "string",
+                  "description": "set the end time (minute) of WiFi schedule, required when set as turn_onoff"
+                },
+                "switch_hour": {
+                  "type": "string",
+                  "description": "set the time (hour) to switch the transmission power, required when set as power_switch"
+                },
+                "switch_min": {
+                  "type": "string",
+                  "description": "set the time (minute) to switch the transmission power, required when set as power_switch"
+                },
+                "restore_hour": {
+                  "type": "string",
+                  "description": "set the time (hour) to switch back the transmission power, required when set as power_switch"
+                },
+                "restore_min": {
+                  "type": "string",
+                  "description": "set the time (minute) to switch back the transmission power, required when set as power_switch"
+                },
+                "switch_power": {
+                  "type": "string",
+                  "description": "set the transmission power switch to, required when set as power_switch [ Max; High; Medium; Low]"
+                },
+                "restore_power": {
+                  "type": "string",
+                  "description": "set the transmission power switch back to, required when set as power_switch [ Max; High; Medium; Low]"
+                },
+                "week": {
+                  "type": "array",
+                  "description": "set the days to perform WiFi schedule in a week"
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: parameter error]"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_wifi_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "timer",
+                  "set_wifi",
+                  {
+                    "wifi": [
+                      {
+                        "band": "5G",
+                        "turnoff_min": "11",
+                        "enable": false,
+                        "func": "turn_onoff",
+                        "turnoff_hour": "11",
+                        "guest": "0",
+                        "week": [
+                          0,
+                          1
+                        ],
+                        "turnon_min": "11",
+                        "turnon_hour": "11"
+                      },
+                      {
+                        "band": "5G",
+                        "turnoff_min": "11",
+                        "enable": false,
+                        "func": "turn_onoff",
+                        "turnoff_hour": "11",
+                        "guest": "1",
+                        "week": [
+                          0,
+                          1
+                        ],
+                        "turnon_min": "11",
+                        "turnon_hour": "11"
+                      }
+                    ]
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "timer.get_wifi",
+      "summary": "get config of wifi",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "wifi_func_2g": {
+              "type": "string",
+              "description": "get the 2.4g WiFi schedule function, turn_onoff refer to turn on and off the WiFi, power_switch refer to switch the WiFi transmission power"
+            },
+            "wifi_func_5g": {
+              "type": "string",
+              "description": "get the 5g WiFi schedule function, turn_onoff refer to turn on and off the WiFi, power_switch refer to switch the WiFi transmission power"
+            },
+            "wifi": {
+              "type": "array",
+              "description": "get the group data of WiFi schedule",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "enable": {
+                    "type": "boolean",
+                    "description": "get the status of WiFi schedule [true: enable; false: disable]"
+                  },
+                  "band": {
+                    "type": "string",
+                    "description": "get the WiFi band [2g; 5g]"
+                  },
+                  "guest": {
+                    "type": "number",
+                    "description": "get the WiFi type [0: main WiFi; 1: guest WiFi]",
+                    "oneOf": [
+                      {
+                        "const": 0,
+                        "title": "main WiFi"
+                      },
+                      {
+                        "const": 1,
+                        "title": "guest WiFi"
+                      }
+                    ]
+                  },
+                  "turnon_hour": {
+                    "type": "string",
+                    "description": "get the start time (hour) of WiFi schedule, required when set as turn_onoff"
+                  },
+                  "turnon_min": {
+                    "type": "string",
+                    "description": "get the start time (minute) of WiFi schedule, required when set as turn_onoff"
+                  },
+                  "turnoff_hour": {
+                    "type": "string",
+                    "description": "get the end time (hour) of WiFi schedule, required when set as turn_onoff"
+                  },
+                  "turnoff_min": {
+                    "type": "string",
+                    "description": "get the end time (minute) of WiFi schedule, required when set as turn_onoff"
+                  },
+                  "switch_hour": {
+                    "type": "string",
+                    "description": "get the time (hour) to switch the transmission power, required when set as power_switch"
+                  },
+                  "switch_min": {
+                    "type": "string",
+                    "description": "get the time (minute) to switch the transmission power, required when set as power_switch"
+                  },
+                  "restore_hour": {
+                    "type": "string",
+                    "description": "get the time (hour) to switch back the transmission power, required when set as power_switch"
+                  },
+                  "restore_min": {
+                    "type": "string",
+                    "description": "get the time (minute) to switch back the transmission power, required when set as power_switch"
+                  },
+                  "switch_power": {
+                    "type": "string",
+                    "description": "get the transmission power switch to, required when set as power_switch [ Max; High; Medium; Low]"
+                  },
+                  "restore_power": {
+                    "type": "string",
+                    "description": "get the transmission power switch back to, required when set as power_switch [ Max; High; Medium; Low]"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_wifi_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "timer",
+                  "get_wifi",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "wifi": [
+                {
+                  "band": "5G",
+                  "turnoff_min": "11",
+                  "enable": 1,
+                  "func": "turn_onoff",
+                  "turnoff_hour": "11",
+                  "guest": 0,
+                  "week": [
+                    0,
+                    1
+                  ],
+                  "turnon_min": "11",
+                  "turnon_hour": "11"
+                },
+                {
+                  "band": "2G",
+                  "turnoff_min": "00",
+                  "enable": 1,
+                  "func": "turn_onoff",
+                  "turnoff_hour": "22",
+                  "guest": 0,
+                  "week": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6
+                  ],
+                  "turnon_min": "00",
+                  "turnon_hour": "07"
+                },
+                {
+                  "band": "5G",
+                  "turnoff_min": "11",
+                  "enable": 1,
+                  "func": "turn_onoff",
+                  "turnoff_hour": "11",
+                  "guest": 1,
+                  "week": [
+                    0,
+                    1
+                  ],
+                  "turnon_min": "11",
+                  "turnon_hour": "11"
+                },
+                {
+                  "band": "2G",
+                  "turnoff_min": "00",
+                  "enable": 1,
+                  "func": "turn_onoff",
+                  "turnoff_hour": "22",
+                  "guest": 1,
+                  "week": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6
+                  ],
+                  "turnon_min": "00",
+                  "turnon_hour": "07"
+                },
+                {
+                  "band": "5G",
+                  "switch_hour": "22",
+                  "restore_min": "00",
+                  "enable": 1,
+                  "func": "power_switch",
+                  "guest": 0,
+                  "week": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6
+                  ],
+                  "restore_power": "Max",
+                  "restore_hour": "07",
+                  "switch_power": "Low",
+                  "switch_min": "00"
+                },
+                {
+                  "band": "2G",
+                  "switch_hour": "22",
+                  "restore_min": "00",
+                  "enable": 1,
+                  "func": "power_switch",
+                  "guest": 0,
+                  "week": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6
+                  ],
+                  "restore_power": "Max",
+                  "restore_hour": "07",
+                  "switch_power": "Low",
+                  "switch_min": "00"
+                }
+              ],
+              "wifi_func_5g": "turn_onoff",
+              "wifi_func_2g": "turn_onoff"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "timer.set_disk",
+      "summary": "set disk config",
+      "params": [
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "set the status of schedule disk [true: enable; false: disable]"
+          },
+          "required": true
+        },
+        {
+          "name": "turnon_hour",
+          "schema": {
+            "type": "string",
+            "description": "set the start time (hour) of schedule disk"
+          },
+          "required": true
+        },
+        {
+          "name": "turnon_min",
+          "schema": {
+            "type": "string",
+            "description": "set the start time (minute) of schedule disk"
+          },
+          "required": true
+        },
+        {
+          "name": "turnoff_hour",
+          "schema": {
+            "type": "string",
+            "description": "set the end time (hour) of schedule disk"
+          },
+          "required": true
+        },
+        {
+          "name": "turnoff_min",
+          "schema": {
+            "type": "string",
+            "description": "set the end time (minute) of schedule disk"
+          },
+          "required": true
+        },
+        {
+          "name": "week",
+          "schema": {
+            "type": "array",
+            "description": "set the days to perfrom the LED schedule in a week"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code,-1;parameter error."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_disk_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "timer",
+                  "set_led",
+                  {
+                    "enable": true,
+                    "turnon_hour": "07",
+                    "turnon_min": "00",
+                    "turnoff_hour": "22",
+                    "turnoff_min": "00"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "timer.get_disk",
+      "summary": "get config of disk",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "boolean",
+              "description": "get the status of schedule disk [true: enable; false: disable]"
+            },
+            "turnon_hour": {
+              "type": "string",
+              "description": "get the start time (hour) of schedule disk"
+            },
+            "turnon_min": {
+              "type": "string",
+              "description": "get the start time (minute) of schedule disk"
+            },
+            "turnoff_hour": {
+              "type": "string",
+              "description": "get the end time (hour) of schedule disk"
+            },
+            "turnoff_min": {
+              "type": "string",
+              "description": "get the end time (minute) of schedule disk"
+            },
+            "week": {
+              "type": "array",
+              "description": "get the days to perfrom LED schedule in a week"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_disk_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "timer",
+                  "get_led",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "turnon_hour": "07",
+              "turnoff_min": "00",
+              "turnon_min": "00",
+              "enable": true,
+              "turnoff_hour": "22"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

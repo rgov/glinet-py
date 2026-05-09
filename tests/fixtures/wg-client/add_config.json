@@ -1,0 +1,37 @@
+{
+  "name": "wg-client.add_config",
+  "summary": "add wireguard client config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "add_config",
+      {
+        "group_id": 3212,
+        "name": "test",
+        "address_v4": "10.8.0.0/24",
+        "address_v6": "fd00:db8:0:123::/64",
+        "private_key": "XVpIdr+oYjTcgDwzSZmNa1nSsk8JO+tx1NBo17LDBAI=",
+        "allowed_ips": "0.0.0.0/0,::/0",
+        "end_point": "103.231.88.18:3102",
+        "public_key": "zv0p34WZN7p2vIgehwe33QF27ExjChrPUisk481JHU0=",
+        "dns": "193.138.219.228",
+        "presharedkey_enable": false,
+        "listen_port": 22536,
+        "persistent_keepalive": 25,
+        "mtu": 1420,
+        "ipv6_enable": true
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "peer_id": 1921
+    }
+  }
+}

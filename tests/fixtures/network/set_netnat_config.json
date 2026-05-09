@@ -1,0 +1,22 @@
+{
+  "name": "network.set_netnat_config",
+  "summary": "enable/disable netnat",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "network",
+      "set_netnat_config",
+      {
+        "enable": true
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

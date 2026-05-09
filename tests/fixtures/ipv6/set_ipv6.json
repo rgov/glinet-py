@@ -1,0 +1,27 @@
+{
+  "name": "ipv6.set_ipv6",
+  "summary": "setting ipv6",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ipv6",
+      "set_ipv6",
+      {
+        "enable": true,
+        "lan_mode": "static",
+        "lan_ip": "fdab:6a57:e8f5:10:d14f:d19b:a63c:d7a5",
+        "lan_dns_mode": true,
+        "lan_dns1": "fdab:6a57:e8f5:10::1",
+        "lan_dns2": "fdab:6a57:e8f5:10::2"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

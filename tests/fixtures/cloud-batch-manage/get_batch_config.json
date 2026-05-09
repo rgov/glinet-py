@@ -1,0 +1,16 @@
+{
+  "name": "cloud-batch-manage.get_batch_config",
+  "summary": "get batch config",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "cloud-batch-manage",
+      "get_batch_config"
+    ]
+  },
+  "response_raw": "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":1,\\\"result\\\":{\\\"wan_proto\\\":\\\"dhcp\\\",\\\"wan_username\\\":\\\"glcloud\\\",\\\"wan_password\\\":\\\"abc\\\",\\\"wan_ipaddr\\\":\\\"192.168.8.1\\\",\\\"wan_gateway\\\":\\\"255.255.255.1\\\",\\\"wan_netmask\\\":\\\"255.255.255.0\\\"\\\"wan_dns\\\":\\\"8.8.8.8\\\",\\\"reboot_flag\\\":\\\"true\\\",\\\"ssid_2g\\\":\\\"GL\\\",\\\"disable_2g\\\":\\\"true\\\",\\\"hidden_2g\\\":\\\"true\\\",\\\"channel_2g\\\":\\\"8\\\",\\\"txpower_2g\\\":\\\"10\\\",\\\"htmode_2g\\\":\\\"10\\\",\\\"encrytion_2g\\\":\\\"none\\\",\\\"key_2g\\\":\\\"abc\\\",\\\"guest_2g_ssid\\\":\\\"GL-guest\\\",\\\"guest_2g_encrytion\\\":\\\"none\\\",\\\"guest_2g_key\\\":\\\"123456\\\",\\\"guest_2g_disable\\\":\\\"true\\\",\\\"ssid_5g\\\":\\\"GL-5G\\\",\\\"channel_5g\\\":\\\"8\\\",\\\"txpower_5g\\\":\\\"30\\\",\\\"htmode_5g\\\":\\\"30\\\",\\\"encrytion_5g\\\":\\\"none\\\",\\\"disable_5g\\\":\\\"true\\\",\\\"hidden_5g\\\":\\\"false\\\",\\\"key_5g\\\":\\\"abc\\\",\\\"guest_5g_ssid\\\":\\\"GL-5Guest\\\",\\\"guest_5g_encrytion\\\":\\\"none\\\",\\\"guest_5g_key\\\":\\\"abc123\\\",\\\"guest_5g_disable\\\":\\\"true\\\",\\\"probe_data_path1\\\":\\\"XXX\\\",\\\"probe_data_path2\\\":\\\"YYY\\\",\\\"probe_max_lines\\\":\\\"30\\\",\\\"probe_interval\\\":\\\"100\\\",\\\"probe_json\\\":\\\"json\\\",\\\"probe_virmac\\\":\\\"AABBCCEEDDFF\\\",\\\"probe_type\\\":\\\"3\\\",\\\"probe_tcpurl\\\":\\\"http://xxx\\\",\\\"probe_filter\\\":\\\"abc\\\",\\\"probe_sflag\\\":\\\"XYZ\\\",\\\"probe_protocol\\\":\\\"DHCP\\\",\\\"probe_channel\\\":\\\"10\\\",\\\"probe_channel5g\\\":\\\"30\\\",\\\"probe_induce\\\":\\\"ABC\\\",\\\"lan_ip\\\":\\\"192.168.8.1\\\",\\\"guest_lan_ip\\\":\\\"192.168.9.1\\\",\\\"autoupdate_firmware_path\\\":\\\"http://xxx\\\",\\\"autoupdate_time\\\":\\\"192168\\\",\\\"autoupdate_enable\\\":\\\"false\\\",\\\"Password\\\":\\\"abc\\\",\\\"system_timezone\\\":\\\"china\\\",\\\"auto_timezone\\\":\\\"china\\\"}}",
+  "response_parse_error": "Expecting ',' delimiter: line 1 column 186 (char 185)"
+}

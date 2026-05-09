@@ -1,0 +1,55 @@
+{
+  "name": "kmwan.get_config",
+  "summary": "get kmwan Settings",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "kmwan",
+      "get_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "mode": 1,
+      "sensitivity": 5,
+      "interfaces": [
+        {
+          "interface": "wan",
+          "weight": 1,
+          "metric": 10,
+          "enable_check": true,
+          "track_mode": 1,
+          "track_proto": 0,
+          "track_method": 0,
+          "track_ipv4": [
+            "8.8.4.4",
+            "8.8.8.8",
+            "208.67.222.222",
+            "208.67.220.220"
+          ]
+        },
+        {
+          "interface": "wwan",
+          "weight": 2,
+          "metric": 20,
+          "enable_check": true,
+          "track_mode": 0,
+          "track_proto": 0,
+          "track_method": 0,
+          "track_ipv4": [
+            "8.8.4.4",
+            "8.8.8.8",
+            "208.67.222.222",
+            "208.67.220.220"
+          ]
+        }
+      ]
+    }
+  }
+}

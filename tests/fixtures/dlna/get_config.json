@@ -1,0 +1,29 @@
+{
+  "name": "dlna.get_config",
+  "summary": "get samba conf",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "dlna",
+      "get_config",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "enabled": "true",
+      "name": "DLNA Server",
+      "path": "/mnt",
+      "list": [
+        "/mnt",
+        "/mnt/sda1",
+        "/mnt/sdb1"
+      ]
+    }
+  }
+}

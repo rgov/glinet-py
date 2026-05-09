@@ -1,0 +1,23 @@
+{
+  "name": "clients.get_status",
+  "summary": "Get the status of the total number of clients online",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "clients",
+      "get_status",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "cable_total": "1",
+      "wireless_total": "0"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "nas-web.get_nas_ser",
+  "summary": "get nas service info",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nas-web",
+      "get_nas_ser",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "res": [
+        {
+          "enable": 1,
+          "port": 6009
+        }
+      ]
+    }
+  }
+}

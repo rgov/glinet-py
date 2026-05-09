@@ -1,0 +1,2381 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — wg-client module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "wg-client.get_third_config",
+      "summary": "get third provider's client config",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "username",
+          "schema": {
+            "type": "string",
+            "description": "username"
+          },
+          "required": true
+        },
+        {
+          "name": "password",
+          "schema": {
+            "type": "string",
+            "description": "password"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "countries": {
+              "type": "array",
+              "description": "country array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "country_name": {
+                    "type": "string",
+                    "description": "country name"
+                  },
+                  "server_count": {
+                    "type": "number",
+                    "description": "number of server"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-10：parameter missing -11：Invalid name length (more than 64 bytes) -12：name empty -13：uci config missing -14: password missing -15：Failed to get azirevpn configuration -16：invalid username or password -17：unknown provider -18: azirevpn IP limit reached)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_third_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "get_third_config",
+                  {
+                    "group_id": 2312,
+                    "username": "glinet",
+                    "password": "123456"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "countries": [
+                {
+                  "country_name": "Australia",
+                  "server_count": 11
+                },
+                {
+                  "country_name": "Brazil",
+                  "server_count": 5
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.add_config",
+      "summary": "add wireguard client config",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "name"
+          },
+          "required": true
+        },
+        {
+          "name": "address_v4",
+          "schema": {
+            "type": "string",
+            "description": "IPv4 address"
+          },
+          "required": true
+        },
+        {
+          "name": "address_v6",
+          "schema": {
+            "type": "string",
+            "description": "IPv6 address"
+          },
+          "required": false
+        },
+        {
+          "name": "ipv6_enable",
+          "schema": {
+            "type": "boolean",
+            "description": "enable IPv6"
+          },
+          "required": false
+        },
+        {
+          "name": "listen_port",
+          "schema": {
+            "type": "number",
+            "description": "listen port"
+          },
+          "required": false
+        },
+        {
+          "name": "private_key",
+          "schema": {
+            "type": "string",
+            "description": "private key"
+          },
+          "required": true
+        },
+        {
+          "name": "allowed_ips",
+          "schema": {
+            "type": "string",
+            "description": "allowed ip"
+          },
+          "required": true
+        },
+        {
+          "name": "end_point",
+          "schema": {
+            "type": "string",
+            "description": "endpoint(server ip/domain)"
+          },
+          "required": true
+        },
+        {
+          "name": "public_key",
+          "schema": {
+            "type": "string",
+            "description": "public key"
+          },
+          "required": true
+        },
+        {
+          "name": "persistent_keepalive",
+          "schema": {
+            "type": "number",
+            "description": "keepalive interval"
+          },
+          "required": false
+        },
+        {
+          "name": "dns",
+          "schema": {
+            "type": "string",
+            "description": "dns"
+          },
+          "required": false
+        },
+        {
+          "name": "presharedkey_enable",
+          "schema": {
+            "type": "boolean",
+            "description": "enable presharedkey"
+          },
+          "required": true
+        },
+        {
+          "name": "preshared_key",
+          "schema": {
+            "type": "string",
+            "description": "preshared key"
+          },
+          "required": false
+        },
+        {
+          "name": "mtu",
+          "schema": {
+            "type": "number",
+            "description": "mtu"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "peer_id": {
+              "type": "number",
+              "description": "peer id"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-19：parameter missing -20：too long -21：empty name -22：uci config missing -23：invalid port)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "add_config",
+                  {
+                    "group_id": 3212,
+                    "name": "test",
+                    "address_v4": "10.8.0.0/24",
+                    "address_v6": "fd00:db8:0:123::/64",
+                    "private_key": "XVpIdr+oYjTcgDwzSZmNa1nSsk8JO+tx1NBo17LDBAI=",
+                    "allowed_ips": "0.0.0.0/0,::/0",
+                    "end_point": "103.231.88.18:3102",
+                    "public_key": "zv0p34WZN7p2vIgehwe33QF27ExjChrPUisk481JHU0=",
+                    "dns": "193.138.219.228",
+                    "presharedkey_enable": false,
+                    "listen_port": 22536,
+                    "persistent_keepalive": 25,
+                    "mtu": 1420,
+                    "ipv6_enable": true
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "peer_id": 1921
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.set_config",
+      "summary": "modify specific client's config",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "peer_id",
+          "schema": {
+            "type": "number",
+            "description": "peer id"
+          },
+          "required": true
+        },
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "name"
+          },
+          "required": true
+        },
+        {
+          "name": "address_v4",
+          "schema": {
+            "type": "string",
+            "description": "IPv4 address"
+          },
+          "required": true
+        },
+        {
+          "name": "address_v6",
+          "schema": {
+            "type": "string",
+            "description": "IPv6 address"
+          },
+          "required": false
+        },
+        {
+          "name": "ipv6_enable",
+          "schema": {
+            "type": "boolean",
+            "description": "enable IPv6"
+          },
+          "required": false
+        },
+        {
+          "name": "listen_port",
+          "schema": {
+            "type": "number",
+            "description": "listen port"
+          },
+          "required": false
+        },
+        {
+          "name": "private_key",
+          "schema": {
+            "type": "string",
+            "description": "private key"
+          },
+          "required": true
+        },
+        {
+          "name": "allowed_ips",
+          "schema": {
+            "type": "string",
+            "description": "allowed ip"
+          },
+          "required": true
+        },
+        {
+          "name": "end_point",
+          "schema": {
+            "type": "string",
+            "description": "endpoint(server ip/domain)"
+          },
+          "required": true
+        },
+        {
+          "name": "public_key",
+          "schema": {
+            "type": "string",
+            "description": "public key"
+          },
+          "required": true
+        },
+        {
+          "name": "persistent_keepalive",
+          "schema": {
+            "type": "number",
+            "description": "keepalive interval"
+          },
+          "required": false
+        },
+        {
+          "name": "dns",
+          "schema": {
+            "type": "string",
+            "description": "dns"
+          },
+          "required": false
+        },
+        {
+          "name": "presharedkey_enable",
+          "schema": {
+            "type": "boolean",
+            "description": "enable presharedkey"
+          },
+          "required": true
+        },
+        {
+          "name": "preshared_key",
+          "schema": {
+            "type": "string",
+            "description": "preshared key"
+          },
+          "required": false
+        },
+        {
+          "name": "mtu",
+          "schema": {
+            "type": "number",
+            "description": "MTU"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-31：parameter missing -32：too long -33：name empty -34：uci config missing -35：invalid port)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "set_config",
+                  {
+                    "group_id": 3212,
+                    "peer_id": 1254,
+                    "name": "test",
+                    "address_v4": "10.8.0.0/24",
+                    "address_v6": "fd00:db8:0:123::/64",
+                    "private_key": "XVpIdr+oYjTcgDwzSZmNa1nSsk8JO+tx1NBo17LDBAI=",
+                    "allowed_ips": "0.0.0.0/0,::/0",
+                    "end_point": "103.231.88.18:3102",
+                    "public_key": "zv0p34WZN7p2vIgehwe33QF27ExjChrPUisk481JHU0=",
+                    "dns": "193.138.219.228",
+                    "presharedkey_enable": false,
+                    "listen_port": 22536,
+                    "persistent_keepalive": 25,
+                    "mtu": 1420,
+                    "ipv6_enable": true
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.remove_config",
+      "summary": "remove wireguard client config",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "peer_id",
+          "schema": {
+            "type": "number",
+            "description": "peer id"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-43：parameter missing -44：client in running)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "remove_config",
+                  {
+                    "group_id": 3212,
+                    "peer_id": 1254
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.clear_config_list",
+      "summary": "remove all wireguard client config of a group",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-40：parameter missing -41：client in running)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "clear_config_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "clear_config_list",
+                  {
+                    "group_id": 3212,
+                    "delete_key": true
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.get_config_list",
+      "summary": "get wireguard client config list of a group",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "auth_type": {
+              "type": "number",
+              "description": "Authentication type - 0: no username/password or account required 1: username/password 2: account"
+            },
+            "public_key": {
+              "type": "string",
+              "description": "public key"
+            },
+            "peers": {
+              "type": "array",
+              "description": "peer array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "peer_id": {
+                    "type": "number",
+                    "description": "peer id"
+                  },
+                  "address_v4": {
+                    "type": "string",
+                    "description": "IPv4 address"
+                  },
+                  "ipv6_enable": {
+                    "type": "boolean",
+                    "description": "enable IPv6"
+                  },
+                  "address_v6": {
+                    "type": "string",
+                    "description": "IPv6 address"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "name"
+                  },
+                  "allowed_ips": {
+                    "type": "string",
+                    "description": "allowips"
+                  },
+                  "dns": {
+                    "type": "string",
+                    "description": "dns"
+                  },
+                  "end_point": {
+                    "type": "string",
+                    "description": "endpoint"
+                  },
+                  "listen_port": {
+                    "type": "number",
+                    "description": "listen port"
+                  },
+                  "mtu": {
+                    "type": "number",
+                    "description": "mtu"
+                  },
+                  "persistent_keepalive": {
+                    "type": "number",
+                    "description": "keepalive interval"
+                  },
+                  "presharedkey_enable": {
+                    "type": "boolean",
+                    "description": "enable presharedkey"
+                  },
+                  "presharedkey": {
+                    "type": "string",
+                    "description": "preshared key"
+                  },
+                  "private_key": {
+                    "type": "string",
+                    "description": "private key"
+                  },
+                  "public_key": {
+                    "type": "string",
+                    "description": "public key"
+                  },
+                  "location": {
+                    "type": "string",
+                    "description": "server location"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-40：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "get_config_list",
+                  {
+                    "group_id": 3212
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "auth_type": 2,
+              "public_key": "NjUxYTE3NzZiMjczNGMzNjg2MmNiMmNhMTBkZGYyYTQ=",
+              "peers": [
+                {
+                  "peer_id": 1254,
+                  "address_v4": "10.8.0.0/24",
+                  "ipv6_enable": true,
+                  "address_v6": "fd00:db8:0:123::/64",
+                  "name": "mullvad_au4",
+                  "allowed_ips": "0.0.0.0/0,::/0",
+                  "dns": "193.138.219.228",
+                  "end_point": "103.231.88.2:3100",
+                  "listen_port": 22536,
+                  "mtu": 1380,
+                  "persistent_keepalive": 25,
+                  "private_key": "EHwE7Aiiup/lxVEAKlofJmmMfQZkHTmmEy3xcAcIn2I=",
+                  "public_key": "kXXykjh6KqiE/pvtmTV8kCB+jhhkl9kT0Dg+yyDz8hg=",
+                  "presharedkey_enable": false,
+                  "location": "Australia, Melbourne"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.start",
+      "summary": "start wireguard client",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "peer_id",
+          "schema": {
+            "type": "number",
+            "description": "peer id"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-51：parameter missing -52：vpn conflict -53：obsolete -54：wgclient not installed -55：init script missing -56：uci config missing -57：client not found)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "start_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "start",
+                  {
+                    "group_id": 3212,
+                    "peer_id": 1254
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.stop",
+      "summary": "stop wireguard client",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "stop_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "stop",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.get_status",
+      "summary": "get the wireguard client status",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "group_id": {
+              "type": "number",
+              "description": "group id"
+            },
+            "peer_id": {
+              "type": "number",
+              "description": "peer ID"
+            },
+            "name": {
+              "type": "string",
+              "description": "name"
+            },
+            "proxy": {
+              "type": "boolean",
+              "description": "proxy"
+            },
+            "log": {
+              "type": "string",
+              "description": "log"
+            },
+            "ipv4": {
+              "type": "string",
+              "description": "IPv4 address"
+            },
+            "ipv6": {
+              "type": "string",
+              "description": "IPV6 address"
+            },
+            "domain": {
+              "type": "string",
+              "description": "server domain/ip"
+            },
+            "port": {
+              "type": "number",
+              "description": "server listen port"
+            },
+            "status": {
+              "type": "number",
+              "description": "status 0:not start 1:connected 2:connecting"
+            },
+            "rx_bytes": {
+              "type": "number",
+              "description": "rx bytes"
+            },
+            "tx_bytes": {
+              "type": "number",
+              "description": "tx bytes"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "get_status",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "group_id": 2312,
+              "peer_id": 5712,
+              "name": "mullvad_ae_all",
+              "proxy": false,
+              "log": "",
+              "status": 1,
+              "ipv4": "10.70.33.3",
+              "ipv6": "fc00:bbbb:bb01::11",
+              "rx_bytes": 50,
+              "tx_bytes": 45,
+              "port": 41348,
+              "domain": "ae-dxb-001.mullvad.net"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.check_config",
+      "summary": "Check uploaded wireguard file's parameter",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "filename",
+          "schema": {
+            "type": "string",
+            "description": "file name"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "passed": {
+              "type": "array",
+              "description": "legal config file list"
+            },
+            "unpassed": {
+              "type": "array",
+              "description": "illegal config file list"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-40：parameter missing,-16:decompression failure)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "check_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "check_config",
+                  {
+                    "group_id": 2312,
+                    "filename": "mullvad-at4.conf"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "passed": [],
+              "unpassed": []
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.add_group",
+      "summary": "add wireguard client group",
+      "params": [
+        {
+          "name": "group_name",
+          "schema": {
+            "type": "string",
+            "description": "group name"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-40：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_group_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "add_group",
+                  {
+                    "group_name": "mullvad"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.remove_group",
+      "summary": "remove wireguard client group",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-40：parameter missing -41：client in running)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_group_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "remove_group",
+                  {
+                    "group_id": 3212
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.set_group",
+      "summary": "modify wireguard client group",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "group_name",
+          "schema": {
+            "type": "string",
+            "description": "group name"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-40：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_group_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "set_group",
+                  {
+                    "group_id": 3212,
+                    "group_name": "mullvad"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.get_group_list",
+      "summary": "get wireguard client group list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "description": "group array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group_id": {
+                    "type": "number",
+                    "description": "group id"
+                  },
+                  "group_type": {
+                    "type": "number",
+                    "description": "group type 1:preconfigured group 2:manually added group 3:group added by app"
+                  },
+                  "group_name": {
+                    "type": "string",
+                    "description": "group name"
+                  },
+                  "auth_type": {
+                    "type": "number",
+                    "description": "Authentication type - 0: no username/password or account required 1: username/password 2: account"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "username"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "password"
+                  },
+                  "peer_count": {
+                    "type": "number",
+                    "description": "number of peers"
+                  },
+                  "procedure": {
+                    "type": "number",
+                    "description": "procedure 0:directly download 1:step by step download"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_group_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "get_group_list",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "groups": [
+                {
+                  "group_id": 3212,
+                  "group_name": "mullvad",
+                  "peer_count": 20,
+                  "group_type": 1,
+                  "procedure": 1
+                },
+                {
+                  "group_id": 3213,
+                  "group_name": "azirevpn",
+                  "peer_count": 25,
+                  "group_type": 1,
+                  "procedure": 0
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.confirm_config",
+      "summary": "confirm wireguard client config",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-40：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "confirm_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "confirm_config",
+                  {
+                    "group_id": 2312
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.get_all_config_list",
+      "summary": "get wireguard client config list of all groups",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "config_list": {
+              "type": "array",
+              "description": "group section",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group_id": {
+                    "type": "number",
+                    "description": "group id"
+                  },
+                  "group_name": {
+                    "type": "string",
+                    "description": "group name"
+                  },
+                  "auth_type": {
+                    "type": "number",
+                    "description": "Authentication type - 0: no username/password or account required 1: username/password 2: account"
+                  },
+                  "username": {
+                    "type": "string",
+                    "description": "username"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "password"
+                  },
+                  "peers": {
+                    "type": "array",
+                    "description": "peers array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "peer_id": {
+                          "type": "number",
+                          "description": "peer id"
+                        },
+                        "address_v4": {
+                          "type": "string",
+                          "description": "IPv4 address"
+                        },
+                        "ipv6_enable": {
+                          "type": "boolean",
+                          "description": "enable IPv6"
+                        },
+                        "address_v6": {
+                          "type": "string",
+                          "description": "IPv6 address"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "name"
+                        },
+                        "allowed_ips": {
+                          "type": "string",
+                          "description": "allowips"
+                        },
+                        "dns": {
+                          "type": "string",
+                          "description": "dns"
+                        },
+                        "end_point": {
+                          "type": "string",
+                          "description": "endpoint"
+                        },
+                        "listen_port": {
+                          "type": "number",
+                          "description": "listen port"
+                        },
+                        "mtu": {
+                          "type": "number",
+                          "description": "MTU"
+                        },
+                        "persistent_keepalive": {
+                          "type": "number",
+                          "description": "keepalive interval"
+                        },
+                        "presharedkey_enable": {
+                          "type": "boolean",
+                          "description": "enable presharedkey"
+                        },
+                        "presharedkey": {
+                          "type": "string",
+                          "description": "preshared key"
+                        },
+                        "private_key": {
+                          "type": "string",
+                          "description": "private key"
+                        },
+                        "public_key": {
+                          "type": "string",
+                          "description": "public key"
+                        },
+                        "location": {
+                          "type": "string",
+                          "description": "server location"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-49：empty output -50：client not found)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "wg-client.set_proxy",
+      "summary": "set wireguard client proxy",
+      "params": [
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "Enable or disable global proxy"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_proxy_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "set_proxy",
+                  {
+                    "enable": true
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.add_route",
+      "summary": "add wireguard client custom route",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "peer_id",
+          "schema": {
+            "type": "number",
+            "description": "peer id"
+          },
+          "required": true
+        },
+        {
+          "name": "route_flag",
+          "schema": {
+            "type": "number",
+            "description": "route flag 4:ipv4,6:ipv6"
+          },
+          "required": true
+        },
+        {
+          "name": "dest",
+          "schema": {
+            "type": "string",
+            "description": "dest"
+          },
+          "required": true
+        },
+        {
+          "name": "gateway",
+          "schema": {
+            "type": "string",
+            "description": "gateway"
+          },
+          "required": false
+        },
+        {
+          "name": "metric",
+          "schema": {
+            "type": "number",
+            "description": "metric"
+          },
+          "required": false
+        },
+        {
+          "name": "mtu",
+          "schema": {
+            "type": "number",
+            "description": "MTU"
+          },
+          "required": false
+        },
+        {
+          "name": "scope",
+          "schema": {
+            "type": "string",
+            "description": "scope (host、link、global、or a number greater than 0)"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-40：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_route_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "add_route",
+                  {
+                    "group_id": 3213,
+                    "peer_id": 5715,
+                    "route_flag": 4,
+                    "dest": "192.168.9.13/32",
+                    "gateway": "10.8.3.1",
+                    "metric": 20,
+                    "mtu": 1500
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.set_route",
+      "summary": "set wireguard client custom route",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "peer_id",
+          "schema": {
+            "type": "number",
+            "description": "peer id"
+          },
+          "required": true
+        },
+        {
+          "name": "route_flag",
+          "schema": {
+            "type": "number",
+            "description": "route flag 4:ipv4,6:ipv6"
+          },
+          "required": true
+        },
+        {
+          "name": "rule_id",
+          "schema": {
+            "type": "number",
+            "description": "rule id"
+          },
+          "required": true
+        },
+        {
+          "name": "dest",
+          "schema": {
+            "type": "string",
+            "description": "dest"
+          },
+          "required": false
+        },
+        {
+          "name": "gateway",
+          "schema": {
+            "type": "string",
+            "description": "gateway"
+          },
+          "required": false
+        },
+        {
+          "name": "metric",
+          "schema": {
+            "type": "number",
+            "description": "metric"
+          },
+          "required": false
+        },
+        {
+          "name": "mtu",
+          "schema": {
+            "type": "number",
+            "description": "MTU"
+          },
+          "required": false
+        },
+        {
+          "name": "scope",
+          "schema": {
+            "type": "string",
+            "description": "scope (host、link、global、or a number greater than 0)"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-40：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_route_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "set_route",
+                  {
+                    "group_id": 3213,
+                    "peer_id": 5715,
+                    "route_flag": 4,
+                    "rule_id": 6512,
+                    "dest": "192.168.9.13/32",
+                    "gateway": "10.8.3.1",
+                    "metric": 20,
+                    "mtu": 1500
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.get_route_list",
+      "summary": "get wireguard client custom route list",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "peer_id",
+          "schema": {
+            "type": "number",
+            "description": "peer id"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ipv4_route_rules": {
+              "type": "array",
+              "description": "ipv4 route rule array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rule_id": {
+                    "type": "number",
+                    "description": "rule id"
+                  },
+                  "dest": {
+                    "type": "string",
+                    "description": "dest"
+                  },
+                  "gateway": {
+                    "type": "string",
+                    "description": "gateway"
+                  },
+                  "metric": {
+                    "type": "number",
+                    "description": "metric"
+                  },
+                  "mtu": {
+                    "type": "number",
+                    "description": "MTU"
+                  },
+                  "scope": {
+                    "type": "string",
+                    "description": "scope (host、link、global、or a number greater than 0)"
+                  }
+                }
+              }
+            },
+            "ipv6_route_rules": {
+              "type": "array",
+              "description": "ipv6 route rule array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rule_id": {
+                    "type": "number",
+                    "description": "rule id"
+                  },
+                  "dest": {
+                    "type": "string",
+                    "description": "dest"
+                  },
+                  "gateway": {
+                    "type": "string",
+                    "description": "gateway"
+                  },
+                  "metric": {
+                    "type": "number",
+                    "description": "metric"
+                  },
+                  "mtu": {
+                    "type": "number",
+                    "description": "MTU"
+                  },
+                  "scope": {
+                    "type": "string",
+                    "description": "scope (host、link、global、or a number greater than 0)"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-40：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_route_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "get_route_list",
+                  {
+                    "group_id": 3213,
+                    "peer_id": 5715
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "ipv4_route_rules": [
+                {
+                  "route_id": 6512,
+                  "dest": "192.168.9.13/32",
+                  "gateway": "10.8.3.1",
+                  "metric": 20,
+                  "mtu": 1500
+                }
+              ],
+              "ipv6_route_rules": [
+                {
+                  "route_id": 6515,
+                  "dest": "ff00::/8",
+                  "gateway": "ff00::1",
+                  "metric": 20,
+                  "mtu": 1500
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.remove_route",
+      "summary": "remove wireguard client custom route",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "peer_id",
+          "schema": {
+            "type": "number",
+            "description": "peer id"
+          },
+          "required": true
+        },
+        {
+          "name": "route_flag",
+          "schema": {
+            "type": "number",
+            "description": "route flag 4:ipv4,6:ipv6"
+          },
+          "required": true
+        },
+        {
+          "name": "rule_id",
+          "schema": {
+            "type": "number",
+            "description": "rule id"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-40：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_route_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "remove_route",
+                  {
+                    "group_id": 3213,
+                    "peer_id": 5715,
+                    "route_flag": 4,
+                    "rule_id": 6512
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.set_setting",
+      "summary": "set wireguard client setting",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "peer_id",
+          "schema": {
+            "type": "number",
+            "description": "peer id"
+          },
+          "required": true
+        },
+        {
+          "name": "local_access",
+          "schema": {
+            "type": "boolean",
+            "description": "allow local access"
+          },
+          "required": false
+        },
+        {
+          "name": "masq",
+          "schema": {
+            "type": "boolean",
+            "description": "enable masq"
+          },
+          "required": false
+        },
+        {
+          "name": "default_metric",
+          "schema": {
+            "type": "number",
+            "description": "default metric"
+          },
+          "required": false
+        },
+        {
+          "name": "mtu",
+          "schema": {
+            "type": "number",
+            "description": "MTU"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-40：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_setting_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "set_setting",
+                  {
+                    "group_id": 3213,
+                    "peer_id": 5715,
+                    "local_access": true,
+                    "masq": true,
+                    "default_metric": 30,
+                    "mtu": 1460
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.get_setting",
+      "summary": "get wireguard client setting",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "peer_id",
+          "schema": {
+            "type": "number",
+            "description": "peer id"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "local_access": {
+              "type": "boolean",
+              "description": "allow local access"
+            },
+            "masq": {
+              "type": "boolean",
+              "description": "enable masq"
+            },
+            "default_metric": {
+              "type": "number",
+              "description": "default metric"
+            },
+            "mtu": {
+              "type": "number",
+              "description": "MTU"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-40：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_setting_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "get_setting",
+                  {
+                    "group_id": 3213,
+                    "peer_id": 5715
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "local_access": true,
+              "masq": true,
+              "default_metric": 30,
+              "mtu": 1460
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "wg-client.get_recommend_config",
+      "summary": "get recommend config",
+      "params": [
+        {
+          "name": "group_id",
+          "schema": {
+            "type": "number",
+            "description": "group id"
+          },
+          "required": true
+        },
+        {
+          "name": "country_name",
+          "schema": {
+            "type": "array",
+            "description": "country name"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error Code(-10：parameter missing -11：uci config missing -12：group missing -13：password missing -14：country info empty -15：unknown provider)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_recommend_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "wg-client",
+                  "get_recommend_config",
+                  {
+                    "group_id": 2312,
+                    "country_name": [
+                      "Australia",
+                      "Brazil"
+                    ]
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "upgrade.set_config",
+  "summary": "setup the config file of firmware upgrade",
+  "request_raw": "{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"method\\\":\\\"call\\\",\\\"params\\\":[\\\"\\\",\\\"upgrade\\\",\\\"set_config\\\",{\\\"auto_upgrade\\\":false,\\\"time\\\":\\\"04:00\\\",\\\"url\\\":\\\"https://fw.gl-inet.com/firmware/ar750s/release\\\",\\\"prompt\\\":false,}],\\\"id\\\":1}",
+  "request_parse_error": "Illegal trailing comma before end of object: line 1 column 176 (char 175)",
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

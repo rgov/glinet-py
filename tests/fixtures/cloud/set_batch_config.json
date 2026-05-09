@@ -1,0 +1,138 @@
+{
+  "name": "cloud.set_batch_config",
+  "summary": "batch configuration",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "cloud",
+      "set_batch_config",
+      {
+        "network": {
+          "wan": {
+            "proto": "pppoe",
+            "username": "test",
+            "password": "1234",
+            "ipaddr": "192.168.2.11",
+            "gateway": "192.168.2.1",
+            "netmask": "255.255.255.0",
+            "dns": [
+              "192.168.2.1",
+              "8.8.8.8"
+            ],
+            "ip6addr": "fe80::9683:c4ff:fe18:1b9f/64",
+            "gateway6": "ddb4:1aed:acf9::",
+            "dns6": [
+              "ddb4:1aed:acf9::",
+              "ddb4:1aed:acf9::"
+            ]
+          },
+          "lan": {
+            "ipaddr": "192.168.8.1",
+            "netmask": "255.255.255.0",
+            "dhcp_start": 150,
+            "dhcp_limit": 100
+          },
+          "guest": {
+            "ipaddr": "192.168.9.1",
+            "netmask": "255.255.255.0",
+            "dhcp_start": 150,
+            "dhcp_limit": 100
+          }
+        },
+        "wifi": [
+          {
+            "band": "2g",
+            "channel": 12,
+            "hwmode": "11g/n/ax",
+            "htmode": "40",
+            "txpower": "Max",
+            "enabled": true,
+            "ssid": "test",
+            "encryption": "psk",
+            "key": "12345678",
+            "hidden": false,
+            "guest_enabled": true,
+            "guest_ssid": "test",
+            "guest_encryption": "psk",
+            "guest_key": "12345678",
+            "guest_hidden": false
+          },
+          {
+            "band": "5g",
+            "channel": 40,
+            "hwmode": "11n/ac/ax",
+            "htmode": "80",
+            "txpower": "Max",
+            "enabled": true,
+            "ssid": "test",
+            "encryption": "psk",
+            "key": "12345678",
+            "hidden": false,
+            "guest_enabled": true,
+            "guest_ssid": "test",
+            "guest_encryption": "psk",
+            "guest_key": "12345678",
+            "guest_hidden": false
+          }
+        ],
+        "firewall": {
+          "rules": [
+            {
+              "name": "ssh",
+              "dest_port": 22,
+              "target": "ACCEPT",
+              "enabled": true
+            },
+            {
+              "name": "web",
+              "dest_port": 80,
+              "target": "ACCEPT",
+              "enabled": true
+            }
+          ],
+          "port_forwards": [
+            {
+              "name": "test",
+              "proto": "tcp udp",
+              "dest": "lan",
+              "dest_ip": "192.168.8.100",
+              "dest_port": "666",
+              "src": "wan",
+              "src_dport": "566",
+              "enabled": true
+            }
+          ],
+          "dmz": {
+            "enabled": true,
+            "dest_ip": "192.168.8.100"
+          }
+        }
+      }
+    ],
+    "system": {
+      "hostname": "GL-AXT1800",
+      "timezone": "Asia/Shanghai",
+      "local_domain": "console.gl-inet.com",
+      "language": "zh-cn",
+      "enterprise_name": "xx",
+      "copyright": "xx",
+      "official_website": "https://xx.com",
+      "icon": {
+        "url": "https://xxx/test",
+        "md5": "102f5037fe6474019fe947b4977bb2a5"
+      },
+      "logo": {
+        "url": "https://xxx/test",
+        "md5": "102f5037fe6474019fe947b4977bb2a5"
+      }
+    }
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

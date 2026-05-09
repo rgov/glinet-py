@@ -1,0 +1,42 @@
+{
+  "name": "wg-client.get_route_list",
+  "summary": "get wireguard client custom route list",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "get_route_list",
+      {
+        "group_id": 3213,
+        "peer_id": 5715
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "ipv4_route_rules": [
+        {
+          "route_id": 6512,
+          "dest": "192.168.9.13/32",
+          "gateway": "10.8.3.1",
+          "metric": 20,
+          "mtu": 1500
+        }
+      ],
+      "ipv6_route_rules": [
+        {
+          "route_id": 6515,
+          "dest": "ff00::/8",
+          "gateway": "ff00::1",
+          "metric": 20,
+          "mtu": 1500
+        }
+      ]
+    }
+  }
+}

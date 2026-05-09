@@ -1,0 +1,23 @@
+{
+  "name": "qos.get_config",
+  "summary": "get qos config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "qos",
+      "get_config",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "enable": false,
+      "mode": 1
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "otbr.get_srp_server_service",
+  "summary": "Get SRP Server Service.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "get_srp_server_service",
+      {}
+    ]
+  },
+  "response_raw": "{\"id\":\"0\",\"jsonrpc\":\"2.0\",\"result\":{\"Services\":[{\"Deleted\":false,\"Address\":[\"fd9e:30fe:4d07:1:386b:d0e5:40ea:c5de\"],\"Lease\":7200,",
+  "response_parse_error": "Expecting property name enclosed in double quotes: line 1 column 130 (char 129)"
+}

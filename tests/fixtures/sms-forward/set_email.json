@@ -1,0 +1,31 @@
+{
+  "name": "sms-forward.set_email",
+  "summary": "set sms-forward email",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "sms-forward",
+      "set_email",
+      {
+        "enable": true,
+        "emails": [
+          "12345678963@gmail.com",
+          "12345678941@gmail.com"
+        ],
+        "account": "12396325841@gmail.com",
+        "password": "1234567abC",
+        "encryption": 1,
+        "smtp": "smtp.gmail.com:465",
+        "subject": "GL-X750"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

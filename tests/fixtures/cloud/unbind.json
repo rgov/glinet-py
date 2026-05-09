@@ -1,0 +1,22 @@
+{
+  "name": "cloud.unbind",
+  "summary": "unbind the device",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "cloud",
+      "unbind"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "api": "cloud/unbind",
+      "code": -1
+    }
+  }
+}

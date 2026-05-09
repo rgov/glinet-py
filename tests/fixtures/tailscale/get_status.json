@@ -1,0 +1,23 @@
+{
+  "name": "tailscale.get_status",
+  "summary": "Get tailscale status",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "tailscale",
+      "get_status"
+    ]
+  },
+  "response": {
+    "id": 47,
+    "jsonrpc": "2.0",
+    "result": {
+      "login_name": "xxxxxxxx@qq.com",
+      "status": 3,
+      "address_v4": "100.77.122.xxx"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "name": "plugins.get_list",
+  "summary": "get a list of software packages",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "plugins",
+      "get_list",
+      {
+        "status": 1,
+        "limit": 3,
+        "page": 1
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "packages": [
+        {
+          "name": "464xlat",
+          "version": "12",
+          "size": 4919,
+          "status": 1
+        },
+        {
+          "name": "zram-swap",
+          "version": "1.1-3",
+          "size": 2890,
+          "status": 1
+        },
+        {
+          "name": "zstd",
+          "version": "1.4.5-2",
+          "size": 47101,
+          "status": 1
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — macclone module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "macclone.get_mac",
+      "summary": "get mac configuration information",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "number",
+              "description": "Mac clone mode [{0}: {factory}; {1}: {clone}; {2}: {manual}]"
+            },
+            "mac": {
+              "type": "string",
+              "description": "WAN port Mac address.(\"Your Router (WAN)][Random]\" on web)"
+            },
+            "factory_mac": {
+              "type": "string",
+              "description": "Factory Mac address.(\"Factory Default[default]\" on web)"
+            },
+            "secondwan_mac": {
+              "type": "string",
+              "description": "SECOND WAN port Mac address. (\"Your Router (WAN)[Random]\" on web)"
+            },
+            "remote_mac": {
+              "type": "string",
+              "description": "The client Mac address.(\"Your Current Client[clone]\" on web)"
+            },
+            "repeater_mac": {
+              "type": "string",
+              "description": "The repeater interface Mac address."
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:Information acquisition failure."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_mac_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "macclone",
+                  "get_mac"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "mac": "08:10:7B:B3:E8:92",
+              "factory_mac": "94:83:C4:0C:6D:D6",
+              "remote_mac": "94:83:C4:0C:6D:D6"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "macclone.set_mac",
+      "summary": "setting macclone",
+      "params": [
+        {
+          "name": "mode",
+          "schema": {
+            "type": "number",
+            "description": "Mac clone mode [{0}: {factory}; {1}: {clone}; {2}: {manual}]"
+          },
+          "required": true
+        },
+        {
+          "name": "mac",
+          "schema": {
+            "type": "string",
+            "description": "The Mac address to be cloned."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:Parameter error."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_mac_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "macclone",
+                  "set_mac",
+                  {
+                    "mac": "94:83:C4:0C:6D:D6"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    }
+  ]
+}

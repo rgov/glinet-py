@@ -1,0 +1,19 @@
+{
+  "name": "tethering.disconnect",
+  "summary": "disconnect tethering",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "tethering",
+      "disconnect"
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

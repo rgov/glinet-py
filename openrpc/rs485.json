@@ -1,0 +1,1286 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — rs485 module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "rs485.read_modbus_data",
+      "summary": "read modbus data",
+      "params": [
+        {
+          "name": "device_id",
+          "schema": {
+            "type": "string",
+            "description": "rs485 device id:1-247"
+          },
+          "required": true
+        },
+        {
+          "name": "func_code",
+          "schema": {
+            "type": "string",
+            "description": "func code"
+          },
+          "required": true
+        },
+        {
+          "name": "reg_addr_h",
+          "schema": {
+            "type": "string",
+            "description": "RS485 terminal device register address high 8 bits"
+          },
+          "required": true
+        },
+        {
+          "name": "reg_addr_l",
+          "schema": {
+            "type": "string",
+            "description": "RS485 terminal device register address low 8 bits"
+          },
+          "required": true
+        },
+        {
+          "name": "reg_len",
+          "schema": {
+            "type": "string",
+            "description": "Number of registers,16 bits for one"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "log": {
+              "type": "array",
+              "description": "rs485 debug log"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: device busy; -2: read timeout; -3: no data read]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "device busy"
+                },
+                {
+                  "const": -2,
+                  "title": "read timeout"
+                },
+                {
+                  "const": -3,
+                  "title": "no data read"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "read_modbus_data_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "rs485",
+                  "read_modbus_data",
+                  {
+                    "device_id": "16",
+                    "func_code": "03",
+                    "reg_addr_h": "00",
+                    "reg_addr_l": "00",
+                    "reg_len": "02"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "log": [
+                "2023-07-30 18:27:44.436 Command ==>16 03 00000002 C72C",
+                "2023-07-30 18:27:44.470 Response ==>16 03 0402D8013A 9D32"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rs485.write_modbus_data",
+      "summary": "write modbus data",
+      "params": [
+        {
+          "name": "device_id",
+          "schema": {
+            "type": "string",
+            "description": "rs485 device id:1-247"
+          },
+          "required": true
+        },
+        {
+          "name": "func_code",
+          "schema": {
+            "type": "string",
+            "description": "func code"
+          },
+          "required": true
+        },
+        {
+          "name": "reg_addr_h",
+          "schema": {
+            "type": "string",
+            "description": "RS485 terminal device register address high 8 bits"
+          },
+          "required": true
+        },
+        {
+          "name": "reg_addr_l",
+          "schema": {
+            "type": "string",
+            "description": "RS485 terminal device register address low 8 bits"
+          },
+          "required": true
+        },
+        {
+          "name": "reg_len",
+          "schema": {
+            "type": "string",
+            "description": "Number of registers,16 bits for one"
+          },
+          "required": true
+        },
+        {
+          "name": "data_w",
+          "schema": {
+            "type": "string",
+            "description": "Data in hexadecimal format"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "log": {
+              "type": "array",
+              "description": "rs485 debug log"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: device busy; -2: read timeout; -3: no data read; -4: write data too long; -5: data format error]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "device busy"
+                },
+                {
+                  "const": -2,
+                  "title": "read timeout"
+                },
+                {
+                  "const": -3,
+                  "title": "no data read"
+                },
+                {
+                  "const": -4,
+                  "title": "write data too long"
+                },
+                {
+                  "const": -5,
+                  "title": "data format error"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "write_modbus_data_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "rs485",
+                  "write_modbus_data",
+                  {
+                    "device_id": "01",
+                    "func_code": "04",
+                    "reg_addr_h": "00",
+                    "reg_addr_l": "00",
+                    "reg_len": "02",
+                    "data_w": "0000"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "log": [
+                "2023-07-31 06:59:56.156 Command ==>01 05 00000000 CDCA",
+                "2023-07-31 06:59:56.156 Response ==>nodata"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rs485.terminal",
+      "summary": "terminal tool for reading and writing data",
+      "params": [
+        {
+          "name": "is_modbus",
+          "schema": {
+            "type": "boolean",
+            "description": "modbus data format[true/false]"
+          },
+          "required": true
+        },
+        {
+          "name": "data",
+          "schema": {
+            "type": "string",
+            "description": "Data to be sent"
+          },
+          "required": true
+        },
+        {
+          "name": "type",
+          "schema": {
+            "type": "string",
+            "description": "command type[hex/str]"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "log": {
+              "type": "array",
+              "description": "terminal debug log"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code [-5: data format error]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "terminal_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "rs485",
+                  "terminal",
+                  {
+                    "is_modbus": true,
+                    "type": "hex",
+                    "data": "16040000000272EC"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "log": [
+                "2023-07-30 18:28:39.962 Command ==>16 04 00000002 72EC",
+                "2023-07-30 18:28:39.992 Response ==>16 04 0402D9013C 4D47"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rs485.glcould_tool",
+      "summary": "glcloud tool for rs485",
+      "params": [
+        {
+          "name": "cmd",
+          "schema": {
+            "type": "string",
+            "description": "rs485 cmd"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "string",
+              "description": "rs485 device return data"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: device busy; -3: no data read; -5: data format error]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "device busy"
+                },
+                {
+                  "const": -3,
+                  "title": "no data read"
+                },
+                {
+                  "const": -5,
+                  "title": "data format error"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "glcould_tool_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "rs485",
+                  "glcould_tool",
+                  {
+                    "cmd": "010300000002C408"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "data": "010304020100FD6BCA"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rs485.debug_socket",
+      "summary": "test forward message to socket",
+      "params": [
+        {
+          "name": "address",
+          "schema": {
+            "type": "string",
+            "description": "target IP address"
+          },
+          "required": true
+        },
+        {
+          "name": "port",
+          "schema": {
+            "type": "number",
+            "description": "target port"
+          },
+          "required": true
+        },
+        {
+          "name": "type",
+          "schema": {
+            "type": "string",
+            "description": "command type[hex/str]"
+          },
+          "required": true
+        },
+        {
+          "name": "data",
+          "schema": {
+            "type": "string",
+            "description": "debug data"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "log": {
+              "type": "string",
+              "description": "debug log"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "debug_socket_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "rs485",
+                  "debug_socket",
+                  {
+                    "address": "192.168.8.106",
+                    "port": 502,
+                    "type": "hex",
+                    "data": "16040000000272EC"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "log": "2023-07-30 18:24:38.067 Sent to 192.168.8.106:59920 ==> 16 04 04 02 EE 01 3B BD 4B"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rs485.debug_mqtt",
+      "summary": "test forward message to mqtt",
+      "params": [
+        {
+          "name": "topic",
+          "schema": {
+            "type": "string",
+            "description": "topic to publish"
+          },
+          "required": true
+        },
+        {
+          "name": "type",
+          "schema": {
+            "type": "string",
+            "description": "command type[hex/str]"
+          },
+          "required": true
+        },
+        {
+          "name": "data",
+          "schema": {
+            "type": "string",
+            "description": "debug data"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "log": {
+              "type": "string",
+              "description": "debug log"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "debug_mqtt_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "rs485",
+                  "debug_mqtt",
+                  {
+                    "topic": "/glinet/rs485/data",
+                    "type": "hex",
+                    "data": "16040000000272EC"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "log": "2023-07-30 20:34:34.241 Published to /glinet/rs485/data ==> 16 04 04 02 C3 01 1C 6D 58"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rs485.get_forward_log",
+      "summary": "get forward log",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "log": {
+              "type": "string",
+              "description": "forward log"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_forward_log_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "rs485",
+                  "get_forward_log",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "log": "2023-07-30 20:43:59.595 Received from MQTT (/glinet/rs485/cmd) ==> 16040000000272EC\n2023-07-30 20:43:59.607 Commanded to Serial Port ==> 16040000000272EC\n2023-07-30 20:43:59.650 Responded from Serial Port ==> 16040402B7011C2D42\n2023-07-30 20:43:59.663 Published to MQTT (/glinet/rs485/data) ==> 16040402B7011C2D42\n"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rs485.get_config",
+      "summary": "get rs485 config",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "device": {
+              "type": "string",
+              "description": "device port number"
+            },
+            "speed": {
+              "type": "number",
+              "description": "speed [rangs: 0-115200]"
+            },
+            "mode": {
+              "type": "string",
+              "description": "mode [5/6/7/8][n/e/o/m/s][1/2] n: none e: even parity o: odd parity m:mark s:space"
+            },
+            "timeout": {
+              "type": "number",
+              "description": "expire time: 0-65535ms"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "rs485",
+                  "get_config",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "device": "/dev/ttyS0",
+              "speed": 9600,
+              "mode": "8e1",
+              "timeout": 500
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rs485.set_config",
+      "summary": "set rs485 config",
+      "params": [
+        {
+          "name": "speed",
+          "schema": {
+            "type": "number",
+            "description": "Serial port baud rate :0-115200"
+          },
+          "required": true
+        },
+        {
+          "name": "timeout",
+          "schema": {
+            "type": "number",
+            "description": "overtime time :0-65535(ms)"
+          },
+          "required": true
+        },
+        {
+          "name": "device",
+          "schema": {
+            "type": "string",
+            "description": "Device node name"
+          },
+          "required": true
+        },
+        {
+          "name": "mode",
+          "schema": {
+            "type": "string",
+            "description": "Data bit,parity,stop bit. [5/6/7/8][n/e/o/m/s][1/2] n:none e:even parity o:odd parity m:mark s:space"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "rs485",
+                  "set_config",
+                  {
+                    "device": "/dev/ttyS0",
+                    "speed": 9600,
+                    "mode": "8e1",
+                    "timeout": 500
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "rs485.set_forward_config",
+      "summary": "set network forward config",
+      "params": [
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "\t\t enable netwotk forward[true/false]"
+          },
+          "required": true
+        },
+        {
+          "name": "protocol",
+          "schema": {
+            "type": "string",
+            "description": "\t\t network protocl[socket/mqtt]"
+          },
+          "required": true
+        },
+        {
+          "name": "type",
+          "schema": {
+            "type": "string",
+            "description": "\t\t\t parse method[hex/str]"
+          },
+          "required": true
+        },
+        {
+          "name": "address",
+          "schema": {
+            "type": "string",
+            "description": "server address(only needed when work in tcpc/mqtt mode)"
+          },
+          "required": true
+        },
+        {
+          "name": "port",
+          "schema": {
+            "type": "number",
+            "description": "socket/mqtt server port[1-65535]"
+          },
+          "required": true
+        },
+        {
+          "name": "enable_tls",
+          "schema": {
+            "type": "boolean",
+            "description": "\t\t enable mqtt tls encryption"
+          },
+          "required": true
+        },
+        {
+          "name": "encry_mode",
+          "schema": {
+            "type": "number",
+            "description": "\t\t encryption mode [0:one way; 1: two way]",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "one way"
+              },
+              {
+                "const": 1,
+                "title": "two way"
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "cacrt",
+          "schema": {
+            "type": "string",
+            "description": "\t\t ca certificate"
+          },
+          "required": true
+        },
+        {
+          "name": "clicrt",
+          "schema": {
+            "type": "string",
+            "description": "client certificate"
+          },
+          "required": true
+        },
+        {
+          "name": "clikey",
+          "schema": {
+            "type": "string",
+            "description": "client key"
+          },
+          "required": true
+        },
+        {
+          "name": "username",
+          "schema": {
+            "type": "string",
+            "description": "mqtt username"
+          },
+          "required": true
+        },
+        {
+          "name": "password",
+          "schema": {
+            "type": "string",
+            "description": "mqtt password"
+          },
+          "required": true
+        },
+        {
+          "name": "subscribe",
+          "schema": {
+            "type": "string",
+            "description": "subscribe topics"
+          },
+          "required": true
+        },
+        {
+          "name": "publish",
+          "schema": {
+            "type": "string",
+            "description": "publish topics"
+          },
+          "required": true
+        },
+        {
+          "name": "clientid",
+          "schema": {
+            "type": "string",
+            "description": "mqtt clientid"
+          },
+          "required": true
+        },
+        {
+          "name": "qos",
+          "schema": {
+            "type": "number",
+            "description": "mqtt qos [0/1/2]"
+          },
+          "required": true
+        },
+        {
+          "name": "interval",
+          "schema": {
+            "type": "number",
+            "description": "mqtt heartbeat package inteval 0-65"
+          },
+          "required": true
+        },
+        {
+          "name": "mode",
+          "schema": {
+            "type": "string",
+            "description": "[tcps/tcpc/udp] as server or client"
+          },
+          "required": true
+        },
+        {
+          "name": "timeout",
+          "schema": {
+            "type": "number",
+            "description": "no communication within this time will disconnect :0-86400(s)"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [-6: ERR_PARAMETER; -20: ERR_PORT]",
+              "oneOf": [
+                {
+                  "const": -6,
+                  "title": "ERR_PARAMETER"
+                },
+                {
+                  "const": -20,
+                  "title": "ERR_PORT"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "[ca missing; port:80 is in using, suggest use 32768]"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_forward_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "rs485",
+                  "set_forward_config",
+                  {
+                    "enable": true,
+                    "protocol": "mqtt",
+                    "type": "str",
+                    "address": "broker.emqx.io",
+                    "port": 1883,
+                    "enable_tls": true,
+                    "encry_mode": 1,
+                    "cacrt": "-----BEGIN CERTIFICATE-----\n......\n-----END CERTIFICATE-----\n",
+                    "clicrt": "-----BEGIN CERTIFICATE-----\n......\n-----END CERTIFICATE-----\n",
+                    "clikey": "-----BEGIN RSA PRIVATE KEY-----\n......\n-----END RSA PRIVATE KEY-----\n",
+                    "username": "test",
+                    "password": "123456",
+                    "publish": "/glinet/rs485/data",
+                    "subscribe": "/glinet/rs485/cmd",
+                    "clientid": "glinetx300b",
+                    "qos": 0,
+                    "interval": 60
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "rs485.get_forward_config",
+      "summary": "get network forward config",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "boolean",
+              "description": "\t\t enable netwotk forward[true/false]"
+            },
+            "protocol": {
+              "type": "string",
+              "description": "\t\t network protocl[socket/mqtt]"
+            },
+            "type": {
+              "type": "string",
+              "description": "\t\t\t parse method[hex/str]"
+            },
+            "mqtt_cfg": {
+              "type": "object",
+              "description": "\t mqtt config",
+              "properties": {
+                "address": {
+                  "type": "string",
+                  "description": "server address(only needed when work in tcpc/mqtt mode)"
+                },
+                "port": {
+                  "type": "number",
+                  "description": "socket/mqtt server port"
+                },
+                "enable_tls": {
+                  "type": "boolean",
+                  "description": "enable mqtt tls encryption"
+                },
+                "encry_mode": {
+                  "type": "number",
+                  "description": "encryption mode [0:one way; 1: two way]",
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "one way"
+                    },
+                    {
+                      "const": 1,
+                      "title": "two way"
+                    }
+                  ]
+                },
+                "cacrt": {
+                  "type": "string",
+                  "description": "ca certificate"
+                },
+                "clicrt": {
+                  "type": "string",
+                  "description": "client certificate"
+                },
+                "clikey": {
+                  "type": "string",
+                  "description": "client key"
+                },
+                "username": {
+                  "type": "string",
+                  "description": "mqtt username"
+                },
+                "password": {
+                  "type": "string",
+                  "description": "mqtt password"
+                },
+                "subscribe": {
+                  "type": "string",
+                  "description": "subscribe topics"
+                },
+                "publish": {
+                  "type": "string",
+                  "description": "publish topics"
+                },
+                "clientid": {
+                  "type": "string",
+                  "description": "mqtt clientid"
+                },
+                "qos": {
+                  "type": "number",
+                  "description": "mqtt qos [0/1/2]"
+                },
+                "interval": {
+                  "type": "number",
+                  "description": "mqtt heartbeat package inteval 0-65"
+                }
+              }
+            },
+            "socket_cfg": {
+              "type": "object",
+              "description": "\t socket config",
+              "properties": {
+                "address": {
+                  "type": "string",
+                  "description": "server address"
+                },
+                "mode": {
+                  "type": "string",
+                  "description": "[tcps/tcpc/udp] as server or client"
+                },
+                "port": {
+                  "type": "number",
+                  "description": "socket port 0-65536"
+                },
+                "timeout": {
+                  "type": "number",
+                  "description": "no communication within this time will disconnect :0-86400(s)"
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_forward_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "rs485",
+                  "get_forward_config",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "enable": false,
+              "type": "hex",
+              "protocol": "socket",
+              "socket_cfg": {
+                "port": 502,
+                "mode": "tcps",
+                "timeout": 60,
+                "address": "0.0.0.0"
+              },
+              "mqtt_cfg": {
+                "enable_tls": false,
+                "clicrt": "-----BEGIN CERTIFICATE-----\n......\n-----END CERTIFICATE-----\n",
+                "clikey": "-----BEGIN RSA PRIVATE KEY-----\n......\n-----END RSA PRIVATE KEY-----\n",
+                "address": "broker.emqx.io",
+                "publish": "/glinet/rs485/data",
+                "password": "",
+                "username": "",
+                "port": 1883,
+                "cacrt": "-----BEGIN CERTIFICATE-----\n......\n-----END CERTIFICATE-----\n",
+                "subscribe": "/glinet/rs485/cmd",
+                "interval": 60,
+                "clientid": "glinetx300b",
+                "qos": 0,
+                "encry_mode": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rs485.get_connect_status",
+      "summary": "get network connection status",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status_s": {
+              "type": "boolean",
+              "description": "return rs485 socket connection status."
+            },
+            "status_m": {
+              "type": "boolean",
+              "description": "return rs485 mqtt connection status."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_connect_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "rs485",
+                  "get_connect_status",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "status_s": false,
+              "status_m": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "rs485.get_tcp_clients",
+      "summary": "get tcp client list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "tcp_clients": {
+              "type": "array",
+              "description": "tcp client list",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "description": "client IP address"
+                  },
+                  "port": {
+                    "type": "number",
+                    "description": "client port"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_tcp_clients_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "rs485",
+                  "get_tcp_clients",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "tcp_clients": [
+                {
+                  "port": 50995,
+                  "address": "192.168.8.106"
+                },
+                {
+                  "port": 50995,
+                  "address": "192.168.8.106"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

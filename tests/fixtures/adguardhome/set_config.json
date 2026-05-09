@@ -1,0 +1,22 @@
+{
+  "name": "adguardhome.set_config",
+  "summary": "modify the configuration file",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "adguardhome",
+      "set_config",
+      {
+        "enabled": true
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

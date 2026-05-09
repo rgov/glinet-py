@@ -1,0 +1,155 @@
+{
+  "name": "wifi.get_config",
+  "summary": "get all WiFi configuration information of the system.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "wifi",
+      "get_config"
+    ]
+  },
+  "response": {
+    "id": null,
+    "jsonrpc": "2.0",
+    "result": {
+      "res": [
+        {
+          "band": "5G",
+          "ifaces": [
+            {
+              "enabled": true,
+              "ssid": "test",
+              "encryption": "psk2",
+              "name": "default_radio0",
+              "guest": false,
+              "hidden": false,
+              "key": "goodlife"
+            },
+            {
+              "enabled": false,
+              "ssid": "test-5G-Guest",
+              "encryption": "psk2",
+              "name": "guest5g",
+              "guest": true,
+              "hidden": false,
+              "key": "goodlife"
+            }
+          ],
+          "channels": [
+            {
+              "dfs": false,
+              "channel": 36
+            },
+            {
+              "dfs": true,
+              "channel": 64
+            },
+            {
+              "dfs": true,
+              "channel": 56
+            },
+            {
+              "dfs": false,
+              "channel": 44
+            },
+            {
+              "dfs": false,
+              "channel": 48
+            },
+            {
+              "dfs": true,
+              "channel": 116
+            }
+          ],
+          "device": "radio0",
+          "hwmode": "11ac/ax",
+          "txpower": "Max",
+          "channel": 40,
+          "hwmodes": [
+            "11ac/ax",
+            "11n/ac/ax",
+            "11a/n/ac/ax"
+          ],
+          "htmode": "auto",
+          "htmodes": [
+            "20",
+            "40",
+            "80",
+            "auto"
+          ],
+          "encryptions": [
+            "none",
+            "psk2",
+            "psk-mixed",
+            "sae",
+            "sae-mixed"
+          ],
+          "ready": false
+        },
+        {
+          "band": "2G",
+          "ifaces": [
+            {
+              "enabled": true,
+              "ssid": "test-c8f",
+              "encryption": "psk2",
+              "name": "default_radio1",
+              "guest": false,
+              "hidden": false,
+              "key": "goodlife"
+            },
+            {
+              "enabled": false,
+              "ssid": "test-Guest",
+              "encryption": "psk2",
+              "name": "guest2g",
+              "guest": true,
+              "hidden": false,
+              "key": "goodlife"
+            }
+          ],
+          "channels": [
+            {
+              "dfs": false,
+              "channel": 1
+            },
+            {
+              "dfs": false,
+              "channel": 3
+            },
+            {
+              "dfs": false,
+              "channel": 2
+            }
+          ],
+          "device": "radio1",
+          "hwmode": "11n/ax",
+          "txpower": "Max",
+          "channel": 0,
+          "hwmodes": [
+            "11n/ax",
+            "11g/n/ax",
+            "11b/g/n/ax"
+          ],
+          "htmode": "20",
+          "htmodes": [
+            "20",
+            "40",
+            "auto"
+          ],
+          "encryptions": [
+            "none",
+            "psk2",
+            "psk-mixed",
+            "sae",
+            "sae-mixed"
+          ],
+          "ready": false
+        }
+      ]
+    }
+  }
+}

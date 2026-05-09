@@ -1,0 +1,17 @@
+{
+  "name": "ovpn-server.get_status",
+  "summary": "Get ovpn server status",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-server",
+      "get_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response_raw": "{\\\"jsonrpc\\\": \\\"2.0\\\", \\\"id\\\": 1, \\\"result\\\": {\\\"status\\\":1,\\\"initialization\\\":true,\\\"log\\\":\\\"\\\",\\\"tunnel_ip\\\":\\\"10.8.0.2/32\\\"\\\"rx_bytes\\\":57,\\\"tx_bytes\\\":60}}",
+  "response_parse_error": "Expecting ',' delimiter: line 1 column 107 (char 106)"
+}

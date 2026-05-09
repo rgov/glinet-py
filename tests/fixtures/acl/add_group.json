@@ -1,0 +1,22 @@
+{
+  "name": "acl.add_group",
+  "summary": "add permission group",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "acl",
+      "add_group",
+      {
+        "group": "test"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

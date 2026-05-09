@@ -1,0 +1,21 @@
+{
+  "name": "system.get_unixtime",
+  "summary": "Get Unix timestamp.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "system",
+      "get_unixtime"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "time": 1629106981
+    }
+  }
+}

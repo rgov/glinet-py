@@ -1,0 +1,24 @@
+{
+  "name": "tor.set_config",
+  "summary": "Set tor settings",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "tor",
+      "set_config",
+      {
+        "enable": true,
+        "manual": true,
+        "countries": "cn"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

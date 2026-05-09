@@ -1,0 +1,24 @@
+{
+  "name": "otbr.set_commissioning",
+  "summary": "Set commissioner status",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "set_commissioner",
+      {
+        "Enable": true
+      }
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "err_code": 0
+    }
+  }
+}

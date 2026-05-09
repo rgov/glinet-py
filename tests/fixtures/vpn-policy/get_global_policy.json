@@ -1,0 +1,24 @@
+{
+  "name": "vpn-policy.get_global_policy",
+  "summary": "get Global Options",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "vpn-policy",
+      "get_global_policy",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "kill_switch": 0,
+      "wan_access": 0,
+      "service_policy": 1
+    }
+  }
+}

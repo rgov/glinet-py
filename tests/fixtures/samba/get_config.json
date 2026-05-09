@@ -1,0 +1,30 @@
+{
+  "name": "samba.get_config",
+  "summary": "get samba conf",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "samba",
+      "get_config",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "share_dir": "/mnt",
+      "share_on_lan": "true",
+      "share_on_wan": "true",
+      "writable": "true",
+      "list": [
+        "/mnt",
+        "/mnt/sda1",
+        "/mnt/sdb1"
+      ]
+    }
+  }
+}

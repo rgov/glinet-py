@@ -1,0 +1,30 @@
+{
+  "name": "repeater.get_saved_ap_list",
+  "summary": "Get the saved networks data",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "repeater",
+      "get_saved_ap_list"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "res": [
+        {
+          "ssid": "test",
+          "key": "12132432423"
+        },
+        {
+          "ssid": "x",
+          "key": "sefrsedtfsde"
+        }
+      ]
+    }
+  }
+}

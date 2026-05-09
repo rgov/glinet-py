@@ -1,0 +1,31 @@
+{
+  "name": "ovpn-server.get_user_list",
+  "summary": "get ovpn user list",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-server",
+      "get_user_list",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "user_list": [
+        {
+          "username": "test1",
+          "password": "11111111"
+        },
+        {
+          "username": "test2",
+          "password": "22222222"
+        }
+      ]
+    }
+  }
+}

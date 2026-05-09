@@ -1,0 +1,26 @@
+{
+  "name": "logread.get_crash_log",
+  "summary": "get crash log",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "logread",
+      "get_crash_log",
+      {
+        "mode": 1,
+        "log_number": 2
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "log": "Log Entry 2 (at position 1)\n<6>[  650.605535] br-lan: port 2(wlan0) entered forwarding state\n\n",
+      "sum": 3
+    }
+  }
+}

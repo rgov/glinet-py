@@ -1,0 +1,16 @@
+{
+  "name": "parental-control.get_status",
+  "summary": "Get temporary ruleset status.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "parental-control",
+      "get_status"
+    ]
+  },
+  "response_raw": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"result\": {\"time_valid\":true,groups:[{\"id\":\"cfg1356\",\"rule\":\"drop\",\"brief\":false}]}",
+  "response_parse_error": "Expecting property name enclosed in double quotes: line 1 column 58 (char 57)"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "rs485.glcould_tool",
+  "summary": "glcloud tool for rs485",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "rs485",
+      "glcould_tool",
+      {
+        "cmd": "010300000002C408"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "data": "010304020100FD6BCA"
+    }
+  }
+}

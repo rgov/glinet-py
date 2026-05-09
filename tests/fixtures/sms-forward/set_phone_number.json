@@ -1,0 +1,32 @@
+{
+  "name": "sms-forward.set_phone_number",
+  "summary": "set sms-forward phone number",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "sms-forward",
+      "set_phone_number",
+      {
+        "enable": true,
+        "phone_numbers": [
+          {
+            "country_code": "86",
+            "phone_number": "14785296323"
+          },
+          {
+            "country_code": "83",
+            "phone_number": "12345677412"
+          }
+        ]
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

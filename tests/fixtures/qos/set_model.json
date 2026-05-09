@@ -1,0 +1,22 @@
+{
+  "name": "qos.set_model",
+  "summary": "set qos mode",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "qos",
+      "switch_model",
+      {
+        "model": "cake"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "nas-web.get_status",
+  "summary": "get nas service info",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nas-web",
+      "get_status",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "res": [
+        {
+          "enable": 1
+        }
+      ]
+    }
+  }
+}

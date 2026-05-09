@@ -1,0 +1,16 @@
+{
+  "name": "tor.get_status",
+  "summary": "Get tor status",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "tor",
+      "get_status"
+    ]
+  },
+  "response_raw": "{\"id\":null,\"jsonrpc\":\"2.0\",\"result\":{\"tor_status\":[{\"status\":2,\"log\":\"Initialization tor configuration\"]}}",
+  "response_parse_error": "Expecting ',' delimiter: line 1 column 104 (char 103)"
+}

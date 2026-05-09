@@ -1,0 +1,23 @@
+{
+  "name": "system.add_user",
+  "summary": "Add user",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "system",
+      "add_user",
+      {
+        "username": "test",
+        "password": "123"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

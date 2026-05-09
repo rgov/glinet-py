@@ -1,0 +1,22 @@
+{
+  "name": "ovpn-client.confirm_config",
+  "summary": "confirm ovpn client config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-client",
+      "confirm_config",
+      {
+        "group_id": 2312
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

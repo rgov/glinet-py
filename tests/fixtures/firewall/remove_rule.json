@@ -1,0 +1,22 @@
+{
+  "name": "firewall.remove_rule",
+  "summary": "remove firewall rule",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "firewall",
+      "remove_rule",
+      {
+        "id": "cfg1392bd"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

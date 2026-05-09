@@ -1,0 +1,55 @@
+{
+  "name": "modem.get_profile_list",
+  "summary": "Get a list of all cellular modem connection settings",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "get_profile_list",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "profiles": [
+        {
+          "pin_code": "",
+          "protocol": "",
+          "id": "visible",
+          "service": "",
+          "dial_number": "",
+          "password": "",
+          "apn": "VSBLINTERNET",
+          "description": "VERIZON",
+          "device": "",
+          "username": "",
+          "ttl": 65,
+          "ttl_ipv6": 65,
+          "auth": "",
+          "band_enable": true,
+          "band_filter_mode": 1,
+          "band_list": {
+            "LTE": [
+              1,
+              2
+            ],
+            "NR-SA": [
+              1,
+              2
+            ],
+            "NR-NSA": [
+              1,
+              2
+            ]
+          },
+          "roaming": true
+        }
+      ]
+    }
+  }
+}

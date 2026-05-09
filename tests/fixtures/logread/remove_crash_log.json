@@ -1,0 +1,20 @@
+{
+  "name": "logread.remove_crash_log",
+  "summary": "remove crash log",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "logread",
+      "remove_crash_log",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

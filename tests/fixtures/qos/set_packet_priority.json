@@ -1,0 +1,22 @@
+{
+  "name": "qos.set_packet_priority",
+  "summary": "set ACK/SYN/ICMP packets forward first",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "qos",
+      "set_packet_priority",
+      {
+        "packet_priority": true
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

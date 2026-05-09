@@ -1,0 +1,27 @@
+{
+  "name": "qos.add_device_group",
+  "summary": "add client group",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "qos",
+      "add_device_group",
+      {
+        "group_name": "test3",
+        "priority": 3,
+        "clients": [
+          "11:22:33:44:55:66",
+          "44:55:66:77:88:99"
+        ]
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

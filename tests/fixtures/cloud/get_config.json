@@ -1,0 +1,32 @@
+{
+  "name": "cloud.get_config",
+  "summary": "get the current configuration",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "cloud",
+      "get_config"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "cloud_enable": "true",
+      "rtty_ssh": "true",
+      "rtty_web": "true",
+      "serverzone": "China",
+      "serverzones": [
+        "Europe",
+        "America",
+        "China"
+      ],
+      "name": "gclone",
+      "email": "88666@126.com",
+      "bindtime": "192168"
+    }
+  }
+}

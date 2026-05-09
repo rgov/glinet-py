@@ -1,0 +1,27 @@
+{
+  "name": "plugins.get_repository_status",
+  "summary": "get software repository status",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "plugins",
+      "get_repository_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "status": 2,
+      "count_all": 7220,
+      "count_installed": 200,
+      "count_not_installed": 7000,
+      "count_updatable": 20,
+      "count_reserve": 0
+    }
+  }
+}

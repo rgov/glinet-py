@@ -1,0 +1,45 @@
+{
+  "name": "ovpn-server.set_config",
+  "summary": "Set ovpn server config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-server",
+      "set_config",
+      {
+        "auth": "SHA256",
+        "proto": "tcp",
+        "port": 1194,
+        "subnetv4": "10.8.0.0",
+        "ipv6_enable": true,
+        "subnetv6": "fd00:db8:0:123::/64",
+        "mask": "255.255.255.0",
+        "cipher": "AES-256-GCM",
+        "mode": "tun",
+        "start": "10.8.0.2",
+        "end": "10.8.0.100",
+        "lzo": false,
+        "ca": "-----BEGIN CERTIFICATE----- MIIDCzCCAfOgAwIBAgIUequqVhT2jU3wWJF988KVcIUyUtwwDQYJKoZIhvcNAQEF BQAwFTETMBEGA1UEAwwKT3BlblZQTiBDQTAeFw0yMTA2MTkwMjA4MzNaFw0zMTA2 MTcwMjA4MzNaMBUxEzARBgNVBAMMCk9wZW5WUE4gQ0EwggEiMA0GCSqGSIb3DQEB AQUAA4IBDwAwggEKAoIBAQCjLr7B1mc04E/yHqR8hv7Qng5WuaZVGYDfUoxxly0c 8qOj6LqkL5UwjtcQV2rFgucwCsTYW8/dRY/Fd6cRllNdvRuA1nuMi/JhECkmf9AB ckdXlyXiObeYNL1MofcOsjRkB1oxokOO7BN2uJ2sQqekBSc7DN+8b9w5R+gaVXY3 082bVHvIKPiwYWzpNbO3MfdBsmh9oL8CryAfDAv8aTaAeCRoHNy5hnzqWoHfv6xm MsuVfwb9Vw5MegJ011x+VMF/++o95IcL/UsMSCrhjstyaf94ucPwIi7NuD2lor6e RP0eqKryGui1r2coZweZjGuYqOnTwHZhJcjpgSK1RdbhAgMBAAGjUzBRMB0GA1Ud DgQWBBRUf/PRJrXI4eHeTBBldnTeJnrefTAfBgNVHSMEGDAWgBRUf/PRJrXI4eHe TBBldnTeJnrefTAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBBQUAA4IBAQCS bAc7oMhLnAnHMPaFhXVDmvsgX7rK2BEKk/qqlHR2qAd7eSK3cteYX+Kayq+j8RmO PPsk4hXQNo+6tcaZSi05ACVYcCOkNw5dOZ8DDIo5swydamAZewp4ExsZQP4pdr40 8ikNle6Amt4psgxT0AVH56g4YO7qqdg5RMY14grIsBTL21j5OhdnwORPxstC2icW S5vzouDaIZ85IkiLaBku4fw8hBPkSmLRBexzeYwx/CoOs6olOEaKYoLy5TYFT+Ed 4Tvd7d0sw8vh1l1DiNtb5jGw7BsX4S8rzuB6o0GpxtxJprlyOPqqsyxwFNwhyAVk TFYWeM/vOcydA3zBBJbH -----END CERTIFICATE-----",
+        "dh": "-----BEGIN DH PARAMETERS----- MIGHAoGBALUmuxsYkB+OLETWb+fz2WhAwa6PUMNzweXEA44rZ8Yv3PqfUIb/rPiW ZUwIq+ouAF1kMPnRYYhsqg5d4OeMv8R6SPlQUckpZrBELsJro9qGRf2nda9v5KAI 8DaorlIhKHpEoJ9xBz8h/DtQ85PX3UT96RZXA/SAyVAhdDpHkJ5rAgEC -----END DH PARAMETERS-----",
+        "hmac": true,
+        "ta": "-----BEGIN OpenVPN Static key V1----- 66301913fa0fa22457019b1a52e26aef 058c0405905f7e415615cc576bf1ca56 a0d12e27f181044c7ce4035afa5a7e30 1e02284208762d1ef8cd94b1989b8940 b534c469920a3012b440a4abad67af32 a7d80e0fc9447bd82b0d2ef2098a99c2 e7decaa1c5442b5ab6c0bbd413652814 c260fd76318d3abc6a65552fda44cb00 066420d3232f423f2810c861e0c3429f f566d0737d8e63c86dbf5bea5693dd51 1002a5e1e3aa95eddd388550e0022b04 8299cac19864821e3369a17e02cf02ef 0c41460146edba8748e9bccdd57cf8ac 1558f8d9a5b3430bf2229cad92625910 e09dce6311e834c2ca8c004f3a18c7d2 97188c096342674ff89c4bebda1e04db -----END OpenVPN Static key V1-----",
+        "client_to_client": false,
+        "verb": "3",
+        "access_scope": 1,
+        "client_auth": 1,
+        "cert": "nil",
+        "key": "nil",
+        "tap_address": "10.8.0.1",
+        "tap_mask": "255.255.255.255"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

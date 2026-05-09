@@ -1,0 +1,23 @@
+{
+  "name": "tor.get_config",
+  "summary": "Get tor settings",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "tor",
+      "get_config"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "manual": true,
+      "enable": true,
+      "countries": "cn"
+    }
+  }
+}

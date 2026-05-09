@@ -1,0 +1,37 @@
+{
+  "name": "modem.get_cells_info",
+  "summary": "Get the network cells information of the target cellular modem",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "get_cells_info",
+      {
+        "bus": "1-1"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "cells": [
+        {
+          "type": "servingcell",
+          "id": 1234,
+          "band": 41,
+          "dl_bandwidth": "20M",
+          "ul_bandwidth": "20M",
+          "mode": "LTE",
+          "rssi": -71,
+          "rerp": -61,
+          "rsrq": -12,
+          "sinr": 13
+        }
+      ]
+    }
+  }
+}

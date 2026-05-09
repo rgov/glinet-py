@@ -1,0 +1,41 @@
+{
+  "name": "repeater.scan",
+  "summary": "Scan the APs",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "wifi",
+      "scan"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "res": [
+        {
+          "ssid": "GL-AR750S-4e2-5G",
+          "band": "5g",
+          "encryption": {
+            "enabled": true,
+            "description": "WPA2 PSK (CCMP)",
+            "auth_suites": [
+              "PSK"
+            ],
+            "wpa": 2,
+            "pair_ciphers": [
+              "CCMP"
+            ],
+            "uci": "psk2"
+          },
+          "bssid": "94:83:C4:0C:54:E3",
+          "channel": 36,
+          "signal": -60
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "lan.remove_static_bind",
+  "summary": "Delete a static ip binding or delete all static ip bindings",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "lan",
+      "remove_static_bind",
+      {
+        "mode": 0,
+        "mac": "58:41:20:0b:9b:b1"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

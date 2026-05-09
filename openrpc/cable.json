@@ -1,0 +1,581 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — cable module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "cable.set_config",
+      "summary": "set the WAN port access mode",
+      "params": [
+        {
+          "name": "protocol",
+          "schema": {
+            "type": "string",
+            "description": "identifies how protocol the WAN port obtains IP[dhcp; static; pppoe]"
+          },
+          "required": true
+        },
+        {
+          "name": "username",
+          "schema": {
+            "type": "string",
+            "description": "set the PPPoE username, required when set as PPPoE"
+          },
+          "required": false
+        },
+        {
+          "name": "password",
+          "schema": {
+            "type": "string",
+            "description": "set the PPPoE password, required when set as PPPoE"
+          },
+          "required": false
+        },
+        {
+          "name": "vlanid",
+          "schema": {
+            "type": "number",
+            "description": "set the PPPoE password, required when set as PPPoE, range 1-4094, 0 by default"
+          },
+          "required": false
+        },
+        {
+          "name": "ipv6",
+          "schema": {
+            "type": "object",
+            "description": "set the IPv6 info, required when IPv6 is enabled and set as static IP",
+            "properties": {
+              "ip": {
+                "type": "string",
+                "description": "IPv6 address"
+              },
+              "gateway": {
+                "type": "string",
+                "description": "IPv6 gateway"
+              },
+              "dns": {
+                "type": "array",
+                "description": "IPv6 DNS"
+              }
+            }
+          },
+          "required": false
+        },
+        {
+          "name": "ipv4",
+          "schema": {
+            "type": "object",
+            "description": "set the IPv4 info, required when set as static IP",
+            "properties": {
+              "ip": {
+                "type": "string",
+                "description": "IPv4 address"
+              },
+              "netmask": {
+                "type": "string",
+                "description": "IPv4 netmask"
+              },
+              "gateway": {
+                "type": "string",
+                "description": "IPv4 gateway"
+              },
+              "dns": {
+                "type": "array",
+                "description": "IPv4 DNS"
+              }
+            }
+          },
+          "required": false
+        },
+        {
+          "name": "secondwan",
+          "schema": {
+            "type": "boolean",
+            "description": "set secondwan"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: parameter error; -2: ip format error]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "parameter error"
+                },
+                {
+                  "const": -2,
+                  "title": "ip format error"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "cable",
+                  "set_config",
+                  {
+                    "protocol": "pppoe",
+                    "username": "test",
+                    "password": "123456"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "cable.change_interface",
+      "summary": "set wan port mode",
+      "params": [
+        {
+          "name": "mode",
+          "schema": {
+            "type": "number",
+            "description": "set the WAN port mode [0: work as WAN; 1: work as LAN]",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "work as WAN"
+              },
+              {
+                "const": 1,
+                "title": "work as LAN"
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "secondwan",
+          "schema": {
+            "type": "boolean",
+            "description": "set lan port mode [0: wan; 1: lan]"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: parameter error; -6: remove internet cable]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "parameter error"
+                },
+                {
+                  "const": -6,
+                  "title": "remove internet cable"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "change_interface_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "cable",
+                  "change_interface",
+                  {
+                    "mode": 1
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "cable.get_status",
+      "summary": "get the wan port status",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "number",
+              "description": "the WAN status [0: work as WAN; 1: work as LAN; 2: bridge mode; 3: drop-in gateway mode; 4: passthrough mode]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "work as WAN"
+                },
+                {
+                  "const": 1,
+                  "title": "work as LAN"
+                },
+                {
+                  "const": 2,
+                  "title": "bridge mode"
+                },
+                {
+                  "const": 3,
+                  "title": "drop-in gateway mode"
+                },
+                {
+                  "const": 4,
+                  "title": "passthrough mode"
+                }
+              ]
+            },
+            "protocol": {
+              "type": "string",
+              "description": "identifies how protocol the WAN port obtains IP [dhcp; static; pppoe]"
+            },
+            "status": {
+              "type": "number",
+              "description": "the connection status [0: connect failed; 1: connect success; 2: connecting; 3: not connect phycially]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "connect failed"
+                },
+                {
+                  "const": 1,
+                  "title": "connect success"
+                },
+                {
+                  "const": 2,
+                  "title": "connecting"
+                },
+                {
+                  "const": 3,
+                  "title": "not connect phycially"
+                }
+              ]
+            },
+            "ipv6": {
+              "type": "object",
+              "description": "IPv6 info, return when the status is 1 and IPv6 is enabled",
+              "properties": {
+                "ip": {
+                  "type": "string",
+                  "description": "IPv6 address"
+                },
+                "gateway": {
+                  "type": "string",
+                  "description": "IPv6 gateway"
+                },
+                "dns": {
+                  "type": "array",
+                  "description": "IPv6 DNS"
+                }
+              }
+            },
+            "ipv4": {
+              "type": "object",
+              "description": "IPv4 info, return when the status is 1",
+              "properties": {
+                "ip": {
+                  "type": "string",
+                  "description": "IPv4 address"
+                },
+                "gateway": {
+                  "type": "string",
+                  "description": "IPv4 gateway"
+                },
+                "dns": {
+                  "type": "array",
+                  "description": "IPv4 DNS"
+                }
+              }
+            },
+            "log": {
+              "type": "string",
+              "description": "PPPoE info, return when set as PPPoE"
+            },
+            "passthrough": {
+              "type": "string",
+              "description": "passthrough info, return when set as passthrough",
+              "properties": {
+                "enable": {
+                  "type": "string",
+                  "description": "passthrough status [0: disabled; 1: enabled]"
+                },
+                "ip": {
+                  "type": "string",
+                  "description": "passthrough mode, IPv4 address"
+                },
+                "gateway": {
+                  "type": "string",
+                  "description": "passthrough mode IPv4 gateway"
+                },
+                "netmask": {
+                  "type": "string",
+                  "description": "passthrough mode IPv4 netmask"
+                },
+                "dns": {
+                  "type": "string",
+                  "description": "passthrough mode IPv4 dns"
+                }
+              }
+            },
+            "secondwan": {
+              "type": "object",
+              "description": "secondwan status information"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code [-4: this device doesn't have the phycial WAN port; -5: this device doesn't have the virtual WAN port]",
+              "oneOf": [
+                {
+                  "const": -4,
+                  "title": "this device doesn't have the phycial WAN port"
+                },
+                {
+                  "const": -5,
+                  "title": "this device doesn't have the virtual WAN port"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "cable",
+                  "get_status",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "mode": 0,
+              "status": 1,
+              "protocol": "static",
+              "ipv4": {
+                "ip": "192.168.113.137/24",
+                "gateway": "192.168.113.1",
+                "dns": [
+                  "8.8.8.8",
+                  "8.8.4.4"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "cable.get_config",
+      "summary": "get the wan port config",
+      "params": [
+        {
+          "name": "secondwan",
+          "schema": {
+            "type": "boolean",
+            "description": "get secondwan config"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "protocol": {
+              "type": "string",
+              "description": "identifies how protocol the WAN port obtains IP [dhcp; static; pppoe]"
+            },
+            "ipv6": {
+              "type": "object",
+              "description": "IPv6 info, return when IPv6 is enabled and set as static IP",
+              "properties": {
+                "ip": {
+                  "type": "string",
+                  "description": "IPv6 address"
+                },
+                "gateway": {
+                  "type": "string",
+                  "description": "IPv6 gateway"
+                },
+                "dns": {
+                  "type": "array",
+                  "description": "IPv6 DNS"
+                }
+              }
+            },
+            "ipv4": {
+              "type": "object",
+              "description": "IPv4 info, return when set as static IP",
+              "properties": {
+                "ip": {
+                  "type": "string",
+                  "description": "IPv4 address"
+                },
+                "netmask": {
+                  "type": "string",
+                  "description": "IPv4 netmask"
+                },
+                "gateway": {
+                  "type": "string",
+                  "description": "IPv4 gateway"
+                },
+                "dns": {
+                  "type": "array",
+                  "description": "IPv4 DNS"
+                }
+              }
+            },
+            "username": {
+              "type": "string",
+              "description": "PPPoE username, return when set as PPPoE"
+            },
+            "password": {
+              "type": "string",
+              "description": "PPPoE password, return when set as PPPoE"
+            },
+            "vlanid": {
+              "type": "number",
+              "description": "PPPoE VLAN ID, return when set as PPPoE"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code [-4: this device doesn't have the phycial WAN port; -5: this device doesn't have the virtual WAN port]",
+              "oneOf": [
+                {
+                  "const": -4,
+                  "title": "this device doesn't have the phycial WAN port"
+                },
+                {
+                  "const": -5,
+                  "title": "this device doesn't have the virtual WAN port"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "cable",
+                  "get_config",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "protocol": "static",
+              "ipv4": {
+                "ip": "192.168.113.137",
+                "netmask": "255.255.255.0",
+                "gateway": "192.168.113.1",
+                "dns": [
+                  "8.8.8.8",
+                  "8.8.4.4"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "upgrade.get_config",
+  "summary": "get to config of firmware upgrade",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "upgrade",
+      "get_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "auto_upgrade": false,
+      "time": "04:00",
+      "url": "https://fw.gl-inet.com/firmware/ar750s/release"
+    }
+  }
+}

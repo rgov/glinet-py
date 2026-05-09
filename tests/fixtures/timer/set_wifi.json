@@ -1,0 +1,51 @@
+{
+  "name": "timer.set_wifi",
+  "summary": "set wifi config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "timer",
+      "set_wifi",
+      {
+        "wifi": [
+          {
+            "band": "5G",
+            "turnoff_min": "11",
+            "enable": false,
+            "func": "turn_onoff",
+            "turnoff_hour": "11",
+            "guest": "0",
+            "week": [
+              0,
+              1
+            ],
+            "turnon_min": "11",
+            "turnon_hour": "11"
+          },
+          {
+            "band": "5G",
+            "turnoff_min": "11",
+            "enable": false,
+            "func": "turn_onoff",
+            "turnoff_hour": "11",
+            "guest": "1",
+            "week": [
+              0,
+              1
+            ],
+            "turnon_min": "11",
+            "turnon_hour": "11"
+          }
+        ]
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

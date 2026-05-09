@@ -1,0 +1,250 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — ddns module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ddns.set_config",
+      "summary": "modify the configuration file",
+      "params": [
+        {
+          "name": "enable_ddns",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enable the ddns"
+          },
+          "required": true
+        },
+        {
+          "name": "enable_ssh_access",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to allow ssh access"
+          },
+          "required": true
+        },
+        {
+          "name": "enable_http_access",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to allow http access"
+          },
+          "required": true
+        },
+        {
+          "name": "enable_https_access",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to allow https access"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1:missing parameters; -2:uci nitialization error]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "missing parameters"
+                },
+                {
+                  "const": -2,
+                  "title": "uci nitialization error"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ddns",
+                  "set_config",
+                  {
+                    "enable_ddns": true,
+                    "enable_ssh_access": true,
+                    "enable_http_access": true,
+                    "enable_https_access": true
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "ddns.get_config",
+      "summary": "get the current configuration",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable_ddns": {
+              "type": "boolean",
+              "description": "whether to enable the ddns"
+            },
+            "enable_ssh_access": {
+              "type": "boolean",
+              "description": "whether to allow ssh access"
+            },
+            "enable_http_access": {
+              "type": "boolean",
+              "description": "whether to allow http access"
+            },
+            "enable_https_access": {
+              "type": "boolean",
+              "description": "whether to allow https access"
+            },
+            "device_id": {
+              "type": "string",
+              "description": "ddns device id"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code [-2:uci nitialization error]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ddns",
+                  "get_config",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "device_id": "aa628d6",
+              "enable_ddns": false,
+              "enable_ssh_access": false,
+              "enable_http_access": false,
+              "enable_https_access": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ddns.get_status",
+      "summary": "get ddns status information",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ddns": {
+              "type": "string",
+              "description": "the resolved ip address"
+            },
+            "ddnsv6": {
+              "type": "string",
+              "description": "the resolved ipv6 address"
+            },
+            "ips": {
+              "type": "array",
+              "description": "IP information",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "interface": {
+                    "type": "string",
+                    "description": "interface name [wan; wwan; tethering; modem; wan6; wwan6; tethering6; modem6]"
+                  },
+                  "ip": {
+                    "type": "array",
+                    "description": "interface IP"
+                  }
+                }
+              }
+            },
+            "status": {
+              "type": "number",
+              "description": "ddns status [0: success; 1: failed; 2: The device is behind a firewall or the ip provided by the operator is not the public ip]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "success"
+                },
+                {
+                  "const": 1,
+                  "title": "failed"
+                },
+                {
+                  "const": 2,
+                  "title": "The device is behind a firewall or the ip provided by the operator is not the public ip"
+                }
+              ]
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code [-2:uci nitialization error]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    }
+  ]
+}

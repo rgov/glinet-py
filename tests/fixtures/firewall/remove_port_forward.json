@@ -1,0 +1,22 @@
+{
+  "name": "firewall.remove_port_forward",
+  "summary": "remove port forward",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "firewall",
+      "remove_port_forward",
+      {
+        "id": "cfg153837"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

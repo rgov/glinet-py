@@ -1,0 +1,29 @@
+{
+  "name": "nas-web.set_share",
+  "summary": "set share",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nas-web",
+      "add_share",
+      {
+        "share_id": "xxx",
+        "proto": "samba",
+        "readonly": 1,
+        "public": 1,
+        "users": {
+          "name": "xxx",
+          "readonly": 1
+        }
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

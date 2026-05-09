@@ -1,0 +1,19 @@
+{
+  "name": "system.reboot",
+  "summary": "Reboot the device",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "system",
+      "reboot"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

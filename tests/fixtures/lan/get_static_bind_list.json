@@ -1,0 +1,33 @@
+{
+  "name": "lan.get_static_bind_list",
+  "summary": "Get the information list of all current static ip binding entries",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "lan",
+      "get_static_bind_list",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "static_bind_list": [
+        {
+          "name": "DESKTOP-HO0T5C1",
+          "mac": "58:41:20:0b:9b:b1",
+          "ip": "192.168.8.162"
+        },
+        {
+          "name": "DESKTOP-HO0T5C3",
+          "mac": "58:41:20:0b:9b:b3",
+          "ip": "192.168.8.163"
+        }
+      ]
+    }
+  }
+}

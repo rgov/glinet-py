@@ -1,0 +1,29 @@
+{
+  "name": "modem.get_debug_msg",
+  "summary": "Get the debug information of the target cellular modem",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "get_debug_msg",
+      {
+        "bus": "1-1"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "msgs": [
+        {
+          "cmd": "AT",
+          "result": "OK"
+        }
+      ]
+    }
+  }
+}

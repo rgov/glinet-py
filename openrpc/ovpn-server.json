@@ -1,0 +1,1494 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — ovpn-server module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "ovpn-server.get_config",
+      "summary": "Get openvpn configuration",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "local_access": {
+              "type": "boolean",
+              "description": "allow local access"
+            },
+            "mode": {
+              "type": "string",
+              "description": "tunnel mode: tun/tap"
+            },
+            "subnetv4": {
+              "type": "string",
+              "description": "IPv4 subnet"
+            },
+            "mask": {
+              "type": "string",
+              "description": "mask"
+            },
+            "ipv6_enable": {
+              "type": "boolean",
+              "description": "enable ipv6"
+            },
+            "subnetv6": {
+              "type": "string",
+              "description": "IPv6 subnet"
+            },
+            "proto": {
+              "type": "string",
+              "description": "protocol"
+            },
+            "port": {
+              "type": "number",
+              "description": "port"
+            },
+            "auth": {
+              "type": "string",
+              "description": "auth"
+            },
+            "cipher": {
+              "type": "string",
+              "description": "cipher"
+            },
+            "start": {
+              "type": "string",
+              "description": "obsolete"
+            },
+            "end": {
+              "type": "string",
+              "description": "obsolete"
+            },
+            "lzo": {
+              "type": "boolean",
+              "description": "lzo"
+            },
+            "ca": {
+              "type": "string",
+              "description": "root cert"
+            },
+            "dh": {
+              "type": "string",
+              "description": "Diffie Hellman"
+            },
+            "hmac": {
+              "type": "boolean",
+              "description": "whether to enable TLS authentication"
+            },
+            "ta": {
+              "type": "string",
+              "description": "TLS authentication key"
+            },
+            "client_to_client": {
+              "type": "boolean",
+              "description": "client to client"
+            },
+            "verb": {
+              "type": "string",
+              "description": "verbose level"
+            },
+            "access_scope": {
+              "type": "number",
+              "description": "obsolete"
+            },
+            "client_auth": {
+              "type": "number",
+              "description": "client authentication mode 1:only certificate 2:onely username/password 3: username/password and certificate"
+            },
+            "cert": {
+              "type": "string",
+              "description": "cert"
+            },
+            "key": {
+              "type": "string",
+              "description": "key"
+            },
+            "initialization": {
+              "type": "boolean",
+              "description": "whether initialized"
+            },
+            "tap_address": {
+              "type": "string",
+              "description": "tap address"
+            },
+            "tap_mask": {
+              "type": "string",
+              "description": "tap mask"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code(-10：uci config missing -11：get IPv6 subnet failure -12：get TLS authentication key failure)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "get_config",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "initialization": true,
+              "local_access": false,
+              "auth": "SHA256",
+              "proto": "tcp",
+              "port": 1194,
+              "subnetv4": "10.8.0.0",
+              "ipv6_enable": true,
+              "subnetv6": "fd00:db8:0:123::/64",
+              "mask": "255.255.255.0",
+              "cipher": "AES-256-GCM",
+              "mode": "tun",
+              "start": "10.8.0.2",
+              "end": "10.8.0.100",
+              "lzo": false,
+              "ca": "-----BEGIN CERTIFICATE----- MIIDCzCCAfOgAwIBAgIUequqVhT2jU3wWJF988KVcIUyUtwwDQYJKoZIhvcNAQEF BQAwFTETMBEGA1UEAwwKT3BlblZQTiBDQTAeFw0yMTA2MTkwMjA4MzNaFw0zMTA2 MTcwMjA4MzNaMBUxEzARBgNVBAMMCk9wZW5WUE4gQ0EwggEiMA0GCSqGSIb3DQEB AQUAA4IBDwAwggEKAoIBAQCjLr7B1mc04E/yHqR8hv7Qng5WuaZVGYDfUoxxly0c 8qOj6LqkL5UwjtcQV2rFgucwCsTYW8/dRY/Fd6cRllNdvRuA1nuMi/JhECkmf9AB ckdXlyXiObeYNL1MofcOsjRkB1oxokOO7BN2uJ2sQqekBSc7DN+8b9w5R+gaVXY3 082bVHvIKPiwYWzpNbO3MfdBsmh9oL8CryAfDAv8aTaAeCRoHNy5hnzqWoHfv6xm MsuVfwb9Vw5MegJ011x+VMF/++o95IcL/UsMSCrhjstyaf94ucPwIi7NuD2lor6e RP0eqKryGui1r2coZweZjGuYqOnTwHZhJcjpgSK1RdbhAgMBAAGjUzBRMB0GA1Ud DgQWBBRUf/PRJrXI4eHeTBBldnTeJnrefTAfBgNVHSMEGDAWgBRUf/PRJrXI4eHe TBBldnTeJnrefTAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBBQUAA4IBAQCS bAc7oMhLnAnHMPaFhXVDmvsgX7rK2BEKk/qqlHR2qAd7eSK3cteYX+Kayq+j8RmO PPsk4hXQNo+6tcaZSi05ACVYcCOkNw5dOZ8DDIo5swydamAZewp4ExsZQP4pdr40 8ikNle6Amt4psgxT0AVH56g4YO7qqdg5RMY14grIsBTL21j5OhdnwORPxstC2icW S5vzouDaIZ85IkiLaBku4fw8hBPkSmLRBexzeYwx/CoOs6olOEaKYoLy5TYFT+Ed 4Tvd7d0sw8vh1l1DiNtb5jGw7BsX4S8rzuB6o0GpxtxJprlyOPqqsyxwFNwhyAVk TFYWeM/vOcydA3zBBJbH -----END CERTIFICATE-----",
+              "dh": "-----BEGIN DH PARAMETERS----- MIGHAoGBALUmuxsYkB+OLETWb+fz2WhAwa6PUMNzweXEA44rZ8Yv3PqfUIb/rPiW ZUwIq+ouAF1kMPnRYYhsqg5d4OeMv8R6SPlQUckpZrBELsJro9qGRf2nda9v5KAI 8DaorlIhKHpEoJ9xBz8h/DtQ85PX3UT96RZXA/SAyVAhdDpHkJ5rAgEC -----END DH PARAMETERS-----",
+              "hmac": true,
+              "ta": "-----BEGIN OpenVPN Static key V1----- 66301913fa0fa22457019b1a52e26aef 058c0405905f7e415615cc576bf1ca56 a0d12e27f181044c7ce4035afa5a7e30 1e02284208762d1ef8cd94b1989b8940 b534c469920a3012b440a4abad67af32 a7d80e0fc9447bd82b0d2ef2098a99c2 e7decaa1c5442b5ab6c0bbd413652814 c260fd76318d3abc6a65552fda44cb00 066420d3232f423f2810c861e0c3429f f566d0737d8e63c86dbf5bea5693dd51 1002a5e1e3aa95eddd388550e0022b04 8299cac19864821e3369a17e02cf02ef 0c41460146edba8748e9bccdd57cf8ac 1558f8d9a5b3430bf2229cad92625910 e09dce6311e834c2ca8c004f3a18c7d2 97188c096342674ff89c4bebda1e04db -----END OpenVPN Static key V1-----",
+              "client_to_client": false,
+              "verb": "3",
+              "access_scope": 1,
+              "client_auth": 1,
+              "cert": "nil",
+              "key": "nil",
+              "tap_address": "10.8.0.1",
+              "tap_mask": "255.255.255.255"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.set_config",
+      "summary": "Set ovpn server config",
+      "params": [
+        {
+          "name": "mode",
+          "schema": {
+            "type": "string",
+            "description": "tunnel mode: tun/tap"
+          },
+          "required": true
+        },
+        {
+          "name": "subnetv4",
+          "schema": {
+            "type": "string",
+            "description": "IPv4 subnet"
+          },
+          "required": true
+        },
+        {
+          "name": "mask",
+          "schema": {
+            "type": "string",
+            "description": "mask"
+          },
+          "required": true
+        },
+        {
+          "name": "ipv6_enable",
+          "schema": {
+            "type": "boolean",
+            "description": "enable ipv6"
+          },
+          "required": false
+        },
+        {
+          "name": "subnetv6",
+          "schema": {
+            "type": "string",
+            "description": "IPv6 subnet"
+          },
+          "required": false
+        },
+        {
+          "name": "proto",
+          "schema": {
+            "type": "string",
+            "description": "protocol"
+          },
+          "required": true
+        },
+        {
+          "name": "port",
+          "schema": {
+            "type": "number",
+            "description": "port"
+          },
+          "required": true
+        },
+        {
+          "name": "auth",
+          "schema": {
+            "type": "string",
+            "description": "auth"
+          },
+          "required": false
+        },
+        {
+          "name": "cipher",
+          "schema": {
+            "type": "string",
+            "description": "cipher"
+          },
+          "required": false
+        },
+        {
+          "name": "start",
+          "schema": {
+            "type": "string",
+            "description": "obsolete"
+          },
+          "required": false
+        },
+        {
+          "name": "end",
+          "schema": {
+            "type": "string",
+            "description": "obsolete"
+          },
+          "required": false
+        },
+        {
+          "name": "lzo",
+          "schema": {
+            "type": "boolean",
+            "description": "lzo"
+          },
+          "required": false
+        },
+        {
+          "name": "ca",
+          "schema": {
+            "type": "string",
+            "description": "root cert"
+          },
+          "required": false
+        },
+        {
+          "name": "dh",
+          "schema": {
+            "type": "string",
+            "description": "Diffie Hellman"
+          },
+          "required": false
+        },
+        {
+          "name": "hmac",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enable TLS authentication"
+          },
+          "required": false
+        },
+        {
+          "name": "ta",
+          "schema": {
+            "type": "string",
+            "description": "TLS authentication key"
+          },
+          "required": false
+        },
+        {
+          "name": "client_to_client",
+          "schema": {
+            "type": "boolean",
+            "description": "client to client"
+          },
+          "required": false
+        },
+        {
+          "name": "verb",
+          "schema": {
+            "type": "string",
+            "description": "verbose level"
+          },
+          "required": false
+        },
+        {
+          "name": "access_scope",
+          "schema": {
+            "type": "number",
+            "description": "obsolete"
+          },
+          "required": false
+        },
+        {
+          "name": "client_auth",
+          "schema": {
+            "type": "number",
+            "description": "client authentication mode 1:only certificate 2:onely username/password 3: username/password and certificate"
+          },
+          "required": false
+        },
+        {
+          "name": "cert",
+          "schema": {
+            "type": "string",
+            "description": "cert"
+          },
+          "required": false
+        },
+        {
+          "name": "key",
+          "schema": {
+            "type": "string",
+            "description": "key"
+          },
+          "required": false
+        },
+        {
+          "name": "tap_address",
+          "schema": {
+            "type": "string",
+            "description": "tap address"
+          },
+          "required": false
+        },
+        {
+          "name": "tap_mask",
+          "schema": {
+            "type": "string",
+            "description": "tap mask"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code(-11：uci config missing -12：illegal subnet -13：illegal mask -14：subnet mask unmatch -15：illegal port -16：illegal IPv6 address -17：no internet -18：ovpn config missing -19：IPv6 missing -20：port occupied)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "set_config",
+                  {
+                    "auth": "SHA256",
+                    "proto": "tcp",
+                    "port": 1194,
+                    "subnetv4": "10.8.0.0",
+                    "ipv6_enable": true,
+                    "subnetv6": "fd00:db8:0:123::/64",
+                    "mask": "255.255.255.0",
+                    "cipher": "AES-256-GCM",
+                    "mode": "tun",
+                    "start": "10.8.0.2",
+                    "end": "10.8.0.100",
+                    "lzo": false,
+                    "ca": "-----BEGIN CERTIFICATE----- MIIDCzCCAfOgAwIBAgIUequqVhT2jU3wWJF988KVcIUyUtwwDQYJKoZIhvcNAQEF BQAwFTETMBEGA1UEAwwKT3BlblZQTiBDQTAeFw0yMTA2MTkwMjA4MzNaFw0zMTA2 MTcwMjA4MzNaMBUxEzARBgNVBAMMCk9wZW5WUE4gQ0EwggEiMA0GCSqGSIb3DQEB AQUAA4IBDwAwggEKAoIBAQCjLr7B1mc04E/yHqR8hv7Qng5WuaZVGYDfUoxxly0c 8qOj6LqkL5UwjtcQV2rFgucwCsTYW8/dRY/Fd6cRllNdvRuA1nuMi/JhECkmf9AB ckdXlyXiObeYNL1MofcOsjRkB1oxokOO7BN2uJ2sQqekBSc7DN+8b9w5R+gaVXY3 082bVHvIKPiwYWzpNbO3MfdBsmh9oL8CryAfDAv8aTaAeCRoHNy5hnzqWoHfv6xm MsuVfwb9Vw5MegJ011x+VMF/++o95IcL/UsMSCrhjstyaf94ucPwIi7NuD2lor6e RP0eqKryGui1r2coZweZjGuYqOnTwHZhJcjpgSK1RdbhAgMBAAGjUzBRMB0GA1Ud DgQWBBRUf/PRJrXI4eHeTBBldnTeJnrefTAfBgNVHSMEGDAWgBRUf/PRJrXI4eHe TBBldnTeJnrefTAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBBQUAA4IBAQCS bAc7oMhLnAnHMPaFhXVDmvsgX7rK2BEKk/qqlHR2qAd7eSK3cteYX+Kayq+j8RmO PPsk4hXQNo+6tcaZSi05ACVYcCOkNw5dOZ8DDIo5swydamAZewp4ExsZQP4pdr40 8ikNle6Amt4psgxT0AVH56g4YO7qqdg5RMY14grIsBTL21j5OhdnwORPxstC2icW S5vzouDaIZ85IkiLaBku4fw8hBPkSmLRBexzeYwx/CoOs6olOEaKYoLy5TYFT+Ed 4Tvd7d0sw8vh1l1DiNtb5jGw7BsX4S8rzuB6o0GpxtxJprlyOPqqsyxwFNwhyAVk TFYWeM/vOcydA3zBBJbH -----END CERTIFICATE-----",
+                    "dh": "-----BEGIN DH PARAMETERS----- MIGHAoGBALUmuxsYkB+OLETWb+fz2WhAwa6PUMNzweXEA44rZ8Yv3PqfUIb/rPiW ZUwIq+ouAF1kMPnRYYhsqg5d4OeMv8R6SPlQUckpZrBELsJro9qGRf2nda9v5KAI 8DaorlIhKHpEoJ9xBz8h/DtQ85PX3UT96RZXA/SAyVAhdDpHkJ5rAgEC -----END DH PARAMETERS-----",
+                    "hmac": true,
+                    "ta": "-----BEGIN OpenVPN Static key V1----- 66301913fa0fa22457019b1a52e26aef 058c0405905f7e415615cc576bf1ca56 a0d12e27f181044c7ce4035afa5a7e30 1e02284208762d1ef8cd94b1989b8940 b534c469920a3012b440a4abad67af32 a7d80e0fc9447bd82b0d2ef2098a99c2 e7decaa1c5442b5ab6c0bbd413652814 c260fd76318d3abc6a65552fda44cb00 066420d3232f423f2810c861e0c3429f f566d0737d8e63c86dbf5bea5693dd51 1002a5e1e3aa95eddd388550e0022b04 8299cac19864821e3369a17e02cf02ef 0c41460146edba8748e9bccdd57cf8ac 1558f8d9a5b3430bf2229cad92625910 e09dce6311e834c2ca8c004f3a18c7d2 97188c096342674ff89c4bebda1e04db -----END OpenVPN Static key V1-----",
+                    "client_to_client": false,
+                    "verb": "3",
+                    "access_scope": 1,
+                    "client_auth": 1,
+                    "cert": "nil",
+                    "key": "nil",
+                    "tap_address": "10.8.0.1",
+                    "tap_mask": "255.255.255.255"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.generate_certificate",
+      "summary": "Generate ovpn cert",
+      "params": [
+        {
+          "name": "ca",
+          "schema": {
+            "type": "string",
+            "description": "root cert"
+          },
+          "required": false
+        },
+        {
+          "name": "dh",
+          "schema": {
+            "type": "string",
+            "description": "Diffie Hellman"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code(-19：no internet -20：openssl missing -21：certificate generation failure)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "generate_certificate_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "generate_certificate",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.export_config",
+      "summary": "Export ovpn configuration",
+      "params": [
+        {
+          "name": "ddns",
+          "schema": {
+            "type": "boolean",
+            "description": "enable ddns"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "file_name": {
+              "type": "string",
+              "description": "file name"
+            },
+            "file_path": {
+              "type": "string",
+              "description": "file path"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code(-10：parameter missing -11：no internet)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "export_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "export_config",
+                  {
+                    "ddns": false
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "file_name": "client.ovpn",
+              "file_path": "/etc/openvpn/ovpn/client.ovpn"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.start",
+      "summary": "start ovpn server",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code(-1：VPN conflict -2：openvpn package missing -3：cert missing -4：config missing -5：init script missing -6：uci config missing -7：server already started -8：port conflict)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "start_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "start",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.stop",
+      "summary": "Stop ovpn server",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "stop_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "stop",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.get_status",
+      "summary": "Get ovpn server status",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "number",
+              "description": "status 0: not started 1:started"
+            },
+            "initialization": {
+              "type": "boolean",
+              "description": "whether initialized"
+            },
+            "log": {
+              "type": "string",
+              "description": "log"
+            },
+            "tunnel_ip": {
+              "type": "string",
+              "description": "tunnel ip"
+            },
+            "rx_bytes": {
+              "type": "number",
+              "description": "rx bytes"
+            },
+            "tx_bytes": {
+              "type": "number",
+              "description": "tx bytes"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "ovpn-server.add_user",
+      "summary": "add ovpn user",
+      "params": [
+        {
+          "name": "username",
+          "schema": {
+            "type": "string",
+            "description": "username"
+          },
+          "required": true
+        },
+        {
+          "name": "password",
+          "schema": {
+            "type": "string",
+            "description": "password"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code(-10：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_user_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "add_user",
+                  {
+                    "username": "glinet",
+                    "password": "123456"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.remove_user",
+      "summary": "remove ovpn user",
+      "params": [
+        {
+          "name": "username",
+          "schema": {
+            "type": "string",
+            "description": "username"
+          },
+          "required": true
+        },
+        {
+          "name": "password",
+          "schema": {
+            "type": "string",
+            "description": "password"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code(-10：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_user_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "remove_user",
+                  {
+                    "username": "glinet",
+                    "password": "123456"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.get_user_list",
+      "summary": "get ovpn user list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "user_list": {
+              "type": "array",
+              "description": "user list"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_user_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "get_user_list",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "user_list": [
+                {
+                  "username": "test1",
+                  "password": "11111111"
+                },
+                {
+                  "username": "test2",
+                  "password": "22222222"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.add_route",
+      "summary": "add ovpn server custom route",
+      "params": [
+        {
+          "name": "route_flag",
+          "schema": {
+            "type": "number",
+            "description": "route flag 4:ipv4,6:ipv6"
+          },
+          "required": true
+        },
+        {
+          "name": "dest",
+          "schema": {
+            "type": "string",
+            "description": "dest"
+          },
+          "required": true
+        },
+        {
+          "name": "gateway",
+          "schema": {
+            "type": "string",
+            "description": "gateway"
+          },
+          "required": false
+        },
+        {
+          "name": "metric",
+          "schema": {
+            "type": "number",
+            "description": "metric"
+          },
+          "required": false
+        },
+        {
+          "name": "mtu",
+          "schema": {
+            "type": "number",
+            "description": "MTU"
+          },
+          "required": false
+        },
+        {
+          "name": "scope",
+          "schema": {
+            "type": "string",
+            "description": "scope (host、link、global、or a number greater than 0)"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code(-10：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_route_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "add_route",
+                  {
+                    "route_flag": 4,
+                    "dest": "192.168.9.13/32",
+                    "gateway": "10.8.3.1",
+                    "metric": 20,
+                    "mtu": 1500
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.set_route",
+      "summary": "set ovpn server custom route",
+      "params": [
+        {
+          "name": "route_flag",
+          "schema": {
+            "type": "number",
+            "description": "route flag 4:ipv4,6:ipv6"
+          },
+          "required": true
+        },
+        {
+          "name": "rule_id",
+          "schema": {
+            "type": "number",
+            "description": "rule id"
+          },
+          "required": true
+        },
+        {
+          "name": "dest",
+          "schema": {
+            "type": "string",
+            "description": "dest"
+          },
+          "required": false
+        },
+        {
+          "name": "gateway",
+          "schema": {
+            "type": "string",
+            "description": "gateway"
+          },
+          "required": false
+        },
+        {
+          "name": "metric",
+          "schema": {
+            "type": "number",
+            "description": "metric"
+          },
+          "required": false
+        },
+        {
+          "name": "mtu",
+          "schema": {
+            "type": "number",
+            "description": "MTU"
+          },
+          "required": false
+        },
+        {
+          "name": "scope",
+          "schema": {
+            "type": "string",
+            "description": "scope (host、link、global、or a number greater than 0)"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code(-10：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_route_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "set_route",
+                  {
+                    "rule_id": 6512,
+                    "route_flag": 4,
+                    "dest": "192.168.9.13/32",
+                    "gateway": "10.8.3.1",
+                    "metric": 20,
+                    "mtu": 1500
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.get_route_list",
+      "summary": "get ovpn server custom route list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ipv4_route_rules": {
+              "type": "array",
+              "description": "ipv4 rule array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rule_id": {
+                    "type": "number",
+                    "description": "rule id"
+                  },
+                  "dest": {
+                    "type": "string",
+                    "description": "dest"
+                  },
+                  "gateway": {
+                    "type": "string",
+                    "description": "gateway"
+                  },
+                  "metric": {
+                    "type": "number",
+                    "description": "metric"
+                  },
+                  "mtu": {
+                    "type": "number",
+                    "description": "MTU"
+                  },
+                  "scope": {
+                    "type": "string",
+                    "description": "scope (host、link、global、or a number greater than 0)"
+                  }
+                }
+              }
+            },
+            "ipv6_route_rules": {
+              "type": "array",
+              "description": "ipv6 rule array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "rule_id": {
+                    "type": "number",
+                    "description": "rule id"
+                  },
+                  "dest": {
+                    "type": "string",
+                    "description": "dest"
+                  },
+                  "gateway": {
+                    "type": "string",
+                    "description": "gateway"
+                  },
+                  "metric": {
+                    "type": "number",
+                    "description": "metric"
+                  },
+                  "mtu": {
+                    "type": "number",
+                    "description": "MTU"
+                  },
+                  "scope": {
+                    "type": "string",
+                    "description": "scope (host、link、global、or a number greater than 0)"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_route_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "get_route_list",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "ipv4_route_rules": [
+                {
+                  "rule_id": 6512,
+                  "dest": "192.168.9.13/32",
+                  "gateway": "10.8.3.1",
+                  "metric": 20,
+                  "mtu": 1500
+                }
+              ],
+              "ipv6_route_rules": [
+                {
+                  "rule_id": 6515,
+                  "dest": "ff00::/8",
+                  "gateway": "ff00::1",
+                  "metric": 20,
+                  "mtu": 1500
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.remove_route",
+      "summary": "remove ovpn server custom route",
+      "params": [
+        {
+          "name": "route_flag",
+          "schema": {
+            "type": "number",
+            "description": "route flag 4:ipv4,6:ipv6"
+          },
+          "required": true
+        },
+        {
+          "name": "rule_id",
+          "schema": {
+            "type": "number",
+            "description": "rule id"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code(-10：parameter missing)"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_route_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "remove_route",
+                  {
+                    "rule_id": 6512,
+                    "route_flag": 4
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.set_setting",
+      "summary": "set ovpn server setting",
+      "params": [
+        {
+          "name": "local_access",
+          "schema": {
+            "type": "boolean",
+            "description": "allow local access"
+          },
+          "required": false
+        },
+        {
+          "name": "masq",
+          "schema": {
+            "type": "boolean",
+            "description": "enable masq"
+          },
+          "required": false
+        },
+        {
+          "name": "mtu",
+          "schema": {
+            "type": "number",
+            "description": "MTU"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_setting_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "set_setting",
+                  {
+                    "local_access": true,
+                    "masq": true,
+                    "mtu": 1460
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "ovpn-server.get_setting",
+      "summary": "get ovpn server setting",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "local_access": {
+              "type": "boolean",
+              "description": "allow local access"
+            },
+            "masq": {
+              "type": "boolean",
+              "description": "enable masq"
+            },
+            "mtu": {
+              "type": "number",
+              "description": "MTU"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error Message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_setting_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "ovpn-server",
+                  "get_setting",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "local_access": true,
+              "masq": true,
+              "mtu": 1460
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

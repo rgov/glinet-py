@@ -1,0 +1,727 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — mwan3 module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "mwan3.set_interface",
+      "summary": "set mwan3 interface detection type",
+      "params": [
+        {
+          "name": "enable_check",
+          "schema": {
+            "type": "boolean",
+            "description": "enable detection"
+          },
+          "required": true
+        },
+        {
+          "name": "interface",
+          "schema": {
+            "type": "string",
+            "description": "detetction interface name"
+          },
+          "required": true
+        },
+        {
+          "name": "track_proto",
+          "schema": {
+            "type": "number",
+            "description": "detection protocol [0: ipv4 only; 1: ipv6 only; 2: both ipv4 & ipv6]",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "ipv4 only"
+              },
+              {
+                "const": 1,
+                "title": "ipv6 only"
+              },
+              {
+                "const": 2,
+                "title": "both ipv4 & ipv6"
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "track_method",
+          "schema": {
+            "type": "number",
+            "description": "detection way [0: ping; 1: httping]",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "ping"
+              },
+              {
+                "const": 1,
+                "title": "httping"
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "enable_ssl",
+          "schema": {
+            "type": "boolean",
+            "description": "enable ssl [for httping way]"
+          },
+          "required": true
+        },
+        {
+          "name": "interval",
+          "schema": {
+            "type": "number",
+            "description": "detection interval"
+          },
+          "required": true
+        },
+        {
+          "name": "up",
+          "schema": {
+            "type": "number",
+            "description": "the number of successful detections to treat the link as active"
+          },
+          "required": true
+        },
+        {
+          "name": "down",
+          "schema": {
+            "type": "number",
+            "description": "the number of failure detections to treat the link as inactive"
+          },
+          "required": true
+        },
+        {
+          "name": "track_ipv4",
+          "schema": {
+            "type": "array",
+            "description": "detection ipv4 address [array of string]"
+          },
+          "required": true
+        },
+        {
+          "name": "track_ipv6",
+          "schema": {
+            "type": "array",
+            "description": "detection ipv6 address [array of string]"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_interface_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "mwan3",
+                  "set_interface",
+                  {
+                    "enable_check": true,
+                    "interface": "wan",
+                    "track_proto": 0,
+                    "track_method": 0,
+                    "interval": 5,
+                    "up": 8,
+                    "down": 3,
+                    "ipv4": [
+                      "8.8.4.4",
+                      "8.8.8.8",
+                      "208.67.222.222",
+                      "208.67.220.220"
+                    ],
+                    "ipv6": [
+                      "2001:4860:4860::8844",
+                      "2001:4860:4860::8888",
+                      "2620:0:ccd::2",
+                      "2620:0:ccc::2"
+                    ]
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "mwan3.set_config",
+      "summary": "mwan3 settings",
+      "params": [
+        {
+          "name": "mode",
+          "schema": {
+            "type": "number",
+            "description": "mode setting[0: failover; 1: load balance]",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "failover"
+              },
+              {
+                "const": 1,
+                "title": "load balance"
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "flush_track",
+          "schema": {
+            "type": "boolean",
+            "description": "enable refresh tracking table [for failover mode]"
+          },
+          "required": true
+        },
+        {
+          "name": "interfaces",
+          "schema": {
+            "type": "array",
+            "description": "interface setting",
+            "items": {
+              "type": "object",
+              "properties": {
+                "interface": {
+                  "type": "string",
+                  "description": "interface name"
+                },
+                "priority": {
+                  "type": "number",
+                  "description": "link priority [for load balance mode]"
+                },
+                "weight": {
+                  "type": "number",
+                  "description": "load weight [for load balance mode, ranges: 0-10]"
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "mwan3",
+                  "set_config",
+                  {
+                    "mode": 0,
+                    "flush_track": false,
+                    "interfaces": [
+                      {
+                        "interface": "wan",
+                        "priority": 1
+                      },
+                      {
+                        "interface": "wwan",
+                        "priority": 2
+                      },
+                      {
+                        "interface": "tethering",
+                        "priority": 3
+                      }
+                    ]
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "mwan3.get_config",
+      "summary": "get mwan3 settings",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "number",
+              "description": "mode setting[0: failover; 1: load balance]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "failover"
+                },
+                {
+                  "const": 1,
+                  "title": "load balance"
+                }
+              ]
+            },
+            "flush_track": {
+              "type": "boolean",
+              "description": "enable refresh tracking table[for failover mode]"
+            },
+            "interfaces": {
+              "type": "array",
+              "description": "interface setting",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "interface": {
+                    "type": "string",
+                    "description": "interface name"
+                  },
+                  "priority": {
+                    "type": "number",
+                    "description": "link priority [for load balance mode]"
+                  },
+                  "weight": {
+                    "type": "number",
+                    "description": "load weight [for load balance mode, ranges: 0-10]"
+                  },
+                  "enable_check": {
+                    "type": "boolean",
+                    "description": "enable detection"
+                  },
+                  "track_proto": {
+                    "type": "number",
+                    "description": "detection protocol [0: ipv4 only; 1: ipv6 only; 2: both ipv4 & ipv6]",
+                    "oneOf": [
+                      {
+                        "const": 0,
+                        "title": "ipv4 only"
+                      },
+                      {
+                        "const": 1,
+                        "title": "ipv6 only"
+                      },
+                      {
+                        "const": 2,
+                        "title": "both ipv4 & ipv6"
+                      }
+                    ]
+                  },
+                  "track_method": {
+                    "type": "number",
+                    "description": "detection way [0: ping; 1: httping]",
+                    "oneOf": [
+                      {
+                        "const": 0,
+                        "title": "ping"
+                      },
+                      {
+                        "const": 1,
+                        "title": "httping"
+                      }
+                    ]
+                  },
+                  "type": {
+                    "type": "number",
+                    "description": "modem type [0: built-in modem; 1: external modem; 2: unknown modem]",
+                    "oneOf": [
+                      {
+                        "const": 0,
+                        "title": "built-in modem"
+                      },
+                      {
+                        "const": 1,
+                        "title": "external modem"
+                      },
+                      {
+                        "const": 2,
+                        "title": "unknown modem"
+                      }
+                    ]
+                  },
+                  "enable_ssl": {
+                    "type": "boolean",
+                    "description": "enable ssl [for httping way]"
+                  },
+                  "interval": {
+                    "type": "number",
+                    "description": "detection interval"
+                  },
+                  "up": {
+                    "type": "number",
+                    "description": "the number of successful detections to treat the link as active"
+                  },
+                  "down": {
+                    "type": "number",
+                    "description": "the number of failure detections to treat the link as inactive"
+                  },
+                  "track_ipv4": {
+                    "type": "array",
+                    "description": "detection ipv4 address [array of string]"
+                  },
+                  "track_ipv6": {
+                    "type": "array",
+                    "description": "detection ipv6 address [array of string]"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error messag"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "mwan3",
+                  "get_config",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "interfaces": [
+                {
+                  "track_proto": 0,
+                  "up": 8,
+                  "track_ipv4": [
+                    "8.8.4.4",
+                    "8.8.8.8",
+                    "208.67.222.222",
+                    "208.67.220.220"
+                  ],
+                  "enable_ssl": true,
+                  "enable_check": true,
+                  "interval": 5,
+                  "track_ipv6": [
+                    "2001:4860:4860::8844",
+                    "2001:4860:4860::8888",
+                    "2620:0:ccd::2",
+                    "2620:0:ccc::2"
+                  ],
+                  "weight": 3,
+                  "track_method": 1,
+                  "priority": 1,
+                  "down": 3,
+                  "interface": "wan"
+                },
+                {
+                  "track_proto": 0,
+                  "up": 8,
+                  "track_ipv4": [
+                    "8.8.4.4",
+                    "8.8.8.8",
+                    "208.67.222.222",
+                    "208.67.220.220"
+                  ],
+                  "enable_ssl": false,
+                  "enable_check": true,
+                  "interval": 5,
+                  "track_ipv6": [
+                    "2001:4860:4860::8844",
+                    "2001:4860:4860::8888",
+                    "2620:0:ccd::2",
+                    "2620:0:ccc::2"
+                  ],
+                  "weight": 3,
+                  "track_method": 0,
+                  "priority": 2,
+                  "down": 3,
+                  "interface": "wwan"
+                },
+                {
+                  "track_proto": 0,
+                  "up": 8,
+                  "track_ipv4": [
+                    "8.8.4.4",
+                    "8.8.8.8",
+                    "208.67.222.222",
+                    "208.67.220.220"
+                  ],
+                  "enable_ssl": false,
+                  "enable_check": true,
+                  "interval": 5,
+                  "track_ipv6": [
+                    "2001:4860:4860::8844",
+                    "2001:4860:4860::8888",
+                    "2620:0:ccd::2",
+                    "2620:0:ccc::2"
+                  ],
+                  "weight": 3,
+                  "track_method": 0,
+                  "priority": 3,
+                  "down": 3,
+                  "interface": "tethering"
+                },
+                {
+                  "track_proto": 0,
+                  "type": 0,
+                  "up": 8,
+                  "track_ipv4": [
+                    "8.8.4.4",
+                    "8.8.8.8",
+                    "208.67.222.222",
+                    "208.67.220.220"
+                  ],
+                  "enable_ssl": false,
+                  "enable_check": true,
+                  "interval": 5,
+                  "weight": 3,
+                  "track_method": 0,
+                  "priority": 4,
+                  "down": 3,
+                  "interface": "modem_1_1_2"
+                },
+                {
+                  "track_proto": 0,
+                  "type": 1,
+                  "up": 8,
+                  "track_ipv4": [
+                    "8.8.4.4",
+                    "8.8.8.8",
+                    "208.67.222.222",
+                    "208.67.220.220"
+                  ],
+                  "enable_ssl": false,
+                  "enable_check": true,
+                  "interval": 5,
+                  "weight": 3,
+                  "track_method": 0,
+                  "priority": 4,
+                  "down": 3,
+                  "interface": "modem_1_1_3"
+                }
+              ],
+              "mode": 0,
+              "flush_track": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mwan3.get_status",
+      "summary": "get mwan3 status [if this interface does not enable in mwan3, read the interface status directly instead of reading from mwan3]",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "interfaces": {
+              "type": "array",
+              "description": "interface setting",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "interface": {
+                    "type": "string",
+                    "description": "interface name"
+                  },
+                  "status_v4": {
+                    "type": "number",
+                    "description": "interface ipv4 status [0: online; 1: offline; 2: error]",
+                    "oneOf": [
+                      {
+                        "const": 0,
+                        "title": "online"
+                      },
+                      {
+                        "const": 1,
+                        "title": "offline"
+                      },
+                      {
+                        "const": 2,
+                        "title": "error"
+                      }
+                    ]
+                  },
+                  "percent_v4": {
+                    "type": "number",
+                    "description": "ipv4 percentage"
+                  },
+                  "status_v6": {
+                    "type": "number",
+                    "description": "interface ipv6 status [0: online; 1: offline; 2: error]",
+                    "oneOf": [
+                      {
+                        "const": 0,
+                        "title": "online"
+                      },
+                      {
+                        "const": 1,
+                        "title": "offline"
+                      },
+                      {
+                        "const": 2,
+                        "title": "error"
+                      }
+                    ]
+                  },
+                  "percent_v6": {
+                    "type": "number",
+                    "description": "ipv6 percentage"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error messag"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "mwan3",
+                  "get_status",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "interfaces": [
+                {
+                  "percent_v6": 0,
+                  "status_v6": "offline",
+                  "status_v4": "online",
+                  "percent_v4": 100,
+                  "interface": "wan"
+                },
+                {
+                  "percent_v6": 0,
+                  "status_v6": "offline",
+                  "status_v4": "offline",
+                  "percent_v4": 0,
+                  "interface": "wwan"
+                },
+                {
+                  "percent_v6": 0,
+                  "status_v6": "offline",
+                  "status_v4": "offline",
+                  "percent_v4": 0,
+                  "interface": "tethering"
+                },
+                {
+                  "percent_v6": 0,
+                  "status_v6": "offline",
+                  "status_v4": "online",
+                  "percent_v4": 0,
+                  "interface": "modem_1_1_2"
+                },
+                {
+                  "percent_v6": 0,
+                  "status_v6": "offline",
+                  "status_v4": "online",
+                  "percent_v4": 0,
+                  "interface": "modem_1_1_3"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

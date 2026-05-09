@@ -1,0 +1,25 @@
+{
+  "name": "zerotier.set_config",
+  "summary": "Set zerotier settings",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "zerotier",
+      "set_config",
+      {
+        "enabled": true,
+        "lan_enabled": true,
+        "wan_enabled": true,
+        "id": "1234679862"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

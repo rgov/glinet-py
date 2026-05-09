@@ -1,0 +1,20 @@
+{
+  "name": "s2s.start_wg",
+  "summary": "Start the WireGuard service",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "s2s",
+      "start_wg",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

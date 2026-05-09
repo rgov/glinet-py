@@ -1,0 +1,24 @@
+{
+  "name": "upgrade.upgrade_local",
+  "summary": "firmware upgrade locally",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "upgrade",
+      "upgrade_local",
+      {
+        "mesh": false,
+        "keep_config": false,
+        "keep_package": false
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

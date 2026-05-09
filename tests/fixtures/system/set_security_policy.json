@@ -1,0 +1,23 @@
+{
+  "name": "system.set_security_policy",
+  "summary": "Set the security policy of the device.",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "system",
+      "set_security_policy",
+      {
+        "redirect_https": 1,
+        "security_rule": 1
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

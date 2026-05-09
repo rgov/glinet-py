@@ -1,0 +1,13 @@
+{
+  "name": "otbr.join",
+  "summary": "Join the Thread network.",
+  "request_raw": "{\"jsonrpc\":\"2.0\",\"id\":\"0\",\"method\":\"call\",\"params\":[\"\",\"otbr\",\"join\",{\"CredentialType\":\"networkKeyType\",",
+  "request_parse_error": "Expecting property name enclosed in double quotes: line 1 column 105 (char 104)",
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "err_code": 0
+    }
+  }
+}

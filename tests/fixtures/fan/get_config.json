@@ -1,0 +1,23 @@
+{
+  "name": "fan.get_config",
+  "summary": "Get config of fan.",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "fan",
+      "get_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "warn_temperature": 75,
+      "temperature": 75
+    }
+  }
+}

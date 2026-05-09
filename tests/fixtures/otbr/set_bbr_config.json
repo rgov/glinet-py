@@ -1,0 +1,27 @@
+{
+  "name": "otbr.set_bbr_config",
+  "summary": "Set Backbone router config",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "set_bbr_config",
+      {
+        "MlrTimeout": 3500,
+        "SequenceNumber": 30,
+        "ReregistrationDelay": 1000,
+        "Jitter": 10
+      }
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "err_code": 0
+    }
+  }
+}

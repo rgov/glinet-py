@@ -1,0 +1,23 @@
+{
+  "name": "wg-server.remove_route",
+  "summary": "remove wireguard server custom route",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-server",
+      "remove_route",
+      {
+        "rule_id": 6512,
+        "route_flag": 4
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "tailscale.get_auth_url",
+  "summary": "Get tailscale login link",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "tailscale",
+      "login"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "AuthURL": "https://login.tailscale.com/a/xxxxxx"
+    }
+  }
+}

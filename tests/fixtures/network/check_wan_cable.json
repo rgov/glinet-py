@@ -1,0 +1,23 @@
+{
+  "name": "network.check_wan_cable",
+  "summary": "get wan cable connection status and whether mac clone is enable",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "network",
+      "check_wan_cable",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "cable_enabled": true,
+      "macclone_enabled": false
+    }
+  }
+}

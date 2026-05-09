@@ -1,0 +1,22 @@
+{
+  "name": "acl.remove_group",
+  "summary": "remove permission group",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "acl",
+      "remove_group",
+      {
+        "group": "test"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

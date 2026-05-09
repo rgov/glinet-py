@@ -1,0 +1,31 @@
+{
+  "name": "rs485.read_modbus_data",
+  "summary": "read modbus data",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "rs485",
+      "read_modbus_data",
+      {
+        "device_id": "16",
+        "func_code": "03",
+        "reg_addr_h": "00",
+        "reg_addr_l": "00",
+        "reg_len": "02"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "log": [
+        "2023-07-30 18:27:44.436 Command ==>16 03 00000002 C72C",
+        "2023-07-30 18:27:44.470 Response ==>16 03 0402D8013A 9D32"
+      ]
+    }
+  }
+}

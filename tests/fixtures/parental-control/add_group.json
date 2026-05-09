@@ -1,0 +1,43 @@
+{
+  "name": "parental-control.add_group",
+  "summary": "Add device group.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "parental-control",
+      "add_group",
+      {
+        "name": "group1",
+        "macs": [
+          "98:6B:46:F0:9B:A4",
+          "98:6B:46:F0:9B:A5"
+        ],
+        "default_rule": "cfga067b",
+        "schedules": [
+          {
+            "week": 1,
+            "begin": "12:00",
+            "end": "13:00",
+            "rule": "cfga067c"
+          },
+          {
+            "date": 2,
+            "begin": "17:00",
+            "end": "18:00",
+            "rule": "cfga067c"
+          }
+        ]
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "id": "cfga048"
+    }
+  }
+}

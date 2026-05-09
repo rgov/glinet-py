@@ -1,0 +1,1298 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — nas-web module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "nas-web.get_proto_config",
+      "summary": "get nas proto conf",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "res": {
+              "type": "array",
+              "description": "all proto config array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "proto name"
+                  },
+                  "enable": {
+                    "type": "boolean",
+                    "description": "proto if enable"
+                  },
+                  "port": {
+                    "type": "number",
+                    "description": "listen port"
+                  },
+                  "wan_access": {
+                    "type": "boolean",
+                    "description": "if wan access"
+                  },
+                  "ssl_enable": {
+                    "type": "boolean",
+                    "description": "webdav ssl enable"
+                  },
+                  "media_dir": {
+                    "type": "string",
+                    "description": "dlna media dir"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_proto_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "get_proto_config",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "res": [
+                {
+                  "name": "webdav",
+                  "enable": true,
+                  "port": 6009,
+                  "wan_access": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.set_proto_config",
+      "summary": "set nas proto conf",
+      "params": [
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "proto name"
+          },
+          "required": true
+        },
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "proto enable"
+          },
+          "required": true
+        },
+        {
+          "name": "port",
+          "schema": {
+            "type": "number",
+            "description": "listen port"
+          },
+          "required": true
+        },
+        {
+          "name": "wan_access",
+          "schema": {
+            "type": "boolean",
+            "description": "if wan access"
+          },
+          "required": true
+        },
+        {
+          "name": "ssl_enable",
+          "schema": {
+            "type": "boolean",
+            "description": "webdav ssl enable"
+          },
+          "required": false
+        },
+        {
+          "name": "media_dir",
+          "schema": {
+            "type": "string",
+            "description": "dlna media dir"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_proto_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "set_proto_config",
+                  {
+                    "name": "webdav",
+                    "enable": true,
+                    "port": 6009,
+                    "wan_access": true
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.get_user_list",
+      "summary": "get share user list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "description": "user list",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "user name"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "user password"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_user_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "get_user_list",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "list": [
+                {
+                  "name": "test",
+                  "password": "123"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.add_user",
+      "summary": "add samba share user",
+      "params": [
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "user name"
+          },
+          "required": true
+        },
+        {
+          "name": "password",
+          "schema": {
+            "type": "string",
+            "description": "user password"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_user_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "add_user",
+                  {
+                    "name": "test",
+                    "password": 123456
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.remove_user",
+      "summary": "remove samba share user",
+      "params": [
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "proto name"
+          },
+          "required": true
+        },
+        {
+          "name": "all",
+          "schema": {
+            "type": "string",
+            "description": "remove all user"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_user_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "remove_user",
+                  {
+                    "name": "test1"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.set_user_pwd",
+      "summary": "set samba share user pwd",
+      "params": [
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "user name"
+          },
+          "required": true
+        },
+        {
+          "name": "password",
+          "schema": {
+            "type": "string",
+            "description": "user password"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_user_pwd_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "set_user_pwd",
+                  {
+                    "name": "test",
+                    "password": 123456
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.get_disk_list",
+      "summary": "get nas disk info",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "disk_number": {
+              "type": "number",
+              "description": "disk number"
+            },
+            "disk": {
+              "type": "array",
+              "description": "disk array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "part_num": {
+                    "type": "number",
+                    "description": "disk part number"
+                  },
+                  "sd_card": {
+                    "type": "number",
+                    "description": "disk is sd card"
+                  },
+                  "part": {
+                    "type": "array",
+                    "description": "disk part array"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_disk_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "get_disk_list",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "disk_number": 1,
+              "disk": [
+                {
+                  "part_num": 4,
+                  "sd_card": 1,
+                  "part": [
+                    {
+                      "dev_name": "mmcblk0p11",
+                      "disk_name": "disk1_part1",
+                      "fs_type": "EXFAT",
+                      "uid": "7005-A5B5",
+                      "label": "exFAT_131G",
+                      "total_len": 134663,
+                      "free_size": 5351
+                    },
+                    {
+                      "dev_name": "mmcblk0p6",
+                      "disk_name": "disk1_part2",
+                      "fs_type": "FAT",
+                      "uid": "D4E5-0DF1",
+                      "label": "FAT32_1G",
+                      "total_len": 1026,
+                      "free_size": 1014
+                    },
+                    {
+                      "dev_name": "mmcblk0p7",
+                      "disk_name": "disk1_part3",
+                      "fs_type": "EXFAT",
+                      "uid": "9784-6325",
+                      "label": "exFAT_1G",
+                      "total_len": 1024,
+                      "free_size": 354
+                    },
+                    {
+                      "dev_name": "mmcblk0p8",
+                      "disk_name": "disk1_part4",
+                      "fs_type": "EXT4",
+                      "uid": "a56d2330-dee8-4b4a-8912-cdc90be2061a",
+                      "label": "EXT4_1G",
+                      "total_len": 1023,
+                      "free_size": 953
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.eject_disk",
+      "summary": "eject one disk",
+      "params": [
+        {
+          "name": "dev_name",
+          "schema": {
+            "type": "string",
+            "description": "dev name"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "eject_disk_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "eject_disk",
+                  {
+                    "dev_name": "sda1"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.get_file_list",
+      "summary": "get file list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "result_code": {
+              "type": "number",
+              "description": "result code"
+            },
+            "files": {
+              "type": "array",
+              "description": "file list array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "n": {
+                    "type": "string",
+                    "description": "file name"
+                  },
+                  "d": {
+                    "type": "number",
+                    "description": "file date"
+                  },
+                  "l": {
+                    "type": "number",
+                    "description": "file length"
+                  },
+                  "t": {
+                    "type": "string",
+                    "description": "file type"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_file_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "get_file_list",
+                  {
+                    "path": "/disk1_part1"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "files": [
+                {
+                  "n": "/disk1_part1",
+                  "d": 123,
+                  "l": 6009,
+                  "t": "d",
+                  "have_dir": 1
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.get_share_list",
+      "summary": "get share list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "result_code": {
+              "type": "number",
+              "description": "result code"
+            },
+            "share": {
+              "type": "array",
+              "description": "share array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "n": {
+                    "type": "string",
+                    "description": "share path"
+                  },
+                  "share_id": {
+                    "type": "string",
+                    "description": "share id"
+                  },
+                  "file_ok": {
+                    "type": "number",
+                    "description": "share file if ok"
+                  },
+                  "protos": {
+                    "type": "string",
+                    "description": "protos"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_share_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "get_share_list",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "result_code": 0,
+              "share": [
+                {
+                  "n": "/disk1_part4/lost+found",
+                  "owner_readonly": 0,
+                  "share_id": "bf90e29f2e3ab0091b1d922e81294dba",
+                  "t": "d",
+                  "share_time": 1653547578,
+                  "d": 1650649376,
+                  "l": 4096,
+                  "file_ok": 1,
+                  "disk_uid": "a56d2330-dee8-4b4a-8912-cdc90be2061a",
+                  "protos": [
+                    {
+                      "name": "webdav",
+                      "enable": 1,
+                      "public": 1,
+                      "public_readonly": 1,
+                      "share_name": "lost+found",
+                      "users": []
+                    }
+                  ]
+                },
+                {
+                  "n": "/disk1_part2/www",
+                  "owner_readonly": 0,
+                  "share_id": "70334cc85ab58f13363f8a7d906cef22",
+                  "t": "d",
+                  "share_time": 1653547602,
+                  "d": 1653548241,
+                  "l": 4096,
+                  "file_ok": 1,
+                  "disk_uid": "D4E5-0DF1",
+                  "protos": [
+                    {
+                      "name": "webdav",
+                      "enable": 1,
+                      "public": 1,
+                      "public_readonly": 0,
+                      "share_name": "www",
+                      "users": []
+                    }
+                  ]
+                },
+                {
+                  "n": "/disk1_part2/test",
+                  "owner_readonly": 0,
+                  "share_id": "59297d2089f011a05f84dfc3a261c979",
+                  "t": "d",
+                  "share_time": 1653548194,
+                  "d": 1653477986,
+                  "l": 4096,
+                  "file_ok": 1,
+                  "disk_uid": "D4E5-0DF1",
+                  "protos": [
+                    {
+                      "name": "webdav",
+                      "enable": 1,
+                      "public": 1,
+                      "public_readonly": 1,
+                      "share_name": "test",
+                      "users": []
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.add_share",
+      "summary": "add one share",
+      "params": [
+        {
+          "name": "file",
+          "schema": {
+            "type": "string",
+            "description": "share path"
+          },
+          "required": true
+        },
+        {
+          "name": "proto",
+          "schema": {
+            "type": "string",
+            "description": "share proto"
+          },
+          "required": true
+        },
+        {
+          "name": "readonly",
+          "schema": {
+            "type": "number",
+            "description": "read only"
+          },
+          "required": true
+        },
+        {
+          "name": "public",
+          "schema": {
+            "type": "number",
+            "description": "public"
+          },
+          "required": true
+        },
+        {
+          "name": "users",
+          "schema": {
+            "type": "array",
+            "description": "file share user",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "user name"
+                },
+                "readonly": {
+                  "type": "number",
+                  "description": "user is readonly"
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_share_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "add_share",
+                  {
+                    "file": "/disk1_part1",
+                    "proto": "samba",
+                    "readonly": 1,
+                    "public": 1,
+                    "users": {
+                      "name": "xxx",
+                      "readonly": 1
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.remove_share",
+      "summary": "remove one share",
+      "params": [
+        {
+          "name": "share_id",
+          "schema": {
+            "type": "string",
+            "description": "share id"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_share_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "remove_share",
+                  {
+                    "share_id": "xxx"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.set_share",
+      "summary": "set share",
+      "params": [
+        {
+          "name": "share_id",
+          "schema": {
+            "type": "string",
+            "description": "share id"
+          },
+          "required": true
+        },
+        {
+          "name": "proto",
+          "schema": {
+            "type": "string",
+            "description": "share proto name"
+          },
+          "required": true
+        },
+        {
+          "name": "readonly",
+          "schema": {
+            "type": "number",
+            "description": "read only"
+          },
+          "required": true
+        },
+        {
+          "name": "public",
+          "schema": {
+            "type": "number",
+            "description": "public"
+          },
+          "required": true
+        },
+        {
+          "name": "users",
+          "schema": {
+            "type": "array",
+            "description": "file share user",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "user name"
+                },
+                "readonly": {
+                  "type": "number",
+                  "description": "user is readonly"
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_share_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "add_share",
+                  {
+                    "share_id": "xxx",
+                    "proto": "samba",
+                    "readonly": 1,
+                    "public": 1,
+                    "users": {
+                      "name": "xxx",
+                      "readonly": 1
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.get_nas_ser",
+      "summary": "get nas service info",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "number",
+              "description": "nas ser if enable"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_nas_ser_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "get_nas_ser",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "res": [
+                {
+                  "enable": 1,
+                  "port": 6009
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.set_nas_ser",
+      "summary": "set nas ser",
+      "params": [
+        {
+          "name": "enable",
+          "schema": {
+            "type": "number",
+            "description": "if enable nas ser"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_nas_ser_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "set_nas_ser",
+                  {
+                    "enable": 1
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.get_status",
+      "summary": "get nas service info",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "number",
+              "description": "nas ser is enable"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "get_status",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "res": [
+                {
+                  "enable": 1
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "nas-web.start",
+      "summary": "start nas ser",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "start_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "nas-web",
+                  "start"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    }
+  ]
+}

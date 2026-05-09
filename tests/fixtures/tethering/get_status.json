@@ -1,0 +1,41 @@
+{
+  "name": "tethering.get_status",
+  "summary": "get tethering info",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "tethering",
+      "get_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "devices": [
+        {
+          "name": "usb0",
+          "tyep": 0,
+          "use": true
+        },
+        {
+          "device": "usb1",
+          "tyep": 0,
+          "use": false
+        }
+      ],
+      "status": 1,
+      "ipv4": {
+        "ip": "192.168.42.38/24",
+        "gateway": "192.168.42.129",
+        "dns": [
+          "192.168.42.129"
+        ]
+      }
+    }
+  }
+}

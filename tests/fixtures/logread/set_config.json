@@ -1,0 +1,24 @@
+{
+  "name": "logread.set_config",
+  "summary": "set logread settings",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "logread",
+      "set_config",
+      {
+        "record_size": 4096,
+        "enable": true,
+        "path": "/usr/share/mylog"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

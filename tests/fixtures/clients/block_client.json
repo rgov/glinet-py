@@ -1,0 +1,23 @@
+{
+  "name": "clients.block_client",
+  "summary": "Set the client's blacklist property",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "clients",
+      "block_client",
+      {
+        "mac": "84:7a:88:79:e5:13",
+        "block": true
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "dns.get_host",
+  "summary": "get host file content",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "dns",
+      "get_host",
+      {}
+    ]
+  },
+  "response": {
+    "id": null,
+    "jsonrpc": "2.0",
+    "result": {
+      "content": "185.199.108.154 github.githubassets.com"
+    }
+  }
+}

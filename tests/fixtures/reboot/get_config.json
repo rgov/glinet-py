@@ -1,0 +1,33 @@
+{
+  "name": "reboot.get_config",
+  "summary": "Get config of reboot.",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "reboot",
+      "get_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "enable": false,
+      "week": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hour": "07",
+      "min": "00"
+    }
+  }
+}

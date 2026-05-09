@@ -1,0 +1,32 @@
+{
+  "name": "cable.get_status",
+  "summary": "get the wan port status",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "cable",
+      "get_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "mode": 0,
+      "status": 1,
+      "protocol": "static",
+      "ipv4": {
+        "ip": "192.168.113.137/24",
+        "gateway": "192.168.113.1",
+        "dns": [
+          "8.8.8.8",
+          "8.8.4.4"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "modem.set_sms",
+  "summary": "Set the status of SMS",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "set_sms",
+      {
+        "bus": "1-1",
+        "name": "xy7rz",
+        "status": 0
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

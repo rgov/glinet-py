@@ -1,0 +1,156 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — dlna module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "dlna.set_config",
+      "summary": "set dlna conf",
+      "params": [
+        {
+          "name": "enabled",
+          "schema": {
+            "type": "boolean",
+            "description": "enable dlna"
+          },
+          "required": true
+        },
+        {
+          "name": "path",
+          "schema": {
+            "type": "string",
+            "description": "dlan use path"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "dlna",
+                  "set_config",
+                  {
+                    "enabled": "true",
+                    "path": "/mnt"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "dlna.get_config",
+      "summary": "get samba conf",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "dlna enable status"
+            },
+            "name": {
+              "type": "string",
+              "description": "dlna server name"
+            },
+            "path": {
+              "type": "string",
+              "description": "dlna use path"
+            },
+            "list": {
+              "type": "array",
+              "description": "dlna server can use path"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "dlna",
+                  "get_config",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "enabled": "true",
+              "name": "DLNA Server",
+              "path": "/mnt",
+              "list": [
+                "/mnt",
+                "/mnt/sda1",
+                "/mnt/sdb1"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

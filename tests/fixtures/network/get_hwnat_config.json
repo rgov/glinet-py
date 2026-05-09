@@ -1,0 +1,22 @@
+{
+  "name": "network.get_hwnat_config",
+  "summary": "get hwnat status",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "network",
+      "get_hwnat_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "enable": true
+    }
+  }
+}

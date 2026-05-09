@@ -1,0 +1,24 @@
+{
+  "name": "lan.set_static_bind",
+  "summary": "Change static ip binding",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "lan",
+      "set_static_bind",
+      {
+        "mac": "58:41:20:0b:9b:b1",
+        "ip": "192.168.8.80",
+        "name": "pc1"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

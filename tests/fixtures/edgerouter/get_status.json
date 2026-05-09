@@ -1,0 +1,22 @@
+{
+  "name": "edgerouter.get_status",
+  "summary": "obtain the status of device traffic passing through the edge route in the LAN",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "edgerouter",
+      "get_status",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "detected": false
+    }
+  }
+}

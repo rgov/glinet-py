@@ -1,0 +1,24 @@
+{
+  "name": "otbr.import_joiner_list",
+  "summary": "Import Joiner list.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "import_joiner_list",
+      {
+        "Timeout": 120
+      }
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "err_code": 0
+    }
+  }
+}

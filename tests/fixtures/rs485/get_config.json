@@ -1,0 +1,25 @@
+{
+  "name": "rs485.get_config",
+  "summary": "get rs485 config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "rs485",
+      "get_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "device": "/dev/ttyS0",
+      "speed": 9600,
+      "mode": "8e1",
+      "timeout": 500
+    }
+  }
+}

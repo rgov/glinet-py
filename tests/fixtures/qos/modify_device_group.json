@@ -1,0 +1,28 @@
+{
+  "name": "qos.modify_device_group",
+  "summary": "Modify client group information",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "qos",
+      "modify_device_group",
+      {
+        "group_id": 3,
+        "group_name": "test4",
+        "priority": 2,
+        "clients": [
+          "11:22:33:44:55:66",
+          "44:55:66:77:88:99"
+        ]
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

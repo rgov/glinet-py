@@ -1,0 +1,22 @@
+{
+  "name": "network.set_hwnat_config",
+  "summary": "enable/disable hwnat",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "network",
+      "set_hwnat_config",
+      {
+        "enable": true
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

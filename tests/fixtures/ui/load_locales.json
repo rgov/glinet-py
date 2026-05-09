@@ -1,0 +1,33 @@
+{
+  "name": "ui.load_locales",
+  "summary": "Load translation object.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "ui",
+      "load_locales",
+      {
+        "locale": "en"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "locales": [
+        {
+          "IPv4-Address": "IPv4-Address",
+          "Services": "Services"
+        },
+        {
+          "Output": "Output",
+          "Month Days": "Month Days"
+        }
+      ]
+    }
+  }
+}

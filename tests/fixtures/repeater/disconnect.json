@@ -1,0 +1,19 @@
+{
+  "name": "repeater.disconnect",
+  "summary": "Disconnect the connected WiFi",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "repeater",
+      "disconnect"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

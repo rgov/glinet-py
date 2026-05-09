@@ -1,0 +1,61 @@
+{
+  "name": "modem.set_connect",
+  "summary": "Set the dial-up settings of the cellular modem and connect",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "set_connect",
+      {
+        "bus": "1-1",
+        "mode": 2,
+        "config": {
+          "description": "111",
+          "protocol": "3g",
+          "device": "ttyUSB3",
+          "apn": "3gnet",
+          "service": "CDCWDMA",
+          "auth": "PAP",
+          "username": "gl-inet",
+          "password": "goodlife1",
+          "dial_number": "#9999",
+          "ttl": 65,
+          "ttl_ipv6": 65,
+          "pin_code": "1234",
+          "apn_use": "1",
+          "roaming": true,
+          "band_enable": true,
+          "band_filter_mode": 1,
+          "band_list": {
+            "LTE": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "NR-SA": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "NR-NSA": [
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        }
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

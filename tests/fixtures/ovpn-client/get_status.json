@@ -1,0 +1,32 @@
+{
+  "name": "ovpn-client.get_status",
+  "summary": "get ovpn client status",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-client",
+      "get_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "group_id": 3212,
+      "client_id": 1254,
+      "name": "mullvad_ae_all",
+      "log": "",
+      "status": 1,
+      "tx_bytes": 56,
+      "rx_bytes": 50,
+      "ipv4": "10.70.33.3",
+      "ipv6": "fc00:bbbb:bb01::11",
+      "port": 1194,
+      "domain": "ae-dxb-001.mullvad.net"
+    }
+  }
+}

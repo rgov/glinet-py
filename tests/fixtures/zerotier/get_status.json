@@ -1,0 +1,16 @@
+{
+  "name": "zerotier.get_status",
+  "summary": "Get zerotier status",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "zerotier",
+      "get_status"
+    ]
+  },
+  "response_raw": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"result\": {\"status\": 0, \"zerotier_ip\": \"192.168.17.144\", \"lan_ip\": \"192.168.8.0/24\", \"wan_ip\": \"192.168.83.0/24\", , \"wwan_ip\": \"192.168.66.0/24\"}}",
+  "response_parse_error": "Expecting property name enclosed in double quotes: line 1 column 143 (char 142)"
+}

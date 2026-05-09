@@ -1,0 +1,60 @@
+{
+  "name": "lan.get_config_list",
+  "summary": "get lan or guest ip info",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "lan",
+      "get_config_list",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "interfaces": [
+        {
+          "dns": [
+            "192.168.8.1",
+            "8.8.8.8"
+          ],
+          "lpr": [
+            "192.168.8.155"
+          ],
+          "netmask": "255.255.255.0",
+          "ip": "192.168.8.1",
+          "leasetime": "150s",
+          "end": "192.168.8.199",
+          "start": "192.168.8.99",
+          "gateway": "192.168.8.1",
+          "enable": 1,
+          "ap_isolate": 0,
+          "interface": "lan"
+        },
+        {
+          "dns": [
+            "192.168.13.1",
+            "8.8.8.8"
+          ],
+          "lpr": [
+            "192.168.8.155"
+          ],
+          "netmask": "255.255.255.0",
+          "ip": "192.168.13.1",
+          "leasetime": "1h",
+          "end": "192.168.13.252",
+          "start": "192.168.13.100",
+          "gateway": "192.168.13.1",
+          "enable": 1,
+          "ap_isolate": 1,
+          "transfer_enable": 0,
+          "interface": "guest"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "cable.change_interface",
+  "summary": "set wan port mode",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "cable",
+      "change_interface",
+      {
+        "mode": 1
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

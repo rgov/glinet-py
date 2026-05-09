@@ -1,0 +1,23 @@
+{
+  "name": "bark.set_config",
+  "summary": "Set bark settings",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "bark",
+      "set_config",
+      {
+        "enable": true,
+        "ipv6_enable": true
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

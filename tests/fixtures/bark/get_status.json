@@ -1,0 +1,22 @@
+{
+  "name": "bark.get_status",
+  "summary": "Get bark status",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "bark",
+      "get_status"
+    ]
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "status": 3,
+      "pairing_code": "945712135847788"
+    }
+  }
+}

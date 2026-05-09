@@ -1,0 +1,48 @@
+{
+  "name": "kmwan.get_status",
+  "summary": "get status",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "kmwan",
+      "get_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "interfaces": [
+        {
+          "status_v6": 0,
+          "status_v4": 0,
+          "interface": "wan"
+        },
+        {
+          "status_v6": 1,
+          "status_v4": 1,
+          "interface": "wwan"
+        },
+        {
+          "status_v6": 1,
+          "status_v4": 1,
+          "interface": "tethering"
+        },
+        {
+          "status_v6": 1,
+          "status_v4": 0,
+          "interface": "modem_1_1_2"
+        },
+        {
+          "status_v6": 1,
+          "status_v4": 0,
+          "interface": "modem_1_1_3"
+        }
+      ]
+    }
+  }
+}

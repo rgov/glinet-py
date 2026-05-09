@@ -1,0 +1,25 @@
+{
+  "name": "logread.get_system_log",
+  "summary": "get system log",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "logread",
+      "get_system_log",
+      {
+        "lines": 1,
+        "module": "oui-httpd"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "log": "Mon Feb 15 18:48:34 2021 daemon.debug oui-httpd: (uhttpd.c:461) Listen on: [::]:443 with ssl\n"
+    }
+  }
+}

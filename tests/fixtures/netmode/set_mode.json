@@ -1,0 +1,22 @@
+{
+  "name": "netmode.set_mode",
+  "summary": "set network mode",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "netmode",
+      "set_mode",
+      {
+        "mode": "router"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

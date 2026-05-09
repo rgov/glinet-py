@@ -1,0 +1,8 @@
+{
+  "name": "mcu.get_battery_config",
+  "summary": "Get config of battery.",
+  "request_raw": "'{\"jsonrpc\":\"2.0\",\"method\":\"call\",\"params\":[\"\",\"mcu\",\"get_battery_config\",{}],\"id\":1}'",
+  "request_parse_error": "Expecting value: line 1 column 1 (char 0)",
+  "response_raw": "'{\"id\":1,\"jsonrpc\":\"2.0\",\"result\":{\"capacity\":{\"enable\":false,\"value\":\"10\"},\"temp_low\":{\"enable\":false,\"value\":\"-10\"},\"temp_high\":{\"enable\":false, \"value\":\"50\"}}}'",
+  "response_parse_error": "Expecting value: line 1 column 1 (char 0)"
+}

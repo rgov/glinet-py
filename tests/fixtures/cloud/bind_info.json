@@ -1,0 +1,24 @@
+{
+  "name": "cloud.bind_info",
+  "summary": "set binding information: Called by the cloud platform, when username is empty, it means unbinding",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "cloud-batch-manage",
+      "bind_info",
+      {
+        "username": "glcloud",
+        "email": "126@qq.com",
+        "bindtime": "192168"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

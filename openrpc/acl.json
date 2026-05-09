@@ -1,0 +1,525 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — acl module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "acl.add_group",
+      "summary": "add permission group",
+      "params": [
+        {
+          "name": "group",
+          "schema": {
+            "type": "string",
+            "description": "permission group"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: group already exists]"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_group_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "acl",
+                  "add_group",
+                  {
+                    "group": "test"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "acl.add_acl",
+      "summary": "add permission",
+      "params": [
+        {
+          "name": "group",
+          "schema": {
+            "type": "string",
+            "description": "permission group"
+          },
+          "required": true
+        },
+        {
+          "name": "scope",
+          "schema": {
+            "type": "string",
+            "description": "scope of permission"
+          },
+          "required": true
+        },
+        {
+          "name": "entry",
+          "schema": {
+            "type": "string",
+            "description": "permission entry"
+          },
+          "required": true
+        },
+        {
+          "name": "perm",
+          "schema": {
+            "type": "string",
+            "description": "permission"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: permission already exists]"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_acl_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "acl",
+                  "add_acl",
+                  {
+                    "group": "test",
+                    "scope": "rpc",
+                    "entry": "system.info",
+                    "perm": "x"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "acl.add_user",
+      "summary": "add a user to a permission group",
+      "params": [
+        {
+          "name": "group",
+          "schema": {
+            "type": "string",
+            "description": "permission group"
+          },
+          "required": true
+        },
+        {
+          "name": "username",
+          "schema": {
+            "type": "string",
+            "description": "username"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "add_user_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "acl",
+                  "add_user",
+                  {
+                    "group": "test",
+                    "username": "test"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "acl.remove_group",
+      "summary": "remove permission group",
+      "params": [
+        {
+          "name": "group",
+          "schema": {
+            "type": "string",
+            "description": "permission group"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: group does not exist]"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_group_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "acl",
+                  "remove_group",
+                  {
+                    "group": "test"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "acl.remove_acl",
+      "summary": "remove permission",
+      "params": [
+        {
+          "name": "group",
+          "schema": {
+            "type": "string",
+            "description": "permission group"
+          },
+          "required": true
+        },
+        {
+          "name": "scope",
+          "schema": {
+            "type": "string",
+            "description": "scope of permission"
+          },
+          "required": true
+        },
+        {
+          "name": "entry",
+          "schema": {
+            "type": "string",
+            "description": "permission entry"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: permission does not exist]"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_acl_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "acl",
+                  "remove_acl",
+                  {
+                    "group": "test",
+                    "scope": "rpc",
+                    "entry": "system.info"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "acl.remove_user",
+      "summary": "remove user",
+      "params": [
+        {
+          "name": "username",
+          "schema": {
+            "type": "string",
+            "description": "username"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: the user does not exist]"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_user_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "acl",
+                  "remove_user",
+                  {
+                    "group": "test",
+                    "username": "test"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "acl.get_group_list",
+      "summary": "get a list of permission groups",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "description": "list of permission groups"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_group_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "acl",
+                  "get_group_list"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "groups": [
+                "root",
+                "test"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "acl.get_acl_list",
+      "summary": "get all permissions for a group",
+      "params": [
+        {
+          "name": "group",
+          "schema": {
+            "type": "string",
+            "description": "permission group"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "acls": {
+              "type": "array",
+              "description": "permission list",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "scope": {
+                    "type": "string",
+                    "description": "scope of permission"
+                  },
+                  "entry": {
+                    "type": "string",
+                    "description": "permission entry"
+                  },
+                  "perm": {
+                    "type": "string",
+                    "description": "permission"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_acl_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "acl",
+                  "get_acl_list",
+                  {
+                    "group": "test"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "acls": [
+                {
+                  "scope": "rpc",
+                  "entry": "system.info",
+                  "perm": "x"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,385 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — sms-forward module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "sms-forward.get_config",
+      "summary": "Get sms-forward settings",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "phone": {
+              "type": "object",
+              "description": "Mobile phone number related settings",
+              "properties": {
+                "enable": {
+                  "type": "boolean",
+                  "description": "Enable phone number forwarding"
+                },
+                "phone_numbers": {
+                  "type": "array",
+                  "description": "Target mobile number list.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "country_code": {
+                        "type": "string",
+                        "description": "Country code."
+                      },
+                      "phone_number": {
+                        "type": "string",
+                        "description": "Phone number."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "email": {
+              "type": "object",
+              "description": "Mailbox related settings",
+              "properties": {
+                "enable": {
+                  "type": "boolean",
+                  "description": "Enable mailbox forwarding"
+                },
+                "emails": {
+                  "type": "array",
+                  "description": "Target email list."
+                },
+                "account": {
+                  "type": "string",
+                  "description": "This server email account name."
+                },
+                "password": {
+                  "type": "string",
+                  "description": "This server email account password."
+                },
+                "encryption": {
+                  "type": "number",
+                  "description": "Encryption[0: none , 1: ssl, 2: startTLS ].",
+                  "oneOf": [
+                    {
+                      "const": 0,
+                      "title": "none"
+                    },
+                    {
+                      "const": 1,
+                      "title": "ssl"
+                    },
+                    {
+                      "const": 2,
+                      "title": "startTLS"
+                    }
+                  ]
+                },
+                "smtp": {
+                  "type": "string",
+                  "description": "Smtp."
+                },
+                "subject": {
+                  "type": "string",
+                  "description": "This server email subject."
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:Failed to get information."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error messag"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "sms-forward",
+                  "get_config",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "phone": {
+                "enable": true,
+                "phone_numbers": [
+                  {
+                    "country_code": "86",
+                    "phone_number": "14785296323"
+                  },
+                  {
+                    "country_code": "83",
+                    "phone_number": "12345677412"
+                  }
+                ]
+              },
+              "email": {
+                "password": "1234567abC",
+                "emails": [
+                  "12345678963@gmail.com",
+                  "12345678941@gmail.com"
+                ],
+                "subject": "GL-X750",
+                "encryption": 1,
+                "enable": true,
+                "smtp": "smtp.gmail.com:465",
+                "account": "12396325841@gmail.com"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "sms-forward.set_phone_number",
+      "summary": "set sms-forward phone number",
+      "params": [
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "Enable phone number forwarding"
+          },
+          "required": true
+        },
+        {
+          "name": "phone_numbers",
+          "schema": {
+            "type": "array",
+            "description": "Target mobile number list.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "country_code": {
+                  "type": "string",
+                  "description": "Country code."
+                },
+                "phone_number": {
+                  "type": "string",
+                  "description": "Phone number."
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:Forward file don't exist."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_phone_number_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "sms-forward",
+                  "set_phone_number",
+                  {
+                    "enable": true,
+                    "phone_numbers": [
+                      {
+                        "country_code": "86",
+                        "phone_number": "14785296323"
+                      },
+                      {
+                        "country_code": "83",
+                        "phone_number": "12345677412"
+                      }
+                    ]
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "sms-forward.set_email",
+      "summary": "set sms-forward email",
+      "params": [
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "Enable mailbox forwarding"
+          },
+          "required": true
+        },
+        {
+          "name": "emails",
+          "schema": {
+            "type": "array",
+            "description": "Target email list."
+          },
+          "required": true
+        },
+        {
+          "name": "account",
+          "schema": {
+            "type": "string",
+            "description": "This server email account name."
+          },
+          "required": true
+        },
+        {
+          "name": "password",
+          "schema": {
+            "type": "string",
+            "description": "This server email account password."
+          },
+          "required": true
+        },
+        {
+          "name": "subject",
+          "schema": {
+            "type": "string",
+            "description": "This server email subject."
+          },
+          "required": true
+        },
+        {
+          "name": "encryption",
+          "schema": {
+            "type": "number",
+            "description": "Encryption[0: none , 1: ssl, 2: startTLS ].",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "none"
+              },
+              {
+                "const": 1,
+                "title": "ssl"
+              },
+              {
+                "const": 2,
+                "title": "startTLS"
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "smtp",
+          "schema": {
+            "type": "string",
+            "description": "Smtp."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:Forward file don't exist, -2:ssmtp don't exist."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_email_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "sms-forward",
+                  "set_email",
+                  {
+                    "enable": true,
+                    "emails": [
+                      "12345678963@gmail.com",
+                      "12345678941@gmail.com"
+                    ],
+                    "account": "12396325841@gmail.com",
+                    "password": "1234567abC",
+                    "encryption": 1,
+                    "smtp": "smtp.gmail.com:465",
+                    "subject": "GL-X750"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    }
+  ]
+}

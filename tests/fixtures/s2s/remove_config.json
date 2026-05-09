@@ -1,0 +1,20 @@
+{
+  "name": "s2s.remove_config",
+  "summary": "Delete the WireGuard configuration",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "s2s",
+      "remove_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

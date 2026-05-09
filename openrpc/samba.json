@@ -1,0 +1,175 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — samba module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "samba.set_config",
+      "summary": "set samba conf",
+      "params": [
+        {
+          "name": "share_path",
+          "schema": {
+            "type": "string",
+            "description": "samba share path"
+          },
+          "required": true
+        },
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "samba share enable, share in lan"
+          },
+          "required": true
+        },
+        {
+          "name": "wan_share",
+          "schema": {
+            "type": "boolean",
+            "description": "samba share in wan"
+          },
+          "required": true
+        },
+        {
+          "name": "writeable",
+          "schema": {
+            "type": "boolean",
+            "description": "samba share is writeable"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "samba",
+                  "set_config",
+                  {
+                    "path": "/mnt",
+                    "lan_share": "true",
+                    "wan_share": "true",
+                    "writable": "true"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "samba.get_config",
+      "summary": "get samba conf",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "share_path": {
+              "type": "string",
+              "description": "samba share dir path"
+            },
+            "enable": {
+              "type": "boolean",
+              "description": "samba share enable, share in lan"
+            },
+            "wan_share": {
+              "type": "boolean",
+              "description": "samba share in wan"
+            },
+            "writeable": {
+              "type": "boolean",
+              "description": "samba share is writeable"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:argument err"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "samba",
+                  "get_config",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "share_dir": "/mnt",
+              "share_on_lan": "true",
+              "share_on_wan": "true",
+              "writable": "true",
+              "list": [
+                "/mnt",
+                "/mnt/sda1",
+                "/mnt/sdb1"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

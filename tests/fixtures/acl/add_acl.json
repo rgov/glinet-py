@@ -1,0 +1,25 @@
+{
+  "name": "acl.add_acl",
+  "summary": "add permission",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "acl",
+      "add_acl",
+      {
+        "group": "test",
+        "scope": "rpc",
+        "entry": "system.info",
+        "perm": "x"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

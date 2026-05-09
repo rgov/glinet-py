@@ -1,0 +1,21 @@
+{
+  "name": "adguardhome.get_config",
+  "summary": "get the current configuration",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "adguardhome",
+      "get_config"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "enabled": true
+    }
+  }
+}

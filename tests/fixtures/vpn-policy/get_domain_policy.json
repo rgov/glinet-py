@@ -1,0 +1,26 @@
+{
+  "name": "vpn-policy.get_domain_policy",
+  "summary": "get domain policy",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "vpn-policy",
+      "get_domain_policy",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "default_policy": 0,
+      "domain_list": [
+        "google.com",
+        "facebook.com"
+      ]
+    }
+  }
+}

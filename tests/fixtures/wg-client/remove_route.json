@@ -1,0 +1,25 @@
+{
+  "name": "wg-client.remove_route",
+  "summary": "remove wireguard client custom route",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "remove_route",
+      {
+        "group_id": 3213,
+        "peer_id": 5715,
+        "route_flag": 4,
+        "rule_id": 6512
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

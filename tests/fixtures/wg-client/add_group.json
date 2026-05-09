@@ -1,0 +1,22 @@
+{
+  "name": "wg-client.add_group",
+  "summary": "add wireguard client group",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "add_group",
+      {
+        "group_name": "mullvad"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

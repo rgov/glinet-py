@@ -1,0 +1,24 @@
+{
+  "name": "lan.add_static_bind",
+  "summary": "Set static ip binding",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "lan",
+      "add_static_bind",
+      {
+        "name": "DESKTOP-HO0T5C1",
+        "mac": "58:41:20:0b:9b:b1",
+        "ip": "192.168.8.162"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

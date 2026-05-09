@@ -1,0 +1,23 @@
+{
+  "name": "cloud-batch-manage.designated_customer",
+  "summary": "set customer info",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "cloud-batch-manage",
+      "designated_customer",
+      {
+        "server_name": "glcloud",
+        "server_url": "http://xxx"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "wg-client.check_config",
+  "summary": "Check uploaded wireguard file's parameter",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "check_config",
+      {
+        "group_id": 2312,
+        "filename": "mullvad-at4.conf"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "passed": [],
+      "unpassed": []
+    }
+  }
+}

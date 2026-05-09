@@ -1,0 +1,21 @@
+{
+  "name": "dns.set_host",
+  "summary": "modify host file content",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "dns",
+      "set_host",
+      {
+        "content": "185.199.108.154 github.githubassets.com"
+      }
+    ]
+  },
+  "response": {
+    "id": null,
+    "jsonrpc": "2.0",
+    "result": null
+  }
+}

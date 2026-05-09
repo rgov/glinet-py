@@ -1,0 +1,22 @@
+{
+  "name": "wg-server.remove_peer",
+  "summary": "Remove wireguard peer by name",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-server",
+      "remove_peer",
+      {
+        "peer_id": 2284
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

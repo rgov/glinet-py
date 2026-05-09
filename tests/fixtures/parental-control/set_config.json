@@ -1,0 +1,24 @@
+{
+  "name": "parental-control.set_config",
+  "summary": "Set the base configuration.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "parental-control",
+      "set_config",
+      {
+        "enable": true,
+        "drop_anonymous": false,
+        "auto_update": false
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

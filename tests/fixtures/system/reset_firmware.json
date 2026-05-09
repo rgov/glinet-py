@@ -1,0 +1,19 @@
+{
+  "name": "system.reset_firmware",
+  "summary": "Reset the device to recover the factory status.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "system",
+      "reset_firmware"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

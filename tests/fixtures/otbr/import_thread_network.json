@@ -1,0 +1,22 @@
+{
+  "name": "otbr.import_thread_network",
+  "summary": "If there is no interface to pass parameters, use the configuration file to import the network configuration.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "import_thread_network",
+      {}
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "err_code": 0
+    }
+  }
+}

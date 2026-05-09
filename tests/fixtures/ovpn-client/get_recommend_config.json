@@ -1,0 +1,37 @@
+{
+  "name": "ovpn-client.get_recommend_config",
+  "summary": "get recommend config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-client",
+      "get_recommend_config",
+      {
+        "group_id": 2312,
+        "country_id": [
+          2,
+          28
+        ],
+        "proto": 1,
+        "servers": [
+          {
+            "country_name": "Germany",
+            "city_name": "Frankfurt",
+            "hostname": [
+              "dk205.nordvpn.com",
+              "cz150.nordvpn.com"
+            ]
+          }
+        ]
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

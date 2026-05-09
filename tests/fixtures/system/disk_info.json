@@ -1,0 +1,30 @@
+{
+  "name": "system.disk_info",
+  "summary": "Get disk information.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "system",
+      "disk_info"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "root": {
+        "total": 1231,
+        "free": 100,
+        "used": 1131
+      },
+      "tmp": {
+        "total": 1231,
+        "free": 100,
+        "used": 1131
+      }
+    }
+  }
+}

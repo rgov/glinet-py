@@ -1,0 +1,32 @@
+{
+  "name": "modem.get_sms_list",
+  "summary": "Get SMS list",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "get_sms_list",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "list": [
+        {
+          "type": "national",
+          "name": "xy7rz",
+          "phone_number": "15219475678",
+          "modem": "1-1.2",
+          "date": "21-07-27 18:23:15",
+          "body": "hello",
+          "status": 1
+        }
+      ]
+    }
+  }
+}

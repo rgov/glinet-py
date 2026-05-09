@@ -1,0 +1,29 @@
+{
+  "name": "edgerouter.set_config",
+  "summary": "modify the configuration file",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "edgerouter",
+      "set_config",
+      {
+        "enable": true,
+        "ip": "192.168.99.129",
+        "netmask": "255.255.255.0",
+        "gateway": "192.168.99.1",
+        "dns": [
+          "192.168.99.1",
+          "114.114.114.114"
+        ]
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

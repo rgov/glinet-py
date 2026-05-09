@@ -1,0 +1,26 @@
+{
+  "name": "wg-client.get_recommend_config",
+  "summary": "get recommend config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "get_recommend_config",
+      {
+        "group_id": 2312,
+        "country_name": [
+          "Australia",
+          "Brazil"
+        ]
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

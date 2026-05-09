@@ -1,0 +1,25 @@
+{
+  "name": "system.get_timezone_config",
+  "summary": "Get the time zone information of the device.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "system",
+      "get_timezone_config"
+    ]
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "zonename": "Asia/Shanghai",
+      "tzoffset": "+0800",
+      "autotimezone_enabled": true,
+      "localtime": 1643200134,
+      "timezone": "CST-8"
+    }
+  }
+}

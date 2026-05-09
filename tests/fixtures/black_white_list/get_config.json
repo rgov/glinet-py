@@ -1,0 +1,16 @@
+{
+  "name": "black_white_list.get_config",
+  "summary": "get blacklist and whitelist configuration information",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "black",
+      "get_config"
+    ]
+  },
+  "response_raw": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"result\": {\"mode\": \"black\", \"black_mac\": \"08:10:7B:B3:E8:92\",\"94:83:C4:0C:6D:D6\",\"white_mac\":\"00:4E:36:27:15:20\"}}",
+  "response_parse_error": "Expecting ':' delimiter: line 1 column 109 (char 108)"
+}

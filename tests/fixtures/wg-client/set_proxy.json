@@ -1,0 +1,22 @@
+{
+  "name": "wg-client.set_proxy",
+  "summary": "set wireguard client proxy",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "set_proxy",
+      {
+        "enable": true
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "nas-web.get_user_list",
+  "summary": "get share user list",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nas-web",
+      "get_user_list",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "list": [
+        {
+          "name": "test",
+          "password": "123"
+        }
+      ]
+    }
+  }
+}

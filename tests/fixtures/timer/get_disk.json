@@ -1,0 +1,26 @@
+{
+  "name": "timer.get_disk",
+  "summary": "get config of disk",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "timer",
+      "get_led",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "turnon_hour": "07",
+      "turnoff_min": "00",
+      "turnon_min": "00",
+      "enable": true,
+      "turnoff_hour": "22"
+    }
+  }
+}

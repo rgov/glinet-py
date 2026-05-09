@@ -1,0 +1,22 @@
+{
+  "name": "logread.get_kernel_log",
+  "summary": "get kernel log",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "logread",
+      "get_kernel_log",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "log": "[    0.000000] Linux version 4.14.221 (glinet@ubuntu) (gcc version 7.5.0 (OpenWrt GCC 7.5.0 r11306-c4a6851c72)) #0 Mon Feb 15 15:22:37 2021\n"
+    }
+  }
+}

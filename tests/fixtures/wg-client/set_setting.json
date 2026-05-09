@@ -1,0 +1,27 @@
+{
+  "name": "wg-client.set_setting",
+  "summary": "set wireguard client setting",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "set_setting",
+      {
+        "group_id": 3213,
+        "peer_id": 5715,
+        "local_access": true,
+        "masq": true,
+        "default_metric": 30,
+        "mtu": 1460
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

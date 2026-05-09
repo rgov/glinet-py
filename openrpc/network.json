@@ -1,0 +1,551 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — network module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "network.routes",
+      "summary": "get active IPv4 routing table",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "routes": {
+              "type": "array",
+              "description": "IPv4 routing table"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "routes_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "network",
+                  "routes"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "entries": [
+                {
+                  "target": "192.168.8.2",
+                  "nexthop": "192.168.113.1",
+                  "metric": 0,
+                  "device": "eth0.2"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "network.routes6",
+      "summary": "get active IPv6 routing table",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "routes": {
+              "type": "array",
+              "description": "IPv6 routing table"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "routes6_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "network",
+                  "routes6"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "entries": [
+                {
+                  "target": "::/0",
+                  "source": "fd94:ba1d:265d:8::/62",
+                  "nexthop": "fe80::5054:ff:fe00:8145",
+                  "metric": 512,
+                  "device": "eth0.2"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "network.get_arp_list",
+      "summary": "get ARP list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "entries": {
+              "type": "array",
+              "description": "ARP list",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ip": {
+                    "type": "string",
+                    "description": "IP address"
+                  },
+                  "mac": {
+                    "type": "string",
+                    "description": "MAC address"
+                  },
+                  "device": {
+                    "type": "string",
+                    "description": "network interface"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_arp_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "network",
+                  "get_arp_list"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "entries": [
+                {
+                  "ip": "192.168.8.2",
+                  "mac": "11:22:33:44:55:66",
+                  "device": "eth0.2"
+                },
+                {
+                  "ip": "192.168.8.3",
+                  "mac": "11:22:33:44:55:26",
+                  "device": "eth0.2"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "network.check_wan_cable",
+      "summary": "get wan cable connection status and whether mac clone is enable",
+      "params": [
+        {
+          "name": "secondwan",
+          "schema": {
+            "type": "boolean",
+            "description": "get secondwan status"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cable_enabled": {
+              "type": "boolean",
+              "description": "check whether wan cable is connected [true: wan cable is connected; false: wan cable is not connected]"
+            },
+            "macclone_enabled": {
+              "type": "boolean",
+              "description": "whether mac clone is enabled [true: enable; false: disable]"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code [-1: get information failed, wan cable is not connected]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "check_wan_cable_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "network",
+                  "check_wan_cable",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "cable_enabled": true,
+              "macclone_enabled": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "network.get_dhcp_leases",
+      "summary": "get DHCP lease information",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "leases": {
+              "type": "array",
+              "description": "DHCP lease list",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ip": {
+                    "type": "string",
+                    "description": "IP address"
+                  },
+                  "mac": {
+                    "type": "string",
+                    "description": "MAC address"
+                  },
+                  "hostname": {
+                    "type": "string",
+                    "description": "host name"
+                  },
+                  "expires": {
+                    "type": "number",
+                    "description": "remaining lease time(second)"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_dhcp_leases_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "network",
+                  "get_dhcp_leases"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "entries": [
+                {
+                  "ip": "192.168.8.2",
+                  "mac": "11:22:33:44:55:66",
+                  "hostname": "test",
+                  "expires": 12
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "network.get_hwnat_config",
+      "summary": "get hwnat status",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "boolean",
+              "description": "whether hwnat is enabled"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_hwnat_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "network",
+                  "get_hwnat_config",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "enable": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "network.set_hwnat_config",
+      "summary": "enable/disable hwnat",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "boolean",
+              "description": "whether to enable hwnat"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_hwnat_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "network",
+                  "set_hwnat_config",
+                  {
+                    "enable": true
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "network.get_netnat_config",
+      "summary": "get netnat status",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "boolean",
+              "description": "whether netnat is enabled"
+            },
+            "actype": {
+              "type": "number",
+              "description": "acceleration type [0: Software and Hardware Acceleration; 1: Hardware Acceleration; 2: Software Acceleration]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "Software and Hardware Acceleration"
+                },
+                {
+                  "const": 1,
+                  "title": "Hardware Acceleration"
+                },
+                {
+                  "const": 2,
+                  "title": "Software Acceleration"
+                }
+              ]
+            },
+            "list": {
+              "type": "array",
+              "description": "acceleration type supported [0: Software and Hardware Acceleration; 1: Hardware Acceleration; 2: Software Acceleration]"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_netnat_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "network",
+                  "get_netnat_config",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "enable": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "network.set_netnat_config",
+      "summary": "enable/disable netnat",
+      "params": [
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enable netnat"
+          },
+          "required": true
+        },
+        {
+          "name": "actype",
+          "schema": {
+            "type": "number",
+            "description": "acceleration type [0: Software and Hardware Acceleration; 1: Hardware Acceleration; 2: Software Acceleration]",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "Software and Hardware Acceleration"
+              },
+              {
+                "const": 1,
+                "title": "Hardware Acceleration"
+              },
+              {
+                "const": 2,
+                "title": "Software Acceleration"
+              }
+            ]
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_netnat_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "network",
+                  "set_netnat_config",
+                  {
+                    "enable": true
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    }
+  ]
+}

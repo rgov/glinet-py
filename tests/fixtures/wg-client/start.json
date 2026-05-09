@@ -1,0 +1,23 @@
+{
+  "name": "wg-client.start",
+  "summary": "start wireguard client",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "start",
+      {
+        "group_id": 3212,
+        "peer_id": 1254
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

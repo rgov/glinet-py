@@ -1,0 +1,23 @@
+{
+  "name": "modem.set_traffic_auto_save",
+  "summary": "Set whether the traffic statistics data of the cellular interface is saved in the modem automatically",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "set_traffic_auto_save",
+      {
+        "bus": "1-1",
+        "enable": true
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

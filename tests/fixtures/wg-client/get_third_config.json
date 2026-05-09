@@ -1,0 +1,35 @@
+{
+  "name": "wg-client.get_third_config",
+  "summary": "get third provider's client config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "get_third_config",
+      {
+        "group_id": 2312,
+        "username": "glinet",
+        "password": "123456"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "countries": [
+        {
+          "country_name": "Australia",
+          "server_count": 11
+        },
+        {
+          "country_name": "Brazil",
+          "server_count": 5
+        }
+      ]
+    }
+  }
+}

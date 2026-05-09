@@ -1,0 +1,409 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — clients module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "clients.get_list",
+      "summary": "Get device list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "clients": {
+              "type": "array",
+              "description": "Client list",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "mac": {
+                    "type": "string",
+                    "description": "Client MAC address"
+                  },
+                  "ip": {
+                    "type": "string",
+                    "description": "Client IP address"
+                  },
+                  "tx": {
+                    "type": "number",
+                    "description": "Uplink rate of the client (Unit: Bps)"
+                  },
+                  "rx": {
+                    "type": "number",
+                    "description": "The downlink rate of the client (Unit: Bps)"
+                  },
+                  "total_tx": {
+                    "type": "number",
+                    "description": "All upstream traffic of the client(Unit:Byte)"
+                  },
+                  "total_rx": {
+                    "type": "number",
+                    "description": "All downstream traffic of the client(Unit:Byte)"
+                  },
+                  "limit_tx": {
+                    "type": "number",
+                    "description": "Set uplink rate of client speed limit(Unit:KB/S)"
+                  },
+                  "limit_rx": {
+                    "type": "number",
+                    "description": "Set downlink rate of client speed limit(Unit:KB/S)"
+                  },
+                  "blocked": {
+                    "type": "boolean",
+                    "description": "GL.iNet firewall blacklist, true means to join the blacklist, false means not to join the blacklist"
+                  },
+                  "online_time": {
+                    "type": "string",
+                    "description": "Timestamp when the client came online"
+                  },
+                  "online": {
+                    "type": "boolean",
+                    "description": "True is online, false is offline"
+                  },
+                  "iface": {
+                    "type": "string",
+                    "description": "The interface name that the client connects to"
+                  },
+                  "type": {
+                    "type": "number",
+                    "description": "Interface type of client connection,[{0-2.4G};{1-5G};{2-lan};{3-2.4G guest};{4-5G guest};{5-unknown},{6-Dongle},{7-bypass route}]"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "\t The hostname of the client device (no value is returned)"
+                  },
+                  "remote": {
+                    "type": "boolean",
+                    "description": "If true, it means that the current client is connecting to the router"
+                  },
+                  "alias": {
+                    "type": "string",
+                    "description": "\t The name of the user setting (no value is returned)"
+                  },
+                  "class": {
+                    "type": "string",
+                    "description": "\t The device type set by the user (No value is not returned)"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "clients",
+                  "get_list",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "clients": [
+                {
+                  "mac": "18:c0:4d:dc:4f:cc",
+                  "type": 2,
+                  "limit_tx": 2048,
+                  "limit_rx": 2048,
+                  "remote": false,
+                  "name": "DESKTOP-HO0T5C1",
+                  "vendor": "unknown",
+                  "ip": "192.168.8.148",
+                  "tx": 0,
+                  "total_rx": 397117728,
+                  "rx": 0,
+                  "blocked": false,
+                  "iface": "eth0",
+                  "online": true,
+                  "online_time": "1638517436",
+                  "total_tx": 470371319
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "clients.remove_offline",
+      "summary": "Delete offline client",
+      "params": [
+        {
+          "name": "mac",
+          "schema": {
+            "type": "string",
+            "description": "The mac address of the client to be deleted (if the value is FF:FF:FF:FF:FF:FF, it means to delete all offline clients)"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_offline_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "clients",
+                  "remove_offline",
+                  {
+                    "mac": "FF:FF:FF:FF:FF:FF"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "clients.block_client",
+      "summary": "Set the client's blacklist property",
+      "params": [
+        {
+          "name": "mac",
+          "schema": {
+            "type": "string",
+            "description": "The mac address of the client to be blacklisted"
+          },
+          "required": true
+        },
+        {
+          "name": "block",
+          "schema": {
+            "type": "boolean",
+            "description": "If true, the client of the specified mac cannot access the Internet"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "block_client_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "clients",
+                  "block_client",
+                  {
+                    "mac": "84:7a:88:79:e5:13",
+                    "block": true
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "clients.get_status",
+      "summary": "Get the status of the total number of clients online",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cable_total": {
+              "type": "number",
+              "description": "The total number of wired clients online"
+            },
+            "wireless_total": {
+              "type": "number",
+              "description": "The total number of wireless clients online"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code, -1:Invalid user,-5:No parameter found."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "clients",
+                  "get_status",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "cable_total": "1",
+              "wireless_total": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "clients.set_info",
+      "summary": "Setting name",
+      "params": [
+        {
+          "name": "mac",
+          "schema": {
+            "type": "string",
+            "description": "\t\tMAC address"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "clients.clean_traffic",
+      "summary": "Clear the traffic statistics of all clients",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "clean_traffic_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "id": 1,
+                "params": [
+                  "",
+                  "clients",
+                  "clean_traffic",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": []
+          }
+        }
+      ]
+    }
+  ]
+}

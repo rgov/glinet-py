@@ -1,0 +1,24 @@
+{
+  "name": "firewall.set_rule",
+  "summary": "modify an existing firewall rule",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "firewall",
+      "set_rule",
+      {
+        "id": "cfg1392bd",
+        "src": "wan",
+        "dest_port": 80
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

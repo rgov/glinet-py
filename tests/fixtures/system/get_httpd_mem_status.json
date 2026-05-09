@@ -1,0 +1,21 @@
+{
+  "name": "system.get_httpd_mem_status",
+  "summary": "Get the memory usage of the http server. You can use the interface to monitor whether there are memory leaks in other APIs.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "system",
+      "get_httpd_mem_status"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "memory_used": 11952
+    }
+  }
+}

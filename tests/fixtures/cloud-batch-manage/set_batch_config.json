@@ -1,0 +1,22 @@
+{
+  "name": "cloud-batch-manage.set_batch_config",
+  "summary": "set batch config",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "cloud-batch-manage",
+      "set_batch_config",
+      {
+        "wan_proto": "dhcp"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

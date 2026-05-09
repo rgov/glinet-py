@@ -1,0 +1,309 @@
+{
+  "name": "cloud.get_batch_config",
+  "summary": "get batch configuration",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "cloud",
+      "get_batch_config"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "local_domain": "console.gl-inet.com",
+      "firewall": {
+        "rules": [],
+        "port_forwards": [
+          {
+            "enabled": true,
+            "src_dport": "566",
+            "id": "cfg193837",
+            "dest_ip": "192.168.8.100",
+            "dest_port": 666,
+            "name": "ff",
+            "src": "wan",
+            "dest": "lan",
+            "proto": "tcp udp"
+          }
+        ]
+      },
+      "hostname": "GL-AXT1800",
+      "wifi": [
+        {
+          "band": "5G",
+          "ifaces": [
+            {
+              "enabled": true,
+              "ssid": "GL-AXT1800-b9c-5G",
+              "encryption": "psk2",
+              "name": "default_radio0",
+              "guest": false,
+              "hidden": false,
+              "key": "goodlife"
+            },
+            {
+              "enabled": true,
+              "ssid": "GL-AXT1800-b9c-5G-Guest",
+              "encryption": "psk2",
+              "name": "guest5g",
+              "guest": true,
+              "hidden": false,
+              "key": "goodlife"
+            }
+          ],
+          "channels": [
+            {
+              "dfs": false,
+              "channel": 36
+            },
+            {
+              "dfs": false,
+              "channel": 40
+            },
+            {
+              "dfs": false,
+              "channel": 44
+            },
+            {
+              "dfs": false,
+              "channel": 48
+            },
+            {
+              "dfs": true,
+              "channel": 52
+            },
+            {
+              "dfs": true,
+              "channel": 56
+            },
+            {
+              "dfs": true,
+              "channel": 60
+            },
+            {
+              "dfs": true,
+              "channel": 64
+            },
+            {
+              "dfs": true,
+              "channel": 100
+            },
+            {
+              "dfs": true,
+              "channel": 104
+            },
+            {
+              "dfs": true,
+              "channel": 108
+            },
+            {
+              "dfs": true,
+              "channel": 112
+            },
+            {
+              "dfs": true,
+              "channel": 116
+            },
+            {
+              "dfs": true,
+              "channel": 120
+            },
+            {
+              "dfs": true,
+              "channel": 124
+            },
+            {
+              "dfs": true,
+              "channel": 128
+            },
+            {
+              "dfs": true,
+              "channel": 132
+            },
+            {
+              "dfs": true,
+              "channel": 136
+            },
+            {
+              "dfs": true,
+              "channel": 140
+            },
+            {
+              "dfs": true,
+              "channel": 144
+            },
+            {
+              "dfs": false,
+              "channel": 149
+            },
+            {
+              "dfs": false,
+              "channel": 153
+            },
+            {
+              "dfs": false,
+              "channel": 157
+            },
+            {
+              "dfs": false,
+              "channel": 161
+            },
+            {
+              "dfs": false,
+              "channel": 165
+            }
+          ],
+          "device": "radio0",
+          "hwmode": "11n/ac/ax",
+          "txpower": "Max",
+          "hwmodes": [
+            "11ac/ax",
+            "11n/ac/ax",
+            "11a/n/ac/ax",
+            "11a/n/ac"
+          ],
+          "channel": 0,
+          "htmodes": {
+            "11a/n/ac": 80,
+            "11n/ac/ax": 80,
+            "11a/n/ac/ax": 80,
+            "11ac/ax": 80,
+            "auto": false
+          },
+          "encryptions": [
+            "none",
+            "psk2",
+            "psk-mixed",
+            "sae",
+            "sae-mixed"
+          ],
+          "htmode": "80"
+        },
+        {
+          "band": "2G",
+          "ifaces": [
+            {
+              "enabled": true,
+              "ssid": "123",
+              "encryption": "psk2",
+              "name": "default_radio1",
+              "guest": false,
+              "hidden": true,
+              "key": "goodlife"
+            },
+            {
+              "enabled": true,
+              "ssid": "999",
+              "encryption": "psk2",
+              "name": "guest2g",
+              "guest": true,
+              "hidden": false,
+              "key": "goodlife"
+            }
+          ],
+          "channels": [
+            {
+              "dfs": false,
+              "channel": 1
+            },
+            {
+              "dfs": false,
+              "channel": 2
+            },
+            {
+              "dfs": false,
+              "channel": 3
+            },
+            {
+              "dfs": false,
+              "channel": 4
+            },
+            {
+              "dfs": false,
+              "channel": 5
+            },
+            {
+              "dfs": false,
+              "channel": 6
+            },
+            {
+              "dfs": false,
+              "channel": 7
+            },
+            {
+              "dfs": false,
+              "channel": 8
+            },
+            {
+              "dfs": false,
+              "channel": 9
+            },
+            {
+              "dfs": false,
+              "channel": 10
+            },
+            {
+              "dfs": false,
+              "channel": 11
+            }
+          ],
+          "device": "radio1",
+          "hwmode": "11g/n/ax",
+          "txpower": "Max",
+          "hwmodes": [
+            "11n/ax",
+            "11g/n/ax",
+            "11b/g/n/ax",
+            "11b/g/n"
+          ],
+          "channel": 0,
+          "htmodes": {
+            "11b/g/n": 40,
+            "11b/g/n/ax": 40,
+            "auto": true,
+            "11n/ax": 40,
+            "11g/n/ax": 40
+          },
+          "encryptions": [
+            "none",
+            "psk2",
+            "psk-mixed",
+            "sae",
+            "sae-mixed"
+          ],
+          "htmode": "40"
+        }
+      ],
+      "network": {
+        "guest": {
+          "netmask": "255.255.255.0",
+          "dhcp_start": "100",
+          "ipaddr": "192.168.19.1",
+          "dhcp_limit": "150"
+        },
+        "lan": {
+          "netmask": "255.255.255.0",
+          "dhcp_start": "100",
+          "ipaddr": "192.168.8.1",
+          "dhcp_limit": "150"
+        },
+        "wan6": {
+          "gateway6": "ddb4:1aed:acf9::",
+          "proto": "dhcp",
+          "dns": [],
+          "ip6addr": "ddb4:1aed:acf9::/48",
+          "dns6": [
+            "ddb4:1aed:acf9::"
+          ]
+        }
+      },
+      "language": "zh-cn",
+      "timezone": "Asia/Shanghai"
+    }
+  }
+}

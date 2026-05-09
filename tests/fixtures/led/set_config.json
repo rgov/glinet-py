@@ -1,0 +1,22 @@
+{
+  "name": "led.set_config",
+  "summary": "Set led config.",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "led",
+      "set_config",
+      {
+        "led_enable": true
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

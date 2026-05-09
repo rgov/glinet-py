@@ -1,0 +1,87 @@
+{
+  "name": "nas-web.get_share_list",
+  "summary": "get share list",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nas-web",
+      "get_share_list",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "result_code": 0,
+      "share": [
+        {
+          "n": "/disk1_part4/lost+found",
+          "owner_readonly": 0,
+          "share_id": "bf90e29f2e3ab0091b1d922e81294dba",
+          "t": "d",
+          "share_time": 1653547578,
+          "d": 1650649376,
+          "l": 4096,
+          "file_ok": 1,
+          "disk_uid": "a56d2330-dee8-4b4a-8912-cdc90be2061a",
+          "protos": [
+            {
+              "name": "webdav",
+              "enable": 1,
+              "public": 1,
+              "public_readonly": 1,
+              "share_name": "lost+found",
+              "users": []
+            }
+          ]
+        },
+        {
+          "n": "/disk1_part2/www",
+          "owner_readonly": 0,
+          "share_id": "70334cc85ab58f13363f8a7d906cef22",
+          "t": "d",
+          "share_time": 1653547602,
+          "d": 1653548241,
+          "l": 4096,
+          "file_ok": 1,
+          "disk_uid": "D4E5-0DF1",
+          "protos": [
+            {
+              "name": "webdav",
+              "enable": 1,
+              "public": 1,
+              "public_readonly": 0,
+              "share_name": "www",
+              "users": []
+            }
+          ]
+        },
+        {
+          "n": "/disk1_part2/test",
+          "owner_readonly": 0,
+          "share_id": "59297d2089f011a05f84dfc3a261c979",
+          "t": "d",
+          "share_time": 1653548194,
+          "d": 1653477986,
+          "l": 4096,
+          "file_ok": 1,
+          "disk_uid": "D4E5-0DF1",
+          "protos": [
+            {
+              "name": "webdav",
+              "enable": 1,
+              "public": 1,
+              "public_readonly": 1,
+              "share_name": "test",
+              "users": []
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

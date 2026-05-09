@@ -1,0 +1,37 @@
+{
+  "name": "wg-client.get_group_list",
+  "summary": "get wireguard client group list",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "get_group_list",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "groups": [
+        {
+          "group_id": 3212,
+          "group_name": "mullvad",
+          "peer_count": 20,
+          "group_type": 1,
+          "procedure": 1
+        },
+        {
+          "group_id": 3213,
+          "group_name": "azirevpn",
+          "peer_count": 25,
+          "group_type": 1,
+          "procedure": 0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "wg-client.get_config_list",
+  "summary": "get wireguard client config list of a group",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-client",
+      "get_config_list",
+      {
+        "group_id": 3212
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "auth_type": 2,
+      "public_key": "NjUxYTE3NzZiMjczNGMzNjg2MmNiMmNhMTBkZGYyYTQ=",
+      "peers": [
+        {
+          "peer_id": 1254,
+          "address_v4": "10.8.0.0/24",
+          "ipv6_enable": true,
+          "address_v6": "fd00:db8:0:123::/64",
+          "name": "mullvad_au4",
+          "allowed_ips": "0.0.0.0/0,::/0",
+          "dns": "193.138.219.228",
+          "end_point": "103.231.88.2:3100",
+          "listen_port": 22536,
+          "mtu": 1380,
+          "persistent_keepalive": 25,
+          "private_key": "EHwE7Aiiup/lxVEAKlofJmmMfQZkHTmmEy3xcAcIn2I=",
+          "public_key": "kXXykjh6KqiE/pvtmTV8kCB+jhhkl9kT0Dg+yyDz8hg=",
+          "presharedkey_enable": false,
+          "location": "Australia, Melbourne"
+        }
+      ]
+    }
+  }
+}

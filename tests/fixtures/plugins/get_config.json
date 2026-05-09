@@ -1,0 +1,28 @@
+{
+  "name": "plugins.get_config",
+  "summary": "get the configuration of the software source",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "plugins",
+      "get_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "source": [
+        {
+          "url": "https:\\/\\/fw.gl-inet.com\\/releases\\/v21.02.3\\/kmod-4.0\\/mips_24kc\\/ath79",
+          "name": "glinet_core",
+          "system": false
+        }
+      ]
+    }
+  }
+}

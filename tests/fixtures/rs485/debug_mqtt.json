@@ -1,0 +1,26 @@
+{
+  "name": "rs485.debug_mqtt",
+  "summary": "test forward message to mqtt",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "rs485",
+      "debug_mqtt",
+      {
+        "topic": "/glinet/rs485/data",
+        "type": "hex",
+        "data": "16040000000272EC"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "log": "2023-07-30 20:34:34.241 Published to /glinet/rs485/data ==> 16 04 04 02 C3 01 1C 6D 58"
+    }
+  }
+}

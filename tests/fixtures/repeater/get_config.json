@@ -1,0 +1,22 @@
+{
+  "name": "repeater.get_config",
+  "summary": "Get the confirguations",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "repeater",
+      "get_config"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "auto": true,
+      "lock_band": "2g"
+    }
+  }
+}

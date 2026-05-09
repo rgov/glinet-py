@@ -1,0 +1,17 @@
+{
+  "name": "otbr.get_srp_server_config",
+  "summary": "Get SRP Server config.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "get_srp_server_config",
+      {}
+    ]
+  },
+  "response_raw": "{\"id\":\"0\",\"jsonrpc\":\"2.0\",\"result\":{\"MinKeyLease\":86400,\"SeqNum\":0,\"MaxKeyLease\":1209600,\"MaxLease\":86400,\"Enable\":true,\"MinLease\":1800,",
+  "response_parse_error": "Expecting property name enclosed in double quotes: line 1 column 137 (char 136)"
+}

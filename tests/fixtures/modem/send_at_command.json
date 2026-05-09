@@ -1,0 +1,26 @@
+{
+  "name": "modem.send_at_command",
+  "summary": "Send AT commands to the target cellular modem",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "send_at_command",
+      {
+        "bus": "1-1",
+        "port": "ttyUSB2",
+        "command": "AT"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "response": "ok"
+    }
+  }
+}

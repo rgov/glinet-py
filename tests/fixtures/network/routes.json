@@ -1,0 +1,28 @@
+{
+  "name": "network.routes",
+  "summary": "get active IPv4 routing table",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "network",
+      "routes"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "entries": [
+        {
+          "target": "192.168.8.2",
+          "nexthop": "192.168.113.1",
+          "metric": 0,
+          "device": "eth0.2"
+        }
+      ]
+    }
+  }
+}

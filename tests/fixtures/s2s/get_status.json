@@ -1,0 +1,22 @@
+{
+  "name": "s2s.get_status",
+  "summary": "Get WireGuard service status.",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "s2s",
+      "get_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "status": ""
+    }
+  }
+}

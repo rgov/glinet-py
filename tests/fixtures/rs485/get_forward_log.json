@@ -1,0 +1,22 @@
+{
+  "name": "rs485.get_forward_log",
+  "summary": "get forward log",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "rs485",
+      "get_forward_log",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "log": "2023-07-30 20:43:59.595 Received from MQTT (/glinet/rs485/cmd) ==> 16040000000272EC\n2023-07-30 20:43:59.607 Commanded to Serial Port ==> 16040000000272EC\n2023-07-30 20:43:59.650 Responded from Serial Port ==> 16040402B7011C2D42\n2023-07-30 20:43:59.663 Published to MQTT (/glinet/rs485/data) ==> 16040402B7011C2D42\n"
+    }
+  }
+}

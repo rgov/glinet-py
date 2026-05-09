@@ -1,0 +1,26 @@
+{
+  "name": "wg-server.set_config",
+  "summary": "Set the wireguard server config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-server",
+      "set_config",
+      {
+        "ipv6_enable": true,
+        "address_v4": "10.8.0.0/24",
+        "address_v6": "fd00:db8:0:abc::/64",
+        "port": 51820,
+        "private_key": "XVpIdr+oYjTcgDwzSZmNa1nSsk8JO+tx1NBo17LDBAI="
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

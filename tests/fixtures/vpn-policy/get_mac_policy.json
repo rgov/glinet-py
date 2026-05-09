@@ -1,0 +1,26 @@
+{
+  "name": "vpn-policy.get_mac_policy",
+  "summary": "get MAC policy",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "vpn-policy",
+      "get_mac_policy",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "default_policy": 0,
+      "mac_list": [
+        "94:83:C4:0E:10:DF",
+        "94:83:C4:0E:20:DF"
+      ]
+    }
+  }
+}

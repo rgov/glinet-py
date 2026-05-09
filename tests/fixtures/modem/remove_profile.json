@@ -1,0 +1,22 @@
+{
+  "name": "modem.remove_profile",
+  "summary": "Remove a saved cellular modem connection settings",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "remove_profile",
+      {
+        "id": "xxxxxx"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

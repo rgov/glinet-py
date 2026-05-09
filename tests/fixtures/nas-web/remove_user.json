@@ -1,0 +1,22 @@
+{
+  "name": "nas-web.remove_user",
+  "summary": "remove samba share user",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nas-web",
+      "remove_user",
+      {
+        "name": "test1"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

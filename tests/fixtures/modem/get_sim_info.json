@@ -1,0 +1,29 @@
+{
+  "name": "modem.get_sim_info",
+  "summary": "Get the information of SIM card",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "get_sim_info",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "signal": {
+        "mode": 4,
+        "strength": 4,
+        "rssi": -67,
+        "rsrp": -60,
+        "rsrq": -10,
+        "sinr": 13
+      }
+    }
+  }
+}

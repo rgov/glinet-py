@@ -1,0 +1,24 @@
+{
+  "name": "acl.get_group_list",
+  "summary": "get a list of permission groups",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "acl",
+      "get_group_list"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "groups": [
+        "root",
+        "test"
+      ]
+    }
+  }
+}

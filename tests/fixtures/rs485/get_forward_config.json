@@ -1,0 +1,46 @@
+{
+  "name": "rs485.get_forward_config",
+  "summary": "get network forward config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "rs485",
+      "get_forward_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "enable": false,
+      "type": "hex",
+      "protocol": "socket",
+      "socket_cfg": {
+        "port": 502,
+        "mode": "tcps",
+        "timeout": 60,
+        "address": "0.0.0.0"
+      },
+      "mqtt_cfg": {
+        "enable_tls": false,
+        "clicrt": "-----BEGIN CERTIFICATE-----\n......\n-----END CERTIFICATE-----\n",
+        "clikey": "-----BEGIN RSA PRIVATE KEY-----\n......\n-----END RSA PRIVATE KEY-----\n",
+        "address": "broker.emqx.io",
+        "publish": "/glinet/rs485/data",
+        "password": "",
+        "username": "",
+        "port": 1883,
+        "cacrt": "-----BEGIN CERTIFICATE-----\n......\n-----END CERTIFICATE-----\n",
+        "subscribe": "/glinet/rs485/cmd",
+        "interval": 60,
+        "clientid": "glinetx300b",
+        "qos": 0,
+        "encry_mode": 0
+      }
+    }
+  }
+}

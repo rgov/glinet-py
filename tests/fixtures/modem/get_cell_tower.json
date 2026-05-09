@@ -1,0 +1,45 @@
+{
+  "name": "modem.get_cell_tower",
+  "summary": "Gets the configuration for locked the tower",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "get_cell_tower",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "slot2": {
+        "mcc": 460,
+        "freq": 2452,
+        "pci": 8,
+        "cellid": "D2AA512",
+        "mnc": 11,
+        "srxlev": 28,
+        "tac": 770,
+        "squal": 120,
+        "network_type": "LTE"
+      },
+      "slot1": {
+        "band": 1,
+        "mcc": 460,
+        "scs": 15,
+        "freq": 428910,
+        "pci": 952,
+        "bandwidth": 106,
+        "mnc": 11,
+        "srxlev": 49,
+        "tac": 76011,
+        "cellid": "7602244D0",
+        "network_type": "NR5G"
+      }
+    }
+  }
+}

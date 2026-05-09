@@ -1,0 +1,23 @@
+{
+  "name": "nas-web.set_user_pwd",
+  "summary": "set samba share user pwd",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nas-web",
+      "set_user_pwd",
+      {
+        "name": "test",
+        "password": 123456
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

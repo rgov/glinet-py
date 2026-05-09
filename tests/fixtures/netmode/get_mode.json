@@ -1,0 +1,21 @@
+{
+  "name": "netmode.get_mode",
+  "summary": "Query the current network mode",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "netmode",
+      "get_mode"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "mode": "router"
+    }
+  }
+}

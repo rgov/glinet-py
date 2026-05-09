@@ -1,0 +1,90 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — mcu module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "mcu.set_battery_config",
+      "summary": "Set battery config.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1;parameter error."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "mcu.get_battery_config",
+      "summary": "Get config of battery.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object"
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "mcu.get_oled_config",
+      "summary": "Get oled config of mcu.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object"
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "mcu.set_oled_config",
+      "summary": "Get oled config of mcu.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1;parameter error."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "\tError message"
+            }
+          }
+        }
+      },
+      "examples": []
+    }
+  ]
+}

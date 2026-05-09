@@ -1,0 +1,25 @@
+{
+  "name": "samba.set_config",
+  "summary": "set samba conf",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "samba",
+      "set_config",
+      {
+        "path": "/mnt",
+        "lan_share": "true",
+        "wan_share": "true",
+        "writable": "true"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

@@ -1,0 +1,405 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — dns module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "dns.get_host",
+      "summary": "get host file content",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "description": "file content"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_host_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "dns",
+                  "get_host",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "content": "185.199.108.154 github.githubassets.com"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "dns.set_host",
+      "summary": "modify host file content",
+      "params": [
+        {
+          "name": "content",
+          "schema": {
+            "type": "string",
+            "description": "file content"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_host_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "dns",
+                  "set_host",
+                  {
+                    "content": "185.199.108.154 github.githubassets.com"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "dns.get_config",
+      "summary": "get the current configuration",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "force_dns": {
+              "type": "boolean",
+              "description": "whether to cover all clients"
+            },
+            "rebind_protection": {
+              "type": "boolean",
+              "description": "whether to enable rebinding attack protection"
+            },
+            "mode": {
+              "type": "string",
+              "description": "mode [auto; secure; manual; proxy]"
+            },
+            "proto": {
+              "type": "string",
+              "description": "protocol"
+            },
+            "nextdns_id": {
+              "type": "string",
+              "description": "when dot is selected, if there is this field, it means NextDns, otherwise it means Cloudflare"
+            },
+            "server": {
+              "type": "array",
+              "description": "represents a custom dns server list or selected encrypted server list or proxy address or DNS server address in automatic mode"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "dns",
+                  "get_config",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "force_dns": true,
+              "proxy_server": "fvz-anyone",
+              "proxy_serverlist": [
+                "adguard-dns-family-ns1",
+                "adguard-dns-family-ns2"
+              ],
+              "rebind_protection": "1"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "dns.set_config",
+      "summary": "modify the configuration file",
+      "params": [
+        {
+          "name": "force_dns",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to cover all clients"
+          },
+          "required": true
+        },
+        {
+          "name": "rebind_protection",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enable rebinding attack protection"
+          },
+          "required": true
+        },
+        {
+          "name": "mode",
+          "schema": {
+            "type": "string",
+            "description": "mode [auto; secure; manual; proxy]"
+          },
+          "required": true
+        },
+        {
+          "name": "proto",
+          "schema": {
+            "type": "string",
+            "description": "protocol"
+          },
+          "required": false
+        },
+        {
+          "name": "nextdns_id",
+          "schema": {
+            "type": "string",
+            "description": "when dot is selected, if there is this field, it means NextDns, otherwise it means Cloudflare"
+          },
+          "required": false
+        },
+        {
+          "name": "server",
+          "schema": {
+            "type": "array",
+            "description": "represents a custom dns server list or selected encrypted server list or proxy address or DNS server address in automatic mode"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "error code: [-1: DNS is occupied; -2: parameter error]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "DNS is occupied"
+                },
+                {
+                  "const": -2,
+                  "title": "parameter error"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "method": "call",
+                "params": [
+                  "",
+                  "dns",
+                  "set_config",
+                  {
+                    "type": "auto",
+                    "rebind_protection": true
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "dns.get_info",
+      "summary": "get DNS information",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "protos": {
+              "type": "array",
+              "description": "supported encryption protocols [DoT; DoH; DNSCrypt; oDoH]"
+            },
+            "dnscrypt_version": {
+              "type": "number",
+              "description": "DNS encrypted version"
+            },
+            "serverlist": {
+              "type": "array",
+              "description": "DoH,DNSCrypt,oDoH list of supported servers",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "name"
+                  },
+                  "proto": {
+                    "type": "string",
+                    "description": "protocol"
+                  },
+                  "ipv6": {
+                    "type": "boolean",
+                    "description": "IPv6"
+                  },
+                  "dnssec": {
+                    "type": "boolean",
+                    "description": "dnssec"
+                  },
+                  "nolog": {
+                    "type": "boolean",
+                    "description": "no log"
+                  },
+                  "nofilter": {
+                    "type": "boolean",
+                    "description": "does not support filtering"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "error code: [-1: failed to get server list]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_info_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "dns",
+                  "get_info",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "protos": [
+                "DoT",
+                "DoH",
+                "DNSCrypt",
+                "oDoH"
+              ],
+              "serverlist": [
+                {
+                  "nolog": true,
+                  "proto": "DoH",
+                  "name": "ahadns-doh-ny-ipv6",
+                  "nofilter": false,
+                  "ipv6": true,
+                  "dnssec": true
+                },
+                {
+                  "nolog": true,
+                  "proto": "DNSCrypt",
+                  "name": "ffmuc.net",
+                  "nofilter": true,
+                  "ipv6": false,
+                  "dnssec": true
+                },
+                {
+                  "nolog": true,
+                  "proto": "DNSCrypt",
+                  "name": "techsaviours.org-dnscrypt",
+                  "nofilter": true,
+                  "ipv6": false,
+                  "dnssec": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

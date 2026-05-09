@@ -1,0 +1,22 @@
+{
+  "name": "qos.delete_device_group",
+  "summary": "delete client group",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "qos",
+      "delete_device_group",
+      {
+        "group_id": "2"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

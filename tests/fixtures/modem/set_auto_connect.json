@@ -1,0 +1,22 @@
+{
+  "name": "modem.set_auto_connect",
+  "summary": "Automatically set up and connect to the network based on the SIM card information plugged into the target cellular modem.",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "set_auto_connect",
+      {
+        "bus": "1-1"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

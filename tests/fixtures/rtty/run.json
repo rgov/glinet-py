@@ -1,0 +1,25 @@
+{
+  "name": "rtty.run",
+  "summary": "enable rtty",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "rtty",
+      "run",
+      {
+        "token": "sfsedtretger124233as",
+        "host": "192.168.3.1",
+        "port": 5912,
+        "ssl": true
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

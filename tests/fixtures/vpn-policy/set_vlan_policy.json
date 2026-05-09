@@ -1,0 +1,31 @@
+{
+  "name": "vpn-policy.set_vlan_policy",
+  "summary": "set vlan policy",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "vpn-policy",
+      "set_vlan_policy",
+      {
+        "vlans": [
+          {
+            "id": 1,
+            "vpn": 0
+          },
+          {
+            "id": 2,
+            "vpn": 0
+          }
+        ]
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

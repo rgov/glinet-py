@@ -1,0 +1,630 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — plugins module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "plugins.get_package_info",
+      "summary": "get details for a single package",
+      "params": [
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "The name of software."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "info": {
+              "type": "string",
+              "description": "opkg command execution result"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-2:network unreachable,-3:flash not enough storage space.-6:opkg stderr."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_package_info_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "plugins",
+                  "get_package_info",
+                  {
+                    "name": "kmod-usb-serial-pl2303"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "info": "Package: kmod-usb-serial-pl2303\nVersion: 4.14.221-1\nDepends: kernel (= 4.14.221-1-0a66574dfa39734270ca25227d9a8ac6), kmod-usb-serial\nStatus: unknown ok not-installed\nSection: kernel\nArchitecture: mips_24kc\nSize: 5798\nFilename: kmod-usb-serial-pl2303_4.14.221-1_mips_24kc.ipk\nDescription: Kernel support for Prolific PL2303 USB-to-Serial converters\n\n"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "plugins.install_package",
+      "summary": "install software package",
+      "params": [
+        {
+          "name": "name",
+          "schema": {
+            "type": "array",
+            "description": "the name of the installed package,bulk install is available when installing user retention packages"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "info": {
+              "type": "string",
+              "description": "opkg command execution result"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:opkg resource temporarily unavailable,-2:network unreachable,-3:flash not enough storage space.-6:opkg stderr."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "plugins.remove_package",
+      "summary": "uninstall software package",
+      "params": [
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "software package name."
+          },
+          "required": true
+        },
+        {
+          "name": "force",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to uninstall the software package"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "info": {
+              "type": "string",
+              "description": "opkg command execution result"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:opkg resource temporarily unavailable,-4:parameter error,-5:can't uninstall.-6:opkg stderr."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "plugins.update_repository",
+      "summary": "update software repository",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:opkg resource temporarily unavailable,-2:network unreachable."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "update_repository_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "plugins",
+                  "update_repository",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "plugins.get_repository_status",
+      "summary": "get software repository status",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "number",
+              "description": "repository status[0: no update; 1: Updating; 2: already updated]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "no update"
+                },
+                {
+                  "const": 1,
+                  "title": "Updating"
+                },
+                {
+                  "const": 2,
+                  "title": "already updated"
+                }
+              ]
+            },
+            "time_last_update": {
+              "type": "number",
+              "description": "the time of the last update, 0 means the repository has not been update"
+            },
+            "time_current": {
+              "type": "number",
+              "description": "current time"
+            },
+            "count_all": {
+              "type": "number",
+              "description": "total number of software packages {p.s. the count value is not returned during the update process}"
+            },
+            "count_installed": {
+              "type": "number",
+              "description": "number of packages installed"
+            },
+            "count_not_installed": {
+              "type": "number",
+              "description": "number of packages not installed"
+            },
+            "count_updatable": {
+              "type": "number",
+              "description": "number of packages that can be updated"
+            },
+            "count_reserve": {
+              "type": "number",
+              "description": "number of packages reserved by user,returned after a reserved configuration upgrade"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-7:datebase error"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_repository_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "plugins",
+                  "get_repository_status",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "status": 2,
+              "count_all": 7220,
+              "count_installed": 200,
+              "count_not_installed": 7000,
+              "count_updatable": 20,
+              "count_reserve": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "plugins.get_list",
+      "summary": "get a list of software packages",
+      "params": [
+        {
+          "name": "status",
+          "schema": {
+            "type": "number",
+            "description": "get a list of sogtware packages in a specified state[0: not installed; 1: installed; 2: updatable; 3: user retention; 4: all]",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "not installed"
+              },
+              {
+                "const": 1,
+                "title": "installed"
+              },
+              {
+                "const": 2,
+                "title": "updatable"
+              },
+              {
+                "const": 3,
+                "title": "user retention"
+              },
+              {
+                "const": 4,
+                "title": "all"
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "search_condition",
+          "schema": {
+            "type": "string",
+            "description": "search criteria, used when searching for software packages, e.g.:for *test* of the regular expression, there is no need to add the '*' symbol when passing in the parameters"
+          },
+          "required": false
+        },
+        {
+          "name": "search_initials",
+          "schema": {
+            "type": "string",
+            "description": "search criteria, used when searching for software packages, e.g.:for a* of the regular expression, there is no need to add the '*' symbol when passing in the parameters.Used to filter packages starting with an initial letter, only one of these two search criteria can be used"
+          },
+          "required": false
+        },
+        {
+          "name": "limit",
+          "schema": {
+            "type": "number",
+            "description": "display maximum number per page."
+          },
+          "required": true
+        },
+        {
+          "name": "page",
+          "schema": {
+            "type": "number",
+            "description": "number of pages, set to 1 when searching, and set to the specified page when turning pages."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "packages": {
+              "type": "array",
+              "description": "software package information.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "software package name."
+                  },
+                  "status": {
+                    "type": "number",
+                    "description": "software package status[0: not installed; 1: installed; 2: updatable; 3: user retention]",
+                    "oneOf": [
+                      {
+                        "const": 0,
+                        "title": "not installed"
+                      },
+                      {
+                        "const": 1,
+                        "title": "installed"
+                      },
+                      {
+                        "const": 2,
+                        "title": "updatable"
+                      },
+                      {
+                        "const": 3,
+                        "title": "user retention"
+                      }
+                    ]
+                  },
+                  "uninstallable": {
+                    "type": "boolean",
+                    "description": "whether to allow uninstallation[true: allow; false:not allowed] {p.s.:packages that are not allowed to be uninstalled will affect system operation}"
+                  },
+                  "version": {
+                    "type": "string",
+                    "description": "package version, not returned when the repository is not updated and the package status is user retention."
+                  },
+                  "new_version": {
+                    "type": "string",
+                    "description": "the new package version, returned when the package status is updatable."
+                  },
+                  "size": {
+                    "type": "number",
+                    "description": "The size of the package, returned after updating the software repository."
+                  }
+                }
+              }
+            },
+            "count_search": {
+              "type": "number",
+              "description": "the number of software packages that meet the search criteria,, returned when searching."
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-7:database error"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "plugins",
+                  "get_list",
+                  {
+                    "status": 1,
+                    "limit": 3,
+                    "page": 1
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "packages": [
+                {
+                  "name": "464xlat",
+                  "version": "12",
+                  "size": 4919,
+                  "status": 1
+                },
+                {
+                  "name": "zram-swap",
+                  "version": "1.1-3",
+                  "size": 2890,
+                  "status": 1
+                },
+                {
+                  "name": "zstd",
+                  "version": "1.4.5-2",
+                  "size": 47101,
+                  "status": 1
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "plugins.get_config",
+      "summary": "get the configuration of the software source",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "array",
+              "description": "software source information",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "software source name"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "software source url"
+                  },
+                  "system": {
+                    "type": "boolean",
+                    "description": "Whether it is the software source url that comes with the system"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "plugins",
+                  "get_config",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "source": [
+                {
+                  "url": "https:\\/\\/fw.gl-inet.com\\/releases\\/v21.02.3\\/kmod-4.0\\/mips_24kc\\/ath79",
+                  "name": "glinet_core",
+                  "system": false
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "plugins.set_config",
+      "summary": "set the configuration of the software source",
+      "params": [
+        {
+          "name": "source",
+          "schema": {
+            "type": "array",
+            "description": "software source information",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "software source name"
+                },
+                "url": {
+                  "type": "string",
+                  "description": "software source url"
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "plugins",
+                  "set_config",
+                  {
+                    "source": [
+                      {
+                        "url": "https:\\/\\/fw.gl-inet.com\\/releases\\/v21.02.3\\/kmod-4.0\\/mips_24kc\\/ath79",
+                        "name": "glinet_core",
+                        "system": false
+                      }
+                    ]
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    }
+  ]
+}

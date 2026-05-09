@@ -1,0 +1,27 @@
+{
+  "name": "dns.get_config",
+  "summary": "get the current configuration",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "dns",
+      "get_config",
+      {}
+    ]
+  },
+  "response": {
+    "id": null,
+    "jsonrpc": "2.0",
+    "result": {
+      "force_dns": true,
+      "proxy_server": "fvz-anyone",
+      "proxy_serverlist": [
+        "adguard-dns-family-ns1",
+        "adguard-dns-family-ns2"
+      ],
+      "rebind_protection": "1"
+    }
+  }
+}

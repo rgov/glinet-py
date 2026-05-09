@@ -1,0 +1,25 @@
+{
+  "name": "local-access.set_config",
+  "summary": "Set configuration",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "nginx",
+      "set_config",
+      {
+        "redirect_https": false,
+        "http_port": 80,
+        "https_port": 443,
+        "session_timeout": 300
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

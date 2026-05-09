@@ -1,0 +1,26 @@
+{
+  "name": "black_white_list.set_config",
+  "summary": "set blacklist or whitelist",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "black_white_list",
+      "set_config",
+      {
+        "mode": "black",
+        "mac": [
+          "08:10:7B:B3:E8:92",
+          "94:83:C4:0C:6D:D6"
+        ]
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "qos.get_bandwidth_config",
+  "summary": "get wan bandwidth and default priority",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "qos",
+      "get_bandwidth_config",
+      {}
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "work_mode": 1,
+      "band_cfg": [
+        {
+          "interface": "wan",
+          "enable": true,
+          "upload": 1024,
+          "download": 512
+        },
+        {
+          "interface": "wwan",
+          "enable": true,
+          "upload": 1024,
+          "download": 512
+        },
+        {
+          "interface": "tethering",
+          "enable": true,
+          "upload": 1024,
+          "download": 512
+        },
+        {
+          "interface": "modem",
+          "enable": true,
+          "upload": 1024,
+          "download": 512
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "ovpn-client.get_group_list",
+  "summary": "get ovpn client group list",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-client",
+      "get_group_list",
+      {}
+    ],
+    "id": 1
+  },
+  "response_raw": "{\\\"jsonrpc\\\": \\\"2.0\\\", \\\"id\\\": 1, \\\"result\\\": {\\\"groups\\\": [{\\\"group_id\\\":3212,\\\"group_type\\\":1,\\\"group_name\\\":\\\"mullvad\\\",\\\"askpass_exist\\\":false,\\\"auth_type\\\":1,\\\"client_count\\\":20,\\\"procedure\\\":1},{\\\"group_id\\\":3213,\\\"group_type\\\"1,\\\"group_name\\\":\\\"azirevpn\\\",\\\"client_count\\\":25,\\\"procedure\\\":0}]}}",
+  "response_parse_error": "Expecting ':' delimiter: line 1 column 204 (char 203)"
+}

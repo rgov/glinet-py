@@ -1,0 +1,28 @@
+{
+  "name": "system.get_load",
+  "summary": "Get CPU loading status of the device.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "system",
+      "get_load"
+    ]
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "load_average": [
+        2.01,
+        0.89,
+        0.33
+      ],
+      "memory_free": 105918464,
+      "memory_total": 106278912,
+      "memory_buff_cache": 12345678
+    }
+  }
+}

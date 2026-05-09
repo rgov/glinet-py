@@ -1,0 +1,28 @@
+{
+  "name": "modem.set_upgrade",
+  "summary": "Upgrade cellular modem with PCIe access",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "set_upgrade",
+      {
+        "modem_url": "123",
+        "target_version": "RM520NGLAAR01A06M4G_01.001.01.001",
+        "current_version": "RM520NGLAAR01A05M4G_01.001.01.001",
+        "hash_type": "sha256",
+        "hash_value": "3db150d0c4be6c3783524b6dafa55abab14cdd65f951232aa01c40633ef00bdb",
+        "firmware_upload": "router",
+        "upgrade_type": "OTG"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

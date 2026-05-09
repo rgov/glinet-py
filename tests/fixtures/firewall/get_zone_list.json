@@ -1,0 +1,27 @@
+{
+  "name": "firewall.get_zone_list",
+  "summary": "get zone list",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "firewall",
+      "get_zone_list"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "internals": [
+        "lan",
+        "guest"
+      ],
+      "externals": [
+        "wan"
+      ]
+    }
+  }
+}

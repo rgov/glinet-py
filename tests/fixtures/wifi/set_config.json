@@ -1,0 +1,23 @@
+{
+  "name": "wifi.set_config",
+  "summary": "set WiFi parameters.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "wifi",
+      "set_config",
+      {
+        "device": "radio0",
+        "channel": 1
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

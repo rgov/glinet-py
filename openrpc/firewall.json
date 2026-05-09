@@ -1,0 +1,1176 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — firewall module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "firewall.add_rule",
+      "summary": "add firewall rule",
+      "params": [
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "rule's name"
+          },
+          "required": false
+        },
+        {
+          "name": "src",
+          "schema": {
+            "type": "string",
+            "description": "source zone(get from get_zone_list)"
+          },
+          "required": false
+        },
+        {
+          "name": "src_ip",
+          "schema": {
+            "type": "string",
+            "description": "source IP address"
+          },
+          "required": false
+        },
+        {
+          "name": "src_mac",
+          "schema": {
+            "type": "string",
+            "description": "source MAC address"
+          },
+          "required": false
+        },
+        {
+          "name": "src_port",
+          "schema": {
+            "type": "number",
+            "description": "src port(1 ~ 65535)"
+          },
+          "required": false
+        },
+        {
+          "name": "proto",
+          "schema": {
+            "type": "string",
+            "description": "protocol [{tcp udp}: {default}; {tcp}; {udp}]"
+          },
+          "required": false
+        },
+        {
+          "name": "dest",
+          "schema": {
+            "type": "string",
+            "description": "destination zone(get from get_zone_list)"
+          },
+          "required": false
+        },
+        {
+          "name": "dest_ip",
+          "schema": {
+            "type": "string",
+            "description": "destination IP address"
+          },
+          "required": false
+        },
+        {
+          "name": "dest_port",
+          "schema": {
+            "type": "number",
+            "description": "destination port(1 ~ 65535)"
+          },
+          "required": false
+        },
+        {
+          "name": "enabled",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enbale this rule"
+          },
+          "required": false
+        },
+        {
+          "name": "target",
+          "schema": {
+            "type": "string",
+            "description": "action [{ACCEPT}, {REJECT}, {DROP}]"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "rule's ID"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_rule_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "firewall",
+                  "add_rule",
+                  {
+                    "name": "test",
+                    "src": "wan",
+                    "dest_port": 22,
+                    "target": "ACCEPT"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "id": "cfg1392bd"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "firewall.remove_rule",
+      "summary": "remove firewall rule",
+      "params": [
+        {
+          "name": "id",
+          "schema": {
+            "type": "string",
+            "description": "rule's ID(get from get_rule_list or add_rule)"
+          },
+          "required": false
+        },
+        {
+          "name": "all",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to delete all (ID does not need to be passed when deleting all)"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_rule_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "firewall",
+                  "remove_rule",
+                  {
+                    "id": "cfg1392bd"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "firewall.get_dmz",
+      "summary": "get DMZ configuration",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "whether to enable"
+            },
+            "dest_ip": {
+              "type": "string",
+              "description": "destination IP address"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_dmz_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "firewall",
+                  "get_dmz"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "enabled": true,
+              "dest_ip": "192.168.8.100"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "firewall.set_dmz",
+      "summary": "set DMZ configuration",
+      "params": [
+        {
+          "name": "enabled",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enable"
+          },
+          "required": true
+        },
+        {
+          "name": "dest_ip",
+          "schema": {
+            "type": "string",
+            "description": "destination IP address(it's need to be set when enable)"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_dmz_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "firewall",
+                  "set_dmz",
+                  {
+                    "dest_ip": "192.168.8.100"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "firewall.get_rule_list",
+      "summary": "get firewall rule list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "res": {
+              "type": "array",
+              "description": "rule list",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "rule's name"
+                  },
+                  "src": {
+                    "type": "string",
+                    "description": "source zone(get from get_zone_list)"
+                  },
+                  "src_ip": {
+                    "type": "string",
+                    "description": "source IP address"
+                  },
+                  "src_mac": {
+                    "type": "string",
+                    "description": "source MAC address"
+                  },
+                  "src_port": {
+                    "type": "number",
+                    "description": "src port"
+                  },
+                  "proto": {
+                    "type": "string",
+                    "description": "protocol [{tcp udp}: {default}; {tcp}; {udp}]"
+                  },
+                  "dest": {
+                    "type": "string",
+                    "description": "destination zone(get from get_zone_list)"
+                  },
+                  "dest_ip": {
+                    "type": "string",
+                    "description": "destination IP address"
+                  },
+                  "dest_port": {
+                    "type": "number",
+                    "description": "destination port"
+                  },
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "whether to enbale this rule"
+                  },
+                  "target": {
+                    "type": "string",
+                    "description": "action [{ACCEPT}, {REJECT}, {DROP}]"
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "rule's ID"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_rule_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "firewall",
+                  "get_rule_list"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "res": [
+                {
+                  "id": "cfg1392bd",
+                  "dest_port": 22,
+                  "name": "test",
+                  "target": "ACCEPT",
+                  "enabled": true,
+                  "src": "wan"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "firewall.set_rule",
+      "summary": "modify an existing firewall rule",
+      "params": [
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "rule's name"
+          },
+          "required": false
+        },
+        {
+          "name": "src",
+          "schema": {
+            "type": "string",
+            "description": "source zone(get from get_zone_list)"
+          },
+          "required": false
+        },
+        {
+          "name": "src_ip",
+          "schema": {
+            "type": "string",
+            "description": "source IP address"
+          },
+          "required": false
+        },
+        {
+          "name": "src_mac",
+          "schema": {
+            "type": "string",
+            "description": "source MAC address"
+          },
+          "required": false
+        },
+        {
+          "name": "src_port",
+          "schema": {
+            "type": "number",
+            "description": "src port(1 ~ 65535)"
+          },
+          "required": false
+        },
+        {
+          "name": "proto",
+          "schema": {
+            "type": "string",
+            "description": "protocol [{tcp udp}: {default}; {tcp}; {udp}]"
+          },
+          "required": false
+        },
+        {
+          "name": "dest",
+          "schema": {
+            "type": "string",
+            "description": "destination zone(get from get_zone_list)"
+          },
+          "required": false
+        },
+        {
+          "name": "dest_ip",
+          "schema": {
+            "type": "string",
+            "description": "destination IP address"
+          },
+          "required": false
+        },
+        {
+          "name": "dest_port",
+          "schema": {
+            "type": "number",
+            "description": "destination port(1 ~ 65535)"
+          },
+          "required": false
+        },
+        {
+          "name": "enabled",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enbale this rule"
+          },
+          "required": false
+        },
+        {
+          "name": "target",
+          "schema": {
+            "type": "string",
+            "description": "action [{ACCEPT}, {REJECT}, {DROP}]"
+          },
+          "required": false
+        },
+        {
+          "name": "id",
+          "schema": {
+            "type": "string",
+            "description": "rule's ID (get from get_rules of add_rule)"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_rule_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "firewall",
+                  "set_rule",
+                  {
+                    "id": "cfg1392bd",
+                    "src": "wan",
+                    "dest_port": 80
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "firewall.add_port_forward",
+      "summary": "add port forward",
+      "params": [
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "rule's name"
+          },
+          "required": false
+        },
+        {
+          "name": "proto",
+          "schema": {
+            "type": "string",
+            "description": "protocol [{tcp udp}: {default}; {tcp}; {udp}]"
+          },
+          "required": false
+        },
+        {
+          "name": "src",
+          "schema": {
+            "type": "string",
+            "description": "source zone(get from get_zone_list)"
+          },
+          "required": true
+        },
+        {
+          "name": "src_dport",
+          "schema": {
+            "type": "string",
+            "description": "src port"
+          },
+          "required": true
+        },
+        {
+          "name": "dest",
+          "schema": {
+            "type": "string",
+            "description": "destination zone(get from get_zone_list)"
+          },
+          "required": true
+        },
+        {
+          "name": "dest_ip",
+          "schema": {
+            "type": "string",
+            "description": "destination ip address"
+          },
+          "required": true
+        },
+        {
+          "name": "dest_port",
+          "schema": {
+            "type": "number",
+            "description": "destination port"
+          },
+          "required": true
+        },
+        {
+          "name": "enabled",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enbale this rule"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "rule's ID"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "add_port_forward_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "firewall",
+                  "add_port_forward",
+                  {
+                    "name": "test",
+                    "proto": "tcp",
+                    "src": "wan",
+                    "src_dport": 80,
+                    "dest": "lan",
+                    "dest_ip": "192.168.8.100",
+                    "dest_port": 80
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "id": "cfg153837"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "firewall.set_port_forward",
+      "summary": "modify an existing port-forware rule",
+      "params": [
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "rule's name"
+          },
+          "required": false
+        },
+        {
+          "name": "proto",
+          "schema": {
+            "type": "string",
+            "description": "protocol [{tcp udp}: {default}; {tcp}; {udp}]"
+          },
+          "required": false
+        },
+        {
+          "name": "src",
+          "schema": {
+            "type": "string",
+            "description": "source zone(get from get_zone_list)"
+          },
+          "required": true
+        },
+        {
+          "name": "src_dport",
+          "schema": {
+            "type": "string",
+            "description": "src port"
+          },
+          "required": true
+        },
+        {
+          "name": "dest",
+          "schema": {
+            "type": "string",
+            "description": "destination zone(get from get_zone_list)"
+          },
+          "required": true
+        },
+        {
+          "name": "dest_ip",
+          "schema": {
+            "type": "string",
+            "description": "destination ip address"
+          },
+          "required": true
+        },
+        {
+          "name": "dest_port",
+          "schema": {
+            "type": "number",
+            "description": "destination port"
+          },
+          "required": true
+        },
+        {
+          "name": "enabled",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to enbale this rule"
+          },
+          "required": true
+        },
+        {
+          "name": "id",
+          "schema": {
+            "type": "string",
+            "description": "rule's ID(get from get_port_forward_list or add_port_forward)"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_port_forward_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "firewall",
+                  "set_port_forward",
+                  {
+                    "id": "cfg153837",
+                    "name": "test",
+                    "proto": "tcp",
+                    "src": "wan",
+                    "src_dport": 80,
+                    "dest": "lan",
+                    "dest_ip": "192.168.8.100",
+                    "dest_port": 80
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "firewall.remove_port_forward",
+      "summary": "remove port forward",
+      "params": [
+        {
+          "name": "id",
+          "schema": {
+            "type": "string",
+            "description": "the rule's ID that need to be deleted. (ID is get from the get_port_forward_list or add_port_forward)"
+          },
+          "required": true
+        },
+        {
+          "name": "all",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to delete all (ID does not need to be passed when deleting all)"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_port_forward_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "firewall",
+                  "remove_port_forward",
+                  {
+                    "id": "cfg153837"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "firewall.get_port_forward_list",
+      "summary": "get port forward list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "res": {
+              "type": "array",
+              "description": "port-forward's rule list",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "rule's name"
+                  },
+                  "proto": {
+                    "type": "string",
+                    "description": "protocol [{tcp udp}: {default}; {tcp}; {udp}]"
+                  },
+                  "src": {
+                    "type": "string",
+                    "description": "source zone(get from get_zone_list)"
+                  },
+                  "src_dport": {
+                    "type": "string",
+                    "description": "src port"
+                  },
+                  "dest": {
+                    "type": "string",
+                    "description": "destination zone(get from get_zone_list)"
+                  },
+                  "dest_ip": {
+                    "type": "string",
+                    "description": "destination ip address"
+                  },
+                  "dest_port": {
+                    "type": "number",
+                    "description": "destination port"
+                  },
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "whether to enbale this rule"
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "rule's ID"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_port_forward_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "firewall",
+                  "get_port_forward_list"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "res": [
+                {
+                  "enabled": true,
+                  "id": "cfg143837",
+                  "dest_ip": "192.168.8.100",
+                  "src": "wan",
+                  "proto": "tcp"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "firewall.get_wan_access",
+      "summary": "get the wan access configuration",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable_ping": {
+              "type": "boolean",
+              "description": "whether ping is allowed"
+            },
+            "enable_https": {
+              "type": "boolean",
+              "description": "whether https access is allowed"
+            },
+            "enable_ssh": {
+              "type": "boolean",
+              "description": "whether ssh access is allowed"
+            },
+            "enable_whitelist": {
+              "type": "boolean",
+              "description": "whether to allow access only from the whitelist IP addresses"
+            },
+            "whitelist": {
+              "type": "array",
+              "description": "whitelist table",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "whitelist IP's name"
+                  },
+                  "ipaddr": {
+                    "type": "string",
+                    "description": "whitelist IP addresse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_wan_access_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "firewall",
+                  "get_wan_access",
+                  {}
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "enable_ping": false,
+              "enable_https": false,
+              "enable_ssh": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "firewall.set_wan_access",
+      "summary": "Set the wan access configuration",
+      "params": [
+        {
+          "name": "enable_ping",
+          "schema": {
+            "type": "boolean",
+            "description": "whether ping is allowed"
+          },
+          "required": true
+        },
+        {
+          "name": "enable_https",
+          "schema": {
+            "type": "boolean",
+            "description": "whether https access is allowed"
+          },
+          "required": true
+        },
+        {
+          "name": "enable_ssh",
+          "schema": {
+            "type": "boolean",
+            "description": "whether ssh access is allowed"
+          },
+          "required": true
+        },
+        {
+          "name": "enable_whitelist",
+          "schema": {
+            "type": "boolean",
+            "description": "whether to allow access only from the whitelist IP addresses"
+          },
+          "required": true
+        },
+        {
+          "name": "whitelist",
+          "schema": {
+            "type": "array",
+            "description": "whitelist table",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "whitelist IP's name"
+                },
+                "ipaddr": {
+                  "type": "string",
+                  "description": "whitelist IP addresse"
+                }
+              }
+            }
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_wan_access_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "firewall",
+                  "get_wan_access",
+                  {
+                    "ping": false,
+                    "https": false,
+                    "ssh": false
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "firewall.get_zone_list",
+      "summary": "get zone list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "internals": {
+              "type": "array",
+              "description": "internal zone list"
+            },
+            "externals": {
+              "type": "array",
+              "description": "external zone list"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_zone_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "firewall",
+                  "get_zone_list"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "internals": [
+                "lan",
+                "guest"
+              ],
+              "externals": [
+                "wan"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

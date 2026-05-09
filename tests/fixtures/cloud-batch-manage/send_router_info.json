@@ -1,0 +1,45 @@
+{
+  "name": "cloud-batch-manage.send_router_info",
+  "summary": "device send router info",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "cloud-batch-manage",
+      "send_router_info"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "model": "bm",
+      "rtty_ssh": "true",
+      "rtty_web": "true",
+      "ddns": "12345678",
+      "sn": "123456",
+      "mac": "AABBCCDDEEFF",
+      "fw_type": "1",
+      "version": "VB_3.023",
+      "dataupload": "true",
+      "mesh": "mesh",
+      "services": [
+        "abc",
+        "www"
+      ],
+      "firmware_path": "http://xxx",
+      "data_path": "http://xxx",
+      "type": "1",
+      "ip": "192.168.8.216",
+      "guest_ip": "192.168.8.215",
+      "wan_ip": "192.168.8.3",
+      "ssid": "GL-wifi",
+      "ssid5g": "GL-wifi-5G",
+      "bssid2g": "XXX",
+      "bssid5g": "YYY",
+      "reboot_flag": "true"
+    }
+  }
+}

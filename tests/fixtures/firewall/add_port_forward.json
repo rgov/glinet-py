@@ -1,0 +1,30 @@
+{
+  "name": "firewall.add_port_forward",
+  "summary": "add port forward",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "firewall",
+      "add_port_forward",
+      {
+        "name": "test",
+        "proto": "tcp",
+        "src": "wan",
+        "src_dport": 80,
+        "dest": "lan",
+        "dest_ip": "192.168.8.100",
+        "dest_port": 80
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "id": "cfg153837"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "logread.export_logs",
+  "summary": "export logs",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "logread",
+      "export_logs",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "file_name": "logread.tar",
+      "file_path": "/js/logread.tar"
+    }
+  }
+}

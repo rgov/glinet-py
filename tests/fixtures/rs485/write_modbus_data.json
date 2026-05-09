@@ -1,0 +1,32 @@
+{
+  "name": "rs485.write_modbus_data",
+  "summary": "write modbus data",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "rs485",
+      "write_modbus_data",
+      {
+        "device_id": "01",
+        "func_code": "04",
+        "reg_addr_h": "00",
+        "reg_addr_l": "00",
+        "reg_len": "02",
+        "data_w": "0000"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "log": [
+        "2023-07-31 06:59:56.156 Command ==>01 05 00000000 CDCA",
+        "2023-07-31 06:59:56.156 Response ==>nodata"
+      ]
+    }
+  }
+}

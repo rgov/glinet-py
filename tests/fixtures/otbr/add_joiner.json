@@ -1,0 +1,26 @@
+{
+  "name": "otbr.add_joiner",
+  "summary": "Add Joiners.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "add_joiner",
+      {
+        "PSKd": "654321",
+        "EUI64": "9483c4ea62f8cfcd",
+        "Timeout": 120
+      }
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "err_code": 0
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "rs485.get_connect_status",
+  "summary": "get network connection status",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "rs485",
+      "get_connect_status",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "status_s": false,
+      "status_m": false
+    }
+  }
+}

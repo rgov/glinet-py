@@ -1,0 +1,23 @@
+{
+  "name": "ovpn-server.remove_user",
+  "summary": "remove ovpn user",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-server",
+      "remove_user",
+      {
+        "username": "glinet",
+        "password": "123456"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

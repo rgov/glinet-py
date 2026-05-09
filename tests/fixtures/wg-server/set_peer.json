@@ -1,0 +1,31 @@
+{
+  "name": "wg-server.set_peer",
+  "summary": "modify peer config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "wg-server",
+      "set_peer",
+      {
+        "name": "test",
+        "peer_id": 2844,
+        "presharedkey_enable": true,
+        "presharedkey": "",
+        "allowed_ips": [
+          "0.0.0.0/0,::/0"
+        ],
+        "dns": "64.6.64.6",
+        "mtu": 1420,
+        "persistent_keepalive": 25
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

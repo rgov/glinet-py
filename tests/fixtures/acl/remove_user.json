@@ -1,0 +1,23 @@
+{
+  "name": "acl.remove_user",
+  "summary": "remove user",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "acl",
+      "remove_user",
+      {
+        "group": "test",
+        "username": "test"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

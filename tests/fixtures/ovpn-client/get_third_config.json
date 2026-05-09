@@ -1,0 +1,27 @@
+{
+  "name": "ovpn-client.get_third_config",
+  "summary": "get third provider's ovpn client config",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-client",
+      "get_third_config",
+      {
+        "group_id": 2312,
+        "username": "glinet",
+        "password": "123456"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "provider": "nordvpn",
+      "server_info": ""
+    }
+  }
+}

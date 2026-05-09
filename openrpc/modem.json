@@ -1,0 +1,3795 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — modem module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "modem.get_info",
+      "summary": "Get the modems hardware information",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "modems": {
+              "type": "array",
+              "description": "The hardward info of all cellular modems in the devices",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "devices": {
+                    "type": "array",
+                    "description": "Port list of devices of the cellular modem"
+                  },
+                  "type": {
+                    "type": "number",
+                    "description": "The cellular modem type [0: built-in supported modem; 1: external supported modem; 2: unsupported modem]",
+                    "oneOf": [
+                      {
+                        "const": 0,
+                        "title": "built-in supported modem"
+                      },
+                      {
+                        "const": 1,
+                        "title": "external supported modem"
+                      },
+                      {
+                        "const": 2,
+                        "title": "unsupported modem"
+                      }
+                    ]
+                  },
+                  "bus": {
+                    "type": "string",
+                    "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected"
+                  },
+                  "at_port": {
+                    "type": "string",
+                    "description": "The AT command port of the cellular modem"
+                  },
+                  "data_port": {
+                    "type": "string",
+                    "description": "The data port of the cellular modem, It is used when using the 3G protocol"
+                  },
+                  "sms_support": {
+                    "type": "boolean",
+                    "description": "Whether the cellular modem support SMS"
+                  },
+                  "lock_tower_support": {
+                    "type": "boolean",
+                    "description": "Whether the cellular modem support tower locking"
+                  },
+                  "qcfg_unsupport": {
+                    "type": "boolean",
+                    "description": "Whether the cellular modem does not support to set band by AT+QCFG command (true means it doesn't support this command, need to disable AT command set_band)"
+                  },
+                  "imei": {
+                    "type": "string",
+                    "description": "The IMEI of the cellular modem"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "The name of the cellular modem (Some modem may include the software version)"
+                  },
+                  "version": {
+                    "type": "string",
+                    "description": "The version detail of the cellular modem"
+                  },
+                  "vendor": {
+                    "type": "string",
+                    "description": "The vendor of the cellular modem"
+                  },
+                  "protocols": {
+                    "type": "array",
+                    "description": "List of connection protocols supported by the cellular modem (Possible values in the list are 3g, ncm, qmi, qcm, directip, callip)"
+                  },
+                  "simcard": {
+                    "type": "object",
+                    "description": "The SIM card information plugged into the cellular modem (The object is not returned if SIM is not detected)",
+                    "properties": {
+                      "iccid": {
+                        "type": "string",
+                        "description": "The ICCID of the SIM card (The value may not be available if the SIM card requires a PIN to unlock)"
+                      },
+                      "phone_number": {
+                        "type": "string",
+                        "description": "The phone nubmer of the SIM card (The value may not be available if the SIM card requires a PIN to unlock or the SIM card does not store the phone number)"
+                      },
+                      "mcc": {
+                        "type": "string",
+                        "description": "Mobile Country Code MCC (Mobile Country Code) of the SIM card, (Co-identify with the MNC the mobile network operator to which the SIM card belongs, the value may not be available if the SIM card requires a PIN)"
+                      },
+                      "mnc": {
+                        "type": "string",
+                        "description": "Mobile Network Code MNC (Mobile Network Code) of the SIM card, (Co-identify with the MCC the mobile network operator to which the SIM card belongs, the value may not be available if the SIM card requires a PIN)"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_info_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_info",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "modems": [
+                {
+                  "devices": [
+                    "/dev/ttyUSB1",
+                    "/dev/cdc-wdm0"
+                  ],
+                  "protocols": [
+                    "3g",
+                    "qmi"
+                  ],
+                  "simcard": {
+                    "iccid": "1234567890",
+                    "phone_number": "8617603079735",
+                    "mcc": "123",
+                    "mnc": "456"
+                  },
+                  "type": 0,
+                  "bus": "1-1",
+                  "sms_support": true,
+                  "name": " EC25EFAR06A04M4G",
+                  "version": "RM520NGLAAR01A05M4G_01.001.01.001",
+                  "vendor": "quectel",
+                  "imei": "860548047084717"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.get_status",
+      "summary": "Get the modems status",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "modems": {
+              "type": "array",
+              "description": "The status of all cellular modems in the devices",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "bus": {
+                    "type": "string",
+                    "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected"
+                  },
+                  "current_sim": {
+                    "type": "string",
+                    "description": "The SIM card currently used by the device, this value is only available for dual card slot devices [1: SIM 1; 2: SIM 2]"
+                  },
+                  "switch_status": {
+                    "type": "number",
+                    "description": "The state of the device's sim card slots, this value is only available for dual card slot devices [0: Active SIM not switched; 1: Switched to backup SIM due to failover]",
+                    "oneOf": [
+                      {
+                        "const": 0,
+                        "title": "Active SIM not switched"
+                      },
+                      {
+                        "const": 1,
+                        "title": "Switched to backup SIM due to failover"
+                      }
+                    ]
+                  },
+                  "simcard": {
+                    "type": "object",
+                    "description": "The status of the SIM card plugged into the cellular modem(this object will not be returned if no SIM card is recognized)",
+                    "properties": {
+                      "status": {
+                        "type": "number",
+                        "description": "The registration status of the SIM card [0: Registered; 1: Unregistered; 2: SIM card needs to be unlocked by PIN code]",
+                        "oneOf": [
+                          {
+                            "const": 0,
+                            "title": "Registered"
+                          },
+                          {
+                            "const": 1,
+                            "title": "Unregistered"
+                          },
+                          {
+                            "const": 2,
+                            "title": "SIM card needs to be unlocked by PIN code"
+                          }
+                        ]
+                      },
+                      "carrier": {
+                        "type": "string",
+                        "description": "The network operator's name of the SIM card (The value may not be available if the SIM card requires a PIN to unlock or the SIM card does not store the name)"
+                      },
+                      "iccid": {
+                        "type": "string",
+                        "description": "The ICCID (Integrated Circuit Card Identification Number) of the SIM card (The value may not be available if the SIM card requires a PIN to unlock)"
+                      },
+                      "phone_number": {
+                        "type": "string",
+                        "description": "The phone nubmer of the SIM card (The value may not be available if the SIM card requires a PIN to unlock or the SIM card does not store the phone number)"
+                      },
+                      "mcc": {
+                        "type": "string",
+                        "description": "MCC (Mobile Country Code) of the SIM card, (Co-identify with the MNC the mobile network operator to which the SIM card belongs, the value may not be available if the SIM card requires a PIN)"
+                      },
+                      "mnc": {
+                        "type": "string",
+                        "description": "MNC (Mobile Network Code) of the SIM card, (Co-identify with the MCC the mobile network operator to which the SIM card belongs, the value may not be available if the SIM card requires a PIN)"
+                      },
+                      "signal": {
+                        "type": "object",
+                        "description": "Signal-related status of the SIM card (This object is not returned if the celluluar is not registered with the network)",
+                        "properties": {
+                          "mode": {
+                            "type": "number",
+                            "description": "Network mode [2: 2G mode; 3: 3G mode; 4: 4G mode; 5: 5G mode; 41: 4G+ mode]",
+                            "oneOf": [
+                              {
+                                "const": 2,
+                                "title": "2G mode"
+                              },
+                              {
+                                "const": 3,
+                                "title": "3G mode"
+                              },
+                              {
+                                "const": 4,
+                                "title": "4G mode"
+                              },
+                              {
+                                "const": 5,
+                                "title": "5G mode"
+                              },
+                              {
+                                "const": 41,
+                                "title": "4G+ mode"
+                              }
+                            ]
+                          },
+                          "strength": {
+                            "type": "number",
+                            "description": "Overall signal strength [1: Poor; 2: Fair; 3: Good; 4: Excellent]",
+                            "oneOf": [
+                              {
+                                "const": 1,
+                                "title": "Poor"
+                              },
+                              {
+                                "const": 2,
+                                "title": "Fair"
+                              },
+                              {
+                                "const": 3,
+                                "title": "Good"
+                              },
+                              {
+                                "const": 4,
+                                "title": "Excellent"
+                              }
+                            ]
+                          },
+                          "rssi": {
+                            "type": "number",
+                            "description": "Received Signal Strength Indicator"
+                          },
+                          "rsrp": {
+                            "type": "number",
+                            "description": "Reference signal received power (Unit: dBm), it only returned in 4G or 4G+ mode"
+                          },
+                          "rsrq": {
+                            "type": "number",
+                            "description": "Reference signal received quality (Unit: dB), it only returned in 4G or 4G+ mode"
+                          },
+                          "sinr": {
+                            "type": "number",
+                            "description": "Signal to interference-plus-noise ratio (Unit: dB), it only returned in 4G or 4G+ mode"
+                          },
+                          "ecio": {
+                            "type": "number",
+                            "description": "Energy to interference ratio, it only returned in 3G mode"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "network": {
+                    "type": "object",
+                    "description": "Network status of the cellular modem (this object will not be returned if the cellular interface is disabled)",
+                    "properties": {
+                      "status": {
+                        "type": "number",
+                        "description": "Networking status [0: Connected; 1: Connecting]",
+                        "oneOf": [
+                          {
+                            "const": 0,
+                            "title": "Connected"
+                          },
+                          {
+                            "const": 1,
+                            "title": "Connecting"
+                          }
+                        ]
+                      },
+                      "tx": {
+                        "type": "number",
+                        "description": "Total data size transmitted (Unit: Byte), it is only returned in connected status, i.e. network.status is 0"
+                      },
+                      "rx": {
+                        "type": "number",
+                        "description": "Total data size receive (Unit: Byte), it is only returned in connected status, i.e. network.status is 0"
+                      },
+                      "ipv4": {
+                        "type": "object",
+                        "description": "IPv4 network status of the cellular modem, the object is only returned in connected status, i.e. network.status is 0",
+                        "properties": {
+                          "ip": {
+                            "type": "string",
+                            "description": "The IPv4 address obtained by the cellular modem"
+                          },
+                          "netmask": {
+                            "type": "string",
+                            "description": "The IPv4 subnet mask obtained by the cellular modem"
+                          },
+                          "gateway": {
+                            "type": "string",
+                            "description": "The IPv4 gateway obtained by the cellular modem"
+                          },
+                          "dns": {
+                            "type": "array",
+                            "description": "The IPv4 DNS server list obtained by the cellular modem"
+                          }
+                        }
+                      },
+                      "ipv6": {
+                        "type": "object",
+                        "description": "IPv6 network status of cellular modem, this object is only returned if IPv6 is enabled and in connected status, i.e. network.status is 0",
+                        "properties": {
+                          "ip": {
+                            "type": "string",
+                            "description": "The IPv6 address (contain the prefix) obtained by the cellular modem"
+                          },
+                          "gateway": {
+                            "type": "string",
+                            "description": "The IPv6 gateway obtained by the cellular modem"
+                          },
+                          "dns": {
+                            "type": "array",
+                            "description": "The IPv6 DNS server list obtained by the cellulayixiugair modem"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "new_sms_count": {
+              "type": "number",
+              "description": "Number of unread SMS"
+            },
+            "passthrough": {
+              "type": "string",
+              "description": "Passthrough information, this object is returned when the device works in passthrough mode",
+              "properties": {
+                "enable": {
+                  "type": "string",
+                  "description": "Enabled status of passthrough [0: Disabled; 1: Enabled]"
+                },
+                "ip": {
+                  "type": "string",
+                  "description": "The IPv4 address from passthrough mode"
+                },
+                "gateway": {
+                  "type": "string",
+                  "description": "The IPv4 gateway from passthrough mode"
+                },
+                "netmask": {
+                  "type": "string",
+                  "description": "The IPv4 subnet mask from passthrough mode"
+                },
+                "dns": {
+                  "type": "string",
+                  "description": "The IPv4 DNS server list from passthrough mode"
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: Failed to get information]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_status",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "modems": [
+                {
+                  "bus": "1-1",
+                  "switch_status": 0,
+                  "current_sim": "1",
+                  "simcard": {
+                    "status": 0,
+                    "carrier": "AT&T",
+                    "iccid": "1234567890",
+                    "phone_number": "8617603079735",
+                    "mcc": "123",
+                    "mnc": "456",
+                    "signal": {
+                      "mode": 4,
+                      "strength": 4,
+                      "rssi": -67,
+                      "rsrp": -60,
+                      "rsrq": -10,
+                      "sinr": 13
+                    }
+                  },
+                  "network": {
+                    "status": 0,
+                    "protocol": "3g",
+                    "tx": 1024,
+                    "rx": 4096,
+                    "new_sms_count": 5,
+                    "ipv4": {
+                      "ip": "103.25.102.101",
+                      "netmask": "255.255.255.0",
+                      "gateway": "103.25.102.100",
+                      "dns": [
+                        "114.114.114.114",
+                        "8.8.8.8"
+                      ]
+                    },
+                    "ipv6": {
+                      "ip": "2001:0db8:3c4d:0015:0000:0000:1a2f:1a2b/64",
+                      "gateway": "2001:0db8:3c4d:0015:0000:0000:1a2f:1a2b",
+                      "dns": [
+                        "2001:0db8:3c4d:0015:0000:0000:1a2f:1a2b",
+                        "2001:0db8:3c4d:0015:0000:0000:1a2f:1a2b"
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.set_connect",
+      "summary": "Set the dial-up settings of the cellular modem and connect",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        },
+        {
+          "name": "mode",
+          "schema": {
+            "type": "number",
+            "description": "Handle mode, which defines how to handle the submitted settings [0: Apply but not save; 1: Save but not apply; 2: Save and apply]",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "Apply but not save"
+              },
+              {
+                "const": 1,
+                "title": "Save but not apply"
+              },
+              {
+                "const": 2,
+                "title": "Save and apply"
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "config",
+          "schema": {
+            "type": "object",
+            "description": "Apply to the target cellular modem or saved settings",
+            "properties": {
+              "protocol": {
+                "type": "string",
+                "description": "Connection protocol used"
+              },
+              "device": {
+                "type": "string",
+                "description": "Port of the device used for connection"
+              },
+              "apn": {
+                "type": "string",
+                "description": "APN (Access Point Name)"
+              },
+              "service": {
+                "type": "string",
+                "description": "Service type, it is required only when using 3G protocol, i.e. protocol is 3g"
+              },
+              "auth": {
+                "type": "string",
+                "description": "Authentication method [NONE; PAP; CHAP; PAP/CHAP]"
+              },
+              "username": {
+                "type": "string",
+                "description": "Username for authentication, it is only valid when auth is not NONE"
+              },
+              "password": {
+                "type": "string",
+                "description": "Password for authentication, it is only valid when auth is not NONE"
+              },
+              "dial_number": {
+                "type": "string",
+                "description": "Dial number, it is required only when using 3G protocol, i.e. protocol is 3g"
+              },
+              "ttl": {
+                "type": "number",
+                "description": "Data packet TTL (Time to Live), the data packets sent by the cellular interface will be forced to use the value after setting"
+              },
+              "ttl_ipv6": {
+                "type": "number",
+                "description": "Data packet IPV6 TTL (Time to Live), the data packets sent by the cellular interface will be forced to use the value after setting"
+              },
+              "pin_code": {
+                "type": "string",
+                "description": "PIN code, it required to unlock the SIM card"
+              },
+              "description": {
+                "type": "string",
+                "description": "Name of saved settings"
+              },
+              "mtu": {
+                "type": "string",
+                "description": "MTU (Maximum Transmission Unit)"
+              },
+              "roaming": {
+                "type": "boolean",
+                "description": "Whether data roaming is enabled [0: Disabled; 1: Enabled]"
+              },
+              "band_enable": {
+                "type": "boolean",
+                "description": "Whether channel filtering(masking) is enabled [0: Disabled; 1: Enabled]"
+              },
+              "band_filter_mode": {
+                "type": "number",
+                "description": "Channel filtering mode [0: allowlist mode, only allow the specified channel; 1: blocklist mode, block the use of the specified channel]",
+                "oneOf": [
+                  {
+                    "const": 0,
+                    "title": "allowlist mode"
+                  },
+                  {
+                    "const": 1,
+                    "title": "blocklist mode"
+                  }
+                ]
+              },
+              "band_list": {
+                "type": "array",
+                "description": "Specify the list of channels to be allow or block, divided into 3 number arrays LTE, NA-SA, NR-NSA"
+              }
+            }
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The ID (as unique identifier) for the saved settings, only returned when saving the settings (mode is not 0)"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_connect_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "set_connect",
+                  {
+                    "bus": "1-1",
+                    "mode": 2,
+                    "config": {
+                      "description": "111",
+                      "protocol": "3g",
+                      "device": "ttyUSB3",
+                      "apn": "3gnet",
+                      "service": "CDCWDMA",
+                      "auth": "PAP",
+                      "username": "gl-inet",
+                      "password": "goodlife1",
+                      "dial_number": "#9999",
+                      "ttl": 65,
+                      "ttl_ipv6": 65,
+                      "pin_code": "1234",
+                      "apn_use": "1",
+                      "roaming": true,
+                      "band_enable": true,
+                      "band_filter_mode": 1,
+                      "band_list": {
+                        "LTE": [
+                          1,
+                          2,
+                          3,
+                          4
+                        ],
+                        "NR-SA": [
+                          1,
+                          2,
+                          3,
+                          4
+                        ],
+                        "NR-NSA": [
+                          1,
+                          2,
+                          3,
+                          4
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.get_config",
+      "summary": "Get the target cellular modem settings",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "protocol": {
+              "type": "string",
+              "description": "Connection protocol used"
+            },
+            "device": {
+              "type": "string",
+              "description": "Port of the device used for connection"
+            },
+            "apn": {
+              "type": "string",
+              "description": "APN (Access Point Name)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service type, it is required only when using 3G protocol, i.e. protocol is 3g"
+            },
+            "auth": {
+              "type": "string",
+              "description": "Authentication method [NONE; PAP; CHAP; PAP/CHAP]"
+            },
+            "username": {
+              "type": "string",
+              "description": "Username for authentication, it is only valid when auth is not NONE"
+            },
+            "password": {
+              "type": "string",
+              "description": "Password for authentication, it is only valid when auth is not NONE"
+            },
+            "dial_number": {
+              "type": "string",
+              "description": "Dial number, it is required only when using 3G protocol, i.e. protocol is 3g"
+            },
+            "ttl": {
+              "type": "number",
+              "description": "Data packet TTL (Time to Live)"
+            },
+            "ttl_ipv6": {
+              "type": "number",
+              "description": "Data packet IPV6 TTL (Time to Live)"
+            },
+            "pin_code": {
+              "type": "string",
+              "description": "PIN code"
+            },
+            "mtu": {
+              "type": "string",
+              "description": "MTU (Maximum Transmission Unit)"
+            },
+            "passthrough": {
+              "type": "string",
+              "description": "Passthrough information, this object is returned when the device works in passthrough mode",
+              "properties": {
+                "enable": {
+                  "type": "string",
+                  "description": "Enabled status of passthrough [0: Disabled; 1: Enabled]"
+                },
+                "ip": {
+                  "type": "string",
+                  "description": "The IPv4 address from passthrough mode"
+                },
+                "gateway": {
+                  "type": "string",
+                  "description": "The IPv4 gateway from passthrough mode"
+                },
+                "netmask": {
+                  "type": "string",
+                  "description": "The IPv4 subnet mask from passthrough mode"
+                },
+                "dns": {
+                  "type": "string",
+                  "description": "The IPv4 DNS server list from passthrough mode"
+                }
+              }
+            },
+            "band_info": {
+              "type": "array",
+              "description": "List of supported channels in current network mode, divided into 3 number arrays LTE, NA-SA, NR-NSA"
+            },
+            "roaming": {
+              "type": "boolean",
+              "description": "Whether data roaming is enabled [0: Disabled; 1: Enabled]"
+            },
+            "band_enable": {
+              "type": "boolean",
+              "description": "Whether channel filtering(masking) is enabled [0: Disabled; 1: Enabled]"
+            },
+            "band_filter_mode": {
+              "type": "number",
+              "description": "Channel filtering mode [0: allowlist mode, only allow the specified channel; 1: blocklist mode, block the use of the specified channel]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "allowlist mode"
+                },
+                {
+                  "const": 1,
+                  "title": "blocklist mode"
+                }
+              ]
+            },
+            "band_list": {
+              "type": "array",
+              "description": "Specify the list of channels to be allow or block, divided into 3 number arrays LTE, NA-SA, NR-NSA"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_config",
+                  {
+                    "bus": "1-1"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "protocol": "3g",
+              "device": "ttyUSB3",
+              "apn": "3gnet",
+              "service": "CDC-WDMA",
+              "auth": "PAP",
+              "username": "gl-inet",
+              "password": "goodlife1",
+              "dial_number": "#9999",
+              "ttl": 65,
+              "ttl_ipv6": 65,
+              "pin_code": "1234",
+              "band_info": {
+                "LET": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  7,
+                  8,
+                  12,
+                  13,
+                  14,
+                  17,
+                  18,
+                  19,
+                  20,
+                  25,
+                  26,
+                  28,
+                  29,
+                  30,
+                  32,
+                  34,
+                  38,
+                  39,
+                  40,
+                  41,
+                  42,
+                  43,
+                  46,
+                  48,
+                  66,
+                  71
+                ],
+                "NR-SA": [
+                  1,
+                  2,
+                  3,
+                  5,
+                  7,
+                  8,
+                  12,
+                  13,
+                  14,
+                  18,
+                  20,
+                  25,
+                  26,
+                  28,
+                  29,
+                  30,
+                  38,
+                  40,
+                  41,
+                  48,
+                  66,
+                  70,
+                  71,
+                  75,
+                  76,
+                  77,
+                  78,
+                  79
+                ],
+                "NR-NSA": [
+                  1,
+                  2,
+                  3,
+                  5,
+                  7,
+                  8,
+                  12,
+                  13,
+                  14,
+                  18,
+                  20,
+                  25,
+                  26,
+                  28,
+                  29,
+                  30,
+                  38,
+                  40,
+                  41,
+                  48,
+                  66,
+                  70,
+                  71,
+                  75,
+                  76,
+                  77,
+                  78,
+                  79
+                ]
+              },
+              "band_filter_mode": 1,
+              "roaming": true,
+              "band_enable": true,
+              "band_list": {
+                "LTE": [
+                  1,
+                  2
+                ],
+                "NR-SA": [
+                  1,
+                  2
+                ],
+                "NR-NSA": [
+                  1,
+                  2
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.set_auto_connect",
+      "summary": "Automatically set up and connect to the network based on the SIM card information plugged into the target cellular modem.",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_auto_connect_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "set_auto_connect",
+                  {
+                    "bus": "1-1"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.disconnect",
+      "summary": "Disconnect the network connection of the target cellular modem",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "disconnect_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "disconnect",
+                  {
+                    "bus": "1-1"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.send_at_command",
+      "summary": "Send AT commands to the target cellular modem",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        },
+        {
+          "name": "port",
+          "schema": {
+            "type": "string",
+            "description": "The port of the device on which the modem receives the AT command, which can be gotten from the get_info interface (Only the ttyUSBX port supports AT commands)"
+          },
+          "required": true
+        },
+        {
+          "name": "command",
+          "schema": {
+            "type": "string",
+            "description": "AT command to request (No more than 256 Bytes)"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "response": {
+              "type": "string",
+              "description": "Response of the AT command"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found; -2: Command exceeds the length limit; -3: Unsupported operation; -4: Unknown error]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "The cellular modem was not found"
+                },
+                {
+                  "const": -2,
+                  "title": "Command exceeds the length limit"
+                },
+                {
+                  "const": -3,
+                  "title": "Unsupported operation"
+                },
+                {
+                  "const": -4,
+                  "title": "Unknown error"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "send_at_command_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "send_at_command",
+                  {
+                    "bus": "1-1",
+                    "port": "ttyUSB2",
+                    "command": "AT"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "response": "ok"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.reboot_modem",
+      "summary": "Reboot the target cellular modem",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        },
+        {
+          "name": "hw_reboot",
+          "schema": {
+            "type": "boolean",
+            "description": "Whether this operation uses the hard reboot, i.e. forced reboot by power-off/power-on method."
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "wait_time": {
+              "type": "number",
+              "description": "The time to wait for this reboot operation (Unit: Seconds)"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found; -2: Failure to reboot]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "The cellular modem was not found"
+                },
+                {
+                  "const": -2,
+                  "title": "Failure to reboot"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "reboot_modem_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "reboot_modem",
+                  {
+                    "bus": "1-1"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "wait_time": 25
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.get_cells_info",
+      "summary": "Get the network cells information of the target cellular modem",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "cells": {
+              "type": "array",
+              "description": "List of network cells information",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "The network cell type [servingcell: Serving cell; neighbourcell: Neighbouring cell]"
+                  },
+                  "id": {
+                    "type": "number",
+                    "description": "The network cell ID, It is only returned if the network cell is a serving cell"
+                  },
+                  "mode": {
+                    "type": "string",
+                    "description": "Network mode [LTE; WCDMA; TDSCDMA; CDMA; HDR; GSM]"
+                  },
+                  "band": {
+                    "type": "number",
+                    "description": "Work band, It is only returned if the network cell is a serving cell and mode is LTE"
+                  },
+                  "dl_bandwidth": {
+                    "type": "string",
+                    "description": "Download bandwith, It is only returned if the network cell is a serving cell and mode is LTE"
+                  },
+                  "ul_bandwidth": {
+                    "type": "string",
+                    "description": "Upload bandwith, It is only returned if the network cell is a serving cell and mode is LTE"
+                  },
+                  "rssi": {
+                    "type": "number",
+                    "description": "Received signal strength indicator, It is only returned if the network cell is a serving cell and mode is LTE"
+                  },
+                  "rsrp": {
+                    "type": "number",
+                    "description": "Reference signal received power (Unit: dBm), It is only returned if the network cell is a serving cell and mode is LTE"
+                  },
+                  "rsrq": {
+                    "type": "number",
+                    "description": "Reference signal received quality (Unit: dB), It is only returned if the network cell is a serving cell and mode is LTE"
+                  },
+                  "sinr": {
+                    "type": "number",
+                    "description": "Signal to interference-plus-noise ratio (Unit: dB), It is only returned if the network cell is a serving cell and mode is LTE"
+                  },
+                  "ecio": {
+                    "type": "number",
+                    "description": "Energy to interference ratio, It is only returned if the network cell is a serving cell and mode is WCDMA,TDSCDMA, CDMA, HDR"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found; -2: Failed to get cells information]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "The cellular modem was not found"
+                },
+                {
+                  "const": -2,
+                  "title": "Failed to get cells information"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_cells_info_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_cells_info",
+                  {
+                    "bus": "1-1"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "cells": [
+                {
+                  "type": "servingcell",
+                  "id": 1234,
+                  "band": 41,
+                  "dl_bandwidth": "20M",
+                  "ul_bandwidth": "20M",
+                  "mode": "LTE",
+                  "rssi": -71,
+                  "rerp": -61,
+                  "rsrq": -12,
+                  "sinr": 13
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.get_sms_list",
+      "summary": "Get SMS list",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "list": {
+              "type": "array",
+              "description": "SMS list",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "The unique identifier for the SMS"
+                  },
+                  "type": {
+                    "type": "number",
+                    "description": "The SMS type [0: international; 1: national; 2:unknown]",
+                    "oneOf": [
+                      {
+                        "const": 0,
+                        "title": "international"
+                      },
+                      {
+                        "const": 1,
+                        "title": "national"
+                      },
+                      {
+                        "const": 2,
+                        "title": "unknown"
+                      }
+                    ]
+                  },
+                  "phone_number": {
+                    "type": "string",
+                    "description": "Source number for the SMS"
+                  },
+                  "bus": {
+                    "type": "string",
+                    "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, whic is used to distinguish which module the SMS come from"
+                  },
+                  "date": {
+                    "type": "string",
+                    "description": "The time when the SMS was received (Format: YY-MM-DD HH:mm:ss)"
+                  },
+                  "body": {
+                    "type": "string",
+                    "description": "The SMS content, encoding format is UTF-8"
+                  },
+                  "status": {
+                    "type": "number",
+                    "description": "The Status of the SMS [0: Unread; 1: Read; 2: Sent; 3: Sending; 4: Waiting for send; 5: Failed to send]",
+                    "oneOf": [
+                      {
+                        "const": 0,
+                        "title": "Unread"
+                      },
+                      {
+                        "const": 1,
+                        "title": "Read"
+                      },
+                      {
+                        "const": 2,
+                        "title": "Sent"
+                      },
+                      {
+                        "const": 3,
+                        "title": "Sending"
+                      },
+                      {
+                        "const": 4,
+                        "title": "Waiting for send"
+                      },
+                      {
+                        "const": 5,
+                        "title": "Failed to send"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_sms_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_sms_list",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "list": [
+                {
+                  "type": "national",
+                  "name": "xy7rz",
+                  "phone_number": "15219475678",
+                  "modem": "1-1.2",
+                  "date": "21-07-27 18:23:15",
+                  "body": "hello",
+                  "status": 1
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.remove_sms",
+      "summary": "Remove SMS",
+      "params": [
+        {
+          "name": "scope",
+          "schema": {
+            "type": "number",
+            "description": "Range of SMS to be removed [0: All unread SMS; 1: All read SMS; 2: All sent SMS; 3: All sending SMS; 4: All waiting to send SMS; 5: All failed to send SMS, 10: Specified single SMS; 11: All SMS; 12: All received SMS; 13: All SMS in sending area]",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "All unread SMS"
+              },
+              {
+                "const": 1,
+                "title": "All read SMS"
+              },
+              {
+                "const": 2,
+                "title": "All sent SMS"
+              },
+              {
+                "const": 3,
+                "title": "All sending SMS"
+              },
+              {
+                "const": 4,
+                "title": "All waiting to send SMS"
+              },
+              {
+                "const": 5,
+                "title": "All failed to send SMS"
+              },
+              {
+                "const": 10,
+                "title": "Specified single SMS"
+              },
+              {
+                "const": 11,
+                "title": "All SMS"
+              },
+              {
+                "const": 12,
+                "title": "All received SMS"
+              },
+              {
+                "const": 13,
+                "title": "All SMS in sending area"
+              }
+            ]
+          },
+          "required": true
+        },
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "The unique identifier for the SMS, it is only needed when It is only needed to remove the specified SMS, i.e. scope is 10"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_sms_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "remove_sms",
+                  {
+                    "bus": "1-1",
+                    "scope": 10,
+                    "name": "xy7rz"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.send_sms",
+      "summary": "Send SMS",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        },
+        {
+          "name": "phone_number",
+          "schema": {
+            "type": "string",
+            "description": "The target number to receive SMS, it contains the country code, such as 8617603079726"
+          },
+          "required": true
+        },
+        {
+          "name": "body",
+          "schema": {
+            "type": "string",
+            "description": "The SMS content (no more than 140 Bytes)"
+          },
+          "required": true
+        },
+        {
+          "name": "timeout",
+          "schema": {
+            "type": "number",
+            "description": "Timeout time (Unit: Seconds), if the value is set to 0, it means that it will return immediately without waiting for the sending result"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found; -2: Unknown error; -3: Sending failed; -4: Sending timeout; -5: The cellular modem does not support SMS; -6:Current network environment does not support SMS]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "The cellular modem was not found"
+                },
+                {
+                  "const": -2,
+                  "title": "Unknown error"
+                },
+                {
+                  "const": -3,
+                  "title": "Sending failed"
+                },
+                {
+                  "const": -4,
+                  "title": "Sending timeout"
+                },
+                {
+                  "const": -5,
+                  "title": "The cellular modem does not support SMS"
+                },
+                {
+                  "const": -6,
+                  "title": "Current network environment does not support SMS"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "send_sms_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_sms_list",
+                  {
+                    "bus": "1-1",
+                    "phone_number": "8617603079726",
+                    "body": "hello"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.set_sms",
+      "summary": "Set the status of SMS",
+      "params": [
+        {
+          "name": "name",
+          "schema": {
+            "type": "string",
+            "description": "The unique identifier for the SMS, it is only omitted when status is 6"
+          },
+          "required": false
+        },
+        {
+          "name": "status",
+          "schema": {
+            "type": "number",
+            "description": "The status of the SMS to be set [0: Unread; 1: Read; 2: Sent; 3: Sending; 4: Waiting for send; 5: Failed to send; 6: Set all SMS as read]",
+            "oneOf": [
+              {
+                "const": 0,
+                "title": "Unread"
+              },
+              {
+                "const": 1,
+                "title": "Read"
+              },
+              {
+                "const": 2,
+                "title": "Sent"
+              },
+              {
+                "const": 3,
+                "title": "Sending"
+              },
+              {
+                "const": 4,
+                "title": "Waiting for send"
+              },
+              {
+                "const": 5,
+                "title": "Failed to send"
+              },
+              {
+                "const": 6,
+                "title": "Set all SMS as read"
+              }
+            ]
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found; -2: SMS does not exist; -3: Failed to set SMS]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "The cellular modem was not found"
+                },
+                {
+                  "const": -2,
+                  "title": "SMS does not exist"
+                },
+                {
+                  "const": -3,
+                  "title": "Failed to set SMS"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_sms_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "set_sms",
+                  {
+                    "bus": "1-1",
+                    "name": "xy7rz",
+                    "status": 0
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.reset_traffic_count",
+      "summary": "Clear the traffic statistics of the cellular interface",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "reset_traffic_count_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "reset_traffic_count",
+                  {
+                    "bus": "1-1"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.set_traffic_auto_save",
+      "summary": "Set whether the traffic statistics data of the cellular interface is saved in the modem automatically",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        },
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "Whether to enable automatic saving of traffic statistics data for the cellular modem, and the automatic saving interval is fixed at 30s."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_traffic_auto_save_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "set_traffic_auto_save",
+                  {
+                    "bus": "1-1",
+                    "enable": true
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.get_traffic_config",
+      "summary": "Get the traffic statistics data of the cellular interface to be saved automatically",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "auto_save": {
+              "type": "boolean",
+              "description": "Get whether the traffic statistics data of the cellular interface is saved automatically."
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_traffic_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_traffic_config",
+                  {
+                    "bus": "1-1"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "auto_save": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.get_debug_msg",
+      "summary": "Get the debug information of the target cellular modem",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "msgs": {
+              "type": "array",
+              "description": "An array of objects, each of the objects means a piece of status message. The specific content is uncertain, determined by the characteristics of the cellular modem",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cmd": {
+                    "type": "string",
+                    "description": "Requested AT command"
+                  },
+                  "result": {
+                    "type": "string",
+                    "description": "Response of the AT command"
+                  }
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found; -2: Failed to get information]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "The cellular modem was not found"
+                },
+                {
+                  "const": -2,
+                  "title": "Failed to get information"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_debug_msg_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_debug_msg",
+                  {
+                    "bus": "1-1"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "msgs": [
+                {
+                  "cmd": "AT",
+                  "result": "OK"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.get_sim_info",
+      "summary": "Get the information of SIM card",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found; -3: the cellular modem initialization failured]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "The cellular modem was not found"
+                },
+                {
+                  "const": -3,
+                  "title": "the cellular modem initialization failured"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_sim_info_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_sim_info",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "signal": {
+                "mode": 4,
+                "strength": 4,
+                "rssi": -67,
+                "rsrp": -60,
+                "rsrq": -10,
+                "sinr": 13
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.set_upgrade",
+      "summary": "Upgrade cellular modem with PCIe access",
+      "params": [
+        {
+          "name": "modem_url",
+          "schema": {
+            "type": "string",
+            "description": "The path to the cellular modem firmware that needs to be downloaded"
+          },
+          "required": true
+        },
+        {
+          "name": "target_version",
+          "schema": {
+            "type": "string",
+            "description": "Target version to upgrade to"
+          },
+          "required": true
+        },
+        {
+          "name": "current_version",
+          "schema": {
+            "type": "string",
+            "description": "Current version of the cellular modem"
+          },
+          "required": true
+        },
+        {
+          "name": "firmware_upload",
+          "schema": {
+            "type": "string",
+            "description": "Firmware getting method [modem: Cellular modem download; router: Router upload]"
+          },
+          "required": true
+        },
+        {
+          "name": "hash_type",
+          "schema": {
+            "type": "string",
+            "description": "Hash algorithm used to verify firmware integrity"
+          },
+          "required": true
+        },
+        {
+          "name": "hash_value",
+          "schema": {
+            "type": "string",
+            "description": "Hash used to verify firmware integrity, only sha256sum supported currently"
+          },
+          "required": true
+        },
+        {
+          "name": "upgrade_type",
+          "schema": {
+            "type": "string",
+            "description": "Firmware upgrade method [full_ota: Full upgrade; delta_ota: Delta update]"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: Faar modem; -2: The current version is the same as the target version; -3: The upgrade is in progress; -4: The version number of the cellular modem does not match the current version; -5: Some parameters is wrong]",
+              "oneOf": [
+                {
+                  "const": -1,
+                  "title": "Faar modem"
+                },
+                {
+                  "const": -2,
+                  "title": "The current version is the same as the target version"
+                },
+                {
+                  "const": -3,
+                  "title": "The upgrade is in progress"
+                },
+                {
+                  "const": -4,
+                  "title": "The version number of the cellular modem does not match the current version"
+                },
+                {
+                  "const": -5,
+                  "title": "Some parameters is wrong"
+                }
+              ]
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error messageiled to get the version number of the cellul"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_upgrade_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "set_upgrade",
+                  {
+                    "modem_url": "123",
+                    "target_version": "RM520NGLAAR01A06M4G_01.001.01.001",
+                    "current_version": "RM520NGLAAR01A05M4G_01.001.01.001",
+                    "hash_type": "sha256",
+                    "hash_value": "3db150d0c4be6c3783524b6dafa55abab14cdd65f951232aa01c40633ef00bdb",
+                    "firmware_upload": "router",
+                    "upgrade_type": "OTG"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.set_slot_config",
+      "summary": "Set dual SIM card settings. The API only supports setting the built-in cellular modem",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        },
+        {
+          "name": "enable_switch",
+          "schema": {
+            "type": "boolean",
+            "description": "Whether enables dual SIM card failover, that is, the backup card is automatically switched when the network of the main card is unavailable"
+          },
+          "required": true
+        },
+        {
+          "name": "current_sim",
+          "schema": {
+            "type": "string",
+            "description": "The currently used SIM card slot, which is required when SIM card failover is disabled [1: SIM 1; 2: SIM 2]"
+          },
+          "required": false
+        },
+        {
+          "name": "sim1_profile",
+          "schema": {
+            "type": "string",
+            "description": "The settings ID used for the SIM 1 slot points to a saved settings"
+          },
+          "required": false
+        },
+        {
+          "name": "sim2_profile",
+          "schema": {
+            "type": "string",
+            "description": "The settings ID used for the SIM 2 slot points to a saved settings"
+          },
+          "required": false
+        },
+        {
+          "name": "sim1_config",
+          "schema": {
+            "type": "string",
+            "description": "The settings network configure for the SIM 1 slot.Refer to 'set_connect'"
+          },
+          "required": false
+        },
+        {
+          "name": "sim2_config",
+          "schema": {
+            "type": "string",
+            "description": "The settings network configure for the SIM 2 slot.Refer to 'set_connect'"
+          },
+          "required": false
+        },
+        {
+          "name": "main_sim",
+          "schema": {
+            "type": "string",
+            "description": "The main SIM slot, which is required when SIM failover is enabled"
+          },
+          "required": false
+        },
+        {
+          "name": "failover_interval",
+          "schema": {
+            "type": "string",
+            "description": "The failover interval time (Unit: Seconds), which is required when SIM failover is enabled"
+          },
+          "required": false
+        },
+        {
+          "name": "enable_timing",
+          "schema": {
+            "type": "boolean",
+            "description": "Whether to enable scheduled switching back to the main card"
+          },
+          "required": true
+        },
+        {
+          "name": "hour",
+          "schema": {
+            "type": "string",
+            "description": "The hours of scheduled switching time, which is required when scheduled switching back is enabled"
+          },
+          "required": false
+        },
+        {
+          "name": "min",
+          "schema": {
+            "type": "string",
+            "description": "The minutes of scheduled switching time, which is required when scheduled switching back is enabled"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_slot_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "set_slot_config",
+                  {
+                    "bus": "0001:01:00.0",
+                    "enable_switch": true,
+                    "current_sim": "1",
+                    "main_sim": "1",
+                    "failover_interval": "120",
+                    "sim1_profile": "f9FQ3vUzMJmih4Ck",
+                    "sim2_profile": "o2bCZMB53KHk6HAX",
+                    "enable_timing": true,
+                    "hour": "05",
+                    "min": "00"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.get_slot_config",
+      "summary": "Get dual SIM card settings. The API only supports setting the built-in cellular modem",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable_switch": {
+              "type": "boolean",
+              "description": "Whether enables dual SIM card failover, that is, the backup card is automatically switched when the network of the main card is unavailable"
+            },
+            "current_sim": {
+              "type": "string",
+              "description": "The currently used SIM card slot, which is required when SIM card failover is disabled [1: SIM 1; 2: SIM 2]"
+            },
+            "main_sim": {
+              "type": "string",
+              "description": "The main SIM slot, which is required when SIM failover is enabled"
+            },
+            "failover_interval": {
+              "type": "string",
+              "description": "The failover interval time (Unit: Seconds), which is required when SIM failover is enabled"
+            },
+            "sim1_profile": {
+              "type": "string",
+              "description": "The settings ID used for the SIM 1 slot points to a saved settings"
+            },
+            "sim2_profile": {
+              "type": "string",
+              "description": "The settings ID used for the SIM 2 slot points to a saved settings"
+            },
+            "enable_timing": {
+              "type": "boolean",
+              "description": "Whether to enable scheduled switching back to the main card"
+            },
+            "hour": {
+              "type": "string",
+              "description": "The hours of scheduled switching time, which is required when scheduled switching back is enabled"
+            },
+            "min": {
+              "type": "string",
+              "description": "The minutes of scheduled switching time, which is required when scheduled switching back is enabled"
+            },
+            "sim1": {
+              "type": "object",
+              "description": "The SIM 1 card information",
+              "properties": {
+                "carrier": {
+                  "type": "string",
+                  "description": "The network operator's name of the SIM card (The value may not be available if the SIM card requires a PIN to unlock or the SIM card does not store the name)"
+                },
+                "phone_number": {
+                  "type": "string",
+                  "description": "The phone nubmer of the SIM card (The value may not be available if the SIM card requires a PIN to unlock or the SIM card does not store the phone number)"
+                },
+                "iccid": {
+                  "type": "string",
+                  "description": "The ICCID of the SIM card (The value may not be available if the SIM card requires a PIN to unlock)"
+                }
+              }
+            },
+            "sim2": {
+              "type": "object",
+              "description": "The SIM 2 card information",
+              "properties": {
+                "carrier": {
+                  "type": "string",
+                  "description": "The network operator's name of the SIM card (The value may not be available if the SIM card requires a PIN to unlock or the SIM card does not store the name)"
+                },
+                "phone_number": {
+                  "type": "string",
+                  "description": "The phone nubmer of the SIM card (The value may not be available if the SIM card requires a PIN to unlock or the SIM card does not store the phone number)"
+                },
+                "iccid": {
+                  "type": "string",
+                  "description": "The ICCID of the SIM card (The value may not be available if the SIM card requires a PIN to unlock)"
+                }
+              }
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_slot_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_slot_config",
+                  {
+                    "bus": "0001:01:00.0"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "enable_switch": true,
+              "current_sim": "1",
+              "main_sim": "1",
+              "failover_interval": "120",
+              "sim1_profile": "f9FQ3vUzMJmih4Ck",
+              "sim2_profile": "o2bCZMB53KHk6HAX",
+              "enable_timing": true,
+              "hour": "05",
+              "min": "00",
+              "sim1": {
+                "carrier": "CHN-UNICOM",
+                "phone_number": "13060005427",
+                "iccid": "89860118801382789221",
+                "network": {
+                  "protocol": "3g",
+                  "device": "ttyUSB3",
+                  "apn": "3gnet",
+                  "service": "CDC-WDMA",
+                  "auth": "PAP",
+                  "username": "gl-inet",
+                  "password": "goodlife1",
+                  "dial_number": "#9999",
+                  "ttl": "65",
+                  "ttl_ipv6": "65",
+                  "pin_code": "1234"
+                }
+              },
+              "sim2": {
+                "carrier": "CHN-UNICOM",
+                "phone_number": "13054365427",
+                "iccid": "89860322201382789221",
+                "network": {
+                  "protocol": "3g",
+                  "device": "ttyUSB3",
+                  "apn": "3gnet",
+                  "service": "CDC-WDMA",
+                  "auth": "PAP",
+                  "username": "gl-inet",
+                  "password": "goodlife1",
+                  "dial_number": "#9999",
+                  "ttl": "65",
+                  "ttl_ipv6": "65",
+                  "pin_code": "1234"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.remove_profile",
+      "summary": "Remove a saved cellular modem connection settings",
+      "params": [
+        {
+          "name": "id",
+          "schema": {
+            "type": "string",
+            "description": "the ID of the settings to remove"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_profile_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "remove_profile",
+                  {
+                    "id": "xxxxxx"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.get_profile_list",
+      "summary": "Get a list of all cellular modem connection settings",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "The ID of the cellular modem connection settings"
+            },
+            "protocol": {
+              "type": "string",
+              "description": "Connection protocol used"
+            },
+            "device": {
+              "type": "string",
+              "description": "Port of the device used for connection"
+            },
+            "apn": {
+              "type": "string",
+              "description": "APN (Access Point Name)"
+            },
+            "service": {
+              "type": "string",
+              "description": "Service type, it is required only when using 3G protocol, i.e. protocol is 3g"
+            },
+            "auth": {
+              "type": "string",
+              "description": "Authentication method [NONE; PAP; CHAP; PAP/CHAP]"
+            },
+            "username": {
+              "type": "string",
+              "description": "Username for authentication, it is only valid when auth is not NONE"
+            },
+            "password": {
+              "type": "string",
+              "description": "Password for authentication, it is only valid when auth is not NONE"
+            },
+            "dial_number": {
+              "type": "string",
+              "description": "Dial number, it is required only when using 3G protocol, i.e. protocol is 3g"
+            },
+            "ttl": {
+              "type": "number",
+              "description": "Data packet TTL (Time to Live), the data packets sent by the cellular interface will be forced to use the value after setting"
+            },
+            "ttl_ipv6": {
+              "type": "number",
+              "description": "Data packet IPV6 TTL (Time to Live), the data packets sent by the cellular interface will be forced to use the value after setting"
+            },
+            "pin_code": {
+              "type": "string",
+              "description": "PIN code, it required to unlock the SIM card"
+            },
+            "description": {
+              "type": "string",
+              "description": "Name of saved settings"
+            },
+            "mtu": {
+              "type": "string",
+              "description": "MTU (Maximum Transmission Unit)"
+            },
+            "roaming": {
+              "type": "boolean",
+              "description": "Whether data roaming is enabled [0: Disabled; 1: Enabled]"
+            },
+            "band_enable": {
+              "type": "boolean",
+              "description": "Whether channel filtering(masking) is enabled [0: Disabled; 1: Enabled]"
+            },
+            "band_filter_mode": {
+              "type": "number",
+              "description": "Channel filtering mode [0: allowlist mode, only allow the specified channel; 1: blocklist mode, block the use of the specified channel]",
+              "oneOf": [
+                {
+                  "const": 0,
+                  "title": "allowlist mode"
+                },
+                {
+                  "const": 1,
+                  "title": "blocklist mode"
+                }
+              ]
+            },
+            "band_list": {
+              "type": "array",
+              "description": "Specify the list of channels to be allow or block, divided into 3 number arrays LTE, NA-SA, NR-NSA"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_profile_list_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_profile_list",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "profiles": [
+                {
+                  "pin_code": "",
+                  "protocol": "",
+                  "id": "visible",
+                  "service": "",
+                  "dial_number": "",
+                  "password": "",
+                  "apn": "VSBLINTERNET",
+                  "description": "VERIZON",
+                  "device": "",
+                  "username": "",
+                  "ttl": 65,
+                  "ttl_ipv6": 65,
+                  "auth": "",
+                  "band_enable": true,
+                  "band_filter_mode": 1,
+                  "band_list": {
+                    "LTE": [
+                      1,
+                      2
+                    ],
+                    "NR-SA": [
+                      1,
+                      2
+                    ],
+                    "NR-NSA": [
+                      1,
+                      2
+                    ]
+                  },
+                  "roaming": true
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.get_sim_signal",
+      "summary": "Get SIM card information, simplified version of get_sim_info interface, does not judge sim card plugged status and registration status",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "sim": {
+              "type": "number",
+              "description": "1:slot 1;2:slot 2"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_sim_signal_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_sim_signal",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "signal": {
+                "mode": 4,
+                "strength": 4,
+                "rssi": -67,
+                "rsrp": -60,
+                "rsrq": -10,
+                "sinr": 13
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.get_name",
+      "summary": "Get the cellular modem name",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The cellular modem name"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_name_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_name",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "name": "RM520NGLAAR01A06M4G"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.get_signals",
+      "summary": "Gets the signal for the specified time interval.",
+      "params": [
+        {
+          "name": "time",
+          "schema": {
+            "type": "number",
+            "description": "Time interval.Default:1800s"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: The cellular modem was not found]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_signals_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_signals",
+                  {
+                    "time": 10
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "level": {
+                "NR5G-SA": {
+                  "sinr": [
+                    -10,
+                    -5,
+                    0,
+                    5
+                  ],
+                  "rsrq": [
+                    -31,
+                    -28,
+                    -25,
+                    -19
+                  ],
+                  "rsrp": [
+                    -115,
+                    -100,
+                    -95,
+                    -90
+                  ]
+                },
+                "LTE": {
+                  "sinr": [
+                    -11,
+                    -7,
+                    -3,
+                    1
+                  ],
+                  "rssi": [
+                    -118,
+                    -113,
+                    -108,
+                    -103
+                  ],
+                  "rsrq": [
+                    -23,
+                    -21,
+                    -19,
+                    -17
+                  ],
+                  "rsrp": [
+                    -120,
+                    -115,
+                    -110,
+                    -105
+                  ]
+                },
+                "WCDMA": {
+                  "rscp": [
+                    -112,
+                    -107,
+                    -102,
+                    -97
+                  ],
+                  "ecio": [
+                    -120,
+                    -115,
+                    -110,
+                    -105
+                  ]
+                },
+                "TDSCDMA": {
+                  "rscp": [
+                    -110,
+                    -107,
+                    -102,
+                    -97
+                  ]
+                },
+                "EVDO": {
+                  "snr": [
+                    1,
+                    3,
+                    5,
+                    7
+                  ],
+                  "rssi": [
+                    -105,
+                    -90,
+                    -75,
+                    -65
+                  ]
+                },
+                "GSM": {
+                  "rssi": [
+                    -107,
+                    -103,
+                    -97,
+                    -89
+                  ]
+                },
+                "NR5G-NSA": {
+                  "sinr": [
+                    -10,
+                    -5,
+                    0,
+                    5
+                  ],
+                  "rsrq": [
+                    -31,
+                    -28,
+                    -25,
+                    -19
+                  ],
+                  "rsrp": [
+                    -115,
+                    -100,
+                    -95,
+                    -90
+                  ]
+                },
+                "CDMA": {
+                  "snr": [
+                    -150,
+                    -130,
+                    -110,
+                    -90
+                  ],
+                  "rssi": [
+                    -100,
+                    -95,
+                    -85,
+                    -75
+                  ]
+                }
+              },
+              "signals": [
+                {
+                  "rsrp": -80,
+                  "mode": 5,
+                  "rsrq": -11,
+                  "slot": 1,
+                  "sinr": 25,
+                  "timestamp": 1690106819,
+                  "strength": 4,
+                  "network_type": "NR5G-SA"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.set_cell_tower",
+      "summary": "Lock specified cell tower.",
+      "params": [
+        {
+          "name": "bus",
+          "schema": {
+            "type": "string",
+            "description": "The PCIe path (Format: {domain}:{bus}:{slot}.{func}) or the USB path (Format: {bus}-{port[.port[.port]]}) for the cellular modem, depends on how the modem is connected, which can be gotten from the get_info interface"
+          },
+          "required": true
+        },
+        {
+          "name": "slot",
+          "schema": {
+            "type": "number",
+            "description": "Slot.0,A card slot;1:slot 1 for dual slot;2:slot 2 for dual slot"
+          },
+          "required": true
+        },
+        {
+          "name": "lock",
+          "schema": {
+            "type": "boolean",
+            "description": "Whether to lock the cell tower.true:lock cell tower;false:unlock cell tower"
+          },
+          "required": true
+        },
+        {
+          "name": "network_type",
+          "schema": {
+            "type": "string",
+            "description": "Cellular network type:LTE/NR5G"
+          },
+          "required": true
+        },
+        {
+          "name": "mcc",
+          "schema": {
+            "type": "number",
+            "description": "Mobile Country Code"
+          },
+          "required": true
+        },
+        {
+          "name": "mnc",
+          "schema": {
+            "type": "number",
+            "description": "Mobile Network Code"
+          },
+          "required": true
+        },
+        {
+          "name": "freq",
+          "schema": {
+            "type": "number",
+            "description": "Cell frequency"
+          },
+          "required": true
+        },
+        {
+          "name": "pci",
+          "schema": {
+            "type": "number",
+            "description": "Physical cell ID"
+          },
+          "required": true
+        },
+        {
+          "name": "srxlev",
+          "schema": {
+            "type": "number",
+            "description": "Cell selection RX level value"
+          },
+          "required": false
+        },
+        {
+          "name": "squal",
+          "schema": {
+            "type": "number",
+            "description": "Cell selection quality value"
+          },
+          "required": false
+        },
+        {
+          "name": "scs",
+          "schema": {
+            "type": "number",
+            "description": "Sub-carrier space"
+          },
+          "required": false
+        },
+        {
+          "name": "cellid",
+          "schema": {
+            "type": "number",
+            "description": "Cell identity"
+          },
+          "required": true
+        },
+        {
+          "name": "tac",
+          "schema": {
+            "type": "number",
+            "description": "Tracking area code"
+          },
+          "required": true
+        },
+        {
+          "name": "bandwidth",
+          "schema": {
+            "type": "string",
+            "description": "Bandwidth"
+          },
+          "required": false
+        },
+        {
+          "name": "band",
+          "schema": {
+            "type": "string",
+            "description": "Frequency band"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: Lock tower failed]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": []
+    },
+    {
+      "name": "modem.get_cell_tower",
+      "summary": "Gets the configuration for locked the tower",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: get tower configuration failed]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_cell_tower_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "get_cell_tower",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "slot2": {
+                "mcc": 460,
+                "freq": 2452,
+                "pci": 8,
+                "cellid": "D2AA512",
+                "mnc": 11,
+                "srxlev": 28,
+                "tac": 770,
+                "squal": 120,
+                "network_type": "LTE"
+              },
+              "slot1": {
+                "band": 1,
+                "mcc": 460,
+                "scs": 15,
+                "freq": 428910,
+                "pci": 952,
+                "bandwidth": 106,
+                "mnc": 11,
+                "srxlev": 49,
+                "tac": 76011,
+                "cellid": "7602244D0",
+                "network_type": "NR5G"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "modem.scan_cell_tower",
+      "summary": "Scan cell tower lists.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "network_type": {
+              "type": "string",
+              "description": "Cellular network type:LTE/NR5G.slotx:slot,slot1,slot2"
+            },
+            "mcc": {
+              "type": "number",
+              "description": "Mobile Country Code"
+            },
+            "mnc": {
+              "type": "number",
+              "description": "Mobile Network Code"
+            },
+            "freq": {
+              "type": "number",
+              "description": "Cell frequency"
+            },
+            "pci": {
+              "type": "number",
+              "description": "Physical cell ID"
+            },
+            "srxlev": {
+              "type": "number",
+              "description": "Cell selection RX level value"
+            },
+            "squal": {
+              "type": "number",
+              "description": "Cell selection quality value"
+            },
+            "scs": {
+              "type": "number",
+              "description": "Sub-carrier space"
+            },
+            "cellid": {
+              "type": "number",
+              "description": "Cell identity"
+            },
+            "tac": {
+              "type": "number",
+              "description": "Tracking area code"
+            },
+            "bandwidth": {
+              "type": "string",
+              "description": "Bandwidth"
+            },
+            "band": {
+              "type": "string",
+              "description": "Frequency band"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code [-1: Scan tower failed]"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "scan_cell_tower_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "modem",
+                  "scan_cell_tower",
+                  {
+                    "bus": "0001:01:00.0"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "towers": [
+                {
+                  "band": 1,
+                  "mcc": 460,
+                  "rsrp": -79,
+                  "freq": 428910,
+                  "strength": 4,
+                  "bandwidth": 106,
+                  "pci": 952,
+                  "cellid": "7602244D0",
+                  "mnc": 11,
+                  "tac": "76011A",
+                  "srxlev": 50,
+                  "scs": 15,
+                  "rsrq": -11,
+                  "network_type": "NR5G"
+                },
+                {
+                  "band": 1,
+                  "mcc": 460,
+                  "rsrp": -79,
+                  "freq": 428910,
+                  "strength": 4,
+                  "bandwidth": 106,
+                  "pci": 952,
+                  "cellid": "7602244D0",
+                  "mnc": 1,
+                  "tac": "76011A",
+                  "srxlev": 50,
+                  "scs": 15,
+                  "rsrq": -11,
+                  "network_type": "NR5G"
+                },
+                {
+                  "band": 78,
+                  "mcc": 460,
+                  "rsrp": -105,
+                  "freq": 627264,
+                  "strength": 2,
+                  "bandwidth": 273,
+                  "pci": 165,
+                  "cellid": "760300000",
+                  "mnc": 11,
+                  "tac": "76011A",
+                  "srxlev": 20,
+                  "scs": 30,
+                  "rsrq": -11,
+                  "network_type": "NR5G"
+                },
+                {
+                  "band": 78,
+                  "mcc": 460,
+                  "rsrp": -105,
+                  "freq": 627264,
+                  "strength": 2,
+                  "bandwidth": 273,
+                  "pci": 165,
+                  "cellid": "760300000",
+                  "mnc": 59,
+                  "tac": "76011A",
+                  "srxlev": 20,
+                  "scs": 30,
+                  "rsrq": -11,
+                  "network_type": "NR5G"
+                },
+                {
+                  "band": 78,
+                  "mcc": 460,
+                  "rsrp": -105,
+                  "freq": 627264,
+                  "strength": 2,
+                  "bandwidth": 273,
+                  "pci": 165,
+                  "cellid": "760300000",
+                  "mnc": 1,
+                  "tac": "76011A",
+                  "srxlev": 20,
+                  "scs": 30,
+                  "rsrq": -11,
+                  "network_type": "NR5G"
+                },
+                {
+                  "mcc": 460,
+                  "rsrp": -76,
+                  "freq": 100,
+                  "strength": 4,
+                  "pci": 404,
+                  "cellid": "424E290",
+                  "mnc": 11,
+                  "tac": "770F",
+                  "srxlev": 47,
+                  "squal": 125,
+                  "rsrq": -4,
+                  "network_type": "LTE"
+                },
+                {
+                  "mcc": 460,
+                  "rsrp": -76,
+                  "freq": 100,
+                  "strength": 4,
+                  "pci": 404,
+                  "cellid": "424E290",
+                  "mnc": 1,
+                  "tac": "770F",
+                  "srxlev": 47,
+                  "squal": 125,
+                  "rsrq": -4,
+                  "network_type": "LTE"
+                },
+                {
+                  "mcc": 460,
+                  "rsrp": -110,
+                  "freq": 3740,
+                  "strength": 3,
+                  "pci": 236,
+                  "cellid": "61537F2",
+                  "mnc": 1,
+                  "tac": "2604",
+                  "srxlev": 14,
+                  "squal": 111,
+                  "rsrq": -17,
+                  "network_type": "LTE"
+                },
+                {
+                  "mcc": 460,
+                  "rsrp": -118,
+                  "freq": 1650,
+                  "strength": 2,
+                  "pci": 197,
+                  "cellid": "6A8EE06",
+                  "mnc": 1,
+                  "tac": "2604",
+                  "srxlev": -2,
+                  "squal": 110,
+                  "rsrq": -19,
+                  "network_type": "LTE"
+                },
+                {
+                  "mcc": 460,
+                  "rsrp": -118,
+                  "freq": 1650,
+                  "strength": 2,
+                  "pci": 197,
+                  "cellid": "6A8EE06",
+                  "mnc": 11,
+                  "tac": "2604",
+                  "srxlev": -2,
+                  "squal": 110,
+                  "rsrq": -19,
+                  "network_type": "LTE"
+                },
+                {
+                  "mcc": 460,
+                  "rsrp": -93,
+                  "freq": 2452,
+                  "strength": 4,
+                  "pci": 8,
+                  "cellid": "D2AA512",
+                  "mnc": 11,
+                  "tac": "770F",
+                  "srxlev": 24,
+                  "squal": 119,
+                  "rsrq": -10,
+                  "network_type": "LTE"
+                },
+                {
+                  "mcc": 460,
+                  "rsrp": -94,
+                  "freq": 1850,
+                  "strength": 4,
+                  "pci": 8,
+                  "cellid": "77B2A32",
+                  "mnc": 11,
+                  "tac": "770F",
+                  "srxlev": 28,
+                  "squal": 117,
+                  "rsrq": -11,
+                  "network_type": "LTE"
+                },
+                {
+                  "mcc": 460,
+                  "rsrp": -94,
+                  "freq": 1850,
+                  "strength": 4,
+                  "pci": 8,
+                  "cellid": "77B2A32",
+                  "mnc": 1,
+                  "tac": "770F",
+                  "srxlev": 28,
+                  "squal": 117,
+                  "rsrq": -11,
+                  "network_type": "LTE"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

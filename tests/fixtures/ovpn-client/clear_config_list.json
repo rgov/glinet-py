@@ -1,0 +1,22 @@
+{
+  "name": "ovpn-client.clear_config_list",
+  "summary": "remove all ovpn client config of a group",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-client",
+      "clear_config_list",
+      {
+        "group_id": 3212
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

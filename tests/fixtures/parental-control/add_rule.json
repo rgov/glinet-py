@@ -1,0 +1,30 @@
+{
+  "name": "parental-control.add_rule",
+  "summary": "Add a ruleset.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "parental-control",
+      "add_rule",
+      {
+        "name": "rule1",
+        "color": "#aabbccddee",
+        "apps": [
+          1001,
+          2002
+        ],
+        "blacklist": [
+          "[tcp;;;www.google.com;;]"
+        ]
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

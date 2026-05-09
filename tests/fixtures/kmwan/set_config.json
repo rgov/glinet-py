@@ -1,0 +1,32 @@
+{
+  "name": "kmwan.set_config",
+  "summary": "set kmwan Settings",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "kmwan",
+      "set_config",
+      {
+        "mode": 1,
+        "interfaces": [
+          {
+            "interfacd": "wan",
+            "metric": 10
+          },
+          {
+            "interface": "wwan",
+            "metric": 20
+          }
+        ]
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

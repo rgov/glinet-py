@@ -1,0 +1,22 @@
+{
+  "name": "qos.set_default_priority",
+  "summary": "set the priority of other clients",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "qos",
+      "set_default_priority",
+      {
+        "priority": 3
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

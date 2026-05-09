@@ -1,0 +1,28 @@
+{
+  "name": "ovpn-client.get_setting",
+  "summary": "get ovpn client setting",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-client",
+      "get_setting",
+      {
+        "group_id": 3213,
+        "client_id": 5715
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "local_access": true,
+      "masq": true,
+      "default_metric": 30,
+      "mtu": 1460
+    }
+  }
+}

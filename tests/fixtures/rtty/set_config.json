@@ -1,0 +1,26 @@
+{
+  "name": "rtty.set_config",
+  "summary": "set rtty configuration",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "rtty",
+      "set_config",
+      {
+        "ssh_enable": true,
+        "web_enable": true
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "ssh_enabled": true,
+      "web_enabled": true
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "modem.remove_sms",
+  "summary": "Remove SMS",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "modem",
+      "remove_sms",
+      {
+        "bus": "1-1",
+        "scope": 10,
+        "name": "xy7rz"
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

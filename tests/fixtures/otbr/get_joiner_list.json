@@ -1,0 +1,29 @@
+{
+  "name": "otbr.get_joiner_list",
+  "summary": "Get the Joiner list.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "get_joiner_list",
+      {}
+    ]
+  },
+  "response": {
+    "id": "0",
+    "jsonrpc": "2.0",
+    "result": {
+      "DeviceList": [
+        {
+          "Timeout": 120,
+          "PSKd": "AAAAAA",
+          "Status": 0,
+          "EUI64": "94deb8fffef6e101"
+        }
+      ]
+    }
+  }
+}

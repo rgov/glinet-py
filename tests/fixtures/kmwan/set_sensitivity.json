@@ -1,0 +1,22 @@
+{
+  "name": "kmwan.set_sensitivity",
+  "summary": "set sensitivity",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "kmwan",
+      "set_sensitivity",
+      {
+        "sensitivity": 5
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

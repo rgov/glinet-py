@@ -1,0 +1,17 @@
+{
+  "name": "otbr.get_network_data",
+  "summary": "Get Thread network topology map data.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": "0",
+    "method": "call",
+    "params": [
+      "",
+      "otbr",
+      "get_network_data",
+      {}
+    ]
+  },
+  "response_raw": "{\"id\":\"0\",\"jsonrpc\":\"2.0\",\"result\":[{\"Route\":{\"RouteData\":[{\"LinkQualityOut\":0,\"RouteCost\":1,\"LinkQualityIn\":0,\"RouteId\":40}],\"IdSequence\":77},",
+  "response_parse_error": "Expecting property name enclosed in double quotes: line 1 column 144 (char 143)"
+}

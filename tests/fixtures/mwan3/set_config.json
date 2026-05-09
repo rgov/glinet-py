@@ -1,0 +1,37 @@
+{
+  "name": "mwan3.set_config",
+  "summary": "mwan3 settings",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "mwan3",
+      "set_config",
+      {
+        "mode": 0,
+        "flush_track": false,
+        "interfaces": [
+          {
+            "interface": "wan",
+            "priority": 1
+          },
+          {
+            "interface": "wwan",
+            "priority": 2
+          },
+          {
+            "interface": "tethering",
+            "priority": 3
+          }
+        ]
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

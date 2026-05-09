@@ -1,0 +1,31 @@
+{
+  "name": "parental-control.set_rule",
+  "summary": "Set the ruleset。",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "parental-control",
+      "set_rule",
+      {
+        "id": "cfga067b",
+        "name": "rule1",
+        "color": "#aabbccddee",
+        "apps": [
+          1001,
+          2002
+        ],
+        "blacklist": [
+          "[tcp;;;www.google.com;;]"
+        ]
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

@@ -1,0 +1,549 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — wifi module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "wifi.get_config",
+      "summary": "get all WiFi configuration information of the system.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "dfs_support": {
+              "type": "boolean",
+              "description": "Whether to support DFS."
+            },
+            "res": {
+              "type": "array",
+              "description": "All WiFi configuration information.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "hwmodes": {
+                    "type": "array",
+                    "description": "List of supported hardware modes."
+                  },
+                  "htmodes": {
+                    "type": "object",
+                    "description": "The maximum bandwidth supported by each hardware mode，The auto option indicates whether to support automatic bandwidth (20/40).{\"11b/g/n\": 40, \"11b/g/n/ax\": 40, \"auto\": true, \"11n/ax\": 40, \"11g/n/ax\": 40}"
+                  },
+                  "channels": {
+                    "type": "array",
+                    "description": "List of supported channels."
+                  },
+                  "encryptions": {
+                    "type": "array",
+                    "description": "List of supported encryption."
+                  },
+                  "band": {
+                    "type": "string",
+                    "description": "WiFi band (\"2G\" or \"5G\")."
+                  },
+                  "hwmode": {
+                    "type": "string",
+                    "description": "Currently configured hardware mode."
+                  },
+                  "htmode": {
+                    "type": "string",
+                    "description": "The currently configured bandwidth."
+                  },
+                  "channel": {
+                    "type": "number",
+                    "description": "The currently configured channel (0 means auto)."
+                  },
+                  "txpower": {
+                    "type": "string",
+                    "description": "Currently configured power."
+                  },
+                  "device": {
+                    "type": "string",
+                    "description": "WiFi device name."
+                  },
+                  "ifaces": {
+                    "type": "array",
+                    "description": "WiFi interface configuration list",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "enabled": {
+                          "type": "boolean",
+                          "description": "Whether to open."
+                        },
+                        "ssid": {
+                          "type": "string",
+                          "description": "WiFi name."
+                        },
+                        "hidden": {
+                          "type": "boolean",
+                          "description": "Whether to hide SSID."
+                        },
+                        "encryption": {
+                          "type": "string",
+                          "description": "Way of encryption."
+                        },
+                        "key": {
+                          "type": "string",
+                          "description": "Password."
+                        },
+                        "guest": {
+                          "type": "boolean",
+                          "description": "Is it guest WiFi."
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Interface name."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "wifi",
+                  "get_config"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "res": [
+                {
+                  "band": "5G",
+                  "ifaces": [
+                    {
+                      "enabled": true,
+                      "ssid": "test",
+                      "encryption": "psk2",
+                      "name": "default_radio0",
+                      "guest": false,
+                      "hidden": false,
+                      "key": "goodlife"
+                    },
+                    {
+                      "enabled": false,
+                      "ssid": "test-5G-Guest",
+                      "encryption": "psk2",
+                      "name": "guest5g",
+                      "guest": true,
+                      "hidden": false,
+                      "key": "goodlife"
+                    }
+                  ],
+                  "channels": [
+                    {
+                      "dfs": false,
+                      "channel": 36
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 64
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 56
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 44
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 48
+                    },
+                    {
+                      "dfs": true,
+                      "channel": 116
+                    }
+                  ],
+                  "device": "radio0",
+                  "hwmode": "11ac/ax",
+                  "txpower": "Max",
+                  "channel": 40,
+                  "hwmodes": [
+                    "11ac/ax",
+                    "11n/ac/ax",
+                    "11a/n/ac/ax"
+                  ],
+                  "htmode": "auto",
+                  "htmodes": [
+                    "20",
+                    "40",
+                    "80",
+                    "auto"
+                  ],
+                  "encryptions": [
+                    "none",
+                    "psk2",
+                    "psk-mixed",
+                    "sae",
+                    "sae-mixed"
+                  ],
+                  "ready": false
+                },
+                {
+                  "band": "2G",
+                  "ifaces": [
+                    {
+                      "enabled": true,
+                      "ssid": "test-c8f",
+                      "encryption": "psk2",
+                      "name": "default_radio1",
+                      "guest": false,
+                      "hidden": false,
+                      "key": "goodlife"
+                    },
+                    {
+                      "enabled": false,
+                      "ssid": "test-Guest",
+                      "encryption": "psk2",
+                      "name": "guest2g",
+                      "guest": true,
+                      "hidden": false,
+                      "key": "goodlife"
+                    }
+                  ],
+                  "channels": [
+                    {
+                      "dfs": false,
+                      "channel": 1
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 3
+                    },
+                    {
+                      "dfs": false,
+                      "channel": 2
+                    }
+                  ],
+                  "device": "radio1",
+                  "hwmode": "11n/ax",
+                  "txpower": "Max",
+                  "channel": 0,
+                  "hwmodes": [
+                    "11n/ax",
+                    "11g/n/ax",
+                    "11b/g/n/ax"
+                  ],
+                  "htmode": "20",
+                  "htmodes": [
+                    "20",
+                    "40",
+                    "auto"
+                  ],
+                  "encryptions": [
+                    "none",
+                    "psk2",
+                    "psk-mixed",
+                    "sae",
+                    "sae-mixed"
+                  ],
+                  "ready": false
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "wifi.set_config",
+      "summary": "set WiFi parameters.",
+      "params": [
+        {
+          "name": "device",
+          "schema": {
+            "type": "string",
+            "description": "Device name (optional value obtained from the get interface)."
+          },
+          "required": false
+        },
+        {
+          "name": "hwmode",
+          "schema": {
+            "type": "string",
+            "description": "Hardware mode (requires device parameter, optional value obtained from get interface)."
+          },
+          "required": false
+        },
+        {
+          "name": "htmode",
+          "schema": {
+            "type": "string",
+            "description": "Bandwidth(requires device parameter, optional value can be obtained from get interface)."
+          },
+          "required": false
+        },
+        {
+          "name": "channel",
+          "schema": {
+            "type": "number",
+            "description": "Channel (requires device parameter, 0 means automatic, optional value is obtained from the get interface)."
+          },
+          "required": false
+        },
+        {
+          "name": "txpower",
+          "schema": {
+            "type": "string",
+            "description": "Transmission power (requires device parameter, optional values: Max, High, Medium, Low)."
+          },
+          "required": false
+        },
+        {
+          "name": "iface_name",
+          "schema": {
+            "type": "string",
+            "description": "Interface name (obtained from get interface)."
+          },
+          "required": false
+        },
+        {
+          "name": "enabled",
+          "schema": {
+            "type": "boolean",
+            "description": "Whether to enable WiFi (requires iface_name parameter)."
+          },
+          "required": false
+        },
+        {
+          "name": "ssid",
+          "schema": {
+            "type": "string",
+            "description": "WiFi name (maximum 32 characters, requires iface_name parameter)."
+          },
+          "required": false
+        },
+        {
+          "name": "hidden",
+          "schema": {
+            "type": "boolean",
+            "description": "Whether to hide WiFi (requires iface_name parameter)."
+          },
+          "required": false
+        },
+        {
+          "name": "encryption",
+          "schema": {
+            "type": "string",
+            "description": "Encryption method (requires iface_name parameter, optional value can be obtained from the get interface)."
+          },
+          "required": false
+        },
+        {
+          "name": "key",
+          "schema": {
+            "type": "string",
+            "description": "Password (requires iface_name parameter, 8 ~ 63 characters)."
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code."
+            },
+            "err_msg": {
+              "type": "number",
+              "description": "Error message."
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "wifi",
+                  "set_config",
+                  {
+                    "device": "radio0",
+                    "channel": 1
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "wifi.get_status",
+      "summary": "get WiFi device status.",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "res": {
+              "type": "array",
+              "description": "WiFi device status information.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Device name."
+                  },
+                  "state": {
+                    "type": "string",
+                    "description": "WiFi device status:[{starting:starting};{ ready: normal};{ conflict: conflicting with the relay channel}]."
+                  },
+                  "channel": {
+                    "type": "number",
+                    "description": "Current channel."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_status_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "wifi",
+                  "get_status"
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "res": [
+                {
+                  "name": "radio0",
+                  "state": "ready",
+                  "channel": 49
+                },
+                {
+                  "name": "radio1",
+                  "state": "starting"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "wifi.set_txpower",
+      "summary": "set the RF transmit power.",
+      "params": [
+        {
+          "name": "device",
+          "schema": {
+            "type": "string",
+            "description": "Device name (obtained from get_config interface)."
+          },
+          "required": true
+        },
+        {
+          "name": "txpower",
+          "schema": {
+            "type": "string",
+            "description": "Transmit power (available values: Max, High, Medium, Low)."
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "null",
+            "object"
+          ]
+        }
+      },
+      "examples": [
+        {
+          "name": "set_txpower_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "wifi",
+                  "set_txpower",
+                  {
+                    "device": "radio0",
+                    "txpower": "Max"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    }
+  ]
+}

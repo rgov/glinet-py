@@ -1,0 +1,40 @@
+{
+  "name": "mwan3.set_interface",
+  "summary": "set mwan3 interface detection type",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "mwan3",
+      "set_interface",
+      {
+        "enable_check": true,
+        "interface": "wan",
+        "track_proto": 0,
+        "track_method": 0,
+        "interval": 5,
+        "up": 8,
+        "down": 3,
+        "ipv4": [
+          "8.8.4.4",
+          "8.8.8.8",
+          "208.67.222.222",
+          "208.67.220.220"
+        ],
+        "ipv6": [
+          "2001:4860:4860::8844",
+          "2001:4860:4860::8888",
+          "2620:0:ccd::2",
+          "2620:0:ccc::2"
+        ]
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

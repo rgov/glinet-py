@@ -1,0 +1,30 @@
+{
+  "name": "acl.get_acl_list",
+  "summary": "get all permissions for a group",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "acl",
+      "get_acl_list",
+      {
+        "group": "test"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "acls": [
+        {
+          "scope": "rpc",
+          "entry": "system.info",
+          "perm": "x"
+        }
+      ]
+    }
+  }
+}

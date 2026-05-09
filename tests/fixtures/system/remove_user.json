@@ -1,0 +1,22 @@
+{
+  "name": "system.remove_user",
+  "summary": "Remove user",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "system",
+      "remove_user",
+      {
+        "username": "test"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

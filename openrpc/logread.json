@@ -1,0 +1,543 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — logread module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "logread.get_system_log",
+      "summary": "get system log",
+      "params": [
+        {
+          "name": "lines",
+          "schema": {
+            "type": "number",
+            "description": "Set the number of log lines to be obtained [If the number of log lines is not set, all logs that meet the conditions will be returned]"
+          },
+          "required": false
+        },
+        {
+          "name": "module",
+          "schema": {
+            "type": "string",
+            "description": "Set the log module name to be obtained [The specific module name needs to be checked in the background, if the module name is not set, no relevant filtering will be performed]"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "log": {
+              "type": "string",
+              "description": "The output system log [returns all logs by default if no parameters are passed, and returns only when the log exists]"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_system_log_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "logread",
+                  "get_system_log",
+                  {
+                    "lines": 1,
+                    "module": "oui-httpd"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "log": "Mon Feb 15 18:48:34 2021 daemon.debug oui-httpd: (uhttpd.c:461) Listen on: [::]:443 with ssl\n"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "logread.get_kernel_log",
+      "summary": "get kernel log",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "log": {
+              "type": "string",
+              "description": "Output kernel log [return all]"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_kernel_log_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "logread",
+                  "get_kernel_log",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "log": "[    0.000000] Linux version 4.14.221 (glinet@ubuntu) (gcc version 7.5.0 (OpenWrt GCC 7.5.0 r11306-c4a6851c72)) #0 Mon Feb 15 15:22:37 2021\n"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "logread.get_crash_log",
+      "summary": "get crash log",
+      "params": [
+        {
+          "name": "mode",
+          "schema": {
+            "type": "number",
+            "description": "Set the log mode to be obtained [0; 1] (0 is to select the latest log | 1 is to select the log number, which log is returned, and the log_number parameter must have a value in this mode)."
+          },
+          "required": false
+        },
+        {
+          "name": "log_number",
+          "schema": {
+            "type": "number",
+            "description": "Set the log sequence number to be obtained [when mode is 1 mode, the log_number parameter must have a value]"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "log": {
+              "type": "string",
+              "description": "Output the latest crash log [If no parameter is passed, all logs will be returned by default, and only the specified log will be output with parameters]"
+            },
+            "sum": {
+              "type": "number",
+              "description": "Output The total number of crash logs currently stored"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code,-1:Wrong log sequence number entered."
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_crash_log_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "logread",
+                  "get_crash_log",
+                  {
+                    "mode": 1,
+                    "log_number": 2
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "log": "Log Entry 2 (at position 1)\n<6>[  650.605535] br-lan: port 2(wlan0) entered forwarding state\n\n",
+              "sum": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "logread.export_logs",
+      "summary": "export logs",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "file_name": {
+              "type": "string",
+              "description": "file name"
+            },
+            "file_path": {
+              "type": "string",
+              "description": "file path"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "export_logs_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "logread",
+                  "export_logs",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "file_name": "logread.tar",
+              "file_path": "/js/logread.tar"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "logread.remove_crash_log",
+      "summary": "remove crash log",
+      "params": [],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "remove_crash_log_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "logread",
+                  "remove_crash_log",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {}
+          }
+        }
+      ]
+    },
+    {
+      "name": "logread.set_config",
+      "summary": "set logread settings",
+      "params": [
+        {
+          "name": "record_size",
+          "schema": {
+            "type": "number",
+            "description": "Single crash log size [default 8192, minimum 4096, this parameter is an integer multiple of 4096]"
+          },
+          "required": false
+        },
+        {
+          "name": "enable",
+          "schema": {
+            "type": "boolean",
+            "description": "Enable or disable openwrt local log saving"
+          },
+          "required": true
+        },
+        {
+          "name": "path",
+          "schema": {
+            "type": "string",
+            "description": "openwrt local log save path [do not pass the default path /usr/share/mylog]"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "set_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "logread",
+                  "set_config",
+                  {
+                    "record_size": 4096,
+                    "enable": true,
+                    "path": "/usr/share/mylog"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "logread.get_config",
+      "summary": "get logread settings",
+      "params": [
+        {
+          "name": "record_size",
+          "schema": {
+            "type": "number",
+            "description": "Single crash log size [default 8192, minimum 4096, this parameter is an integer multiple of 4096]"
+          },
+          "required": false
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "enable": {
+              "type": "boolean",
+              "description": "Enable or disable openwrt local log saving"
+            },
+            "path": {
+              "type": "string",
+              "description": "openwrt local log save path"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_config_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "logread",
+                  "get_config",
+                  {}
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "record_size": 8192,
+              "path": "/usr/share/mylog",
+              "enable": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "logread.get_nginx_log",
+      "summary": "get nginx log",
+      "params": [
+        {
+          "name": "type",
+          "schema": {
+            "type": "string",
+            "description": "Set the log type to get [ access; error ]"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "log": {
+              "type": "string",
+              "description": "Output the nginx log of this log type [return the latest 100 lines of log]"
+            },
+            "err_code": {
+              "type": "number",
+              "description": "Error code"
+            },
+            "err_msg": {
+              "type": "string",
+              "description": "Error message"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "get_nginx_log_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "method": "call",
+                "params": [
+                  "",
+                  "logread",
+                  "get_nginx_log",
+                  {
+                    "type": "access"
+                  }
+                ],
+                "id": 1
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "log": "192.168.8.3 - - [08\\/Aug\\/2022:07:02:39 +0000] "
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

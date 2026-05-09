@@ -1,0 +1,22 @@
+{
+  "name": "qos.remove_speed_limit_rule",
+  "summary": "remove the client device speed limit rule",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "qos",
+      "remove_speed_limit_rule",
+      {
+        "mac": "18:c0:4d:dc:4f:cc"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

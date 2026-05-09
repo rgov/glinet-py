@@ -1,0 +1,16 @@
+{
+  "name": "ui.check_initialized",
+  "summary": "Whether the query has been initialized.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "ui",
+      "check_initialized"
+    ]
+  },
+  "response_raw": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"result\": {\"initialized\": true, \"model\":\"x750\", \"hostname\":\"GL-X750\", \"mac\":\"e4:95:6e:30:24:38\", \"firmware_version\": \"1.2\", \"security_rule\": 1, \"time_info\":{\"upgrade\":180,\"init\":3,\"reboot\":60}, \"theme_list\":{\"default\",\"classic\",\"dark\"}}}",
+  "response_parse_error": "Expecting ':' delimiter: line 1 column 246 (char 245)"
+}

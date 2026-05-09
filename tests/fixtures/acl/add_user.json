@@ -1,0 +1,23 @@
+{
+  "name": "acl.add_user",
+  "summary": "add a user to a permission group",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "acl",
+      "add_user",
+      {
+        "group": "test",
+        "username": "test"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

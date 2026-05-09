@@ -1,0 +1,27 @@
+{
+  "name": "firewall.add_rule",
+  "summary": "add firewall rule",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "firewall",
+      "add_rule",
+      {
+        "name": "test",
+        "src": "wan",
+        "dest_port": 22,
+        "target": "ACCEPT"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "id": "cfg1392bd"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "qos.set_speed_limit_rule",
+  "summary": "set the speed limiting rules for client device",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "id": 1,
+    "params": [
+      "",
+      "qos",
+      "set_speed_limit_rule",
+      {
+        "mac": "18:c0:4d:dc:4f:cc",
+        "download": 10,
+        "upload": 2
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

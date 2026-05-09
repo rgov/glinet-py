@@ -1,0 +1,22 @@
+{
+  "name": "s2s.generate_wg_genkey",
+  "summary": "Generate a new private key and return its public key.",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "s2s",
+      "generate_wg_genkey",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "result": {
+      "public_key": "RYqIcKGF2Zs1obKDOqmxXH/WsnYn4/OwnExQXBgN7xE="
+    }
+  }
+}

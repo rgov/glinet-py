@@ -1,0 +1,25 @@
+{
+  "name": "ddns.set_config",
+  "summary": "modify the configuration file",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ddns",
+      "set_config",
+      {
+        "enable_ddns": true,
+        "enable_ssh_access": true,
+        "enable_http_access": true,
+        "enable_https_access": true
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

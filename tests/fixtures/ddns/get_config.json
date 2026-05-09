@@ -1,0 +1,26 @@
+{
+  "name": "ddns.get_config",
+  "summary": "get the current configuration",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ddns",
+      "get_config",
+      {}
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "device_id": "aa628d6",
+      "enable_ddns": false,
+      "enable_ssh_access": false,
+      "enable_http_access": false,
+      "enable_https_access": false
+    }
+  }
+}

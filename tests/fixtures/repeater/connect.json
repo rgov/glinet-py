@@ -1,0 +1,23 @@
+{
+  "name": "repeater.connect",
+  "summary": "Connect an AP",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "repeater",
+      "connect",
+      {
+        "ssid": "test",
+        "key": "goodlife"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": null
+  }
+}

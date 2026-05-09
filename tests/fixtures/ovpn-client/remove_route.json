@@ -1,0 +1,25 @@
+{
+  "name": "ovpn-client.remove_route",
+  "summary": "remove ovpn client custom route",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "ovpn-client",
+      "remove_route",
+      {
+        "group_id": 3213,
+        "client_id": 5715,
+        "route_flag": 4,
+        "rule_id": 6512
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

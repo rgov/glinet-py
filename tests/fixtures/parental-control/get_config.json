@@ -1,0 +1,75 @@
+{
+  "name": "parental-control.get_config",
+  "summary": "Get parental control configuration.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "parental-control",
+      "get_config"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "enable": true,
+      "drop_anonymous": false,
+      "auto_update": false,
+      "rules": [
+        {
+          "id": "cfga067b",
+          "name": "rule1",
+          "color": "#aabbccddee",
+          "apps": [
+            1001,
+            2002
+          ],
+          "blacklist": [
+            "[tcp;;;www.google.com;;]"
+          ]
+        },
+        {
+          "id": "cfga067c",
+          "name": "rule2",
+          "color": "#aabbccddee",
+          "apps": [
+            3003,
+            4004
+          ],
+          "blacklist": [
+            "[tcp;;;www.google.com;;]"
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "name": "group1",
+          "macs": [
+            "98:6B:46:F0:9B:A4",
+            "98:6B:46:F0:9B:A5"
+          ],
+          "default_rule": "cfga067a",
+          "schedules": [
+            {
+              "week": 1,
+              "begin": "12:00",
+              "end": "13:00",
+              "rule": "cfga067c",
+              "id": "cfga066c"
+            },
+            {
+              "date": 2,
+              "begin": "14:00",
+              "end": "15:00",
+              "rule": "cfga067c",
+              "id": "cfga076c"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

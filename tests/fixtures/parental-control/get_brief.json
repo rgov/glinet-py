@@ -1,0 +1,25 @@
+{
+  "name": "parental-control.get_brief",
+  "summary": "Get temporary ruleset configuration.",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "parental-control",
+      "get_brief"
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "enable": true,
+      "manual_stop": false,
+      "time": "18:00",
+      "rule_id": "cfg0036",
+      "group_id": "cfg2560"
+    }
+  }
+}

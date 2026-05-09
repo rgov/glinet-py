@@ -1,0 +1,23 @@
+{
+  "name": "fan.set_test",
+  "summary": "Set fan test.",
+  "request": {
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": [
+      "",
+      "fan",
+      "set_test",
+      {
+        "test": true,
+        "time": 5
+      }
+    ],
+    "id": 1
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {}
+  }
+}

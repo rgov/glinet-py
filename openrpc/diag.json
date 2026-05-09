@@ -1,0 +1,126 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "GL.iNet Router 4.x API — diag module",
+    "version": "4.0.0-snapshot",
+    "description": "JSON-RPC 2.0 API exposed at POST /rpc on GL.iNet routers. All methods use JSON-RPC method `call` with params = [sid, module, function, args?]. Auth is a separate challenge/login flow yielding `sid`."
+  },
+  "servers": [
+    {
+      "name": "router",
+      "url": "http://192.168.8.1/rpc"
+    }
+  ],
+  "methods": [
+    {
+      "name": "diag.ping",
+      "summary": "test network connection",
+      "params": [
+        {
+          "name": "addr",
+          "schema": {
+            "type": "string",
+            "description": "target IP address"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "ping_result": {
+              "type": "string",
+              "description": "results of the ping command"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "ping_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "diag",
+                  "ping",
+                  {
+                    "addr": "192.168.8.1"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "ping_result": "string"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "diag.traceroute",
+      "summary": "trace network path",
+      "params": [
+        {
+          "name": "addr",
+          "schema": {
+            "type": "string",
+            "description": "target IP address"
+          },
+          "required": true
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "trace_result": {
+              "type": "string",
+              "description": "results of the traceroute command"
+            }
+          }
+        }
+      },
+      "examples": [
+        {
+          "name": "traceroute_example",
+          "params": [
+            {
+              "name": "request",
+              "value": {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "call",
+                "params": [
+                  "",
+                  "diag",
+                  "traceroute",
+                  {
+                    "addr": "192.168.8.1"
+                  }
+                ]
+              }
+            }
+          ],
+          "result": {
+            "name": "response",
+            "value": {
+              "trace_result": "string"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

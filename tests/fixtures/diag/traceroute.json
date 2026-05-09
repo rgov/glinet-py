@@ -1,0 +1,24 @@
+{
+  "name": "diag.traceroute",
+  "summary": "trace network path",
+  "request": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "call",
+    "params": [
+      "",
+      "diag",
+      "traceroute",
+      {
+        "addr": "192.168.8.1"
+      }
+    ]
+  },
+  "response": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "result": {
+      "trace_result": "string"
+    }
+  }
+}
